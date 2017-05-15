@@ -1,14 +1,15 @@
 #include "plurinotes.h"
-#include "notes.h"
 #include <QApplication>
 
-NotesManager NotesManager::instanceUnique;
+
+PluriNotes* PluriNotes::instanceUnique;
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    PluriNotes w;
+    PluriNotes& w = PluriNotes::getManager();
     w.show();
+
 
     return a.exec();
 }

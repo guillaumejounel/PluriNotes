@@ -48,7 +48,7 @@ public:
         PluriNotes->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(PluriNotes);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 786, 25));
+        menuBar->setGeometry(QRect(0, 0, 786, 22));
         menuPluriNotes = new QMenu(menuBar);
         menuPluriNotes->setObjectName(QStringLiteral("menuPluriNotes"));
         PluriNotes->setMenuBar(menuBar);
@@ -64,6 +64,7 @@ public:
         menuPluriNotes->addAction(actionHopla);
 
         retranslateUi(PluriNotes);
+        QObject::connect(menuBar, SIGNAL(triggered(QAction*)), PluriNotes, SLOT(createNote()));
 
         QMetaObject::connectSlotsByName(PluriNotes);
     } // setupUi

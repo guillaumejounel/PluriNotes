@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>786</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPluriNotes">
@@ -54,5 +54,26 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>menuBar</sender>
+   <signal>triggered(QAction*)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>createNote()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>36</x>
+     <y>6</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>78</x>
+     <y>56</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>slot1()</slot>
+  <slot>createNote()</slot>
+ </slots>
 </ui>

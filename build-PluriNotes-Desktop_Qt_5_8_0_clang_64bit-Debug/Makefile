@@ -49,11 +49,9 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../PluriNotes/main.cpp \
-		../PluriNotes/plurinotes.cpp \
-		../PluriNotes/notes.cpp moc_plurinotes.cpp
+		../PluriNotes/plurinotes.cpp moc_plurinotes.cpp
 OBJECTS       = main.o \
 		plurinotes.o \
-		notes.o \
 		moc_plurinotes.o
 DIST          = /Users/guillaume/Qt/5.8/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/guillaume/Qt/5.8/clang_64/mkspecs/qdevice.pri \
@@ -231,10 +229,8 @@ DIST          = /Users/guillaume/Qt/5.8/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/guillaume/Qt/5.8/clang_64/mkspecs/features/exceptions.prf \
 		/Users/guillaume/Qt/5.8/clang_64/mkspecs/features/yacc.prf \
 		/Users/guillaume/Qt/5.8/clang_64/mkspecs/features/lex.prf \
-		../PluriNotes/PluriNotes.pro ../PluriNotes/plurinotes.h \
-		../PluriNotes/notes.h ../PluriNotes/main.cpp \
-		../PluriNotes/plurinotes.cpp \
-		../PluriNotes/notes.cpp
+		../PluriNotes/PluriNotes.pro ../PluriNotes/plurinotes.h ../PluriNotes/main.cpp \
+		../PluriNotes/plurinotes.cpp
 QMAKE_TARGET  = PluriNotes
 DESTDIR       = 
 TARGET        = PluriNotes.app/Contents/MacOS/PluriNotes
@@ -638,8 +634,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /Users/guillaume/Qt/5.8/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../PluriNotes/plurinotes.h ../PluriNotes/notes.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../PluriNotes/main.cpp ../PluriNotes/plurinotes.cpp ../PluriNotes/notes.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../PluriNotes/plurinotes.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../PluriNotes/main.cpp ../PluriNotes/plurinotes.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../PluriNotes/plurinotes.ui $(DISTDIR)/
 
 
@@ -706,7 +702,6 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 main.o: ../PluriNotes/main.cpp ../PluriNotes/plurinotes.h \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		../PluriNotes/notes.h \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../PluriNotes/main.cpp
@@ -716,9 +711,6 @@ plurinotes.o: ../PluriNotes/plurinotes.cpp ../PluriNotes/plurinotes.h \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
 		ui_plurinotes.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o plurinotes.o ../PluriNotes/plurinotes.cpp
-
-notes.o: ../PluriNotes/notes.cpp ../PluriNotes/notes.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o notes.o ../PluriNotes/notes.cpp
 
 moc_plurinotes.o: moc_plurinotes.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_plurinotes.o moc_plurinotes.cpp
