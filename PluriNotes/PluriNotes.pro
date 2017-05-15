@@ -24,8 +24,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        plurinotes.cpp
+        plurinotes.cpp \
+    notes.cpp
 
-HEADERS  += plurinotes.h
+HEADERS  += plurinotes.h \
+    notes.h
 
 FORMS    += plurinotes.ui

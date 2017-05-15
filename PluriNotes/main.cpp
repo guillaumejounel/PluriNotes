@@ -1,5 +1,8 @@
 #include "plurinotes.h"
+#include "notes.h"
 #include <QApplication>
+
+NotesManager NotesManager::instanceUnique;
 
 int main(int argc, char *argv[])
 {
