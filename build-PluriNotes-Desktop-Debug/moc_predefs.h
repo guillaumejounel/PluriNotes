@@ -70,7 +70,7 @@
 #define __INT32_MAX__ 0x7fffffff
 #define __SIZEOF_LONG__ 8
 #define __STDC_IEC_559__ 1
-#define __STDC_ISO_10646__ 201505L
+#define __STDC_ISO_10646__ 201605L
 #define __UINT16_C(c) c
 #define __DECIMAL_DIG__ 21
 #define __gnu_linux__ 1
@@ -130,7 +130,7 @@
 #define __UINT8_TYPE__ unsigned char
 #define __NO_INLINE__ 1
 #define __FLT_MANT_DIG__ 24
-#define __VERSION__ "6.3.1 20170306"
+#define __VERSION__ "6.3.1 20161221 (Red Hat 6.3.1-1)"
 #define __UINT64_C(c) c ## UL
 #define __cpp_unicode_characters 200704
 #define _STDC_PREDEF_H 1
@@ -157,6 +157,7 @@
 #define __INT_LEAST16_TYPE__ short int
 #define __LDBL_EPSILON__ 1.08420217248550443401e-19L
 #define __UINTMAX_C(c) c ## UL
+#define __GNUC_RH_RELEASE__ 1
 #define __GLIBCXX_BITSIZE_INT_N_0 128
 #define __k8 1
 #define __SIG_ATOMIC_MAX__ 0x7fffffff

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'plurinotes.ui'
 **
-** Created by: Qt User Interface Compiler version 5.8.0
+** Created by: Qt User Interface Compiler version 5.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -17,6 +17,8 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -29,6 +31,9 @@ public:
     QAction *actionNouvelle;
     QAction *actionHopla;
     QWidget *centralWidget;
+    QScrollArea *scrollArea;
+    QWidget *scrollAreaWidgetContents;
+    QPushButton *pushButton;
     QMenuBar *menuBar;
     QMenu *menuPluriNotes;
     QToolBar *mainToolBar;
@@ -45,10 +50,21 @@ public:
         actionHopla->setObjectName(QStringLiteral("actionHopla"));
         centralWidget = new QWidget(PluriNotes);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        scrollArea = new QScrollArea(centralWidget);
+        scrollArea->setObjectName(QStringLiteral("scrollArea"));
+        scrollArea->setGeometry(QRect(0, 30, 181, 381));
+        scrollArea->setWidgetResizable(true);
+        scrollAreaWidgetContents = new QWidget();
+        scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 179, 379));
+        scrollArea->setWidget(scrollAreaWidgetContents);
+        pushButton = new QPushButton(centralWidget);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(0, 0, 181, 32));
         PluriNotes->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(PluriNotes);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 786, 25));
+        menuBar->setGeometry(QRect(0, 0, 786, 22));
         menuPluriNotes = new QMenu(menuBar);
         menuPluriNotes->setObjectName(QStringLiteral("menuPluriNotes"));
         PluriNotes->setMenuBar(menuBar);
@@ -64,6 +80,8 @@ public:
         menuPluriNotes->addAction(actionHopla);
 
         retranslateUi(PluriNotes);
+        QObject::connect(menuBar, SIGNAL(triggered(QAction*)), PluriNotes, SLOT(createNote()));
+        QObject::connect(pushButton, SIGNAL(clicked()), PluriNotes, SLOT(createNote()));
 
         QMetaObject::connectSlotsByName(PluriNotes);
     } // setupUi
@@ -73,6 +91,7 @@ public:
         PluriNotes->setWindowTitle(QApplication::translate("PluriNotes", "PluriNotes", Q_NULLPTR));
         actionNouvelle->setText(QApplication::translate("PluriNotes", "Nouvelle", Q_NULLPTR));
         actionHopla->setText(QApplication::translate("PluriNotes", "Hopla", Q_NULLPTR));
+        pushButton->setText(QApplication::translate("PluriNotes", "Nouvelle note", Q_NULLPTR));
         menuPluriNotes->setTitle(QApplication::translate("PluriNotes", "Note", Q_NULLPTR));
     } // retranslateUi
 

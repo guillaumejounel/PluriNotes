@@ -11,7 +11,8 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
 
 PluriNotes::~PluriNotes() {
     delete ui;
-    if(instanceUnique) delete instanceUnique; instanceUnique = nullptr;
+    if(instanceUnique) delete instanceUnique;
+    instanceUnique = nullptr;
 }
 
 
