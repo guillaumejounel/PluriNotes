@@ -66,6 +66,7 @@ public:
     NoteElement(const QString& title);
     //virtual ~NoteElement();
     //virtual QString getTitle() const = 0;
+    // Need to implement a function to open the specific edition window
 };
 
 #endif // PLURINOTES_H
