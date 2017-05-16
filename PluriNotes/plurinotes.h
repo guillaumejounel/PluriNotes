@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <QMainWindow>
+#include <QDate>
+#include <QString>
 
 using namespace std;
 
@@ -19,7 +21,7 @@ public:
     void load(); // load notes from file
     void save() const; // save notes in file
     static PluriNotes& getManager();
-    void deleteNote(const string& id);
+    void deleteNote(const QString& id);
     void emptyTrash();
     void setAutoDelete(bool);
 
@@ -38,10 +40,32 @@ public slots:
     void createNote();
 };
 
+class NoteElement;
 
 class NoteEntity {
-    bool test;
+private:
+    QString id;
+    QDate creationDate;
+    QDate modificationDate;
+    bool archived;
+    bool bin;
+    vector<NoteElement> versions;
+public:
+    NoteEntity(const QString& id) { cout << "Note " << id.toUtf8().constData() << " en cours de création" << endl; }
+    ~NoteEntity() {}
+    QString getId() const;
+    QDate getCreationDate() const;
+    QDate getModificationDate() const;
+    bool isArchived() const;
 
+};
+
+class NoteElement {
+    QString title;
+public:
+    NoteElement(const QString& title);
+    //virtual ~NoteElement();
+    //virtual QString getTitle() const = 0;
 };
 
 #endif // PLURINOTES_H
