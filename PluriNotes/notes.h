@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <vector>
-#include <QMainWindow>
 #include <QDate>
 #include <QString>
 
