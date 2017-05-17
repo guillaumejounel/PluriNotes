@@ -48,11 +48,13 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../PluriNotes/main.cpp \
-		../PluriNotes/plurinotes.cpp moc_plurinotes.cpp
-OBJECTS       = main.o \
-		plurinotes.o \
-		moc_plurinotes.o
+SOURCES       = ../PluriNotes/plurinotes.cpp \
+		../PluriNotes/application.cpp \
+		../PluriNotes/notes.cpp moc_application.cpp
+OBJECTS       = plurinotes.o \
+		application.o \
+		notes.o \
+		moc_application.o
 DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/common/unix.conf \
 		/usr/lib64/qt5/mkspecs/common/linux.conf \
@@ -95,6 +97,7 @@ DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib64/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib64/qt5/mkspecs/features/spec_post.prf \
+		../PluriNotes/.qmake.stash \
 		/usr/lib64/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib64/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib64/qt5/mkspecs/features/default_pre.prf \
@@ -113,8 +116,10 @@ DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib64/qt5/mkspecs/features/yacc.prf \
 		/usr/lib64/qt5/mkspecs/features/lex.prf \
-		../PluriNotes/PluriNotes.pro ../PluriNotes/plurinotes.h ../PluriNotes/main.cpp \
-		../PluriNotes/plurinotes.cpp
+		../PluriNotes/PluriNotes.pro ../PluriNotes/application.h \
+		../PluriNotes/notes.h ../PluriNotes/plurinotes.cpp \
+		../PluriNotes/application.cpp \
+		../PluriNotes/notes.cpp
 QMAKE_TARGET  = PluriNotes
 DESTDIR       = 
 TARGET        = PluriNotes
@@ -168,6 +173,7 @@ Makefile: ../PluriNotes/PluriNotes.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.co
 		/usr/lib64/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib64/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib64/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib64/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib64/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib64/qt5/mkspecs/features/default_pre.prf \
@@ -233,6 +239,7 @@ Makefile: ../PluriNotes/PluriNotes.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.co
 /usr/lib64/qt5/mkspecs/features/qt_config.prf:
 /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib64/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib64/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib64/qt5/mkspecs/features/toolchain.prf:
 /usr/lib64/qt5/mkspecs/features/default_pre.prf:
@@ -270,8 +277,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib64/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../PluriNotes/plurinotes.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../PluriNotes/main.cpp ../PluriNotes/plurinotes.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../PluriNotes/application.h ../PluriNotes/notes.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../PluriNotes/plurinotes.cpp ../PluriNotes/application.cpp ../PluriNotes/notes.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../PluriNotes/plurinotes.ui $(DISTDIR)/
 
 
@@ -304,13 +311,13 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib64/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -Wall -W -dM -E -o moc_predefs.h /usr/lib64/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_plurinotes.cpp
+compiler_moc_header_make_all: moc_application.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_plurinotes.cpp
-moc_plurinotes.cpp: ../PluriNotes/plurinotes.h \
+	-$(DEL_FILE) moc_application.cpp
+moc_application.cpp: ../PluriNotes/application.h \
 		moc_predefs.h \
 		/usr/lib64/qt5/bin/moc
-	/usr/lib64/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/florentchehab/Dropbox/UTC/LO21/PluriNotes/PluriNotes -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -I/usr/include/c++/6.3.1 -I/usr/include/c++/6.3.1/x86_64-redhat-linux -I/usr/include/c++/6.3.1/backward -I/usr/lib/gcc/x86_64-redhat-linux/6.3.1/include -I/usr/local/include -I/usr/include ../PluriNotes/plurinotes.h -o moc_plurinotes.cpp
+	/usr/lib64/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/florentchehab/Dropbox/UTC/LO21/PluriNotes/PluriNotes -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -I/usr/include/c++/6.3.1 -I/usr/include/c++/6.3.1/x86_64-redhat-linux -I/usr/include/c++/6.3.1/backward -I/usr/lib/gcc/x86_64-redhat-linux/6.3.1/include -I/usr/local/include -I/usr/include ../PluriNotes/application.h -o moc_application.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -331,15 +338,17 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: ../PluriNotes/main.cpp ../PluriNotes/plurinotes.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../PluriNotes/main.cpp
-
-plurinotes.o: ../PluriNotes/plurinotes.cpp ../PluriNotes/plurinotes.h \
-		ui_plurinotes.h
+plurinotes.o: ../PluriNotes/plurinotes.cpp ../PluriNotes/application.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o plurinotes.o ../PluriNotes/plurinotes.cpp
 
-moc_plurinotes.o: moc_plurinotes.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_plurinotes.o moc_plurinotes.cpp
+application.o: ../PluriNotes/application.cpp ui_plurinotes.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o application.o ../PluriNotes/application.cpp
+
+notes.o: ../PluriNotes/notes.cpp ui_plurinotes.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o notes.o ../PluriNotes/notes.cpp
+
+moc_application.o: moc_application.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_application.o moc_application.cpp
 
 ####### Install
 

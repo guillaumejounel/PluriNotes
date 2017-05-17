@@ -1,42 +1,15 @@
-#include "plurinotes.h"
-#include "ui_plurinotes.h"
-
-#include <iostream>
-#include <QInputDialog>
-#include <QLineEdit>
-
-PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriNotes) {
-    ui->setupUi(this);
-}
-
-PluriNotes::~PluriNotes() {
-    delete ui;
-    if(instanceUnique) delete instanceUnique;
-    instanceUnique = nullptr;
-}
+#include "application.h"
+#include <QApplication>
 
 
-void PluriNotes::createNote() {
-    std::cout << "Clic sur createNote() !"<<std::endl;
-    bool ok;
+PluriNotes* PluriNotes::instanceUnique;
 
-    QStringList items;
-    items << QString("Choice 1");
-    items << QString("Choice 2");
-    items << QString("Choice 3");
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    PluriNotes& w = PluriNotes::getManager();
+    w.show();
 
 
-    QString text = QInputDialog::getText(this, tr("Nouvelle note"),
-                   tr("Choisissez un id :"), QLineEdit::Normal,
-                   "Nom", &ok);
-    QString type = QInputDialog::getItem(this, tr("ok"), tr("go"), items);
-       if (ok && !text.isEmpty()) {
-           std::cout << text.toUtf8().constData() << std::endl;
-           notes.push_back(NoteEntity(text));
-       }
-}
-
-PluriNotes& PluriNotes::getManager() {
-    if(!instanceUnique) instanceUnique = new PluriNotes;
-    return *instanceUnique;
+    return a.exec();
 }

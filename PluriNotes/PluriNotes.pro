@@ -23,9 +23,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
-SOURCES += main.cpp\
-        plurinotes.cpp
+SOURCES += \
+    plurinotes.cpp \
+    application.cpp \
+    notes.cpp
 
-HEADERS  += plurinotes.h
+HEADERS  += \
+    application.h \
+    notes.h
 
 FORMS    += plurinotes.ui
