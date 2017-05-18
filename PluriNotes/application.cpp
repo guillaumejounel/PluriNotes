@@ -12,9 +12,6 @@
 PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriNotes) {
     ui->setupUi(this);
     ui->formNoteWidget->hide();
-
-    const QString & test = "test";
-    ui -> listWidget -> addItem(test);
 }
 
 PluriNotes::~PluriNotes() {
@@ -27,12 +24,12 @@ PluriNotes::~PluriNotes() {
 
 void PluriNotes::formNote() {
     is_idChanged = false;
-    ui->newNote->setEnabled(false);
-    ui->idLineEdit->setText("");
-    ui->titleLineEdit->setText("");
-    ui->contentTextEdit->setPlainText("");
-    ui->TypeComboBox->setCurrentIndex(0);
-    ui->formNoteWidget->show();
+    ui -> newNoteBouton ->setEnabled(false);
+    ui -> idLineEdit->setText("");
+    ui -> titleLineEdit->setText("");
+    ui -> contentTextEdit->setPlainText("");
+    ui -> TypeComboBox->setCurrentIndex(0);
+    ui -> formNoteWidget->show();
 }
 
 void PluriNotes::saveNote() {
@@ -40,10 +37,14 @@ void PluriNotes::saveNote() {
     //Puis créer la note
     std::cout << "Creation of \"" << ui->titleLineEdit->text().toUtf8().constData() << "\"" << std::endl;
     NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
-    switch (ui->TypeComboBox->currentIndex()) {
-    case 0:
-        //const NoteArticle *newNote = new NoteArticle(ui->titleLineEdit->text(), ui->contentTextEdit->toPlainText());
-        //newNoteEntity->addVersion(*newNote);
+    //switch (ui->TypeComboBox->currentIndex()) { //la switch fait de  la merde parce qu'on initialise des trucs dedans !!
+                //Il ne faut pas en faire ; dans tous les cas l'interfarce doit changer selon le type de note, donc la sélection doit se faire avant
+    //case 0:
+        const NoteArticle *newNote = new NoteArticle(ui->titleLineEdit->text(), ui->contentTextEdit->toPlainText());
+        newNoteEntity->addVersion(*newNote);
+        notes.push_back(newNoteEntity);
+        ui -> listWidget -> addItem(newNoteEntity->getTitle());
+    /*
         break;
     case 1:
         std::cout << "Now Document !" << std::endl;
@@ -52,14 +53,13 @@ void PluriNotes::saveNote() {
         std::cout << "Now Task !" << std::endl;
         break;
     }
-    notes.push_back(newNoteEntity);
-    ui -> listWidget -> addItem(newNoteEntity->getId());
+    */
     ui -> formNoteWidget -> hide();
-    ui->newNote->setEnabled(true);
+    ui-> newNoteBouton ->setEnabled(true);
 }
 
 void PluriNotes::cancelNote() {
-    ui->newNote->setEnabled(true);
+    ui-> newNoteBouton->setEnabled(true);
     ui->formNoteWidget->hide();
 }
 

@@ -14,7 +14,7 @@
    <string>PluriNotes</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="newNote">
+   <widget class="QPushButton" name="newNoteBouton">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -184,7 +184,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>newNote</sender>
+   <sender>newNoteBouton</sender>
    <signal>clicked()</signal>
    <receiver>PluriNotes</receiver>
    <slot>formNote()</slot>
