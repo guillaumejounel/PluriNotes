@@ -14,7 +14,7 @@
    <string>PluriNotes</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="newNote">
+   <widget class="QPushButton" name="ButtonNewNote">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -27,7 +27,7 @@
      <string>New note</string>
     </property>
    </widget>
-   <widget class="QListWidget" name="listWidget">
+   <widget class="QListWidget" name="listNotesWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -228,7 +228,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>listWidget</sender>
+   <sender>listNotesWidget</sender>
    <signal>currentItemChanged(QListWidgetItem*,QListWidgetItem*)</signal>
    <receiver>PluriNotes</receiver>
    <slot>displayNote()</slot>
@@ -244,7 +244,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>newNote</sender>
+   <sender>ButtonNewNote</sender>
    <signal>clicked()</signal>
    <receiver>PluriNotes</receiver>
    <slot>toNewNoteForm()</slot>

@@ -24,7 +24,7 @@ PluriNotes::~PluriNotes() {
 
 void PluriNotes::toNewNoteForm() {
     is_idChanged = false;
-    ui->newNote->setEnabled(false);
+    ui->ButtonNewNote->setEnabled(false);
     ui->idLineEdit->setText("");
     ui->titleLineEdit->setText("");
     ui->contentTextEdit->setPlainText("");
@@ -34,7 +34,7 @@ void PluriNotes::toNewNoteForm() {
 
 void PluriNotes::displayNote() {
     is_idChanged = false;
-    QString currentSelectedNote = ui->listWidget->currentItem()->text();
+    QString currentSelectedNote = ui->listNotesWidget->currentItem()->text();
     ui->noteTextContent->setText(currentSelectedNote);
     ui->mainStackedWidget->setCurrentIndex(0);
 }
@@ -47,13 +47,13 @@ void PluriNotes::saveNote() {
     const NoteArticle *newNote = new NoteArticle(ui->titleLineEdit->text(), ui->contentTextEdit->toPlainText());
     newNoteEntity->addVersion(*newNote);
     notes.push_back(newNoteEntity);
-    ui->listWidget->addItem(newNoteEntity->getTitle());
+    ui->listNotesWidget->addItem(newNoteEntity->getTitle());
     ui->mainStackedWidget->setCurrentIndex(0);
-    ui->newNote->setEnabled(true);
+    ui->ButtonNewNote->setEnabled(true);
 }
 
 void PluriNotes::cancelNote() {
-    ui->newNote->setEnabled(true);
+    ui->ButtonNewNote->setEnabled(true);
     ui->mainStackedWidget->setCurrentIndex(0);
 }
 
