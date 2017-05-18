@@ -46,7 +46,7 @@ private:
     QDate modificationDate;
     bool archived;
     bool bin;
-    vector<NoteElement*> versions;
+    vector<const NoteElement*> versions;
 public:
     NoteEntity(const QString& id);
     ~NoteEntity() {}

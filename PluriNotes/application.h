@@ -30,8 +30,8 @@ public:
 private:
     Ui::PluriNotes *ui;
     static PluriNotes* instanceUnique;
-    vector<NoteEntity*> notes;
-    vector<NoteEntity*> corbeille;
+    vector<const NoteEntity*> notes;
+    vector<const NoteEntity*> corbeille;
     bool autoDelete;
     bool is_idChanged;
     explicit PluriNotes(QWidget *parent = 0);
