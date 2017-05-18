@@ -5,16 +5,24 @@
 #include <iostream>
 #include <QInputDialog>
 #include <QLineEdit>
+#include <QScrollArea>
+
+
 
 PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriNotes) {
     ui->setupUi(this);
     ui->formNoteWidget->hide();
+
+    const QString & test = "test";
+    ui -> listWidget -> addItem(test);
 }
 
 PluriNotes::~PluriNotes() {
     delete ui;
     if(instanceUnique) delete instanceUnique;
     instanceUnique = nullptr;
+    notes.clear();
+    corbeille.clear();
 }
 
 void PluriNotes::formNote() {
@@ -45,6 +53,8 @@ void PluriNotes::saveNote() {
             break;
     }
     notes.push_back(newNoteEntity);
+    ui -> listWidget -> addItem(newNoteEntity->getId());
+    ui -> formNoteWidget -> hide();
 }
 
 void PluriNotes::cancelNote() {
