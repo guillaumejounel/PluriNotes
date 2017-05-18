@@ -40,10 +40,10 @@ void PluriNotes::saveNote() {
             std::cout << "Now Task !" << std::endl;
             break;
         case 2:
-            NoteElement *newNote = new NoteArticle(ui->titleLineEdit->text(), ui->contentTextEdit->toPlainText());
+            NoteArticle *newNote = new NoteArticle(ui->titleLineEdit->text(), ui->contentTextEdit->toPlainText());
+            newNoteEntity->addVersion(newNote);
             break;
     }
-    newNoteEntity->versions.push_back(newNote);
     notes.push_back(newNoteEntity);
 }
 

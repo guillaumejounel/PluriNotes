@@ -5,6 +5,6 @@ NoteEntity::NoteEntity(const QString& id) {
 }
 
 
-void NoteEntity::addVersion(const NoteElement& newVersion){
+void NoteEntity::addVersion(const NoteElement* newVersion){
     versions.push_back(newVersion);
 }
