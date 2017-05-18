@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>799</width>
-    <height>448</height>
+    <height>432</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>0</y>
+      <y>10</y>
       <width>181</width>
       <height>32</height>
      </rect>
@@ -27,171 +27,137 @@
      <string>New note</string>
     </property>
    </widget>
-   <widget class="QWidget" name="formNoteWidget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>30</y>
-      <width>301</width>
-      <height>351</height>
-     </rect>
-    </property>
-    <layout class="QFormLayout" name="noteCreation">
-     <item row="0" column="1">
-      <widget class="QLabel" name="titleLabel">
-       <property name="text">
-        <string>title</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="titleLineEdit"/>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLabel" name="idLabel">
-       <property name="text">
-        <string>id</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="idLineEdit"/>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLabel" name="typeLabel">
-       <property name="text">
-        <string>type</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QComboBox" name="TypeComboBox">
-       <item>
-        <property name="text">
-         <string>Article</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Document</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Task</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QLabel" name="titleLabel_4">
-       <property name="text">
-        <string>contenu</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QPlainTextEdit" name="contentTextEdit"/>
-     </item>
-     <item row="8" column="1">
-      <widget class="QDialogButtonBox" name="buttonBox">
-       <property name="standardButtons">
-        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QLabel" name="typeLabel_3">
-    <property name="geometry">
-     <rect>
-      <x>620</x>
-      <y>560</y>
-      <width>27</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QListWidget" name="listWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>40</y>
+      <y>50</y>
       <width>181</width>
-      <height>341</height>
+      <height>371</height>
      </rect>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>799</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuPluriNotes">
-    <property name="title">
-     <string>Note</string>
+   <widget class="QStackedWidget" name="mainStackedWidget">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>10</y>
+      <width>591</width>
+      <height>411</height>
+     </rect>
     </property>
-    <addaction name="actionNouvelle"/>
-    <addaction name="actionHopla"/>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="displayNotePage">
+     <widget class="QTextEdit" name="noteTextContent">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>70</y>
+        <width>401</width>
+        <height>281</height>
+       </rect>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <zorder>formNoteWidget</zorder>
+     <zorder>noteTextContent</zorder>
+    </widget>
+    <widget class="QWidget" name="newNotePage">
+     <widget class="QWidget" name="formNoteWidget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>301</width>
+        <height>411</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="noteCreation">
+       <item row="0" column="1">
+        <widget class="QLabel" name="titleLabel">
+         <property name="text">
+          <string>title</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="titleLineEdit"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="idLabel">
+         <property name="text">
+          <string>id</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="idLineEdit"/>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLabel" name="typeLabel">
+         <property name="text">
+          <string>type</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QComboBox" name="TypeComboBox">
+         <item>
+          <property name="text">
+           <string>Article</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Document</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Task</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLabel" name="titleLabel_4">
+         <property name="text">
+          <string>contenu</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QPlainTextEdit" name="contentTextEdit"/>
+       </item>
+       <item row="8" column="1">
+        <widget class="QDialogButtonBox" name="buttonBox">
+         <property name="standardButtons">
+          <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </widget>
-   <addaction name="menuPluriNotes"/>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionNouvelle">
-   <property name="text">
-    <string>Nouvelle</string>
-   </property>
-  </action>
-  <action name="actionHopla">
-   <property name="text">
-    <string>Hopla</string>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections>
   <connection>
-   <sender>menuBar</sender>
-   <signal>triggered(QAction*)</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>formNote()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>36</x>
-     <y>6</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>78</x>
-     <y>56</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>newNote</sender>
    <signal>clicked()</signal>
    <receiver>PluriNotes</receiver>
-   <slot>formNote()</slot>
+   <slot>toNewNoteForm()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>190</x>
-     <y>66</y>
+     <y>41</y>
     </hint>
     <hint type="destinationlabel">
      <x>207</x>
@@ -206,28 +172,12 @@
    <slot>titleChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>112</y>
+     <x>306</x>
+     <y>72</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
      <y>119</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>idLineEdit</sender>
-   <signal>textEdited(QString)</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>idChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>385</x>
-     <y>164</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>601</x>
-     <y>181</y>
     </hint>
    </hints>
   </connection>
@@ -238,28 +188,12 @@
    <slot>typeChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>399</x>
-     <y>228</y>
+     <x>274</x>
+     <y>182</y>
     </hint>
     <hint type="destinationlabel">
      <x>599</x>
      <y>254</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>cancelNote()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>383</x>
-     <y>358</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>571</x>
-     <y>404</y>
     </hint>
    </hints>
   </connection>
@@ -270,12 +204,60 @@
    <slot>saveNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>451</x>
-     <y>360</y>
+     <x>351</x>
+     <y>390</y>
     </hint>
     <hint type="destinationlabel">
      <x>553</x>
      <y>347</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>idLineEdit</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>idChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>260</x>
+     <y>122</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>601</x>
+     <y>181</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>cancelNote()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>283</x>
+     <y>388</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>571</x>
+     <y>404</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listWidget</sender>
+   <signal>currentItemChanged(QListWidgetItem*,QListWidgetItem*)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>displayNote()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>167</x>
+     <y>283</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>197</x>
+     <y>426</y>
     </hint>
    </hints>
   </connection>
@@ -285,7 +267,8 @@
   <slot>titleChanged()</slot>
   <slot>idChanged()</slot>
   <slot>typeChanged()</slot>
-  <slot>formNote()</slot>
   <slot>cancelNote()</slot>
+  <slot>toNewNoteForm()</slot>
+  <slot>displayNote()</slot>
  </slots>
 </ui>

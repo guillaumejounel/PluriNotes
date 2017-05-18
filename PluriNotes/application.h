@@ -42,7 +42,8 @@ private:
     PluriNotes& operator=(const PluriNotes& m);
 signals:
 public slots:
-    void formNote();
+    void toNewNoteForm();
+    void displayNote();
     void saveNote();
     void cancelNote();
     void titleChanged();

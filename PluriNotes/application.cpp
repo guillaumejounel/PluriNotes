@@ -11,10 +11,7 @@
 
 PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriNotes) {
     ui->setupUi(this);
-    ui->formNoteWidget->hide();
-
-    const QString & test = "test";
-    ui -> listWidget -> addItem(test);
+    ui->mainStackedWidget->setCurrentIndex(0);
 }
 
 PluriNotes::~PluriNotes() {
@@ -25,14 +22,21 @@ PluriNotes::~PluriNotes() {
     corbeille.clear();
 }
 
-void PluriNotes::formNote() {
+void PluriNotes::toNewNoteForm() {
     is_idChanged = false;
     ui->newNote->setEnabled(false);
     ui->idLineEdit->setText("");
     ui->titleLineEdit->setText("");
     ui->contentTextEdit->setPlainText("");
     ui->TypeComboBox->setCurrentIndex(0);
-    ui->formNoteWidget->show();
+    ui->mainStackedWidget->setCurrentIndex(1);
+}
+
+void PluriNotes::displayNote() {
+    is_idChanged = false;
+    QString currentSelectedNote = ui->listWidget->currentItem()->text();
+    ui->noteTextContent->setText(currentSelectedNote);
+    ui->mainStackedWidget->setCurrentIndex(0);
 }
 
 void PluriNotes::saveNote() {
@@ -53,14 +57,14 @@ void PluriNotes::saveNote() {
         break;
     }
     notes.push_back(newNoteEntity);
-    ui -> listWidget -> addItem(newNoteEntity->getId());
-    ui -> formNoteWidget -> hide();
+    ui->listWidget->addItem(newNoteEntity->getId());
+    ui->mainStackedWidget->setCurrentIndex(0);
     ui->newNote->setEnabled(true);
 }
 
 void PluriNotes::cancelNote() {
     ui->newNote->setEnabled(true);
-    ui->formNoteWidget->hide();
+    ui->mainStackedWidget->setCurrentIndex(0);
 }
 
 void PluriNotes::titleChanged() {
