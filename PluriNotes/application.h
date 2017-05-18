@@ -6,6 +6,8 @@
 #include <QMainWindow>
 #include <QDate>
 #include <QString>
+#include <QScrollArea>
+
 
 #include "notes.h"
 
@@ -47,5 +49,7 @@ public slots:
     void idChanged();
     void typeChanged();
 };
+
+
 
 #endif // APPLICATION_H

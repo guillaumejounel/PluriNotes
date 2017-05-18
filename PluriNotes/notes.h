@@ -49,7 +49,7 @@ private:
     vector<const NoteElement*> versions;
 public:
     NoteEntity(const QString& id);
-    ~NoteEntity() {}
+    ~NoteEntity() {versions.clear();}
     QString getId() const;
     QDate getCreationDate() const;
     QDate getModificationDate() const;
