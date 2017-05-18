@@ -37,7 +37,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="newNote">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -47,10 +47,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>Nouvelle note</string>
+     <string>New note</string>
     </property>
    </widget>
-   <widget class="QWidget" name="formWidget" native="true">
+   <widget class="QWidget" name="formNoteWidget" native="true">
     <property name="geometry">
      <rect>
       <x>210</x>
@@ -60,27 +60,44 @@
      </rect>
     </property>
     <layout class="QFormLayout" name="noteCreation">
-     <item row="7" column="1">
+     <item row="8" column="1">
       <widget class="QPlainTextEdit" name="contentTextEdit"/>
      </item>
-     <item row="6" column="1">
+     <item row="7" column="1">
       <widget class="QLabel" name="titleLabel_4">
        <property name="text">
         <string>contenu</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QLineEdit" name="idLineEdit"/>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="titleLineEdit"/>
      </item>
-     <item row="4" column="1">
-      <widget class="QLabel" name="idLabel">
+     <item row="0" column="1">
+      <widget class="QLabel" name="titleLabel">
        <property name="text">
-        <string>id</string>
+        <string>title</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QPushButton" name="cancel">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="1">
+      <widget class="QPushButton" name="save">
+       <property name="text">
+        <string>Save</string>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
+      <widget class="QLineEdit" name="idLineEdit"/>
+     </item>
+     <item row="5" column="1">
       <widget class="QComboBox" name="TypeComboBox">
        <item>
         <property name="text">
@@ -100,33 +117,16 @@
       </widget>
      </item>
      <item row="2" column="1">
+      <widget class="QLabel" name="idLabel">
+       <property name="text">
+        <string>id</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
       <widget class="QLabel" name="typeLabel">
        <property name="text">
         <string>type</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="titleLineEdit"/>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="titleLabel">
-       <property name="text">
-        <string>title</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="1">
-      <widget class="QPushButton" name="cancel">
-       <property name="text">
-        <string>Cancel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QPushButton" name="save">
-       <property name="text">
-        <string>Save</string>
        </property>
       </widget>
      </item>
@@ -191,7 +191,7 @@
    <sender>menuBar</sender>
    <signal>triggered(QAction*)</signal>
    <receiver>PluriNotes</receiver>
-   <slot>createNote()</slot>
+   <slot>formNote()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>36</x>
@@ -204,10 +204,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton</sender>
+   <sender>newNote</sender>
    <signal>clicked()</signal>
    <receiver>PluriNotes</receiver>
-   <slot>createNote()</slot>
+   <slot>formNote()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>190</x>
@@ -216,22 +216,6 @@
     <hint type="destinationlabel">
      <x>207</x>
      <y>58</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cancel</sender>
-   <signal>clicked()</signal>
-   <receiver>formWidget</receiver>
-   <slot>hide()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>515</x>
-     <y>376</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>421</x>
-     <y>415</y>
     </hint>
    </hints>
   </connection>
@@ -251,10 +235,77 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>titleLineEdit</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>titleChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>301</x>
+     <y>112</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>607</x>
+     <y>119</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>idLineEdit</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>idChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>385</x>
+     <y>164</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>601</x>
+     <y>181</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>TypeComboBox</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>typeChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>399</x>
+     <y>228</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>254</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancel</sender>
+   <signal>clicked()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>cancelNote()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>358</x>
+     <y>356</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>581</x>
+     <y>316</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
-  <slot>slot1()</slot>
-  <slot>createNote()</slot>
   <slot>saveNote()</slot>
+  <slot>titleChanged()</slot>
+  <slot>idChanged()</slot>
+  <slot>typeChanged()</slot>
+  <slot>formNote()</slot>
+  <slot>cancelNote()</slot>
  </slots>
 </ui>

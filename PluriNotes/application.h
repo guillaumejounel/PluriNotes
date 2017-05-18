@@ -33,14 +33,19 @@ private:
     vector<NoteEntity> notes;
     vector<NoteEntity> corbeille;
     bool autoDelete;
+    bool is_idChanged;
     explicit PluriNotes(QWidget *parent = 0);
     ~PluriNotes();
     PluriNotes(const PluriNotes& m);
     PluriNotes& operator=(const PluriNotes& m);
 signals:
 public slots:
-    void createNote();
+    void formNote();
     void saveNote();
+    void cancelNote();
+    void titleChanged();
+    void idChanged();
+    void typeChanged();
 };
 
 #endif // APPLICATION_H

@@ -7,14 +7,7 @@
 #include <QString>
 #include <QtGui>
 #include <QLabel>
-#include <QPushButton>
-#include <QPushButton>
-#include <QCalendarWidget>
-#include <QGroupBox>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
 #include <QLineEdit>
-#include <QComboBox>
 
 using namespace std;
 
@@ -55,7 +48,7 @@ private:
     bool bin;
     vector<NoteElement> versions;
 public:
-    NoteEntity(const QString& id) { cout << "Note " << id.toUtf8().constData() << " en cours de création" << endl; }
+    NoteEntity(const QString& id);
     ~NoteEntity() {}
     QString getId() const;
     QDate getCreationDate() const;
