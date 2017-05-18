@@ -7,6 +7,7 @@
 #include <QDate>
 #include <QString>
 #include <QScrollArea>
+#include <QListWidgetItem>
 
 
 #include "notes.h"
@@ -52,5 +53,12 @@ public slots:
 };
 
 
+class listItemAndPointer : public QListWidgetItem {
+private :
+    NoteEntity* notePointer;
+public :
+    listItemAndPointer(NoteEntity* ptr) : notePointer(ptr) {}
+    NoteEntity* getNotePointer() const {return notePointer;}
+};
 
 #endif // APPLICATION_H

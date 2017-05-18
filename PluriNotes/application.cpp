@@ -34,8 +34,15 @@ void PluriNotes::toNewNoteForm() {
 
 void PluriNotes::displayNote() {
     is_idChanged = false;
-    QString currentSelectedNote = ui->listNotesWidget->currentItem()->text();
-    ui->noteTextContent->setText(currentSelectedNote);
+
+    listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
+    NoteEntity* currentSelectedNote = item -> getNotePointer();
+
+    //NoteArticle* note = currentSelectedNote->getVersions().back();
+
+    ui->noteTextTitle->setText(currentSelectedNote->getTitle());
+    ui->noteTextId->setText(currentSelectedNote->getId());
+    //ui->noteTextContent->setText(note->getText());
     ui->mainStackedWidget->setCurrentIndex(0);
 }
 
@@ -47,7 +54,13 @@ void PluriNotes::saveNote() {
     const NoteArticle *newNote = new NoteArticle(ui->titleLineEdit->text(), ui->contentTextEdit->toPlainText());
     newNoteEntity->addVersion(*newNote);
     notes.push_back(newNoteEntity);
-    ui->listNotesWidget->addItem(newNoteEntity->getTitle());
+
+
+    listItemAndPointer* itm = new listItemAndPointer(newNoteEntity);
+    itm->setText(newNoteEntity->getTitle());
+
+
+    ui->listNotesWidget->addItem(itm);
     ui->mainStackedWidget->setCurrentIndex(0);
     ui->ButtonNewNote->setEnabled(true);
 }
@@ -101,3 +114,5 @@ PluriNotes& PluriNotes::getManager() {
     if(!instanceUnique) instanceUnique = new PluriNotes;
     return *instanceUnique;
 }
+
+

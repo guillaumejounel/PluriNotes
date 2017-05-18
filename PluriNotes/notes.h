@@ -56,7 +56,6 @@ public:
     QDate getModificationDate() const;
     bool isArchived() const;
     void addVersion(const NoteElement&);
-
 };
 
 class NoteElement {
