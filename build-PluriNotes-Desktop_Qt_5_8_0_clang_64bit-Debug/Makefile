@@ -790,15 +790,8 @@ moc_application.cpp: /Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/He
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtGui.framework/Headers/qtguiversion.h \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QCalendarWidget \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QDialog \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QLineEdit \
+		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qlineedit.h \
 		../PluriNotes/application.h \
 		moc_predefs.h \
 		/Users/guillaume/Qt/5.8/clang_64/bin/moc
@@ -914,15 +907,8 @@ moc_notes.cpp: /Users/guillaume/Qt/5.8/clang_64/lib/QtCore.framework/Headers/QDa
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtGui.framework/Headers/qtguiversion.h \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QCalendarWidget \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QDialog \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QLineEdit \
+		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qlineedit.h \
 		../PluriNotes/notes.h \
 		moc_predefs.h \
 		/Users/guillaume/Qt/5.8/clang_64/bin/moc
@@ -1063,15 +1049,8 @@ plurinotes.o: ../PluriNotes/plurinotes.cpp ../PluriNotes/application.h \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtGui.framework/Headers/qtguiversion.h \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QCalendarWidget \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QDialog \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QLineEdit \
+		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qlineedit.h \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o plurinotes.o ../PluriNotes/plurinotes.cpp
@@ -1190,20 +1169,11 @@ application.o: ../PluriNotes/application.cpp ../PluriNotes/application.h \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtGui.framework/Headers/qtguiversion.h \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QCalendarWidget \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QDialog \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout \
+		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QLineEdit \
+		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qlineedit.h \
 		ui_plurinotes.h \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QInputDialog \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qinputdialog.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QLineEdit \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qlineedit.h
+		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qinputdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o application.o ../PluriNotes/application.cpp
 
 notes.o: ../PluriNotes/notes.cpp ../PluriNotes/notes.h \
@@ -1317,15 +1287,8 @@ notes.o: ../PluriNotes/notes.cpp ../PluriNotes/notes.h \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtGui.framework/Headers/qtguiversion.h \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QCalendarWidget \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QDialog \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
-		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QHBoxLayout
+		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/QLineEdit \
+		/Users/guillaume/Qt/5.8/clang_64/lib/QtWidgets.framework/Headers/qlineedit.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o notes.o ../PluriNotes/notes.cpp
 
 moc_application.o: moc_application.cpp 

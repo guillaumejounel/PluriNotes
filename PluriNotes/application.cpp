@@ -33,16 +33,16 @@ void PluriNotes::saveNote() {
     std::cout << "Creation of \"" << ui->titleLineEdit->text().toUtf8().constData() << "\"" << std::endl;
     NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
     switch (ui->TypeComboBox->currentIndex()) {
-        case 0:
-            std::cout << "Now Document !" << std::endl;
-            break;
-        case 1:
-            std::cout << "Now Task !" << std::endl;
-            break;
-        case 2:
-            const NoteArticle *newNote = new NoteArticle(ui->titleLineEdit->text(), ui->contentTextEdit->toPlainText());
-            newNoteEntity->addVersion(*newNote);
-            break;
+    case 0:
+        //const NoteArticle *newNote = new NoteArticle(ui->titleLineEdit->text(), ui->contentTextEdit->toPlainText());
+        //newNoteEntity->addVersion(*newNote);
+        break;
+    case 1:
+        std::cout << "Now Document !" << std::endl;
+        break;
+    case 2:
+        std::cout << "Now Task !" << std::endl;
+        break;
     }
     notes.push_back(newNoteEntity);
 }
@@ -77,16 +77,18 @@ void PluriNotes::typeChanged() {
     std::cout << "Type modified ! ";
     switch (ui->TypeComboBox->currentIndex()) {
         case 0:
-            std::cout << "Now Document !" << std::endl;
+            std::cout << "Now Article !" << std::endl;
             break;
         case 1:
-            std::cout << "Now Task !" << std::endl;
+            std::cout << "Now Document !" << std::endl;
             break;
         case 2:
-            std::cout << "Now Article !" << std::endl;
+            std::cout << "Now Task !" << std::endl;
             break;
     }
     //Changer le formulaire selon le type
+    QWidget* ok = new QWidget();
+    ui->noteCreation->addWidget(ok);
 }
 
 PluriNotes& PluriNotes::getManager() {

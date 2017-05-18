@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -41,16 +42,15 @@ public:
     QPushButton *newNote;
     QWidget *formNoteWidget;
     QFormLayout *noteCreation;
-    QPlainTextEdit *contentTextEdit;
-    QLabel *titleLabel_4;
-    QLineEdit *titleLineEdit;
     QLabel *titleLabel;
-    QPushButton *cancel;
-    QPushButton *save;
-    QLineEdit *idLineEdit;
-    QComboBox *TypeComboBox;
+    QLineEdit *titleLineEdit;
     QLabel *idLabel;
+    QLineEdit *idLineEdit;
     QLabel *typeLabel;
+    QComboBox *TypeComboBox;
+    QLabel *titleLabel_4;
+    QPlainTextEdit *contentTextEdit;
+    QDialogButtonBox *buttonBox;
     QLabel *typeLabel_3;
     QMenuBar *menuBar;
     QMenu *menuPluriNotes;
@@ -86,55 +86,51 @@ public:
         noteCreation->setSpacing(6);
         noteCreation->setContentsMargins(11, 11, 11, 11);
         noteCreation->setObjectName(QStringLiteral("noteCreation"));
-        contentTextEdit = new QPlainTextEdit(formNoteWidget);
-        contentTextEdit->setObjectName(QStringLiteral("contentTextEdit"));
+        titleLabel = new QLabel(formNoteWidget);
+        titleLabel->setObjectName(QStringLiteral("titleLabel"));
 
-        noteCreation->setWidget(8, QFormLayout::FieldRole, contentTextEdit);
-
-        titleLabel_4 = new QLabel(formNoteWidget);
-        titleLabel_4->setObjectName(QStringLiteral("titleLabel_4"));
-
-        noteCreation->setWidget(7, QFormLayout::FieldRole, titleLabel_4);
+        noteCreation->setWidget(0, QFormLayout::FieldRole, titleLabel);
 
         titleLineEdit = new QLineEdit(formNoteWidget);
         titleLineEdit->setObjectName(QStringLiteral("titleLineEdit"));
 
         noteCreation->setWidget(1, QFormLayout::FieldRole, titleLineEdit);
 
-        titleLabel = new QLabel(formNoteWidget);
-        titleLabel->setObjectName(QStringLiteral("titleLabel"));
+        idLabel = new QLabel(formNoteWidget);
+        idLabel->setObjectName(QStringLiteral("idLabel"));
 
-        noteCreation->setWidget(0, QFormLayout::FieldRole, titleLabel);
-
-        cancel = new QPushButton(formNoteWidget);
-        cancel->setObjectName(QStringLiteral("cancel"));
-
-        noteCreation->setWidget(9, QFormLayout::FieldRole, cancel);
-
-        save = new QPushButton(formNoteWidget);
-        save->setObjectName(QStringLiteral("save"));
-
-        noteCreation->setWidget(10, QFormLayout::FieldRole, save);
+        noteCreation->setWidget(2, QFormLayout::FieldRole, idLabel);
 
         idLineEdit = new QLineEdit(formNoteWidget);
         idLineEdit->setObjectName(QStringLiteral("idLineEdit"));
 
         noteCreation->setWidget(3, QFormLayout::FieldRole, idLineEdit);
 
+        typeLabel = new QLabel(formNoteWidget);
+        typeLabel->setObjectName(QStringLiteral("typeLabel"));
+
+        noteCreation->setWidget(4, QFormLayout::FieldRole, typeLabel);
+
         TypeComboBox = new QComboBox(formNoteWidget);
         TypeComboBox->setObjectName(QStringLiteral("TypeComboBox"));
 
         noteCreation->setWidget(5, QFormLayout::FieldRole, TypeComboBox);
 
-        idLabel = new QLabel(formNoteWidget);
-        idLabel->setObjectName(QStringLiteral("idLabel"));
+        titleLabel_4 = new QLabel(formNoteWidget);
+        titleLabel_4->setObjectName(QStringLiteral("titleLabel_4"));
 
-        noteCreation->setWidget(2, QFormLayout::FieldRole, idLabel);
+        noteCreation->setWidget(6, QFormLayout::FieldRole, titleLabel_4);
 
-        typeLabel = new QLabel(formNoteWidget);
-        typeLabel->setObjectName(QStringLiteral("typeLabel"));
+        contentTextEdit = new QPlainTextEdit(formNoteWidget);
+        contentTextEdit->setObjectName(QStringLiteral("contentTextEdit"));
 
-        noteCreation->setWidget(4, QFormLayout::FieldRole, typeLabel);
+        noteCreation->setWidget(7, QFormLayout::FieldRole, contentTextEdit);
+
+        buttonBox = new QDialogButtonBox(formNoteWidget);
+        buttonBox->setObjectName(QStringLiteral("buttonBox"));
+        buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+
+        noteCreation->setWidget(8, QFormLayout::FieldRole, buttonBox);
 
         typeLabel_3 = new QLabel(centralWidget);
         typeLabel_3->setObjectName(QStringLiteral("typeLabel_3"));
@@ -160,11 +156,11 @@ public:
         retranslateUi(PluriNotes);
         QObject::connect(menuBar, SIGNAL(triggered(QAction*)), PluriNotes, SLOT(formNote()));
         QObject::connect(newNote, SIGNAL(clicked()), PluriNotes, SLOT(formNote()));
-        QObject::connect(save, SIGNAL(clicked()), PluriNotes, SLOT(saveNote()));
         QObject::connect(titleLineEdit, SIGNAL(textChanged(QString)), PluriNotes, SLOT(titleChanged()));
         QObject::connect(idLineEdit, SIGNAL(textEdited(QString)), PluriNotes, SLOT(idChanged()));
         QObject::connect(TypeComboBox, SIGNAL(currentTextChanged(QString)), PluriNotes, SLOT(typeChanged()));
-        QObject::connect(cancel, SIGNAL(clicked()), PluriNotes, SLOT(cancelNote()));
+        QObject::connect(buttonBox, SIGNAL(rejected()), PluriNotes, SLOT(cancelNote()));
+        QObject::connect(buttonBox, SIGNAL(accepted()), PluriNotes, SLOT(saveNote()));
 
         QMetaObject::connectSlotsByName(PluriNotes);
     } // setupUi
@@ -175,18 +171,16 @@ public:
         actionNouvelle->setText(QApplication::translate("PluriNotes", "Nouvelle", Q_NULLPTR));
         actionHopla->setText(QApplication::translate("PluriNotes", "Hopla", Q_NULLPTR));
         newNote->setText(QApplication::translate("PluriNotes", "New note", Q_NULLPTR));
-        titleLabel_4->setText(QApplication::translate("PluriNotes", "contenu", Q_NULLPTR));
         titleLabel->setText(QApplication::translate("PluriNotes", "title", Q_NULLPTR));
-        cancel->setText(QApplication::translate("PluriNotes", "Cancel", Q_NULLPTR));
-        save->setText(QApplication::translate("PluriNotes", "Save", Q_NULLPTR));
-        TypeComboBox->clear();
-        TypeComboBox->insertItems(0, QStringList()
-         << QApplication::translate("PluriNotes", "Document", Q_NULLPTR)
-         << QApplication::translate("PluriNotes", "Task", Q_NULLPTR)
-         << QApplication::translate("PluriNotes", "Article", Q_NULLPTR)
-        );
         idLabel->setText(QApplication::translate("PluriNotes", "id", Q_NULLPTR));
         typeLabel->setText(QApplication::translate("PluriNotes", "type", Q_NULLPTR));
+        TypeComboBox->clear();
+        TypeComboBox->insertItems(0, QStringList()
+         << QApplication::translate("PluriNotes", "Article", Q_NULLPTR)
+         << QApplication::translate("PluriNotes", "Document", Q_NULLPTR)
+         << QApplication::translate("PluriNotes", "Task", Q_NULLPTR)
+        );
+        titleLabel_4->setText(QApplication::translate("PluriNotes", "contenu", Q_NULLPTR));
         typeLabel_3->setText(QString());
         menuPluriNotes->setTitle(QApplication::translate("PluriNotes", "Note", Q_NULLPTR));
     } // retranslateUi

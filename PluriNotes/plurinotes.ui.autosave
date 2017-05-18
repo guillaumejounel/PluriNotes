@@ -50,7 +50,7 @@
      <string>New note</string>
     </property>
    </widget>
-   <widget class="QWidget" name="formNoteWidget" native="true">
+   <widget class="QGroupBox" name="formNoteGroupBox">
     <property name="geometry">
      <rect>
       <x>210</x>
@@ -209,86 +209,6 @@
     <hint type="destinationlabel">
      <x>207</x>
      <y>58</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>titleLineEdit</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>titleChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>301</x>
-     <y>112</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>607</x>
-     <y>119</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>idLineEdit</sender>
-   <signal>textEdited(QString)</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>idChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>385</x>
-     <y>164</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>601</x>
-     <y>181</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>TypeComboBox</sender>
-   <signal>currentTextChanged(QString)</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>typeChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>399</x>
-     <y>228</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>599</x>
-     <y>254</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>cancelNote()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>383</x>
-     <y>358</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>571</x>
-     <y>404</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>saveNote()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>451</x>
-     <y>360</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>553</x>
-     <y>347</y>
     </hint>
    </hints>
   </connection>
