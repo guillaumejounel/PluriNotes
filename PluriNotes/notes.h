@@ -54,14 +54,15 @@ public:
     QDate getCreationDate() const;
     QDate getModificationDate() const;
     bool isArchived() const;
+    void addVersion(const NoteElement&);
 
 };
 
 class NoteElement {
     const QString title;
 public:
-    NoteElement(const QString& title);
-    virtual ~NoteElement();
+    NoteElement(const QString& title) : title(title) {}
+    //virtual ~NoteElement() {}
     const QString& getTitle() const {return title;}
     // Need to implement a function to open the specific edition window
     // what about virtual pure
