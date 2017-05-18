@@ -33,10 +33,8 @@ void PluriNotes::toNewNoteForm() {
 }
 
 void PluriNotes::displayNote() {
-    is_idChanged = false;
-
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
-    NoteEntity* currentSelectedNote = item -> getNotePointer();
+    NoteEntity* currentSelectedNote = item->getNotePointer();
 
     //NoteArticle* note = currentSelectedNote->getVersions().back();
 
@@ -71,7 +69,6 @@ void PluriNotes::cancelNote() {
 }
 
 void PluriNotes::titleChanged() {
-    //Titre modifié !
     //Creer un id automatique
     QString currentTitle = ui->titleLineEdit->text().toUtf8().constData();
     currentTitle = currentTitle.toLower().remove(QRegExp("^.{1,2}\\s|\\s.{1,2}\\s|\\s.{1,2}$|^.{1,2}'|['\\s-_!.]"));
@@ -80,8 +77,6 @@ void PluriNotes::titleChanged() {
     currentTitle.replace("ê", "e"); currentTitle.replace("à", "a"); currentTitle.replace("â", "a");
     currentTitle.replace("ù", "u"); currentTitle.replace("ö", "o"); currentTitle.replace("ï", "i");
     currentTitle.replace("ç", "c");
-
-
     if (!is_idChanged) { ui->idLineEdit->setText(currentTitle); } //Modifier id
 }
 
