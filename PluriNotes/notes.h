@@ -58,12 +58,26 @@ public:
 };
 
 class NoteElement {
-    QString title;
+    const QString title;
 public:
     NoteElement(const QString& title);
-    //virtual ~NoteElement();
-    //virtual QString getTitle() const = 0;
+    virtual ~NoteElement();
+    const QString& getTitle() const {return title;}
     // Need to implement a function to open the specific edition window
+    // what about virtual pure
+};
+
+
+class NoteArticle : public NoteElement{
+private:
+    const QString text;
+
+public:
+    NoteArticle(const QString& title, const QString& text):
+        NoteElement(title), text(text) {}
+    const QString& getText() const {return text;}
+
+    ~NoteArticle();
 };
 
 #endif // PLURINOTES_H
