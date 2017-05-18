@@ -226,12 +226,28 @@
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>553</x>
-     <y>483</y>
+     <x>515</x>
+     <y>376</y>
     </hint>
     <hint type="destinationlabel">
      <x>421</x>
-     <y>568</y>
+     <y>415</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>save</sender>
+   <signal>clicked()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>saveNote()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>376</x>
+     <y>402</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>628</x>
+     <y>371</y>
     </hint>
    </hints>
   </connection>

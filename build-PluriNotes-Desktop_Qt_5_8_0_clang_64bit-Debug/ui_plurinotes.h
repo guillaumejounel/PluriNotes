@@ -161,6 +161,7 @@ public:
         QObject::connect(menuBar, SIGNAL(triggered(QAction*)), PluriNotes, SLOT(createNote()));
         QObject::connect(pushButton, SIGNAL(clicked()), PluriNotes, SLOT(createNote()));
         QObject::connect(cancel, SIGNAL(clicked()), formWidget, SLOT(hide()));
+        QObject::connect(save, SIGNAL(clicked()), PluriNotes, SLOT(saveNote()));
 
         QMetaObject::connectSlotsByName(PluriNotes);
     } // setupUi

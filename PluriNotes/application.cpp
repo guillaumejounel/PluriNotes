@@ -43,7 +43,7 @@ void PluriNotes::createNote() {
 }
 
 void PluriNotes::saveNote() {
-    std::cout << "Creation de " << this->ui->titleLineEdit << std::endl;
+    std::cout << "Creation de " << this->ui->titleLineEdit->text().toUtf8().constData() << std::endl;
 }
 
 PluriNotes& PluriNotes::getManager() {
