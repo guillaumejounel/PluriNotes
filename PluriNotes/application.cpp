@@ -44,20 +44,10 @@ void PluriNotes::saveNote() {
     //Puis créer la note
     std::cout << "Creation of \"" << ui->titleLineEdit->text().toUtf8().constData() << "\"" << std::endl;
     NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
-    switch (ui->TypeComboBox->currentIndex()) {
-    case 0:
-        //const NoteArticle *newNote = new NoteArticle(ui->titleLineEdit->text(), ui->contentTextEdit->toPlainText());
-        //newNoteEntity->addVersion(*newNote);
-        break;
-    case 1:
-        std::cout << "Now Document !" << std::endl;
-        break;
-    case 2:
-        std::cout << "Now Task !" << std::endl;
-        break;
-    }
+    const NoteArticle *newNote = new NoteArticle(ui->titleLineEdit->text(), ui->contentTextEdit->toPlainText());
+    newNoteEntity->addVersion(*newNote);
     notes.push_back(newNoteEntity);
-    ui->listWidget->addItem(newNoteEntity->getId());
+    ui->listWidget->addItem(newNoteEntity->getTitle());
     ui->mainStackedWidget->setCurrentIndex(0);
     ui->newNote->setEnabled(true);
 }

@@ -47,7 +47,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="displayNotePage">
      <widget class="QTextEdit" name="noteTextContent">
@@ -63,8 +63,6 @@
        <bool>true</bool>
       </property>
      </widget>
-     <zorder>formNoteWidget</zorder>
-     <zorder>noteTextContent</zorder>
     </widget>
     <widget class="QWidget" name="newNotePage">
      <widget class="QWidget" name="formNoteWidget" native="true">
@@ -149,22 +147,6 @@
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections>
-  <connection>
-   <sender>newNote</sender>
-   <signal>clicked()</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>toNewNoteForm()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>190</x>
-     <y>41</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>207</x>
-     <y>58</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>titleLineEdit</sender>
    <signal>textChanged(QString)</signal>
@@ -258,6 +240,22 @@
     <hint type="destinationlabel">
      <x>197</x>
      <y>426</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>newNote</sender>
+   <signal>clicked()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>toNewNoteForm()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>145</x>
+     <y>25</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>196</x>
+     <y>59</y>
     </hint>
    </hints>
   </connection>

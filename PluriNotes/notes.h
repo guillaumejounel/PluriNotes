@@ -51,6 +51,7 @@ public:
     NoteEntity(const QString& id);
     ~NoteEntity() {versions.clear();}
     QString getId() const;
+    QString getTitle() const;
     QDate getCreationDate() const;
     QDate getModificationDate() const;
     bool isArchived() const;
