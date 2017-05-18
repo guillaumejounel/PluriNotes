@@ -19,12 +19,12 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -37,8 +37,6 @@ public:
     QAction *actionNouvelle;
     QAction *actionHopla;
     QWidget *centralWidget;
-    QScrollArea *scrollArea;
-    QWidget *scrollAreaWidgetContents;
     QPushButton *newNote;
     QWidget *formNoteWidget;
     QFormLayout *noteCreation;
@@ -52,6 +50,7 @@ public:
     QPlainTextEdit *contentTextEdit;
     QDialogButtonBox *buttonBox;
     QLabel *typeLabel_3;
+    QListWidget *listWidget;
     QMenuBar *menuBar;
     QMenu *menuPluriNotes;
     QToolBar *mainToolBar;
@@ -68,14 +67,6 @@ public:
         actionHopla->setObjectName(QStringLiteral("actionHopla"));
         centralWidget = new QWidget(PluriNotes);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        scrollArea = new QScrollArea(centralWidget);
-        scrollArea->setObjectName(QStringLiteral("scrollArea"));
-        scrollArea->setGeometry(QRect(10, 30, 181, 351));
-        scrollArea->setWidgetResizable(true);
-        scrollAreaWidgetContents = new QWidget();
-        scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 179, 349));
-        scrollArea->setWidget(scrollAreaWidgetContents);
         newNote = new QPushButton(centralWidget);
         newNote->setObjectName(QStringLiteral("newNote"));
         newNote->setGeometry(QRect(10, 0, 181, 32));
@@ -135,10 +126,13 @@ public:
         typeLabel_3 = new QLabel(centralWidget);
         typeLabel_3->setObjectName(QStringLiteral("typeLabel_3"));
         typeLabel_3->setGeometry(QRect(620, 560, 27, 20));
+        listWidget = new QListWidget(centralWidget);
+        listWidget->setObjectName(QStringLiteral("listWidget"));
+        listWidget->setGeometry(QRect(10, 40, 181, 341));
         PluriNotes->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(PluriNotes);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 799, 22));
+        menuBar->setGeometry(QRect(0, 0, 799, 28));
         menuPluriNotes = new QMenu(menuBar);
         menuPluriNotes->setObjectName(QStringLiteral("menuPluriNotes"));
         PluriNotes->setMenuBar(menuBar);

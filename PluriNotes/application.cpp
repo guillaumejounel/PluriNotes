@@ -55,6 +55,7 @@ void PluriNotes::saveNote() {
     notes.push_back(newNoteEntity);
     ui -> listWidget -> addItem(newNoteEntity->getId());
     ui -> formNoteWidget -> hide();
+    ui->newNote->setEnabled(true);
 }
 
 void PluriNotes::cancelNote() {
@@ -97,8 +98,9 @@ void PluriNotes::typeChanged() {
             break;
     }
     //Changer le formulaire selon le type
-    QWidget* ok = new QWidget();
-    ui->noteCreation->addWidget(ok);
+    //Voir QBox pour insertion de widget
+    //QWidget* ok = new QWidget();
+    //ui->noteCreation->addWidget(ok);
 }
 
 PluriNotes& PluriNotes::getManager() {
