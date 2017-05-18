@@ -5,6 +5,16 @@
 #include <vector>
 #include <QDate>
 #include <QString>
+#include <QtGui>
+#include <QLabel>
+#include <QPushButton>
+#include <QPushButton>
+#include <QCalendarWidget>
+#include <QGroupBox>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QLineEdit>
+#include <QComboBox>
 
 using namespace std;
 
@@ -16,6 +26,25 @@ namespace Ui {
 
 
 class NoteElement;
+
+class NoteForm : public QWidget
+{
+    Q_OBJECT
+
+public:
+    NoteForm(QWidget *parent=0);
+
+public slots:
+    void titleChanged(int) {}
+    void idChanged(int) {}
+    void typeChanged(int) {}
+
+private:
+    QLabel *label;
+    QLineEdit *title;
+    QLineEdit *id;
+    QLineEdit *type;
+};
 
 class NoteEntity {
 private:

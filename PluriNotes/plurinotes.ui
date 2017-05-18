@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>786</width>
-    <height>467</height>
+    <width>799</width>
+    <height>448</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>30</y>
       <width>181</width>
-      <height>381</height>
+      <height>351</height>
      </rect>
     </property>
     <property name="widgetResizable">
@@ -32,7 +32,7 @@
        <x>0</x>
        <y>0</y>
        <width>179</width>
-       <height>379</height>
+       <height>349</height>
       </rect>
      </property>
     </widget>
@@ -40,7 +40,7 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>0</y>
       <width>181</width>
       <height>32</height>
@@ -50,13 +50,108 @@
      <string>Nouvelle note</string>
     </property>
    </widget>
+   <widget class="QWidget" name="formWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>30</y>
+      <width>301</width>
+      <height>351</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="noteCreation">
+     <item row="7" column="1">
+      <widget class="QPlainTextEdit" name="contentTextEdit"/>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLabel" name="titleLabel_4">
+       <property name="text">
+        <string>contenu</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="idLineEdit"/>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLabel" name="idLabel">
+       <property name="text">
+        <string>id</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QComboBox" name="TypeComboBox">
+       <item>
+        <property name="text">
+         <string>Document</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Task</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Article</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLabel" name="typeLabel">
+       <property name="text">
+        <string>type</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="titleLineEdit"/>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="titleLabel">
+       <property name="text">
+        <string>title</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1">
+      <widget class="QPushButton" name="cancel">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QPushButton" name="save">
+       <property name="text">
+        <string>Save</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="typeLabel_3">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>560</y>
+      <width>27</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>786</width>
+     <width>799</width>
      <height>22</height>
     </rect>
    </property>
@@ -115,8 +210,8 @@
    <slot>createNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>278</x>
-     <y>138</y>
+     <x>190</x>
+     <y>66</y>
     </hint>
     <hint type="destinationlabel">
      <x>207</x>
@@ -124,9 +219,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>cancel</sender>
+   <signal>clicked()</signal>
+   <receiver>formWidget</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>553</x>
+     <y>483</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>421</x>
+     <y>568</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>slot1()</slot>
   <slot>createNote()</slot>
+  <slot>saveNote()</slot>
  </slots>
 </ui>

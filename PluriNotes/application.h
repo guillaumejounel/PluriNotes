@@ -40,6 +40,7 @@ private:
 signals:
 public slots:
     void createNote();
+    void saveNote();
 };
 
 #endif // APPLICATION_H
