@@ -31,6 +31,20 @@ void PluriNotes::saveNote() {
     //Faire des vérifications de validité (id...)
     //Puis créer la note
     std::cout << "Creation of \"" << ui->titleLineEdit->text().toUtf8().constData() << "\"" << std::endl;
+    NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
+    switch (ui->TypeComboBox->currentIndex()) {
+        case 0:
+            std::cout << "Now Document !" << std::endl;
+            break;
+        case 1:
+            std::cout << "Now Task !" << std::endl;
+            break;
+        case 2:
+            NoteElement *newNote = new NoteArticle(ui->titleLineEdit->text(), ui->contentTextEdit->toPlainText());
+            break;
+    }
+    newNoteEntity->versions.push_back(newNote);
+    notes.push_back(newNoteEntity);
 }
 
 void PluriNotes::cancelNote() {
