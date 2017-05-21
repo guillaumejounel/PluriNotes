@@ -30,18 +30,20 @@ void PluriNotes::toNewNoteForm() {
     ui->contentTextEdit->setPlainText("");
     ui->TypeComboBox->setCurrentIndex(0);
     ui->mainStackedWidget->setCurrentIndex(1);
+    ui->listNotesWidget->setEnabled(false);
 }
 
 void PluriNotes::displayNote() {
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
     NoteEntity* currentSelectedNote = item->getNotePointer();
 
-    //NoteArticle* note = currentSelectedNote->getVersions().back();
+    const NoteArticle *note = dynamic_cast<const NoteArticle*>(&currentSelectedNote->getLastVersion());
 
     ui->noteTextTitle->setText(currentSelectedNote->getTitle());
     ui->noteTextId->setText(currentSelectedNote->getId());
-    //ui->noteTextContent->setText(note->getText());
+    ui->noteTextContent->setText(note->getText());
     ui->mainStackedWidget->setCurrentIndex(0);
+
 }
 
 void PluriNotes::saveNote() {
@@ -61,10 +63,12 @@ void PluriNotes::saveNote() {
     ui->listNotesWidget->addItem(itm);
     ui->mainStackedWidget->setCurrentIndex(0);
     ui->ButtonNewNote->setEnabled(true);
+    ui->listNotesWidget->setEnabled(true);
 }
 
 void PluriNotes::cancelNote() {
     ui->ButtonNewNote->setEnabled(true);
+    ui->listNotesWidget->setEnabled(true);
     ui->mainStackedWidget->setCurrentIndex(0);
 }
 
@@ -88,26 +92,32 @@ void PluriNotes::idChanged() {
 
 void PluriNotes::typeChanged() {
     std::cout << "Type modified ! ";
+    while (ui->formNoteWidget->count() > 9) {
+        QLayoutItem* temp = ui->formNoteWidget->itemAt(8);
+        ui->formNoteWidget->removeItem(temp);
+        free(temp);
+    }
+    //Changer le formulaire selon le type
+    //Pas très POO les switchs... Une autre solution ?
+    QLineEdit *task, *doc;
     switch (ui->TypeComboBox->currentIndex()) {
         case 0:
             std::cout << "Now Article !" << std::endl;
             break;
         case 1:
             std::cout << "Now Document !" << std::endl;
+            doc = new QLineEdit(tr("Document"));
+            ui->formNoteWidget->insertWidget(8,doc,0);
             break;
         case 2:
             std::cout << "Now Task !" << std::endl;
+            task = new QLineEdit(tr("Task"));
+            ui->formNoteWidget->insertWidget(8,task,0);
             break;
     }
-    //Changer le formulaire selon le type
-    //Voir QBox pour insertion de widget
-    //QWidget* ok = new QWidget();
-    //ui->noteCreation->addWidget(ok);
 }
 
 PluriNotes& PluriNotes::getManager() {
     if(!instanceUnique) instanceUnique = new PluriNotes;
     return *instanceUnique;
 }
-
-

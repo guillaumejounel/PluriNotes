@@ -9,7 +9,10 @@ QString NoteEntity::getId() const {return id;}
 QString NoteEntity::getTitle() const{return versions.back() -> getTitle();}
 
 
-void NoteEntity::addVersion(const NoteElement& newVersion){
+void NoteEntity::addVersion(const NoteElement& newVersion) {
     versions.push_back(&newVersion);
 }
 
+const NoteElement& NoteEntity::getLastVersion() const {
+    return *versions.back();
+}

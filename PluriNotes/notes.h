@@ -12,6 +12,7 @@
 using namespace std;
 
 class NoteEntity;
+class NoteArticle;
 
 namespace Ui {
     class PluriNotes;
@@ -52,6 +53,7 @@ public:
     ~NoteEntity() {versions.clear();}
     QString getId() const;
     QString getTitle() const;
+    const NoteElement& getLastVersion() const;
     QDate getCreationDate() const;
     QDate getModificationDate() const;
     bool isArchived() const;
@@ -63,13 +65,15 @@ class NoteElement {
 public:
     NoteElement(const QString& title) : title(title) {}
     //virtual ~NoteElement() {}
-    const QString& getTitle() const {return title;}
+    const QString& getTitle() const { return title; }
+    virtual void test() const = 0;
     // Need to implement a function to open the specific edition window
     // what about virtual pure
+
 };
 
 
-class NoteArticle : public NoteElement{
+class NoteArticle : public NoteElement {
 private:
     const QString text;
 
@@ -77,7 +81,7 @@ public:
     NoteArticle(const QString& title, const QString& text):
         NoteElement(title), text(text) {}
     const QString& getText() const {return text;}
-
+    void test() const {}
     ~NoteArticle();
 };
 
