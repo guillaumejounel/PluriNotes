@@ -94,6 +94,7 @@ void PluriNotes::typeChanged() {
     std::cout << "Type modified ! ";
     while (ui->formNoteWidget->count() > 9) {
         QLayoutItem* temp = ui->formNoteWidget->itemAt(8);
+        temp->widget()->hide();
         ui->formNoteWidget->removeItem(temp);
         free(temp);
     }
