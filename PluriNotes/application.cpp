@@ -107,12 +107,10 @@ void PluriNotes::typeChanged() {
         case 0:
             break;
         case 1:
-            std::cout << "Now Document !" << std::endl;
             doc = new QLineEdit(tr("Document"));
             ui->formNoteWidget->insertWidget(8,doc,0);
             break;
         case 2:
-            std::cout << "Now Task !" << std::endl;
             task = new QLineEdit(tr("Task"));
             ui->formNoteWidget->insertWidget(8,task,0);
             break;
@@ -127,11 +125,10 @@ PluriNotes& PluriNotes::getManager() {
 void PluriNotes::save() const {
     QString path = QCoreApplication::applicationDirPath();
     path.append("/data");
-    std::cout << path.toUtf8().constData() << std::endl;
     QFile newfile(path);
     //Faire une classe pour les exceptions
     if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
-       std::cout << "erreur sauvegarde notes : ouverture fichier xml"<< std::endl;
+       qDebug() << "erreur sauvegarde notes : ouverture fichier xml";
     QXmlStreamWriter stream(&newfile);
     stream.setAutoFormatting(true);
     stream.writeStartDocument();
@@ -155,7 +152,7 @@ void PluriNotes::load() {
     path.append("/data");
     QFile fin(path);
     if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        std::cout << "Erreur ouverture fichier notes" << std::endl;
+        qDebug() << "Erreur ouverture fichier notes";
     }
     QXmlStreamReader xml(&fin);
     //qDebug()<<"debut fichier\n";
@@ -215,7 +212,7 @@ void PluriNotes::load() {
     }
     // Error handling.
     if(xml.hasError()) {
-         std::cout << "Erreur lecteur fichier notes, parser xml" << std::endl;
+         qDebug() << "Erreur lecteur fichier notes, parser xml";
     }
     // Removes any device() or data from the reader * and resets its internal state to the initial state.
     xml.clear();
