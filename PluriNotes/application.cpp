@@ -35,15 +35,27 @@ void PluriNotes::toNewNoteForm() {
     typeChanged();
 }
 
+
+void PluriNotes::setTextContentArticle(const QString& c){
+    ui->noteTextContent->setText(c);
+}
+
+void PluriNotes::setNoteId(const QString &i){
+    ui->noteTextId->setText(i);
+}
+
+
+void PluriNotes::setNoteTitle(const QString &t){
+    ui->noteTextTitle->setText(t);
+}
+
 void PluriNotes::displayNote() {
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
     NoteEntity* currentSelectedNote = item->getNotePointer();
-
-    const NoteArticle *note = dynamic_cast<const NoteArticle*>(&currentSelectedNote->getLastVersion());
-
-    ui->noteTextTitle->setText(currentSelectedNote->getTitle());
     ui->noteTextId->setText(currentSelectedNote->getId());
-    ui->noteTextContent->setText(note->getText());
+
+    const NoteElement& note = currentSelectedNote->getLastVersion();
+    note.displayNote();
     ui->mainStackedWidget->setCurrentIndex(0);
 
 }

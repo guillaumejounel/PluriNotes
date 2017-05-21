@@ -1,4 +1,6 @@
 #include "notes.h"
+#include "application.h"
+
 
 NoteEntity::NoteEntity(const QString& id) : id(id){
     qDebug() << id << "is being created";
@@ -15,4 +17,13 @@ void NoteEntity::addVersion(const NoteElement& newVersion) {
 
 const NoteElement& NoteEntity::getLastVersion() const {
     return *versions.back();
+}
+
+
+void NoteArticle::displayNote() const {
+    PluriNotes& manager = PluriNotes::getManager();
+    manager.setTextContentArticle(this->getText());
+    manager.setNoteTitle(this->getTitle());
+
+    //ui->mainStackedWidget->setCurrentIndex(0);
 }

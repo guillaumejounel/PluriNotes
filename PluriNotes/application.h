@@ -22,14 +22,6 @@ namespace Ui {
 
 class PluriNotes : public QMainWindow {
     Q_OBJECT
-public:
-    void load(); // load notes from file
-    void save() const; // save notes in file
-    static PluriNotes& getManager();
-    void deleteNote(const QString& id);
-    void emptyTrash();
-    void setAutoDelete(bool);
-
 private:
     Ui::PluriNotes *ui;
     static PluriNotes* instanceUnique;
@@ -41,6 +33,21 @@ private:
     ~PluriNotes();
     PluriNotes(const PluriNotes& m);
     PluriNotes& operator=(const PluriNotes& m);
+
+public:
+    static PluriNotes& getManager();
+    Ui::PluriNotes* getUi() {return ui;}
+    void load(); // load notes from file
+    void save() const; // save notes in file
+    void deleteNote(const QString& id);
+    void emptyTrash();
+    void setAutoDelete(bool);
+
+    void setTextContentArticle(const QString& c);
+    void setNoteTitle(const QString& t);
+    void setNoteId(const QString& i);
+
+
 signals:
 public slots:
     void toNewNoteForm();

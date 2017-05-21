@@ -66,7 +66,7 @@ public:
     NoteElement(const QString& title) : title(title) {}
     //virtual ~NoteElement() {}
     const QString& getTitle() const { return title; }
-    virtual void test() const = 0;
+    virtual void displayNote() const = 0;
     // Need to implement a function to open the specific edition window
     // what about virtual pure
 
@@ -81,7 +81,7 @@ public:
     NoteArticle(const QString& title, const QString& text):
         NoteElement(title), text(text) {}
     const QString& getText() const {return text;}
-    void test() const {}
+    virtual void displayNote() const;
     ~NoteArticle();
 };
 
