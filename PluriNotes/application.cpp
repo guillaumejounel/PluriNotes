@@ -12,6 +12,7 @@
 PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriNotes) {
     ui->setupUi(this);
     ui->mainStackedWidget->setCurrentIndex(0);
+    load();
 }
 
 PluriNotes::~PluriNotes() {
@@ -31,6 +32,7 @@ void PluriNotes::toNewNoteForm() {
     ui->TypeComboBox->setCurrentIndex(0);
     ui->mainStackedWidget->setCurrentIndex(1);
     ui->listNotesWidget->setEnabled(false);
+    typeChanged();
 }
 
 void PluriNotes::displayNote() {
@@ -49,7 +51,7 @@ void PluriNotes::displayNote() {
 void PluriNotes::saveNote() {
     //Faire des vérifications de validité (id...)
     //Puis créer la note
-    std::cout << "Creation of \"" << ui->titleLineEdit->text().toUtf8().constData() << "\"" << std::endl;
+    qDebug() << "Creation of \"" << ui->titleLineEdit->text() << "\"";
     NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
     const NoteArticle *newNote = new NoteArticle(ui->titleLineEdit->text(), ui->contentTextEdit->toPlainText());
     newNoteEntity->addVersion(*newNote);
@@ -64,6 +66,7 @@ void PluriNotes::saveNote() {
     ui->mainStackedWidget->setCurrentIndex(0);
     ui->ButtonNewNote->setEnabled(true);
     ui->listNotesWidget->setEnabled(true);
+    save();
 }
 
 void PluriNotes::cancelNote() {
@@ -91,7 +94,6 @@ void PluriNotes::idChanged() {
 }
 
 void PluriNotes::typeChanged() {
-    std::cout << "Type modified ! ";
     while (ui->formNoteWidget->count() > 9) {
         QLayoutItem* temp = ui->formNoteWidget->itemAt(8);
         temp->widget()->hide();
@@ -103,7 +105,6 @@ void PluriNotes::typeChanged() {
     QLineEdit *task, *doc;
     switch (ui->TypeComboBox->currentIndex()) {
         case 0:
-            std::cout << "Now Article !" << std::endl;
             break;
         case 1:
             std::cout << "Now Document !" << std::endl;
@@ -122,3 +123,102 @@ PluriNotes& PluriNotes::getManager() {
     if(!instanceUnique) instanceUnique = new PluriNotes;
     return *instanceUnique;
 }
+
+void PluriNotes::save() const {
+    QString path = QCoreApplication::applicationDirPath();
+    path.append("/data");
+    std::cout << path.toUtf8().constData() << std::endl;
+    QFile newfile(path);
+    //Faire une classe pour les exceptions
+    if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
+       std::cout << "erreur sauvegarde notes : ouverture fichier xml"<< std::endl;
+    QXmlStreamWriter stream(&newfile);
+    stream.setAutoFormatting(true);
+    stream.writeStartDocument();
+    stream.writeStartElement("notes");
+    //à terminer !
+    for(auto const& note: notes) {
+        stream.writeStartElement("article");
+        stream.writeTextElement("id",note->getId());
+        stream.writeTextElement("title",note->getTitle());
+        const NoteArticle *noteContent = dynamic_cast<const NoteArticle*>(&note->getLastVersion());
+        stream.writeTextElement("content",noteContent->getText());
+        stream.writeEndElement();
+    }
+    stream.writeEndElement();
+    stream.writeEndDocument();
+    newfile.close();
+}
+
+void PluriNotes::load() {
+    QString path = QCoreApplication::applicationDirPath();
+    path.append("/data");
+    QFile fin(path);
+    if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        std::cout << "Erreur ouverture fichier notes" << std::endl;
+    }
+    QXmlStreamReader xml(&fin);
+    //qDebug()<<"debut fichier\n";
+    // We'll parse the XML until we reach end of it.
+    while(!xml.atEnd() && !xml.hasError()) {
+        // Read next element.
+        QXmlStreamReader::TokenType token = xml.readNext();
+        // If token is just StartDocument, we'll go to next.
+        if(token == QXmlStreamReader::StartDocument) continue;
+        // If token is StartElement, we'll see if we can read it.
+        if(token == QXmlStreamReader::StartElement) {
+            // If it's named taches, we'll go to the next.
+            if(xml.name() == "notes") continue;
+            // If it's named tache, we'll dig the information from there.
+            if(xml.name() == "article") {
+                qDebug()<<"new article\n";
+                QString id;
+                QString title;
+                QString content;
+                QXmlStreamAttributes attributes = xml.attributes();
+                xml.readNext();
+                //We're going to loop over the things because the order might change.
+                //We'll continue the loop until we hit an EndElement named article.
+                while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "article")) {
+                    if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                        // We've found identificteur.
+                        if(xml.name() == "id") {
+                            xml.readNext(); id=xml.text().toString();
+                            qDebug()<<"id="<<id<<"\n";
+                        }
+
+                        // We've found titre.
+                        if(xml.name() == "title") {
+                            xml.readNext(); title=xml.text().toString();
+                            qDebug()<<"title="<<title<<"\n";
+                        }
+                        // We've found text
+                        if(xml.name() == "content") {
+                            xml.readNext();
+                            content=xml.text().toString();
+                            qDebug()<<"content="<<content<<"\n";
+                        }
+                    }
+                    // ...and next...
+                    xml.readNext();
+                }
+                qDebug()<<"ajout note "<<id<<"\n";
+                NoteEntity *newNoteEntity = new NoteEntity(QString(id));
+                const NoteArticle *newNote = new NoteArticle(QString(title), QString(content));
+                newNoteEntity->addVersion(*newNote);
+                notes.push_back(newNoteEntity);
+                listItemAndPointer* itm = new listItemAndPointer(newNoteEntity);
+                itm->setText(title);
+                ui->listNotesWidget->addItem(itm);
+            }
+        }
+    }
+    // Error handling.
+    if(xml.hasError()) {
+         std::cout << "Erreur lecteur fichier notes, parser xml" << std::endl;
+    }
+    // Removes any device() or data from the reader * and resets its internal state to the initial state.
+    xml.clear();
+    qDebug()<<"fin load\n";
+}
+

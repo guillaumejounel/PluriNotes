@@ -1,7 +1,7 @@
 #include "notes.h"
 
 NoteEntity::NoteEntity(const QString& id) : id(id){
-    cout << "Note \"" << id.toUtf8().constData() << "\" is being created." << endl;
+    qDebug() << id << "is being created";
 }
 
 QString NoteEntity::getId() const {return id;}
