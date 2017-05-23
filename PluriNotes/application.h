@@ -53,6 +53,7 @@ signals:
     void toNewNoteForm();
     void displayNote();
     void saveNote();
+    void deleteNote();
     void cancelNote();
     void titleChanged();
     void idChanged();

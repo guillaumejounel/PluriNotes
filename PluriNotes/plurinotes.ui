@@ -258,8 +258,8 @@ background-color: rgb(233, 90, 77);
    <slot>displayNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>167</x>
-     <y>283</y>
+     <x>133</x>
+     <y>329</y>
     </hint>
     <hint type="destinationlabel">
      <x>197</x>
@@ -274,8 +274,8 @@ background-color: rgb(233, 90, 77);
    <slot>toNewNoteForm()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>145</x>
-     <y>25</y>
+     <x>139</x>
+     <y>33</y>
     </hint>
     <hint type="destinationlabel">
      <x>196</x>
@@ -290,8 +290,8 @@ background-color: rgb(233, 90, 77);
    <slot>typeChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>274</x>
-     <y>182</y>
+     <x>424</x>
+     <y>359</y>
     </hint>
     <hint type="destinationlabel">
      <x>599</x>
@@ -306,8 +306,8 @@ background-color: rgb(233, 90, 77);
    <slot>titleChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>306</x>
-     <y>72</y>
+     <x>459</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -322,8 +322,8 @@ background-color: rgb(233, 90, 77);
    <slot>saveNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>362</x>
-     <y>470</y>
+     <x>509</x>
+     <y>403</y>
     </hint>
     <hint type="destinationlabel">
      <x>553</x>
@@ -338,8 +338,8 @@ background-color: rgb(233, 90, 77);
    <slot>cancelNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>294</x>
-     <y>470</y>
+     <x>441</x>
+     <y>403</y>
     </hint>
     <hint type="destinationlabel">
      <x>571</x>
@@ -354,12 +354,28 @@ background-color: rgb(233, 90, 77);
    <slot>idChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>260</x>
-     <y>122</y>
+     <x>413</x>
+     <y>249</y>
     </hint>
     <hint type="destinationlabel">
      <x>601</x>
      <y>181</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>deleteNoteButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>deleteNote()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>742</x>
+     <y>397</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>789</x>
+     <y>387</y>
     </hint>
    </hints>
   </connection>
@@ -372,5 +388,6 @@ background-color: rgb(233, 90, 77);
   <slot>cancelNote()</slot>
   <slot>toNewNoteForm()</slot>
   <slot>displayNote()</slot>
+  <slot>deleteNote()</slot>
  </slots>
 </ui>

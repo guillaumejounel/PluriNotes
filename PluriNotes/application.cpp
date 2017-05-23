@@ -91,6 +91,12 @@ void PluriNotes::saveNote() {
     save();
 }
 
+void PluriNotes::deleteNote() {
+    //Bug pour le dernier élément à supprimer...
+    qDeleteAll(ui->listNotesWidget->selectedItems());
+    //Il faut aussi l'enlever du vecteur notes puis faire save
+}
+
 void PluriNotes::cancelNote() {
     ui->ButtonNewNote->setEnabled(true);
     ui->listNotesWidget->setEnabled(true);
