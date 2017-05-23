@@ -64,7 +64,6 @@ void PluriNotes::displayNote() {
     const NoteElement& note = currentSelectedNote->getLastVersion();
     note.displayNote();
     ui->mainStackedWidget->setCurrentIndex(0);
-
 }
 
 void PluriNotes::saveNote() {
@@ -81,7 +80,8 @@ void PluriNotes::saveNote() {
     listItemAndPointer* itm = new listItemAndPointer(newNoteEntity);
     itm->setText(newNoteEntity->getTitle());
 
-    ui->listNotesWidget->addItem(itm);
+    ui->listNotesWidget->insertItem(0, itm);
+    ui->listNotesWidget->setCurrentRow(0);
     ui->mainStackedWidget->setCurrentIndex(0);
     ui->ButtonNewNote->setEnabled(true);
     ui->listNotesWidget->setEnabled(true);
@@ -92,9 +92,23 @@ void PluriNotes::saveNote() {
 }
 
 void PluriNotes::deleteNote() {
-    //Bug pour le dernier élément à supprimer...
+
+    //Delete the current note from the vector notes
+    listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
+    NoteEntity* currentSelectedNote = item->getNotePointer();
+    unsigned int i = 0;
+    for (auto note: notes) {
+        if (note==currentSelectedNote) {
+            notes.erase(notes.begin()+i);
+            break;
+        }
+        ++i;
+    }
+    //Save the file
+    save();
+
+    //Delete the current note from the listNotesWidget (doesn't work with the last element...??)
     qDeleteAll(ui->listNotesWidget->selectedItems());
-    //Il faut aussi l'enlever du vecteur notes puis faire save
 }
 
 void PluriNotes::cancelNote() {
@@ -126,7 +140,7 @@ void PluriNotes::typeChanged() {
         QLayoutItem* temp = ui->formNoteWidget->itemAt(6);
         temp->widget()->hide();
         ui->formNoteWidget->removeItem(temp);
-        free(temp);
+        delete temp;
     }
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
     for (auto widget: myMap[ui->TypeComboBox->currentText()]->champsForm()) {
@@ -223,7 +237,7 @@ void PluriNotes::load() {
                 notes.push_back(newNoteEntity);
                 listItemAndPointer* itm = new listItemAndPointer(newNoteEntity);
                 itm->setText(title);
-                ui->listNotesWidget->addItem(itm);
+                ui->listNotesWidget->insertItem(0, itm);
             }
         }
     }
