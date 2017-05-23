@@ -18,8 +18,14 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
         ui->TypeComboBox->addItem(iter->first);
     }
     //Affiche l'écran de démarrage
-    if(!notes.size()) ui->mainStackedWidget->setCurrentIndex(2);
-    else ui->mainStackedWidget->setCurrentIndex(0);
+    if(notes.size()) {
+        ui->mainStackedWidget->setCurrentIndex(0);
+        //Sélectionner la note active
+        ui->listNotesWidget->item(0)->setSelected(true);
+    }
+    else {
+        ui->mainStackedWidget->setCurrentIndex(2);
+    }
 }
 
 PluriNotes::~PluriNotes() {
@@ -93,11 +99,11 @@ void PluriNotes::saveNote() {
 
     //Impossible d'enregistrer des documents pour le moment !
     //Il faut refaire save() pour qu'il s'adapte à tout type de note
+    //(créer une méthode virtuelle pure comme pour les boutons...)
     save();
 }
 
 void PluriNotes::deleteNote() {
-
     //Supprime la note selectionnée du vecteur notes
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
     NoteEntity* currentSelectedNote = item->getNotePointer();
@@ -118,7 +124,8 @@ void PluriNotes::deleteNote() {
 void PluriNotes::cancelNote() {
     ui->ButtonNewNote->setEnabled(true);
     ui->listNotesWidget->setEnabled(true);
-    ui->mainStackedWidget->setCurrentIndex(0);
+    if (notes.size()) ui->mainStackedWidget->setCurrentIndex(0);
+    else ui->mainStackedWidget->setCurrentIndex(2);
 }
 
 void PluriNotes::titleChanged() {
