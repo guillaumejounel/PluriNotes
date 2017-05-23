@@ -33,7 +33,6 @@ void PluriNotes::toNewNoteForm() {
     ui->ButtonNewNote->setEnabled(false);
     ui->idLineEdit->setText("");
     ui->titleLineEdit->setText("");
-    //REVOIR ui->contentTextEdit->setPlainText("");
     ui->TypeComboBox->setCurrentIndex(0);
     ui->mainStackedWidget->setCurrentIndex(1);
     ui->listNotesWidget->setEnabled(false);
@@ -72,14 +71,12 @@ void PluriNotes::saveNote() {
     NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
 
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
-    const NoteElement* newNote = myMap[ui->TypeComboBox->currentText()]->saveNote();
+    const NoteElement* newNote = myMap[ui->TypeComboBox->currentText()]->saveNote(ui->titleLineEdit->text());
     newNoteEntity->addVersion(*newNote);
     notes.push_back(newNoteEntity);
 
-
     listItemAndPointer* itm = new listItemAndPointer(newNoteEntity);
     itm->setText(newNoteEntity->getTitle());
-
 
     ui->listNotesWidget->addItem(itm);
     ui->mainStackedWidget->setCurrentIndex(0);

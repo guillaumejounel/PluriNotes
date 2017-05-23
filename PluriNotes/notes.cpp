@@ -38,8 +38,35 @@ void Article::displayNote() const {
 
 void Document::displayNote() const {
     PluriNotes& manager = PluriNotes::getManager();
-    manager.setTextContentArticle(this->getText());
+    manager.setTextContentArticle(this->getDescription());
     manager.setNoteTitle(this->getTitle());
 
     //ui->mainStackedWidget->setCurrentIndex(0);
 }
+
+QList<QWidget*> Article::champsForm() {
+    testText = new QTextEdit();
+    testLabel = new QLabel(QString("ok"));
+    QList<QWidget*> listeWidgets;
+    listeWidgets <<testText << testLabel;
+    return listeWidgets;
+}
+
+Article* Article::saveNote(QString title)  {
+    return new Article(title, testText->toPlainText());
+}
+
+QList<QWidget*> Document::champsForm() {
+    fichier = new QLineEdit();
+    descr = new QLineEdit();
+    lfichier = new QLabel(QString("Fichier"));
+    ldescr = new QLabel(QString("Description"));
+    QList<QWidget*> listeWidgets;
+    listeWidgets << fichier << lfichier << descr << ldescr;
+    return listeWidgets;
+}
+
+Document* Document::saveNote(QString title) {
+    return new Document(title, descr->text());
+}
+

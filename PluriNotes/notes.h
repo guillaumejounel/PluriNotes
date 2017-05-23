@@ -50,6 +50,7 @@ private:
     bool archived;
     bool bin;
     vector<const NoteElement*> versions;
+
 public:
     NoteEntity(const QString& id);
     ~NoteEntity() {versions.clear();}
@@ -73,11 +74,8 @@ public:
     const QString& getTitle() const { return title; }
     virtual QList<QWidget*> champsForm() = 0;
     virtual void displayNote() const = 0;
-    virtual NoteElement* saveNote() = 0;
+    virtual NoteElement* saveNote(QString title) = 0;
     virtual ~NoteElement() = default;
-
-    // Need to implement a function to open the specific edition window
-    // what about virtual pure
 };
 
 template <class Note>
@@ -104,46 +102,34 @@ static QString name() { return QString::fromUtf8(#TypeNote); }
 
 setNoteType(Article)
 private:
-const QString text;
- QTextEdit* testText;
- QLabel* testLabel;
+    const QString text;
+    QTextEdit* testText;
+    QLabel* testLabel;
 public:
-Article() { }
-Article(const QString& title, const QString& text):
-BaseNoteType(title), text(text) {}
-const QString& getText() const {return text;}
-virtual void displayNote() const override;
-QList<QWidget*> champsForm() override {
-    testText = new QTextEdit();
-    testLabel = new QLabel(QString("ok"));
-    QList<QWidget*> listeWidgets;
-    listeWidgets <<testText << testLabel;
-    return listeWidgets;
-}
-Article* saveNote() override  {
-    return new Article(QString("test"), testText->toPlainText());
-}
-~Article() {}
+    Article() { }
+    Article(const QString& title, const QString& text):
+    BaseNoteType(title), text(text) {}
+    const QString& getText() const {return text;}
+    virtual void displayNote() const override;
+    QList<QWidget*> champsForm() override;
+    Article* saveNote(QString title) override;
+    ~Article() {}
 };
 
 setNoteType(Document)
 private:
-const QString text;
+    const QString description;
+    QLineEdit *fichier, *descr;
+    QLabel *lfichier, *ldescr;
 public:
-Document() {}
-Document(const QString& title, const QString& text):
-BaseNoteType(title), text(text) {}
-const QString& getText() const {return text;}
-virtual void displayNote() const override;
-QList<QWidget*> champsForm() override {
-    QList<QWidget*> listeWidgets;
-    listeWidgets << new QLineEdit() << new QLabel(QString("Fichier")) << new QLineEdit() << new QLabel(QString("Description"));
-    return listeWidgets;
-}
-Document* saveNote() override {
-    return nullptr;
-}
-~Document() {}
+    Document() {}
+    Document(const QString& title, const QString& description):
+    BaseNoteType(title), description(description) {}
+    const QString& getDescription() const {return description;}
+    virtual void displayNote() const override;
+    QList<QWidget*> champsForm() override;
+    Document* saveNote(QString title) override;
+    ~Document() {}
 };
 
 #endif // PLURINOTES_H

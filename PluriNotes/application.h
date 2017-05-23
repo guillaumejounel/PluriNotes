@@ -38,17 +38,15 @@ private:
 
 public:
     static PluriNotes& getManager();
-    Ui::PluriNotes* getUi() {return ui;}
+    Ui::PluriNotes* getUi() { return ui; }
     void load(); // load notes from file
     void save() const; // save notes in file
     void deleteNote(const QString& id);
     void emptyTrash();
     void setAutoDelete(bool);
-
     void setTextContentArticle(const QString& c);
     void setNoteTitle(const QString& t);
     void setNoteId(const QString& i);
-
 
 signals:
     public slots:
@@ -63,9 +61,9 @@ signals:
 
 
 class listItemAndPointer : public QListWidgetItem {
-    private :
+private :
     NoteEntity* notePointer;
-    public :
+public :
     listItemAndPointer(NoteEntity* ptr) : notePointer(ptr) {}
     NoteEntity* getNotePointer() const {return notePointer;}
 };
