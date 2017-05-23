@@ -8,7 +8,8 @@
 #include <QString>
 #include <QScrollArea>
 #include <QListWidgetItem>
-
+#include <QLineEdit>
+#include <QMessageBox>
 
 #include "notes.h"
 

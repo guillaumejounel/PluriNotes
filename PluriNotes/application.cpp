@@ -2,11 +2,6 @@
 #include "ui_plurinotes.h"
 #include "notes.h"
 
-#include <iostream>
-#include <QInputDialog>
-#include <QLineEdit>
-#include <QScrollArea>
-
 PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriNotes) {
     //Constructeur de la classe PluriNotes
     ui->setupUi(this);
@@ -104,6 +99,13 @@ void PluriNotes::saveNote() {
 }
 
 void PluriNotes::deleteNote() {
+    //Demande de confirmation
+    //à plutôt faire pour vider la corbeille étant donné que les notes sont récupérables jusque là
+    /* QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Suppression", "Are you sure?", QMessageBox::Yes|QMessageBox::No);
+    if (reply == QMessageBox::Yes) {
+        qDebug() << "Yes was clicked";
+    } */
     //Supprime la note selectionnée du vecteur notes
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
     NoteEntity* currentSelectedNote = item->getNotePointer();
@@ -111,6 +113,7 @@ void PluriNotes::deleteNote() {
     for (auto note: notes) {
         if (note==currentSelectedNote) {
             notes.erase(notes.begin()+i);
+            corbeille.push_back(currentSelectedNote);
             break;
         }
         ++i;
