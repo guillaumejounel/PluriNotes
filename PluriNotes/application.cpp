@@ -10,8 +10,6 @@
 PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriNotes) {
     //Constructeur de la classe PluriNotes
     ui->setupUi(this);
-    //Commencement de l'application avec l'affichage des notes
-    ui->mainStackedWidget->setCurrentIndex(0);
     //Chargement des notes existantes
     load();
     //Chargement des différents types de notes dont il faut proposer la création
@@ -19,6 +17,9 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     for (MapIterator iter = myMap.begin(); iter != myMap.end(); iter++) {
         ui->TypeComboBox->addItem(iter->first);
     }
+    //Affiche l'écran de démarrage
+    if(!notes.size()) ui->mainStackedWidget->setCurrentIndex(2);
+    else ui->mainStackedWidget->setCurrentIndex(0);
 }
 
 PluriNotes::~PluriNotes() {
@@ -57,13 +58,17 @@ void PluriNotes::setNoteTitle(const QString &t){
 }
 
 void PluriNotes::displayNote() {
-    listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
-    NoteEntity* currentSelectedNote = item->getNotePointer();
-    ui->noteTextId->setText(currentSelectedNote->getId());
+    if(notes.size()) {
+        listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
+        NoteEntity* currentSelectedNote = item->getNotePointer();
+        ui->noteTextId->setText(currentSelectedNote->getId());
 
-    const NoteElement& note = currentSelectedNote->getLastVersion();
-    note.displayNote();
-    ui->mainStackedWidget->setCurrentIndex(0);
+        const NoteElement& note = currentSelectedNote->getLastVersion();
+        note.displayNote();
+        ui->mainStackedWidget->setCurrentIndex(0);
+    } else {
+        ui->mainStackedWidget->setCurrentIndex(2);
+    }
 }
 
 void PluriNotes::saveNote() {
@@ -93,7 +98,7 @@ void PluriNotes::saveNote() {
 
 void PluriNotes::deleteNote() {
 
-    //Delete the current note from the vector notes
+    //Supprime la note selectionnée du vecteur notes
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
     NoteEntity* currentSelectedNote = item->getNotePointer();
     unsigned int i = 0;
@@ -104,10 +109,9 @@ void PluriNotes::deleteNote() {
         }
         ++i;
     }
-    //Save the file
+    //Enregistre dans le fichier
     save();
-
-    //Delete the current note from the listNotesWidget (doesn't work with the last element...??)
+    //Supprime la note selectionnée de listNotesWidget
     qDeleteAll(ui->listNotesWidget->selectedItems());
 }
 

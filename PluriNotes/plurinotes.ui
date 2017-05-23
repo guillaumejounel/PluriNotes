@@ -37,7 +37,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="displayNotePage">
        <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,0,0,0">
@@ -239,6 +239,24 @@ background-color: rgb(233, 90, 77);
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QWidget" name="noNote">
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>190</x>
+          <y>100</y>
+          <width>231</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-size: 1cm;</string>
+        </property>
+        <property name="text">
+         <string>Aucune note :(</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </item>
