@@ -8,6 +8,8 @@
 #include <QtGui>
 #include <QLabel>
 #include <QLineEdit>
+#include <QTextEdit>
+#include <map>
 
 using namespace std;
 
@@ -28,7 +30,7 @@ class NoteForm : public QWidget
 public:
     NoteForm(QWidget *parent=0);
 
-public slots:
+    public slots:
     void titleChanged(int) {}
     void idChanged(int) {}
     void typeChanged(int) {}
@@ -62,27 +64,86 @@ public:
 
 class NoteElement {
     const QString title;
+protected:
+    static map<QString, NoteElement*> const& NoteTypeList (QString typeName, NoteElement* ptNote);
 public:
+    NoteElement() {}
     NoteElement(const QString& title) : title(title) {}
-    //virtual ~NoteElement() {}
+    static map<QString, NoteElement*> getTypesNotes();
     const QString& getTitle() const { return title; }
+    virtual QList<QWidget*> champsForm() = 0;
     virtual void displayNote() const = 0;
+    virtual NoteElement* saveNote() = 0;
+    virtual ~NoteElement() = default;
+
     // Need to implement a function to open the specific edition window
     // what about virtual pure
-
 };
 
-
-class NoteArticle : public NoteElement {
-private:
-    const QString text;
-
+template <class Note>
+class BaseNoteType : public NoteElement {
 public:
-    NoteArticle(const QString& title, const QString& text):
-        NoteElement(title), text(text) {}
-    const QString& getText() const {return text;}
-    virtual void displayNote() const;
-    ~NoteArticle();
+    BaseNoteType() {}
+    BaseNoteType(const QString& title) : NoteElement(title) {}
+
+    static size_t setTypeInList() {
+        return NoteTypeList(Note::name(), Note::newType()).size();
+    }
+    static size_t id;
+};
+
+template <class Note>
+size_t BaseNoteType<Note>::id = setTypeInList();
+
+#define setNoteType(TypeNote) \
+class TypeNote : public BaseNoteType<TypeNote> { \
+public:\
+size_t idc { id }; \
+static TypeNote* newType() { return new TypeNote; } \
+static QString name() { return QString::fromUtf8(#TypeNote); }
+
+setNoteType(Article)
+private:
+const QString text;
+ QTextEdit* testText;
+ QLabel* testLabel;
+public:
+Article() { }
+Article(const QString& title, const QString& text):
+BaseNoteType(title), text(text) {}
+const QString& getText() const {return text;}
+virtual void displayNote() const override;
+QList<QWidget*> champsForm() override {
+    testText = new QTextEdit();
+    testLabel = new QLabel(QString("ok"));
+    QList<QWidget*> listeWidgets;
+    listeWidgets <<testText << testLabel;
+    return listeWidgets;
+}
+Article* saveNote() override  {
+    return new Article(QString("test"), testText->toPlainText());
+}
+~Article() {}
+};
+
+setNoteType(Document)
+private:
+const QString text;
+public:
+Document() {}
+Document(const QString& title, const QString& text):
+BaseNoteType(title), text(text) {}
+const QString& getText() const {return text;}
+virtual void displayNote() const override;
+QList<QWidget*> champsForm() override {
+    QList<QWidget*> listeWidgets;
+    listeWidgets << new QLineEdit() << new QLabel(QString("Fichier")) << new QLineEdit() << new QLabel(QString("Description"));
+    return listeWidgets;
+}
+Document* saveNote() override {
+    return nullptr;
+}
+~Document() {}
 };
 
 #endif // PLURINOTES_H

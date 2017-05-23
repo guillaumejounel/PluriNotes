@@ -13,6 +13,11 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     ui->setupUi(this);
     ui->mainStackedWidget->setCurrentIndex(0);
     load();
+
+    map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
+    for (MapIterator iter = myMap.begin(); iter != myMap.end(); iter++) {
+        ui->TypeComboBox->addItem(iter->first);
+    }
 }
 
 PluriNotes::~PluriNotes() {
@@ -28,7 +33,7 @@ void PluriNotes::toNewNoteForm() {
     ui->ButtonNewNote->setEnabled(false);
     ui->idLineEdit->setText("");
     ui->titleLineEdit->setText("");
-    ui->contentTextEdit->setPlainText("");
+    //REVOIR ui->contentTextEdit->setPlainText("");
     ui->TypeComboBox->setCurrentIndex(0);
     ui->mainStackedWidget->setCurrentIndex(1);
     ui->listNotesWidget->setEnabled(false);
@@ -65,7 +70,9 @@ void PluriNotes::saveNote() {
     //Puis créer la note
     qDebug() << "Creation of \"" << ui->titleLineEdit->text() << "\"";
     NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
-    const NoteArticle *newNote = new NoteArticle(ui->titleLineEdit->text(), ui->contentTextEdit->toPlainText());
+
+    map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
+    const NoteElement* newNote = myMap[ui->TypeComboBox->currentText()]->saveNote();
     newNoteEntity->addVersion(*newNote);
     notes.push_back(newNoteEntity);
 
@@ -106,26 +113,15 @@ void PluriNotes::idChanged() {
 }
 
 void PluriNotes::typeChanged() {
-    while (ui->formNoteWidget->count() > 9) {
-        QLayoutItem* temp = ui->formNoteWidget->itemAt(8);
+    while (ui->formNoteWidget->count() > 7) {
+        QLayoutItem* temp = ui->formNoteWidget->itemAt(6);
         temp->widget()->hide();
         ui->formNoteWidget->removeItem(temp);
         free(temp);
     }
-    //Changer le formulaire selon le type
-    //Pas très POO les switchs... Une autre solution ?
-    QLineEdit *task, *doc;
-    switch (ui->TypeComboBox->currentIndex()) {
-        case 0:
-            break;
-        case 1:
-            doc = new QLineEdit(tr("Document"));
-            ui->formNoteWidget->insertWidget(8,doc,0);
-            break;
-        case 2:
-            task = new QLineEdit(tr("Task"));
-            ui->formNoteWidget->insertWidget(8,task,0);
-            break;
+    map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
+    for (auto widget: myMap[ui->TypeComboBox->currentText()]->champsForm()) {
+        ui->formNoteWidget->insertWidget(6,widget,0);
     }
 }
 
@@ -140,7 +136,7 @@ void PluriNotes::save() const {
     QFile newfile(path);
     //Faire une classe pour les exceptions
     if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
-       qDebug() << "erreur sauvegarde notes : ouverture fichier xml";
+        qDebug() << "erreur sauvegarde notes : ouverture fichier xml";
     QXmlStreamWriter stream(&newfile);
     stream.setAutoFormatting(true);
     stream.writeStartDocument();
@@ -150,7 +146,7 @@ void PluriNotes::save() const {
         stream.writeStartElement("article");
         stream.writeTextElement("id",note->getId());
         stream.writeTextElement("title",note->getTitle());
-        const NoteArticle *noteContent = dynamic_cast<const NoteArticle*>(&note->getLastVersion());
+        const Article *noteContent = dynamic_cast<const Article*>(&note->getLastVersion());
         stream.writeTextElement("content",noteContent->getText());
         stream.writeEndElement();
     }
@@ -213,7 +209,7 @@ void PluriNotes::load() {
                 }
                 qDebug()<<"ajout note "<<id<<"\n";
                 NoteEntity *newNoteEntity = new NoteEntity(QString(id));
-                const NoteArticle *newNote = new NoteArticle(QString(title), QString(content));
+                const Article *newNote = new Article(QString(title), QString(content));
                 newNoteEntity->addVersion(*newNote);
                 notes.push_back(newNoteEntity);
                 listItemAndPointer* itm = new listItemAndPointer(newNoteEntity);
@@ -224,10 +220,9 @@ void PluriNotes::load() {
     }
     // Error handling.
     if(xml.hasError()) {
-         qDebug() << "Erreur lecteur fichier notes, parser xml";
+        qDebug() << "Erreur lecteur fichier notes, parser xml";
     }
     // Removes any device() or data from the reader * and resets its internal state to the initial state.
     xml.clear();
     qDebug()<<"fin load\n";
 }
-

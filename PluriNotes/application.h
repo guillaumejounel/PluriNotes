@@ -20,6 +20,8 @@ namespace Ui {
     class PluriNotes;
 }
 
+typedef map<QString,NoteElement*>::const_iterator MapIterator;
+
 class PluriNotes : public QMainWindow {
     Q_OBJECT
 private:
@@ -49,7 +51,7 @@ public:
 
 
 signals:
-public slots:
+    public slots:
     void toNewNoteForm();
     void displayNote();
     void saveNote();
@@ -61,9 +63,9 @@ public slots:
 
 
 class listItemAndPointer : public QListWidgetItem {
-private :
+    private :
     NoteEntity* notePointer;
-public :
+    public :
     listItemAndPointer(NoteEntity* ptr) : notePointer(ptr) {}
     NoteEntity* getNotePointer() const {return notePointer;}
 };
