@@ -73,9 +73,8 @@ void PluriNotes::displayNote() {
 }
 
 void PluriNotes::saveNote() {
-    //Faire des vérifications de validité (id...)
+    //TODO Faire des vérifications de validité (id...)
     //Puis créer la note
-    qDebug() << "Creation of \"" << ui->titleLineEdit->text() << "\"";
     NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
 
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();

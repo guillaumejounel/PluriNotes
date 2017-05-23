@@ -2,7 +2,6 @@
 #include "application.h"
 
 NoteEntity::NoteEntity(const QString& id) : id(id){
-    qDebug() << id << "is being created";
 }
 
 QString NoteEntity::getId() const {return id;}
