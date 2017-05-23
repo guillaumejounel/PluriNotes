@@ -189,7 +189,7 @@ void PluriNotes::load() {
                 //We'll continue the loop until we hit an EndElement named article.
                 while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "article")) {
                     if(xml.tokenType() == QXmlStreamReader::StartElement) {
-                        // We've found identificteur.
+                        // We've found identificateur.
                         if(xml.name() == "id") {
                             xml.readNext(); id=xml.text().toString();
                             qDebug()<<"id="<<id<<"\n";
