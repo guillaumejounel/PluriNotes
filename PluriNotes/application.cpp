@@ -7,13 +7,14 @@
 #include <QLineEdit>
 #include <QScrollArea>
 
-
-
 PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriNotes) {
+    //Constructeur de la classe PluriNotes
     ui->setupUi(this);
+    //Commencement de l'application avec l'affichage des notes
     ui->mainStackedWidget->setCurrentIndex(0);
+    //Chargement des notes existantes
     load();
-
+    //Chargement des différents types de notes dont il faut proposer la création
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
     for (MapIterator iter = myMap.begin(); iter != myMap.end(); iter++) {
         ui->TypeComboBox->addItem(iter->first);
@@ -21,6 +22,7 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
 }
 
 PluriNotes::~PluriNotes() {
+    //Destructeur de la classe PluriNotes
     delete ui;
     if(instanceUnique) delete instanceUnique;
     instanceUnique = nullptr;
@@ -29,13 +31,14 @@ PluriNotes::~PluriNotes() {
 }
 
 void PluriNotes::toNewNoteForm() {
+    //Ouverture du formulaire de création de notes
     is_idChanged = false;
     ui->ButtonNewNote->setEnabled(false);
     ui->idLineEdit->setText("");
     ui->titleLineEdit->setText("");
     ui->TypeComboBox->setCurrentIndex(0);
-    ui->mainStackedWidget->setCurrentIndex(1);
     ui->listNotesWidget->setEnabled(false);
+    ui->mainStackedWidget->setCurrentIndex(1);
     typeChanged();
 }
 
@@ -82,6 +85,9 @@ void PluriNotes::saveNote() {
     ui->mainStackedWidget->setCurrentIndex(0);
     ui->ButtonNewNote->setEnabled(true);
     ui->listNotesWidget->setEnabled(true);
+
+    //Impossible d'enregistrer des documents pour le moment !
+    //Il faut refaire save() pour qu'il s'adapte à tout type de note
     save();
 }
 
