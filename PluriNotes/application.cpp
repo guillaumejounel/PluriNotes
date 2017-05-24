@@ -49,13 +49,17 @@ void PluriNotes::setTextContentArticle(const QString& c){
     ui->noteTextContent->setText(c);
 }
 
-void PluriNotes::setNoteId(const QString &i){
+void PluriNotes::setNoteId(const QString& i){
     ui->noteTextId->setText(i);
 }
 
 
-void PluriNotes::setNoteTitle(const QString &t){
+void PluriNotes::setNoteTitle(const QString& t){
     ui->noteTextTitle->setText(t);
+}
+
+void PluriNotes::setNoteDate(const QDateTime& d){
+    ui->noteTextDate->setText(d.toString("dddd dd MMMM yyyy hh:mm:ss"));
 }
 
 void PluriNotes::displayNote() {

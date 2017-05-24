@@ -37,7 +37,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="displayNotePage">
        <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,0,0">
@@ -50,19 +50,6 @@
         </item>
         <item row="2" column="0" colspan="4">
          <widget class="QTextEdit" name="noteTextContent">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="4">
-         <widget class="QTextEdit" name="noteTextId">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>30</height>
-           </size>
-          </property>
           <property name="readOnly">
            <bool>true</bool>
           </property>
@@ -117,6 +104,29 @@ background-color: rgb(233, 90, 77);
           </property>
          </widget>
         </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QTextEdit" name="noteTextId">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QTextEdit" name="noteTextDate">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>30</height>
+           </size>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="newNotePage">
@@ -152,8 +162,8 @@ background-color: rgb(233, 90, 77);
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>623</width>
-             <height>358</height>
+             <width>639</width>
+             <height>366</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">

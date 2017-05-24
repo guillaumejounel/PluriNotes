@@ -6,7 +6,7 @@ NoteEntity::NoteEntity(const QString& id) : id(id){
 
 QString NoteEntity::getId() const {return id;}
 
-QString NoteEntity::getTitle() const{return versions.back() -> getTitle();}
+QString NoteEntity::getTitle() const{return versions.back()->getTitle();}
 
 
 void NoteEntity::addVersion(const NoteElement& newVersion) {
@@ -31,6 +31,7 @@ void Article::displayNote() const {
     PluriNotes& manager = PluriNotes::getManager();
     manager.setTextContentArticle(this->getText());
     manager.setNoteTitle(this->getTitle());
+    manager.setNoteDate(this->getCreationDate());
 
     //ui->mainStackedWidget->setCurrentIndex(0);
 }

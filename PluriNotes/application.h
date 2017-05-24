@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 #include <QMainWindow>
-#include <QDate>
 #include <QString>
 #include <QScrollArea>
 #include <QListWidgetItem>
@@ -48,6 +47,7 @@ public:
     void setTextContentArticle(const QString& c);
     void setNoteTitle(const QString& t);
     void setNoteId(const QString& i);
+    void setNoteDate(const QDateTime& d);
 
 signals:
     public slots:

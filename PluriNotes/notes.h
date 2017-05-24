@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-#include <QDate>
+#include <QDateTime>
 #include <QString>
 #include <QtGui>
 #include <QLabel>
@@ -26,32 +26,32 @@ class NoteElement;
 class NoteEntity {
 private:
     QString id;
-    QDate creationDate;
-    QDate modificationDate;
     bool archived;
     vector<const NoteElement*> versions;
-
 public:
     NoteEntity(const QString& id);
     ~NoteEntity() { versions.clear(); }
     QString getId() const;
     QString getTitle() const;
     const NoteElement& getLastVersion() const;
-    QDate getCreationDate() const;
-    QDate getModificationDate() const;
     bool isArchived() const;
     void addVersion(const NoteElement&);
 };
 
 class NoteElement {
+private:
     const QString title;
+    QDateTime creationDate;
 protected:
     static map<QString, NoteElement*> const& NoteTypeList (QString typeName, NoteElement* ptNote);
 public:
     NoteElement() {}
-    NoteElement(const QString& title) : title(title) {}
+    NoteElement(const QString& title) : title(title) {
+        creationDate = QDateTime::currentDateTime();
+    }
     static map<QString, NoteElement*> getTypesNotes();
     const QString& getTitle() const { return title; }
+    const QDateTime& getCreationDate() const { return creationDate; }
     virtual QList<QWidget*> champsForm() = 0;
     virtual void displayNote() const = 0;
     virtual NoteElement* saveNote(QString title) = 0;
@@ -86,7 +86,7 @@ private:
     QTextEdit* testText;
     QLabel* testLabel;
 public:
-    Article() { }
+    Article() {}
     Article(const QString& title, const QString& text): BaseNoteType(title), text(text) {}
     const QString& getText() const {return text;}
     virtual void displayNote() const override;
@@ -94,7 +94,6 @@ public:
     Article* saveNote(QString title) override;
     ~Article() {}
 };
-
 
 setNoteType(Document)
 private:
