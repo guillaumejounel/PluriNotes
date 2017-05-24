@@ -29,12 +29,11 @@ private:
     QDate creationDate;
     QDate modificationDate;
     bool archived;
-    bool bin;
     vector<const NoteElement*> versions;
 
 public:
     NoteEntity(const QString& id);
-    ~NoteEntity() {versions.clear();}
+    ~NoteEntity() { versions.clear(); }
     QString getId() const;
     QString getTitle() const;
     const NoteElement& getLastVersion() const;
@@ -88,14 +87,14 @@ private:
     QLabel* testLabel;
 public:
     Article() { }
-    Article(const QString& title, const QString& text):
-    BaseNoteType(title), text(text) {}
+    Article(const QString& title, const QString& text): BaseNoteType(title), text(text) {}
     const QString& getText() const {return text;}
     virtual void displayNote() const override;
     QList<QWidget*> champsForm() override;
     Article* saveNote(QString title) override;
     ~Article() {}
 };
+
 
 setNoteType(Document)
 private:
@@ -111,6 +110,22 @@ public:
     QList<QWidget*> champsForm() override;
     Document* saveNote(QString title) override;
     ~Document() {}
+};
+
+setNoteType(Task)
+private:
+    const QString description;
+    QLineEdit *fichier, *descr;
+    QLabel *lfichier, *ldescr;
+public:
+    Task() {}
+    Task(const QString& title, const QString& description):
+    BaseNoteType(title), description(description) {}
+    const QString& getDescription() const {return description;}
+    virtual void displayNote() const override {}
+    QList<QWidget*> champsForm() override {}
+    Task* saveNote(QString title) override {}
+    ~Task() {}
 };
 
 #endif // PLURINOTES_H

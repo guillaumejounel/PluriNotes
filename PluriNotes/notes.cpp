@@ -47,7 +47,7 @@ QList<QWidget*> Article::champsForm() {
     testText = new QTextEdit();
     testLabel = new QLabel(QString("ok"));
     QList<QWidget*> listeWidgets;
-    listeWidgets <<testText << testLabel;
+    listeWidgets << testText << testLabel;
     return listeWidgets;
 }
 

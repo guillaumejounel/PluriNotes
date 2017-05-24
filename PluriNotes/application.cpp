@@ -73,6 +73,7 @@ void PluriNotes::displayNote() {
 }
 
 void PluriNotes::saveNote() {
+    //Enregistre dans le vecteur notes de la classe PluriNotes
     //TODO Faire des vérifications de validité (id...)
     //Puis créer la note
     NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
@@ -149,12 +150,14 @@ void PluriNotes::idChanged() {
 }
 
 void PluriNotes::typeChanged() {
+    //Suppression des champs non communs
     while (ui->formNoteWidget->count() > 7) {
         QLayoutItem* temp = ui->formNoteWidget->itemAt(6);
         temp->widget()->hide();
         ui->formNoteWidget->removeItem(temp);
         delete temp;
     }
+    //Ajout des champs selon le type de note
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
     for (auto widget: myMap[ui->TypeComboBox->currentText()]->champsForm()) {
         ui->formNoteWidget->insertWidget(6,widget,0);
