@@ -36,12 +36,12 @@ private:
     ~PluriNotes();
     PluriNotes(const PluriNotes& m);
     PluriNotes& operator=(const PluriNotes& m);
+    void load(); // load notes from file
+    void save() const; // save notes in file
 
 public:
     static PluriNotes& getManager();
     Ui::PluriNotes* getUi() { return ui; }
-    void load(); // load notes from file
-    void save() const; // save notes in file
     void deleteNote(const QString& id);
     void emptyTrash();
     void setAutoDelete(bool);
