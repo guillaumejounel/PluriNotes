@@ -64,19 +64,19 @@ public:
     BaseNoteType() {}
     BaseNoteType(const QString& title) : NoteElement(title) {}
 
-    static size_t setTypeInList() {
+    static int setTypeInList() {
         return NoteTypeList(Note::name(), Note::newType()).size();
     }
-    static size_t id;
+    static int id;
 };
 
 template <class Note>
-size_t BaseNoteType<Note>::id = setTypeInList();
+int BaseNoteType<Note>::id = setTypeInList();
 
 #define setNoteType(TypeNote) \
 class TypeNote : public BaseNoteType<TypeNote> { \
 public:\
-size_t idc { id }; \
+int idc { id }; \
 static TypeNote* newType() { return new TypeNote; } \
 static QString name() { return QString::fromUtf8(#TypeNote); }
 
@@ -109,22 +109,6 @@ public:
     QList<QWidget*> champsForm() override;
     Document* saveNote(QString title) override;
     ~Document() {}
-};
-
-setNoteType(Task)
-private:
-    const QString description;
-    QLineEdit *fichier, *descr;
-    QLabel *lfichier, *ldescr;
-public:
-    Task() {}
-    Task(const QString& title, const QString& description):
-    BaseNoteType(title), description(description) {}
-    const QString& getDescription() const {return description;}
-    virtual void displayNote() const override {}
-    QList<QWidget*> champsForm() override {}
-    Task* saveNote(QString title) override {}
-    ~Task() {}
 };
 
 #endif // PLURINOTES_H

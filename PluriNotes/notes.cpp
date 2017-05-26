@@ -32,16 +32,12 @@ void Article::displayNote() const {
     manager.setTextContentArticle(this->getText());
     manager.setNoteTitle(this->getTitle());
     manager.setNoteDate(this->getCreationDate());
-
-    //ui->mainStackedWidget->setCurrentIndex(0);
 }
 
 void Document::displayNote() const {
     PluriNotes& manager = PluriNotes::getManager();
     manager.setTextContentArticle(this->getDescription());
     manager.setNoteTitle(this->getTitle());
-
-    //ui->mainStackedWidget->setCurrentIndex(0);
 }
 
 QList<QWidget*> Article::champsForm() {
