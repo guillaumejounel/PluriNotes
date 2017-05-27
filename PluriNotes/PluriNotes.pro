@@ -28,10 +28,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     plurinotes.cpp \
     application.cpp \
-    notes.cpp
+    notes.cpp \
+    noteentity.cpp \
+    noteelement.cpp \
+    notetemplate.cpp \
+    note_article.cpp \
+    note_document.cpp
 
 HEADERS  += \
     application.h \
-    notes.h
+    notes.h \
+    noteentity.h \
+    noteelement.h \
+    notetemplate.h \
+    note_article.h \
+    note_document.h
 
 FORMS    += plurinotes.ui

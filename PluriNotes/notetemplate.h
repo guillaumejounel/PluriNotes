@@ -1,0 +1,31 @@
+#ifndef NOTETEMPLATE_H
+#define NOTETEMPLATE_H
+
+#include <QString>
+#include "noteelement.h"
+
+template <class Note>
+class BaseNoteType : public NoteElement {
+public:
+    BaseNoteType() {}
+    BaseNoteType(const QString& title) : NoteElement(title) {}
+
+    static int setTypeInList() {
+        return NoteTypeList(Note::name(), Note::newType()).size();
+    }
+    static int id;
+};
+
+template <class Note>
+int BaseNoteType<Note>::id = setTypeInList();
+
+
+
+
+#define setNoteType(TypeNote) \
+class TypeNote : public BaseNoteType<TypeNote> { \
+public:\
+int idc { id }; \
+static TypeNote* newType() { return new TypeNote; } \
+static QString name() { return QString::fromUtf8(#TypeNote); }
+#endif // NOTETEMPLATE_H
