@@ -21,8 +21,8 @@ public:
         creationDate = QDateTime::currentDateTime();
     }
     static map<QString, NoteElement*> getTypesNotes();
-    const QString& getTitle() const { return title; }
-    const QDateTime& getCreationDate() const { return creationDate; }
+    const QString& getTitle() const;
+    const QDateTime& getCreationDate() const;
     virtual QList<QWidget*> champsForm() = 0;
     virtual void displayNote() const = 0;
     virtual NoteElement* saveNote(QString title) = 0;
@@ -31,5 +31,7 @@ public:
 
 
 
+inline const QString& NoteElement::getTitle() const { return title; }
+inline const QDateTime& NoteElement::getCreationDate() const { return creationDate; }
 
 #endif // NOTEELEMENT_H

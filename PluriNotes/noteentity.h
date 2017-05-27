@@ -22,4 +22,8 @@ public:
 };
 
 
+
+inline QString NoteEntity::getId() const {return id;}
+inline bool NoteEntity::isArchived() const {return archived;}
+
 #endif // NOTEENTITY_H
