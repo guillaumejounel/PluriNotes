@@ -123,6 +123,12 @@ public:
     //! Delete note based on its id
     void deleteNote(const QString& id);
 
+    //! Function to move a note element from notes to trash
+    void moveToTrash(NoteEntity* noteEl);
+
+    //! Function to move a note element from trash to notes
+    void moveBackFromTrash(NoteEntity* noteEl);
+
     //! \brief Empty trash
     void emptyTrash();
 
@@ -148,6 +154,9 @@ public:
     //! This is for note date
     //! \brief Setter UI, note date
     void setNoteDate(const QDateTime& d);
+
+    void addNoteToList(NoteEntity* note);
+    void removeNoteFromList(NoteEntity* note);
 
 signals:
     public slots:

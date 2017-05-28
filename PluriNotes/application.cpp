@@ -74,11 +74,13 @@ void PluriNotes::createActions()
     exitAction->setShortcuts(QKeySequence::Quit);
     connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
 
+    /*
     aboutAction = new QAction(tr("&About"), this);
     QList<QKeySequence> aboutShortcuts;
     aboutShortcuts << tr("Ctrl+A") << tr("Ctrl+B");
     aboutAction->setShortcuts(aboutShortcuts);
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
+    */
 }
 
 void PluriNotes::createMenus()
@@ -167,7 +169,7 @@ void PluriNotes::displayNote() {
 
 void PluriNotes::saveNote() {
     //Enregistre dans le vecteur notes de la classe PluriNotes
-    //TODO Faire des vérifications de validité (id...)
+    //! \todo Faire des vérifications de validité (id...)
     //Puis créer la note
     NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
 
@@ -178,14 +180,7 @@ void PluriNotes::saveNote() {
     newNoteEntity->addVersion(*newNote);
     notes.push_back(newNoteEntity);
 
-    listItemAndPointer* itm = new listItemAndPointer(newNoteEntity);
-    itm->setText(newNoteEntity->getTitle());
-
-    ui->listNotesWidget->insertItem(0, itm);
-    ui->listNotesWidget->setCurrentRow(0);
-    ui->mainStackedWidget->setCurrentIndex(0);
-    ui->ButtonNewNote->setEnabled(true);
-    ui->listNotesWidget->setEnabled(true);
+    addNoteToList(newNoteEntity);
 
     //Impossible d'enregistrer des documents pour le moment !
     //Il faut refaire save() pour qu'il s'adapte à tout type de note
@@ -206,21 +201,48 @@ void PluriNotes::deleteNote() {
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
     NoteEntity* currentSelectedNote = item->getNotePointer();
 
-
-
-
     //Enregistre dans le fichier
     //save();
-
 
     //Supprime la note selectionnée de listNotesWidget
     //qDeleteAll(ui->listNotesWidget->selectedItems());
 
-
-
     QUndoCommand *deleteCommand = new deleteNoteCommand(currentSelectedNote);
     undoStack->push(deleteCommand);
 }
+
+//! \todo add error handling
+void PluriNotes::moveToTrash(NoteEntity *noteEl){
+    unsigned int i = 0;
+    for (auto note: notes) {
+        if (noteEl==note) {
+            notes.erase(notes.begin()+i);
+            corbeille.push_back(note);
+            return;
+        }
+        ++i;
+    }
+
+    //! \todo error handling
+}
+
+
+void PluriNotes::moveBackFromTrash(NoteEntity* noteEl){
+    unsigned int i = 0;
+    for (auto note: corbeille) {
+        if (noteEl==note) {
+            corbeille.erase(corbeille.begin()+i);
+            notes.push_back(note);
+            addNoteToList(noteEl);
+            return;
+        }
+        ++i;
+    }
+
+    //! \todo add error ?
+}
+
+
 
 void PluriNotes::cancelNote() {
     ui->ButtonNewNote->setEnabled(true);
@@ -373,4 +395,22 @@ void PluriNotes::load() {
     // Removes any device() or data from the reader * and resets its internal state to the initial state.
     xml.clear();
     qDebug()<<"fin load\n";
+}
+
+
+//! \todo add item to list based on last modified date !
+void PluriNotes::addNoteToList(NoteEntity* note){
+    listItemAndPointer* itm = new listItemAndPointer(note);
+    itm->setText(note->getTitle());
+
+    ui->listNotesWidget->insertItem(0, itm);
+    ui->listNotesWidget->setCurrentRow(0);
+    ui->mainStackedWidget->setCurrentIndex(0);
+    ui->ButtonNewNote->setEnabled(true);
+    ui->listNotesWidget->setEnabled(true);
+}
+
+
+void PluriNotes::removeNoteFromList(NoteEntity *note){
+    //
 }

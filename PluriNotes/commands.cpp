@@ -2,28 +2,23 @@
 #include "application.h"
 #include <qdebug.h>
 
-deleteNoteCommand::deleteNoteCommand(NoteEntity* note, QUndoCommand *parent) : QUndoCommand(parent), note(note){}
+
+deleteNoteCommand::deleteNoteCommand(NoteEntity* note, QUndoCommand *parent)
+    : QUndoCommand(parent), note(note){}
 
 
 void deleteNoteCommand::undo()
-{ std::cout<<"annuler suppression";}
+{
+    setText(QObject::tr("rétablir la Suppression de la note"));
+
+    PluriNotes& manager = PluriNotes::getManager();
+    manager.moveBackFromTrash(note);
+}
 
 void deleteNoteCommand::redo()
 {
+    setText(QObject::tr("Suppression de la note"));
 
-    std::cout<<"suppression de la note";
-
-    /*
-    PluriNotes manager = PluriNotes::getManager();
-
-    unsigned int i = 0;
-    for (auto note: notes) {
-        if (note==currentSelectedNote) {
-            manager.notes.erase(notes.begin()+i);
-            manager.corbeille.push_back(currentSelectedNote);
-            break;
-        }
-        ++i;
-    }
-    */
+    PluriNotes& manager = PluriNotes::getManager();
+    manager.moveToTrash(note);
 }
