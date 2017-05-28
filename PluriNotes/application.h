@@ -100,11 +100,10 @@ private:
     void createUndoView();
 
     QAction *deleteAction;
-    QAction *addBoxAction;
-    QAction *addTriangleAction;
     QAction *undoAction;
     QAction *redoAction;
     QAction *exitAction;
+    QAction *saveAction;
     QAction *aboutAction;
 
     QMenu *fileMenu;
@@ -198,6 +197,9 @@ signals:
 
     //! \todo What is this ?
     void typeChanged();
+
+    //! savefunction
+    void saveApplication();
 };
 
 

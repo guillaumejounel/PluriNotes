@@ -70,6 +70,10 @@ void PluriNotes::createActions()
     redoAction = undoStack->createRedoAction(this, tr("&Redo"));
     redoAction->setShortcuts(QKeySequence::Redo);
 
+    saveAction = new QAction(tr("S&ave"), this);
+    saveAction->setShortcut(tr("Ctrl+S"));
+    connect(saveAction, SIGNAL(triggered()), this, SLOT(saveApplication()));
+
     exitAction = new QAction(tr("E&xit"), this);
     exitAction->setShortcuts(QKeySequence::Quit);
     connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
@@ -83,9 +87,15 @@ void PluriNotes::createActions()
     */
 }
 
+
+void PluriNotes::saveApplication(){
+    save();
+}
+
 void PluriNotes::createMenus()
 {
     fileMenu = menuBar()->addMenu(tr("&File"));
+    fileMenu->addAction(saveAction);
     fileMenu->addAction(exitAction);
 
     editMenu = menuBar()->addMenu(tr("&Edit"));
