@@ -436,3 +436,18 @@ listItemAndPointer* PluriNotes::removeItemNoteFromList(listItemAndPointer* item)
     unsigned int i = ui->listNotesWidget->row(item);
     return static_cast<listItemAndPointer*>(ui->listNotesWidget->takeItem(i));
 }
+
+
+void PluriNotes::closeEvent(QCloseEvent *event){
+    event->ignore();
+    if (QMessageBox::Yes == QMessageBox::question(this, "Save data?",
+                              "Do you want to save data?",
+                              QMessageBox::Yes|QMessageBox::No))
+     {
+        save();
+        event->accept();
+     }
+    else
+        event->accept();
+
+}

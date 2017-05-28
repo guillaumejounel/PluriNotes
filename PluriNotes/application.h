@@ -17,7 +17,7 @@
 #include <QLineEdit>
 #include <QMessageBox>
 
-
+#include <QCloseEvent>
 
 
 #include "notes.h"
@@ -171,6 +171,9 @@ public:
     //! Function wich removes a listItemAndPointer* from the list\n
     //! it is returned so that it can be stored if we need it
     listItemAndPointer* removeItemNoteFromList(listItemAndPointer* item);
+
+    void closeEvent ( QCloseEvent * event );
+
 
 signals:
     public slots:
