@@ -9,7 +9,7 @@ deleteNoteCommand::deleteNoteCommand(listItemAndPointer* item, QUndoCommand *par
 
 void deleteNoteCommand::undo()
 {
-    setText(QObject::tr("rétablir la Suppression de la note"));
+    setText("rétablir la Suppression de la note "+item->getNotePointer()->getId());
 
     PluriNotes& manager = PluriNotes::getManager();
     manager.moveBackFromTrash(item->getNotePointer());
@@ -18,7 +18,7 @@ void deleteNoteCommand::undo()
 
 void deleteNoteCommand::redo()
 {
-    setText(QObject::tr("Suppression de la note"));
+    setText("Suppression de la note "+item->getNotePointer()->getId());
 
     PluriNotes& manager = PluriNotes::getManager();
     manager.moveToTrash(item->getNotePointer());
