@@ -16,15 +16,15 @@ using namespace std;
 setNoteType(Article)
 private:
     const QString text;
-    QTextEdit* testText;
-    QLabel* testLabel;
+    QTextEdit* textFormZone;
+    QLabel* textLabel;
 public:
     Article() {}
     Article(const QString& title, const QDateTime& creaDate, const QString& text): BaseNoteType(title,creaDate), text(text) {}
     const QString& getText() const {return text;}
     virtual void displayNote() const override;
-    QList<QWidget*> champsForm() override;
-    Article* saveNote(QString title) override;
+    virtual QList<QWidget*> champsForm() override;
+    virtual Article* saveNote(QString title) override;
     ~Article() {}
 };
 

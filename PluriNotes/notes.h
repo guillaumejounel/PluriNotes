@@ -14,7 +14,7 @@
 #include "noteelement.h"
 #include "notetemplate.h"
 #include "note_article.h"
-#include "note_document.h"
+#include "note_task.h"
 
 
 using namespace std;

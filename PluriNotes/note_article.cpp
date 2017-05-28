@@ -9,17 +9,15 @@ void Article::displayNote() const {
     manager.setNoteDate(this->getCreationDate());
 }
 
-
-
 QList<QWidget*> Article::champsForm() {
-    testText = new QTextEdit();
-    testLabel = new QLabel(QString("Texte"));
+    textFormZone = new QTextEdit();
+    textLabel = new QLabel(QString("Texte"));
     QList<QWidget*> listeWidgets;
-    listeWidgets << testText << testLabel;
+    listeWidgets << textFormZone << textLabel;
     return listeWidgets;
 }
 
-Article* Article::saveNote(QString title)  {
-    return new Article(title, QDateTime::currentDateTime(), testText->toPlainText());
+Article* Article::saveNote(QString title) {
+    return new Article(title, QDateTime::currentDateTime(), textFormZone->toPlainText());
 }
 
