@@ -16,6 +16,14 @@
 #include <QScrollArea>
 #include <QLineEdit>
 #include <QMessageBox>
+
+class QAction;
+class QToolBar;
+class QMenu;
+class QUndoStack;
+class QUndoView;
+
+
 #include "notes.h"
 
 using namespace std;
@@ -82,6 +90,28 @@ private:
     //! Function to save the notes to an xml
     //! \brief saving function
     void save() const; // save notes in file
+
+
+    void createActions();
+    void createMenus();
+    void createUndoView();
+
+    QAction *deleteAction;
+    QAction *addBoxAction;
+    QAction *addTriangleAction;
+    QAction *undoAction;
+    QAction *redoAction;
+    QAction *exitAction;
+    QAction *aboutAction;
+
+    QMenu *fileMenu;
+    QMenu *editMenu;
+    QMenu *itemMenu;
+    QMenu *helpMenu;
+
+    QUndoStack *undoStack;
+    QUndoView *undoView;
+
 
 public:
     //! Implementation of the singleton design pattern : get the only instance

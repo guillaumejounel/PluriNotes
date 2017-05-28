@@ -4,6 +4,9 @@
 #include "notes.h"
 #include <QDateTime>
 
+#include "commands.h"
+#include <QtWidgets>
+
 PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriNotes) {
     //Constructeur de la classe PluriNotes
     ui->setupUi(this);
@@ -23,10 +26,94 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     else {
         ui->mainStackedWidget->setCurrentIndex(2);
     }
+
+    //! Creation of the undo stack
+    undoStack = new QUndoStack(this);
+
+    createActions();
+    createMenus();
+
+    createUndoView();
+
 }
+
+
+
+void PluriNotes::createUndoView()
+{
+    undoView = new QUndoView(undoStack);
+    undoView->setWindowTitle(tr("Command List"));
+    undoView->show();
+    undoView->setAttribute(Qt::WA_QuitOnClose, false);
+}
+
+void PluriNotes::createActions()
+{
+    /*
+    deleteAction = new QAction(tr("&Delete Item"), this);
+    deleteAction->setShortcut(tr("Del"));
+    connect(deleteAction, SIGNAL(triggered()), this, SLOT(deleteItem()));
+
+
+    addBoxAction = new QAction(tr("Add &Box"), this);
+    addBoxAction->setShortcut(tr("Ctrl+O"));
+    connect(addBoxAction, SIGNAL(triggered()), this, SLOT(addBox()));
+
+    addTriangleAction = new QAction(tr("Add &Triangle"), this);
+    addTriangleAction->setShortcut(tr("Ctrl+T"));
+    connect(addTriangleAction, SIGNAL(triggered()), this, SLOT(addTriangle()));
+    */
+
+    undoAction = undoStack->createUndoAction(this, tr("&Undo"));
+    undoAction->setShortcuts(QKeySequence::Undo);
+
+    redoAction = undoStack->createRedoAction(this, tr("&Redo"));
+    redoAction->setShortcuts(QKeySequence::Redo);
+
+    exitAction = new QAction(tr("E&xit"), this);
+    exitAction->setShortcuts(QKeySequence::Quit);
+    connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
+
+    aboutAction = new QAction(tr("&About"), this);
+    QList<QKeySequence> aboutShortcuts;
+    aboutShortcuts << tr("Ctrl+A") << tr("Ctrl+B");
+    aboutAction->setShortcuts(aboutShortcuts);
+    connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
+}
+
+void PluriNotes::createMenus()
+{
+    fileMenu = menuBar()->addMenu(tr("&File"));
+    fileMenu->addAction(exitAction);
+
+    editMenu = menuBar()->addMenu(tr("&Edit"));
+    editMenu->addAction(undoAction);
+    editMenu->addAction(redoAction);
+    editMenu->addSeparator();
+    /*
+    editMenu->addAction(deleteAction);
+
+    connect(editMenu, SIGNAL(aboutToShow()),
+            this, SLOT(itemMenuAboutToShow()));
+    connect(editMenu, SIGNAL(aboutToHide()),
+            this, SLOT(itemMenuAboutToHide()));
+    */
+    /*
+    itemMenu = menuBar()->addMenu(tr("&Item"));
+
+    itemMenu->addAction(addBoxAction);
+    itemMenu->addAction(addTriangleAction);
+
+    helpMenu = menuBar()->addMenu(tr("&About"));
+    helpMenu->addAction(aboutAction);
+    */
+}
+
+
 
 PluriNotes::~PluriNotes() {
     //Destructeur de la classe PluriNotes
+    save();
     delete ui;
     if(instanceUnique) delete instanceUnique;
     instanceUnique = nullptr;
@@ -114,22 +201,25 @@ void PluriNotes::deleteNote() {
     if (reply == QMessageBox::Yes) {
         qDebug() << "Yes was clicked";
     } */
+
     //Supprime la note selectionnée du vecteur notes
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
     NoteEntity* currentSelectedNote = item->getNotePointer();
-    unsigned int i = 0;
-    for (auto note: notes) {
-        if (note==currentSelectedNote) {
-            notes.erase(notes.begin()+i);
-            corbeille.push_back(currentSelectedNote);
-            break;
-        }
-        ++i;
-    }
+
+
+
+
     //Enregistre dans le fichier
-    save();
+    //save();
+
+
     //Supprime la note selectionnée de listNotesWidget
-    qDeleteAll(ui->listNotesWidget->selectedItems());
+    //qDeleteAll(ui->listNotesWidget->selectedItems());
+
+
+
+    QUndoCommand *deleteCommand = new deleteNoteCommand(currentSelectedNote);
+    undoStack->push(deleteCommand);
 }
 
 void PluriNotes::cancelNote() {
