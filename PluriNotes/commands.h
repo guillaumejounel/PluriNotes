@@ -3,16 +3,15 @@
 
 
 #include <QUndoCommand>
-#include <noteentity.h>
-
+#include "othertools.h"
 
 class deleteNoteCommand : public QUndoCommand
 {
 private:
-    NoteEntity* note;
+    listItemAndPointer* item;
 
 public:
-    deleteNoteCommand(NoteEntity* note, QUndoCommand *parent = 0);
+    deleteNoteCommand(listItemAndPointer* item, QUndoCommand *parent = 0);
 
     void undo() override;
     void redo() override;

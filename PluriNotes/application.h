@@ -17,14 +17,17 @@
 #include <QLineEdit>
 #include <QMessageBox>
 
+
+
+
+#include "notes.h"
+#include "othertools.h"
+
 class QAction;
 class QToolBar;
 class QMenu;
 class QUndoStack;
 class QUndoView;
-
-
-#include "notes.h"
 
 using namespace std;
 
@@ -155,8 +158,10 @@ public:
     //! \brief Setter UI, note date
     void setNoteDate(const QDateTime& d);
 
+    void addItemToList(listItemAndPointer* item);
     void addNoteToList(NoteEntity* note);
-    void removeNoteFromList(NoteEntity* note);
+
+    void removeItemNoteFromList(listItemAndPointer* item);
 
 signals:
     public slots:

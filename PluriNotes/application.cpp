@@ -199,7 +199,7 @@ void PluriNotes::deleteNote() {
 
     //Supprime la note selectionnée du vecteur notes
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
-    NoteEntity* currentSelectedNote = item->getNotePointer();
+    //NoteEntity* currentSelectedNote = item->getNotePointer();
 
     //Enregistre dans le fichier
     //save();
@@ -207,7 +207,7 @@ void PluriNotes::deleteNote() {
     //Supprime la note selectionnée de listNotesWidget
     //qDeleteAll(ui->listNotesWidget->selectedItems());
 
-    QUndoCommand *deleteCommand = new deleteNoteCommand(currentSelectedNote);
+    QUndoCommand *deleteCommand = new deleteNoteCommand(item);
     undoStack->push(deleteCommand);
 }
 
@@ -233,7 +233,6 @@ void PluriNotes::moveBackFromTrash(NoteEntity* noteEl){
         if (noteEl==note) {
             corbeille.erase(corbeille.begin()+i);
             notes.push_back(note);
-            addNoteToList(noteEl);
             return;
         }
         ++i;
@@ -402,8 +401,12 @@ void PluriNotes::load() {
 void PluriNotes::addNoteToList(NoteEntity* note){
     listItemAndPointer* itm = new listItemAndPointer(note);
     itm->setText(note->getTitle());
+    addItemToList(itm);
+}
 
-    ui->listNotesWidget->insertItem(0, itm);
+
+void PluriNotes::addItemToList(listItemAndPointer *item){
+    ui->listNotesWidget->insertItem(0, item);
     ui->listNotesWidget->setCurrentRow(0);
     ui->mainStackedWidget->setCurrentIndex(0);
     ui->ButtonNewNote->setEnabled(true);
@@ -411,6 +414,7 @@ void PluriNotes::addNoteToList(NoteEntity* note){
 }
 
 
-void PluriNotes::removeNoteFromList(NoteEntity *note){
-    //
+void PluriNotes::removeItemNoteFromList(listItemAndPointer* item){
+    unsigned int i = ui->listNotesWidget->row(item);
+    ui->listNotesWidget->takeItem(i);
 }
