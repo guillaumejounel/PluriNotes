@@ -14,6 +14,7 @@ void deleteNoteCommand::undo()
     PluriNotes& manager = PluriNotes::getManager();
     manager.moveBackFromTrash(item->getNotePointer());
     manager.addItemNoteToList(item);
+
 }
 
 void deleteNoteCommand::redo()
@@ -23,6 +24,8 @@ void deleteNoteCommand::redo()
     PluriNotes& manager = PluriNotes::getManager();
     manager.moveToTrash(item->getNotePointer());
     manager.removeItemNoteFromList(item);
+
+    manager.setDataChanged(true);
 }
 
 
@@ -46,4 +49,6 @@ void addNoteEntityCommand::redo()
     PluriNotes& manager = PluriNotes::getManager();
     listItemAndPointer* item = manager.addNote(noteEn);
     this->setItem(item);
+
+    manager.setDataChanged(true);
 }

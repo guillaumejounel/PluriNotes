@@ -10,8 +10,7 @@
 PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriNotes) {
     //Constructeur de la classe PluriNotes
     ui->setupUi(this);
-    //Chargement des notes existantes
-    load();
+
     //Chargement des différents types de notes dont il faut proposer la création
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
     for (MapIterator iter = myMap.begin(); iter != myMap.end(); iter++) {
@@ -35,6 +34,8 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
 
     createUndoView();
 
+    //Chargement des notes existantes
+    load();
 }
 
 
@@ -73,6 +74,7 @@ void PluriNotes::createActions()
     saveAction = new QAction(tr("S&ave"), this);
     saveAction->setShortcut(tr("Ctrl+S"));
     connect(saveAction, SIGNAL(triggered()), this, SLOT(saveApplication()));
+    saveAction->setEnabled(false);
 
     exitAction = new QAction(tr("E&xit"), this);
     exitAction->setShortcuts(QKeySequence::Quit);
@@ -125,7 +127,6 @@ void PluriNotes::createMenus()
 
 PluriNotes::~PluriNotes() {
     //Destructeur de la classe PluriNotes
-    save();
     delete ui;
     if(instanceUnique) delete instanceUnique;
     instanceUnique = nullptr;
@@ -196,7 +197,6 @@ void PluriNotes::saveNote() {
     //Impossible d'enregistrer des documents pour le moment !
     //Il faut refaire save() pour qu'il s'adapte à tout type de note
     //(créer une méthode virtuelle pure comme pour les boutons...)
-    save();
 }
 
 void PluriNotes::deleteNote() {
@@ -211,12 +211,6 @@ void PluriNotes::deleteNote() {
     //Supprime la note selectionnée du vecteur notes
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
     //NoteEntity* currentSelectedNote = item->getNotePointer();
-
-    //Enregistre dans le fichier
-    //save();
-
-    //Supprime la note selectionnée de listNotesWidget
-    //qDeleteAll(ui->listNotesWidget->selectedItems());
 
     QUndoCommand *deleteCommand = new deleteNoteCommand(item);
     undoStack->push(deleteCommand);
@@ -299,7 +293,7 @@ PluriNotes& PluriNotes::getManager() {
     return *instanceUnique;
 }
 
-void PluriNotes::save() const {
+void PluriNotes::save() {
     QString path = QCoreApplication::applicationDirPath();
     path.append("/data");
     QFile newfile(path);
@@ -323,6 +317,8 @@ void PluriNotes::save() const {
     stream.writeEndElement();
     stream.writeEndDocument();
     newfile.close();
+
+    setDataChanged(false);
 }
 
 void PluriNotes::load() {
@@ -405,6 +401,8 @@ void PluriNotes::load() {
     // Removes any device() or data from the reader * and resets its internal state to the initial state.
     xml.clear();
     qDebug()<<"fin load\n";
+
+    setDataChanged(false);
 }
 
 
@@ -437,17 +435,22 @@ listItemAndPointer* PluriNotes::removeItemNoteFromList(listItemAndPointer* item)
     return static_cast<listItemAndPointer*>(ui->listNotesWidget->takeItem(i));
 }
 
+void PluriNotes::setDataChanged(bool b) {
+    dataChanged = b;
+    saveAction->setEnabled(b);
+}
+
 
 void PluriNotes::closeEvent(QCloseEvent *event){
     event->ignore();
-    if (QMessageBox::Yes == QMessageBox::question(this, "Save data?",
-                              "Do you want to save data?",
-                              QMessageBox::Yes|QMessageBox::No))
-     {
-        save();
-        event->accept();
-     }
-    else
-        event->accept();
+    if (hasDataChanged()) {
+        if (QMessageBox::Yes == QMessageBox::question(this, "Save data?",
+                                  "Do you want to save data?",
+                                  QMessageBox::Yes|QMessageBox::No))
+         {
+            save();
+         }
+    }
+    event->accept();
 
 }

@@ -89,12 +89,13 @@ private:
 
     //! Function to load the notes from the saved file
     //! \brief loading function
-    void load(); // load notes from file
+    void load();
 
     //! Function to save the notes to an xml
     //! \brief saving function
-    void save() const; // save notes in file
+    void save();
 
+    bool dataChanged = false;
 
     void createActions();
     void createMenus();
@@ -172,6 +173,12 @@ public:
     //! Function wich removes a listItemAndPointer* from the list\n
     //! it is returned so that it can be stored if we need it
     listItemAndPointer* removeItemNoteFromList(listItemAndPointer* item);
+
+
+    //! Function to check if their has been modification to plurinotes
+    bool hasDataChanged() const {return dataChanged;}
+
+    void setDataChanged(bool b);
 
     void closeEvent ( QCloseEvent * event );
 
