@@ -158,10 +158,19 @@ public:
     //! \brief Setter UI, note date
     void setNoteDate(const QDateTime& d);
 
+    //! Function to add a note in the system \n
+    //! Returns an "listItemAndPointer*" the should be usefull in somme cases
     listItemAndPointer* addNote(NoteEntity* note);
+
+    //! Function to add an listItemAndPointer* to the list of notes
     void addItemNoteToList(listItemAndPointer* item);
+
+    //! Function to add a NoteEntity to the list of note \n
+    //! With creation of a listItemAndPointer*
     listItemAndPointer* addNoteToList(NoteEntity* note);
 
+    //! Function wich removes a listItemAndPointer* from the list\n
+    //! it is returned so that it can be stored if we need it
     listItemAndPointer* removeItemNoteFromList(listItemAndPointer* item);
 
 signals:
