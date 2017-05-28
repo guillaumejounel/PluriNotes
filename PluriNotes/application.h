@@ -158,10 +158,11 @@ public:
     //! \brief Setter UI, note date
     void setNoteDate(const QDateTime& d);
 
-    void addItemToList(listItemAndPointer* item);
-    void addNoteToList(NoteEntity* note);
+    listItemAndPointer* addNote(NoteEntity* note);
+    void addItemNoteToList(listItemAndPointer* item);
+    listItemAndPointer* addNoteToList(NoteEntity* note);
 
-    void removeItemNoteFromList(listItemAndPointer* item);
+    listItemAndPointer* removeItemNoteFromList(listItemAndPointer* item);
 
 signals:
     public slots:

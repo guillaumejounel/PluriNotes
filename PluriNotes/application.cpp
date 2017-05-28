@@ -178,9 +178,10 @@ void PluriNotes::saveNote() {
     QDateTime creationDate = QDateTime::currentDateTime();
     newNote->setCreationDate(creationDate);
     newNoteEntity->addVersion(*newNote);
-    notes.push_back(newNoteEntity);
 
-    addNoteToList(newNoteEntity);
+
+    QUndoCommand *addCommand = new addNoteEntityCommand(newNoteEntity);
+    undoStack->push(addCommand);
 
     //Impossible d'enregistrer des documents pour le moment !
     //Il faut refaire save() pour qu'il s'adapte à tout type de note
@@ -397,15 +398,22 @@ void PluriNotes::load() {
 }
 
 
+listItemAndPointer* PluriNotes::addNote(NoteEntity *note){
+    notes.push_back(note);
+    listItemAndPointer* item = addNoteToList(note);
+    return item;
+}
+
 //! \todo add item to list based on last modified date !
-void PluriNotes::addNoteToList(NoteEntity* note){
+listItemAndPointer* PluriNotes::addNoteToList(NoteEntity* note){
     listItemAndPointer* itm = new listItemAndPointer(note);
     itm->setText(note->getTitle());
-    addItemToList(itm);
+    addItemNoteToList(itm);
+    return itm;
 }
 
 
-void PluriNotes::addItemToList(listItemAndPointer *item){
+void PluriNotes::addItemNoteToList(listItemAndPointer *item){
     ui->listNotesWidget->insertItem(0, item);
     ui->listNotesWidget->setCurrentRow(0);
     ui->mainStackedWidget->setCurrentIndex(0);
@@ -414,7 +422,7 @@ void PluriNotes::addItemToList(listItemAndPointer *item){
 }
 
 
-void PluriNotes::removeItemNoteFromList(listItemAndPointer* item){
+listItemAndPointer* PluriNotes::removeItemNoteFromList(listItemAndPointer* item){
     unsigned int i = ui->listNotesWidget->row(item);
-    ui->listNotesWidget->takeItem(i);
+    return static_cast<listItemAndPointer*>(ui->listNotesWidget->takeItem(i));
 }

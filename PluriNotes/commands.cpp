@@ -13,7 +13,7 @@ void deleteNoteCommand::undo()
 
     PluriNotes& manager = PluriNotes::getManager();
     manager.moveBackFromTrash(item->getNotePointer());
-    manager.addItemToList(item);
+    manager.addItemNoteToList(item);
 }
 
 void deleteNoteCommand::redo()
@@ -23,4 +23,27 @@ void deleteNoteCommand::redo()
     PluriNotes& manager = PluriNotes::getManager();
     manager.moveToTrash(item->getNotePointer());
     manager.removeItemNoteFromList(item);
+}
+
+
+addNoteEntityCommand::addNoteEntityCommand(NoteEntity* noteEn, listItemAndPointer* item, QUndoCommand *parent )
+    : QUndoCommand(parent), noteEn(noteEn), item(item){}
+
+
+void addNoteEntityCommand::undo()
+{
+    setText("Annulation de la création de la note :"+noteEn->getId());
+
+    PluriNotes& manager = PluriNotes::getManager();
+    manager.removeItemNoteFromList(item);
+    //! \todo ajouter contrainte non nullité de item
+    //! \todo vérifier fuite mémoire !!!
+}
+
+void addNoteEntityCommand::redo()
+{
+    setText("Création de la note :"+noteEn->getId());
+    PluriNotes& manager = PluriNotes::getManager();
+    listItemAndPointer* item = manager.addNote(noteEn);
+    this->setItem(item);
 }
