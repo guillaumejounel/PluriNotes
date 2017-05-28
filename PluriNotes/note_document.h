@@ -6,6 +6,7 @@ using namespace std;
 
 #include <QLineEdit>
 #include <QLabel>
+#include <QDateTime>
 
 setNoteType(Document)
 private:
@@ -14,8 +15,8 @@ private:
     QLabel *lfichier, *ldescr;
 public:
     Document() {}
-    Document(const QString& title, const QString& description):
-    BaseNoteType(title), description(description) {}
+    Document(const QString& title, const QDateTime& creaDate, const QString& description):
+    BaseNoteType(title,creaDate), description(description) {}
     const QString& getDescription() const {return description;}
     virtual void displayNote() const override;
     QList<QWidget*> champsForm() override;

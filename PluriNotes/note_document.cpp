@@ -1,6 +1,7 @@
 #include "note_document.h"
 #include "application.h"
 
+#include <QDateTime>
 
 
 void Document::displayNote() const {
@@ -21,5 +22,5 @@ QList<QWidget*> Document::champsForm() {
 }
 
 Document* Document::saveNote(QString title) {
-    return new Document(title, descr->text());
+    return new Document(title, QDateTime::currentDateTime(), descr->text());
 }

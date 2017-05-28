@@ -1,6 +1,6 @@
 #include "note_article.h"
 #include "application.h"
-
+#include <QDateTime>
 
 void Article::displayNote() const {
     PluriNotes& manager = PluriNotes::getManager();
@@ -20,6 +20,6 @@ QList<QWidget*> Article::champsForm() {
 }
 
 Article* Article::saveNote(QString title)  {
-    return new Article(title, testText->toPlainText());
+    return new Article(title, QDateTime::currentDateTime(), testText->toPlainText());
 }
 

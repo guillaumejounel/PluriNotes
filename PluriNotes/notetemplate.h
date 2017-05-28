@@ -2,13 +2,14 @@
 #define NOTETEMPLATE_H
 
 #include <QString>
+#include <QDateTime>
 #include "noteelement.h"
 
 template <class Note>
 class BaseNoteType : public NoteElement {
 public:
     BaseNoteType() {}
-    BaseNoteType(const QString& title) : NoteElement(title) {}
+    BaseNoteType(const QString& title, const QDateTime& creaDate) : NoteElement(title,creaDate)  {}
 
     static int setTypeInList() {
         return NoteTypeList(Note::name(), Note::newType()).size();

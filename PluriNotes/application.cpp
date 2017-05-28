@@ -1,6 +1,8 @@
 #include "application.h"
 #include "ui_plurinotes.h"
+
 #include "notes.h"
+#include <QDateTime>
 
 PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriNotes) {
     //Constructeur de la classe PluriNotes
@@ -83,7 +85,9 @@ void PluriNotes::saveNote() {
     NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
 
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
-    const NoteElement* newNote = myMap[ui->TypeComboBox->currentText()]->saveNote(ui->titleLineEdit->text());
+    NoteElement* newNote = myMap[ui->TypeComboBox->currentText()]->saveNote(ui->titleLineEdit->text());
+    QDateTime creationDate = QDateTime::currentDateTime();
+    newNote->setCreationDate(creationDate);
     newNoteEntity->addVersion(*newNote);
     notes.push_back(newNoteEntity);
 
@@ -190,6 +194,7 @@ void PluriNotes::save() const {
         stream.writeTextElement("id",note->getId());
         stream.writeTextElement("title",note->getTitle());
         const Article *noteContent = dynamic_cast<const Article*>(&note->getLastVersion());
+        stream.writeTextElement("creationDate",noteContent->getCreationDate().toString("dddd dd MMMM yyyy hh:mm:ss"));
         stream.writeTextElement("content",noteContent->getText());
         stream.writeEndElement();
     }
@@ -222,6 +227,7 @@ void PluriNotes::load() {
                 qDebug()<<"new article\n";
                 QString id;
                 QString title;
+                QString creationDate;
                 QString content;
                 QXmlStreamAttributes attributes = xml.attributes();
                 xml.readNext();
@@ -235,11 +241,20 @@ void PluriNotes::load() {
                             qDebug()<<"id="<<id<<"\n";
                         }
 
-                        // We've found titre.
+                        // We've found title.
                         if(xml.name() == "title") {
                             xml.readNext(); title=xml.text().toString();
                             qDebug()<<"title="<<title<<"\n";
                         }
+
+
+                        // We've found date.
+                        if(xml.name() == "creationDate") {
+                            xml.readNext(); creationDate=xml.text().toString();
+                            qDebug()<<"creationDate="<<creationDate<<"\n";
+                        }
+
+
                         // We've found text
                         if(xml.name() == "content") {
                             xml.readNext();
@@ -252,7 +267,7 @@ void PluriNotes::load() {
                 }
                 qDebug()<<"ajout note "<<id<<"\n";
                 NoteEntity *newNoteEntity = new NoteEntity(QString(id));
-                const Article *newNote = new Article(QString(title), QString(content));
+                const Article *newNote = new Article(QString(title), QDateTime::fromString(QString(creationDate),"dddd dd MMMM yyyy hh:mm:ss"), QString(content));
                 newNoteEntity->addVersion(*newNote);
                 notes.push_back(newNoteEntity);
                 listItemAndPointer* itm = new listItemAndPointer(newNoteEntity);

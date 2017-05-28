@@ -8,7 +8,7 @@
 #include <QTextEdit>
 #include <QLabel>
 #include <QWidget>
-
+#include <QDateTime>
 
 using namespace std;
 
@@ -20,7 +20,7 @@ private:
     QLabel* testLabel;
 public:
     Article() {}
-    Article(const QString& title, const QString& text): BaseNoteType(title), text(text) {}
+    Article(const QString& title, const QDateTime& creaDate, const QString& text): BaseNoteType(title,creaDate), text(text) {}
     const QString& getText() const {return text;}
     virtual void displayNote() const override;
     QList<QWidget*> champsForm() override;
