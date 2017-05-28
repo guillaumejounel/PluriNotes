@@ -13,7 +13,7 @@ void Article::displayNote() const {
 
 QList<QWidget*> Article::champsForm() {
     testText = new QTextEdit();
-    testLabel = new QLabel(QString("ok"));
+    testLabel = new QLabel(QString("Texte"));
     QList<QWidget*> listeWidgets;
     listeWidgets << testText << testLabel;
     return listeWidgets;
