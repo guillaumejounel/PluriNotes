@@ -71,7 +71,8 @@ private:
     //! \todo WHAT IS THIS ??
     bool autoDelete;
 
-    //! \todo WHAT IS THIS ??
+    //! Boolean for the id autofill form if not already changed
+    //! \brief Boolean for the id autofill form
     bool is_idChanged;
 
     //! \todo WHAT IS THIS ??
@@ -177,10 +178,10 @@ public:
 
 signals:
     public slots:
-    //! \todo What is this ?
+    //! Method to change stackedWidget to make new notes
     void toNewNoteForm();
 
-    //! \todo What is this ?
+    //! Method to change stackedWidget to the note display window
     void displayNote();
 
     //! \todo What is this ?
