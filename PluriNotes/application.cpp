@@ -1,6 +1,6 @@
 #include "application.h"
 #include "ui_plurinotes.h"
-
+#include "othertools.h"
 #include "notes.h"
 #include <QDateTime>
 

@@ -33,7 +33,8 @@ SOURCES += \
     noteelement.cpp \
     notetemplate.cpp \
     note_article.cpp \
-    note_document.cpp
+    note_document.cpp \
+    othertools.cpp
 
 HEADERS  += \
     application.h \
@@ -42,6 +43,7 @@ HEADERS  += \
     noteelement.h \
     notetemplate.h \
     note_article.h \
-    note_document.h
+    note_document.h \
+    othertools.h
 
 FORMS    += plurinotes.ui
