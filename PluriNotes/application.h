@@ -145,6 +145,11 @@ public:
     void setTextContentArticle(const QString& c);
 
     //! Setter for the ui :\n
+    //! This is for tasks content
+    //! \brief Setter UI, tasks content
+    void setActionContentTask(const QString& c);
+
+    //! Setter for the ui :\n
     //! This is for note titles
     //! \brief Setter UI, note titles
     void setNoteTitle(const QString& t);

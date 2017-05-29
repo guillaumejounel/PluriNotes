@@ -151,10 +151,13 @@ void PluriNotes::setTextContentArticle(const QString& c){
     ui->noteTextContent->setText(c);
 }
 
+void PluriNotes::setActionContentTask(const QString& c){
+    ui->noteTextContent->setText(c);
+}
+
 void PluriNotes::setNoteId(const QString& i){
     ui->noteTextId->setText(i);
 }
-
 
 void PluriNotes::setNoteTitle(const QString& t){
     ui->noteTextTitle->setText(t);
