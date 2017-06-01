@@ -143,7 +143,7 @@ void PluriNotes::toNewNoteForm() {
     ui->TypeComboBox->setCurrentIndex(0);
     ui->listNotesWidget->setEnabled(false);
     ui->mainStackedWidget->setCurrentIndex(1);
-    typeChanged();
+    typeChangedForm();
 }
 
 
@@ -276,7 +276,22 @@ void PluriNotes::idChanged() {
     //Checker ici si l'id n'est pas déjà pris
 }
 
-void PluriNotes::typeChanged() {
+void PluriNotes::typeChangedForm() {
+    //Suppression des champs non communs
+    while (ui->formNoteWidget->count() > 7) {
+        QLayoutItem* temp = ui->formNoteWidget->itemAt(6);
+        temp->widget()->hide();
+        ui->formNoteWidget->removeItem(temp);
+        delete temp;
+    }
+    //Ajout des champs selon le type de note
+    map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
+    for (auto widget: myMap[ui->TypeComboBox->currentText()]->champsForm()) {
+        ui->formNoteWidget->insertWidget(6,widget,0);
+    }
+}
+
+void PluriNotes::typeChangedDisplay() {
     //Suppression des champs non communs
     while (ui->formNoteWidget->count() > 7) {
         QLayoutItem* temp = ui->formNoteWidget->itemAt(6);

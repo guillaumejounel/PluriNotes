@@ -211,8 +211,11 @@ signals:
     //! \todo What is this ?
     void idChanged();
 
-    //! \todo What is this ?
-    void typeChanged();
+    //! Method to change QT fields in the new note form (with type of note in mind)
+    void typeChangedForm();
+
+    //! Method to change QT fields in the display note form (with type of note in mind)
+    void typeChangedDisplay();
 
     //! savefunction
     void saveApplication();

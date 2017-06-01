@@ -4,10 +4,18 @@
 
 
 void Tache::displayNote() const {
-    // TODO: displayNote en fonction du type de note à afficher, il faut changer les champs de l'ui
     PluriNotes& manager = PluriNotes::getManager();
     manager.setActionContentTask(this->getAction());
     manager.setNoteTitle(this->getTitle());
+    manager.setNoteDate(this->getCreationDate());
+}
+
+QList<QWidget*> Tache::champsDisplay() {
+    laction = new QLabel(QString("Tache"));
+    actionFormZone = new QTextEdit();
+    QList<QWidget*> listeWidgets;
+    listeWidgets << actionFormZone << laction << taskStatusForm << lstatus << taskPrioForm << lprio;
+    return listeWidgets;
 }
 
 QList<QWidget*> Tache::champsForm() {

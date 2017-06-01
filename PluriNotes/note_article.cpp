@@ -9,6 +9,14 @@ void Article::displayNote() const {
     manager.setNoteDate(this->getCreationDate());
 }
 
+QList<QWidget*> Article::champsDisplay() {
+    textFormZone = new QTextEdit();
+    textLabel = new QLabel(QString("Texte"));
+    QList<QWidget*> listeWidgets;
+    listeWidgets << textFormZone << textLabel;
+    return listeWidgets;
+}
+
 QList<QWidget*> Article::champsForm() {
     textFormZone = new QTextEdit();
     textLabel = new QLabel(QString("Texte"));

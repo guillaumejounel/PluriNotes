@@ -25,6 +25,7 @@ public:
     Tache(const QString& title, const QDateTime& creaDate, const QString& action, const Status& taskStatus, const Priority& taskPrio): BaseNoteType(title,creaDate), action(action), taskStatus(taskStatus), taskPrio(taskPrio) {}
     const QString& getAction() const {return action;}
     virtual void displayNote() const override;
+    virtual QList<QWidget*> champsDisplay() override;
     virtual QList<QWidget*> champsForm() override;
     virtual Tache* saveNote(QString title) override;
     ~Tache() {}

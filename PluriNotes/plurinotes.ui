@@ -37,7 +37,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="displayNotePage">
        <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,0,0">
@@ -312,30 +312,14 @@ background-color: rgb(233, 90, 77);
    </hints>
   </connection>
   <connection>
-   <sender>TypeComboBox</sender>
-   <signal>currentTextChanged(QString)</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>typeChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>424</x>
-     <y>359</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>599</x>
-     <y>254</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>titleLineEdit</sender>
    <signal>textChanged(QString)</signal>
    <receiver>PluriNotes</receiver>
    <slot>titleChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>459</x>
-     <y>143</y>
+     <x>605</x>
+     <y>206</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -350,8 +334,8 @@ background-color: rgb(233, 90, 77);
    <slot>saveNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>509</x>
-     <y>403</y>
+     <x>718</x>
+     <y>550</y>
     </hint>
     <hint type="destinationlabel">
      <x>553</x>
@@ -366,8 +350,8 @@ background-color: rgb(233, 90, 77);
    <slot>cancelNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>441</x>
-     <y>403</y>
+     <x>587</x>
+     <y>577</y>
     </hint>
     <hint type="destinationlabel">
      <x>571</x>
@@ -382,8 +366,8 @@ background-color: rgb(233, 90, 77);
    <slot>idChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>413</x>
-     <y>249</y>
+     <x>559</x>
+     <y>374</y>
     </hint>
     <hint type="destinationlabel">
      <x>601</x>
@@ -398,12 +382,28 @@ background-color: rgb(233, 90, 77);
    <slot>deleteNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>742</x>
-     <y>397</y>
+     <x>835</x>
+     <y>580</y>
     </hint>
     <hint type="destinationlabel">
      <x>789</x>
      <y>387</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>TypeComboBox</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>typeChangedForm()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>312</x>
+     <y>528</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>470</x>
+     <y>598</y>
     </hint>
    </hints>
   </connection>
@@ -412,7 +412,7 @@ background-color: rgb(233, 90, 77);
   <slot>saveNote()</slot>
   <slot>titleChanged()</slot>
   <slot>idChanged()</slot>
-  <slot>typeChanged()</slot>
+  <slot>typeChangedForm()</slot>
   <slot>cancelNote()</slot>
   <slot>toNewNoteForm()</slot>
   <slot>displayNote()</slot>
