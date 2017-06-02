@@ -5,17 +5,10 @@
 
 void Tache::displayNote() const {
     PluriNotes& manager = PluriNotes::getManager();
-    manager.setActionContentTask(this->getAction());
     manager.setNoteTitle(this->getTitle());
     manager.setNoteDate(this->getCreationDate());
-}
-
-QList<QWidget*> Tache::champsDisplay() {
-    laction = new QLabel(QString("Tache"));
-    actionFormZone = new QTextEdit();
-    QList<QWidget*> listeWidgets;
-    listeWidgets << actionFormZone << laction << taskStatusForm << lstatus << taskPrioForm << lprio;
-    return listeWidgets;
+    manager.setTaskPrio(this->getPriority());
+    manager.setNoteContent(this->getAction());
 }
 
 QList<QWidget*> Tache::champsForm() {
@@ -39,13 +32,29 @@ Tache* Tache::saveNote(QString title) {
 
     stringToStatus.insert("En attente", awaiting);
     stringToStatus.insert("En cours", pending);
-    stringToStatus.insert("Finie", finished);
+    stringToStatus.insert("Accomplie", finished);
     stringToPrio.insert("Faible", low);
     stringToPrio.insert("Normale", normal);
-    stringToPrio.insert("Haute", high);
+    stringToPrio.insert("Elevée", high);
 
     Status taskStatus = stringToStatus[taskPrioForm->currentText()];
     Priority taskPrio = stringToPrio[taskPrioForm->currentText()];
 
     return new Tache(title, QDateTime::currentDateTime(), actionFormZone->toPlainText(), taskStatus, taskPrio);
+}
+
+const QString& Tache::getPriority() const {
+    QMap<Priority, QString> prioToString;
+    prioToString.insert(low, "Faible");
+    prioToString.insert(normal, "Normale");
+    prioToString.insert(high, "Elevée");
+    return prioToString[this->taskPrio];
+}
+
+const QString& Tache::getStatus() const {
+    QMap<Status, QString> statusToString;
+    statusToString.insert(awaiting, "En attente");
+    statusToString.insert(pending, "En cours");
+    statusToString.insert(finished, "Accomplie");
+    return statusToString[this->taskStatus];
 }

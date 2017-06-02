@@ -21,7 +21,6 @@ public:
     Article(const QString& title, const QDateTime& creaDate, const QString& text): BaseNoteType(title,creaDate), text(text) {}
     const QString& getText() const {return text;}
     virtual void displayNote() const override;
-    virtual QList<QWidget*> champsDisplay() override;
     virtual QList<QWidget*> champsForm() override;
     virtual Article* saveNote(QString title) override;
     ~Article() {}

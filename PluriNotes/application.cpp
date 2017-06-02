@@ -146,35 +146,48 @@ void PluriNotes::toNewNoteForm() {
     typeChangedForm();
 }
 
-
-void PluriNotes::setTextContentArticle(const QString& c){
-    ui->noteTextContent->setText(c);
-}
-
-void PluriNotes::setActionContentTask(const QString& c){
-    ui->noteTextContent->setText(c);
-}
-
-void PluriNotes::setNoteId(const QString& i){
-    ui->noteTextId->setText(i);
-}
+//void PluriNotes::setNoteId(const QString& i){
+//    ui->idDisplayLineEdit->setText(i);
+//}
 
 void PluriNotes::setNoteTitle(const QString& t){
-    ui->noteTextTitle->setText(t);
+    ui->titleDisplayLineEdit->setText(t);
 }
 
 void PluriNotes::setNoteDate(const QDateTime& d){
-    ui->noteTextDate->setText(d.toString("dddd dd MMMM yyyy hh:mm:ss"));
+    ui->dateDisplayLineEdit->setText(d.toString("dddd dd MMMM yyyy hh:mm:ss"));
+}
+
+void PluriNotes::setNoteContent(const QString& c){
+    QLabel* contentDisplayLabel = new QLabel(QString("Contenu"));
+    QTextEdit* contentDisplayTextEdit = new QTextEdit(c);
+    ui->displayNoteWidget->insertWidget(5, contentDisplayTextEdit, 0);
+    ui->displayNoteWidget->insertWidget(5, contentDisplayLabel, 0);
+}
+
+void PluriNotes::setTaskPrio(const QString& p){
+    QLabel* priorityDisplayLabel = new QLabel(QString("Priority"));
+    QLineEdit* priorityDisplayLineEdit = new QLineEdit(p);
+    ui->displayNoteWidget->insertWidget(5, priorityDisplayLineEdit, 0);
+    ui->displayNoteWidget->insertWidget(5, priorityDisplayLabel, 0);
 }
 
 void PluriNotes::displayNote() {
     if(notes.size()) {
         listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
         NoteEntity* currentSelectedNote = item->getNotePointer();
-        ui->noteTextId->setText(currentSelectedNote->getId());
-
         const NoteElement& note = currentSelectedNote->getLastVersion();
+        ui->idDisplayLineEdit->setText(currentSelectedNote->getId());
+        //Suppression des champs variables
+        while (ui->displayNoteWidget->count() > 6) {
+            QLayoutItem* temp = ui->displayNoteWidget->itemAt(5);
+            temp->widget()->hide();
+            ui->displayNoteWidget->removeItem(temp);
+            delete temp;
+        }
+        //Ajout et remplissage des champs de type de note
         note.displayNote();
+
         ui->mainStackedWidget->setCurrentIndex(0);
     } else {
         ui->mainStackedWidget->setCurrentIndex(2);
@@ -277,21 +290,6 @@ void PluriNotes::idChanged() {
 }
 
 void PluriNotes::typeChangedForm() {
-    //Suppression des champs non communs
-    while (ui->formNoteWidget->count() > 7) {
-        QLayoutItem* temp = ui->formNoteWidget->itemAt(6);
-        temp->widget()->hide();
-        ui->formNoteWidget->removeItem(temp);
-        delete temp;
-    }
-    //Ajout des champs selon le type de note
-    map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
-    for (auto widget: myMap[ui->TypeComboBox->currentText()]->champsForm()) {
-        ui->formNoteWidget->insertWidget(6,widget,0);
-    }
-}
-
-void PluriNotes::typeChangedDisplay() {
     //Suppression des champs non communs
     while (ui->formNoteWidget->count() > 7) {
         QLayoutItem* temp = ui->formNoteWidget->itemAt(6);

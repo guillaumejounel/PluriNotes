@@ -4,17 +4,9 @@
 
 void Article::displayNote() const {
     PluriNotes& manager = PluriNotes::getManager();
-    manager.setTextContentArticle(this->getText());
     manager.setNoteTitle(this->getTitle());
     manager.setNoteDate(this->getCreationDate());
-}
-
-QList<QWidget*> Article::champsDisplay() {
-    textFormZone = new QTextEdit();
-    textLabel = new QLabel(QString("Texte"));
-    QList<QWidget*> listeWidgets;
-    listeWidgets << textFormZone << textLabel;
-    return listeWidgets;
+    manager.setNoteContent(this->getText());
 }
 
 QList<QWidget*> Article::champsForm() {
