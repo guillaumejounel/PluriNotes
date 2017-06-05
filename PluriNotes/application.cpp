@@ -161,15 +161,15 @@ void PluriNotes::setNoteDate(const QDateTime& d){
 void PluriNotes::setNoteContent(const QString& c){
     QLabel* contentDisplayLabel = new QLabel(QString("Contenu"));
     QTextEdit* contentDisplayTextEdit = new QTextEdit(c);
-    ui->displayNoteWidget->insertWidget(5, contentDisplayTextEdit, 0);
-    ui->displayNoteWidget->insertWidget(5, contentDisplayLabel, 0);
+    ui->displayNoteWidget->insertWidget(6, contentDisplayTextEdit, 0);
+    ui->displayNoteWidget->insertWidget(6, contentDisplayLabel, 0);
 }
 
 void PluriNotes::setTaskPrio(const QString& p){
     QLabel* priorityDisplayLabel = new QLabel(QString("Priority"));
     QLineEdit* priorityDisplayLineEdit = new QLineEdit(p);
-    ui->displayNoteWidget->insertWidget(5, priorityDisplayLineEdit, 0);
-    ui->displayNoteWidget->insertWidget(5, priorityDisplayLabel, 0);
+    ui->displayNoteWidget->insertWidget(6, priorityDisplayLineEdit, 0);
+    ui->displayNoteWidget->insertWidget(6, priorityDisplayLabel, 0);
 }
 
 void PluriNotes::displayNote() {
@@ -179,8 +179,8 @@ void PluriNotes::displayNote() {
         const NoteElement& note = currentSelectedNote->getLastVersion();
         ui->idDisplayLineEdit->setText(currentSelectedNote->getId());
         //Suppression des champs variables
-        while (ui->displayNoteWidget->count() > 6) {
-            QLayoutItem* temp = ui->displayNoteWidget->itemAt(5);
+        while (ui->displayNoteWidget->count() > 7) {
+            QLayoutItem* temp = ui->displayNoteWidget->itemAt(6);
             temp->widget()->hide();
             ui->displayNoteWidget->removeItem(temp);
             delete temp;
