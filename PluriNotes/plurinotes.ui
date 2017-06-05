@@ -371,6 +371,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>deleteNoteButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>deleteNote()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>481</x>
+     <y>571</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>306</x>
+     <y>596</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>saveNote()</slot>
