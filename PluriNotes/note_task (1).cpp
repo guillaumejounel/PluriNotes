@@ -21,7 +21,3 @@ QList<QWidget*> Tache::champsForm() {
 Tache* Tache::saveNote(QString title) {
     //return new Tache(title, QDateTime::currentDateTime(), descr->text());
 }
-
-Tache* Tache::addVersion() const {
-    //return new Tache(title, QDateTime::currentDateTime(), descr->text());
-}

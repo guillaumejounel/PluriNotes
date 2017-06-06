@@ -146,7 +146,6 @@ void PluriNotes::toNewNoteForm() {
     typeChanged();
 }
 
-
 void PluriNotes::setTextContentArticle(const QString& c){
     ui->noteTextContent->setText(c);
 }
@@ -164,17 +163,35 @@ void PluriNotes::setNoteDate(const QDateTime& d){
     ui->noteTextDate->setText(d.toString("dddd dd MMMM yyyy hh:mm:ss"));
 }
 
+NoteEntity& PluriNotes::getCurrentNote() {
+    listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
+    return *item->getNotePointer();
+}
+
 void PluriNotes::displayNote() {
     if(notes.size()) {
-        listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
-        NoteEntity* currentSelectedNote = item->getNotePointer();
-        ui->noteTextId->setText(currentSelectedNote->getId());
-
-        const NoteElement& note = currentSelectedNote->getLastVersion();
+        const NoteEntity& currentSelectedNote = getCurrentNote();
+        ui->noteTextId->setText(currentSelectedNote.getId());
+        const NoteElement& note = currentSelectedNote.getLastVersion();
         note.displayNote();
         ui->mainStackedWidget->setCurrentIndex(0);
     } else {
         ui->mainStackedWidget->setCurrentIndex(2);
+    }
+}
+
+void PluriNotes::noteTextChanged() {
+    NoteEntity& currentSelectedNote = getCurrentNote();
+
+    //TODO : adapter ça selon le type de note..?
+    const Article& note = static_cast<const Article&>(currentSelectedNote.getLastVersion());
+
+    if(ui->noteTextTitle->toPlainText() == note.getTitle() && ui->noteTextContent->toPlainText() == note.getText()) {
+        ui->buttonCancelEditArticle->setEnabled(0);
+        ui->buttonSaveEditArticle->setEnabled(0);
+    } else {
+        ui->buttonCancelEditArticle->setEnabled(1);
+        ui->buttonSaveEditArticle->setEnabled(1);
     }
 }
 
@@ -184,12 +201,12 @@ void PluriNotes::saveNote() {
     //Puis créer la note
     NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
 
+
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
     NoteElement* newNote = myMap[ui->TypeComboBox->currentText()]->saveNote(ui->titleLineEdit->text());
     QDateTime creationDate = QDateTime::currentDateTime();
     newNote->setCreationDate(creationDate);
     newNoteEntity->addVersion(*newNote);
-
 
     QUndoCommand *addCommand = new addNoteEntityCommand(newNoteEntity);
     undoStack->push(addCommand);
@@ -197,6 +214,13 @@ void PluriNotes::saveNote() {
     //Impossible d'enregistrer des documents pour le moment !
     //Il faut refaire save() pour qu'il s'adapte à tout type de note
     //(créer une méthode virtuelle pure comme pour les boutons...)
+}
+
+void PluriNotes::saveNewVersion() {
+    NoteEntity& currentNote = getCurrentNote();
+    const NoteElement& newNote = currentNote.getLastVersion();
+    currentNote.addVersion(*newNote.addVersion());
+    displayNote();
 }
 
 void PluriNotes::deleteNote() {

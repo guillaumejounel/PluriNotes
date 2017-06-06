@@ -10,7 +10,9 @@ void NoteEntity::addVersion(const NoteElement& newVersion) {
     versions.push_back(&newVersion);
 }
 
-QString NoteEntity::getTitle() const{return versions.back()->getTitle();}
+QString NoteEntity::getTitle() const {
+    return versions.back()->getTitle();
+}
 
 
 const NoteElement& NoteEntity::getLastVersion() const {

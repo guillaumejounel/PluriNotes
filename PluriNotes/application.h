@@ -116,6 +116,8 @@ private:
     QUndoStack *undoStack;
     QUndoView *undoView;
 
+    NoteEntity& getCurrentNote();
+
 
 public:
     //! Implementation of the singleton design pattern : get the only instance
@@ -211,6 +213,9 @@ signals:
 
     //! savefunction
     void saveApplication();
+
+    void noteTextChanged();
+    void saveNewVersion();
 };
 
 
