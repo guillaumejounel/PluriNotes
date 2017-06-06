@@ -75,6 +75,8 @@ private:
     //! \brief Boolean for the id autofill form
     bool is_idChanged;
 
+    bool isDisplayed;
+
     //! \todo WHAT IS THIS ??
     explicit PluriNotes(QWidget *parent = 0);
 
@@ -216,6 +218,7 @@ signals:
 
     void noteTextChanged();
     void saveNewVersion();
+    void noteVersionChanged();
 };
 
 

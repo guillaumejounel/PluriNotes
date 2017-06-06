@@ -16,15 +16,7 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     for (MapIterator iter = myMap.begin(); iter != myMap.end(); iter++) {
         ui->TypeComboBox->addItem(iter->first);
     }
-    //Affiche l'écran de démarrage
-    if(notes.size()) {
-        ui->mainStackedWidget->setCurrentIndex(0);
-        //Sélectionner la note active
-        ui->listNotesWidget->item(0)->setSelected(true);
-    }
-    else {
-        ui->mainStackedWidget->setCurrentIndex(2);
-    }
+
 
     //! Creation of the undo stack
     undoStack = new QUndoStack(this);
@@ -36,6 +28,16 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
 
     //Chargement des notes existantes
     load();
+
+    //Affiche l'écran de démarrage
+    if(notes.size()) {
+        ui->mainStackedWidget->setCurrentIndex(0);
+        //Sélectionner la note active
+        ui->listNotesWidget->item(0)->setSelected(true);
+    }
+    else {
+        ui->mainStackedWidget->setCurrentIndex(2);
+    }
 }
 
 
@@ -169,15 +171,27 @@ NoteEntity& PluriNotes::getCurrentNote() {
 }
 
 void PluriNotes::displayNote() {
+    isDisplayed = false;
     if(notes.size()) {
         const NoteEntity& currentSelectedNote = getCurrentNote();
         ui->noteTextId->setText(currentSelectedNote.getId());
+        ui->noteTextVersion->clear();
+        for(unsigned int i = currentSelectedNote.getSize(); i > 0; --i)
+            ui->noteTextVersion->addItem(QString("Version ") + QString::number(i));
+        if (currentSelectedNote.getSize() == 1) ui->noteTextVersion->setEnabled(0);
+        else ui->noteTextVersion->setEnabled(1);
         const NoteElement& note = currentSelectedNote.getLastVersion();
         note.displayNote();
         ui->mainStackedWidget->setCurrentIndex(0);
     } else {
         ui->mainStackedWidget->setCurrentIndex(2);
     }
+    isDisplayed = true;
+}
+
+void PluriNotes::noteVersionChanged() {
+    if (isDisplayed)
+        qDebug() << "Version changed";
 }
 
 void PluriNotes::noteTextChanged() {
