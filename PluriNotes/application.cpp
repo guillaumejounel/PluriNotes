@@ -172,6 +172,13 @@ void PluriNotes::setTaskPrio(const QString& p){
     ui->displayNoteWidget->insertWidget(6, priorityDisplayLabel, 0);
 }
 
+void PluriNotes::setTaskStatus(const QString& p){
+    QLabel* statusDisplayLabel = new QLabel(QString("Status"));
+    QLineEdit* statusDisplayLineEdit = new QLineEdit(p);
+    ui->displayNoteWidget->insertWidget(6, statusDisplayLineEdit, 0);
+    ui->displayNoteWidget->insertWidget(6, statusDisplayLabel, 0);
+}
+
 void PluriNotes::displayNote() {
     if(notes.size()) {
         listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());

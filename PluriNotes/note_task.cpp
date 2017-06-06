@@ -7,8 +7,9 @@ void Tache::displayNote() const {
     PluriNotes& manager = PluriNotes::getManager();
     manager.setNoteTitle(this->getTitle());
     manager.setNoteDate(this->getCreationDate());
-    manager.setTaskPrio(this->getPriority());
     manager.setNoteContent(this->getAction());
+    manager.setTaskStatus(this->getStatus());
+    manager.setTaskPrio(this->getPriority());
 }
 
 QList<QWidget*> Tache::champsForm() {
@@ -16,11 +17,11 @@ QList<QWidget*> Tache::champsForm() {
     actionFormZone = new QTextEdit();
     lprio = new QLabel(QString("Priorité"));
     taskPrioForm = new QComboBox();
-    taskPrioForm->addItems(QStringList({"Faible","Normale","Haute"}));
+    taskPrioForm->addItems(QStringList({"Faible","Normale","Elevée"}));
     taskPrioForm->setCurrentText(QString("Normale"));
     lstatus = new QLabel(QString("Statut"));
     taskStatusForm = new QComboBox();
-    taskStatusForm->addItems(QStringList({"En attente","En cours","Finie"}));
+    taskStatusForm->addItems(QStringList({"En attente","En cours","Accomplie"}));
     QList<QWidget*> listeWidgets;
     listeWidgets << actionFormZone << laction << taskStatusForm << lstatus << taskPrioForm << lprio;
     return listeWidgets;
@@ -37,13 +38,12 @@ Tache* Tache::saveNote(QString title) {
     stringToPrio.insert("Normale", normal);
     stringToPrio.insert("Elevée", high);
 
-    Status taskStatus = stringToStatus[taskPrioForm->currentText()];
+    Status taskStatus = stringToStatus[taskStatusForm->currentText()];
     Priority taskPrio = stringToPrio[taskPrioForm->currentText()];
-
     return new Tache(title, QDateTime::currentDateTime(), actionFormZone->toPlainText(), taskStatus, taskPrio);
 }
 
-const QString& Tache::getPriority() const {
+const QString Tache::getPriority() const {
     QMap<Priority, QString> prioToString;
     prioToString.insert(low, "Faible");
     prioToString.insert(normal, "Normale");
@@ -51,10 +51,11 @@ const QString& Tache::getPriority() const {
     return prioToString[this->taskPrio];
 }
 
-const QString& Tache::getStatus() const {
+const QString Tache::getStatus() const {
     QMap<Status, QString> statusToString;
     statusToString.insert(awaiting, "En attente");
     statusToString.insert(pending, "En cours");
     statusToString.insert(finished, "Accomplie");
+    qDebug() << statusToString << this->taskStatus << statusToString[this->taskStatus];
     return statusToString[this->taskStatus];
 }

@@ -145,9 +145,14 @@ public:
     void setNoteContent(const QString& c);
 
     //! Setter for the ui :\n
-    //! This is for note content
-    //! \brief Setter UI, note content
+    //! This is for task priority
+    //! \brief Setter UI, task priority
     void setTaskPrio(const QString& p);
+
+    //! Setter for the ui :\n
+    //! This is for task status
+    //! \brief Setter UI, task status
+    void setTaskStatus(const QString& p);
 
     //! Setter for the ui :\n
     //! This is for note titles
