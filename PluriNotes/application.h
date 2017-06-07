@@ -144,19 +144,29 @@ public:
     void setAutoDelete(bool);
 
     //! Setter for the ui :\n
-    //! This is for articles content
-    //! \brief Setter UI, article content
-    void setTextContentArticle(const QString& c);
+    //! This is for note content
+    //! \brief Setter UI, note content
+    void setNoteContent(const QString& c);
+
+    //! Setter for the ui :\n
+    //! This is for task priority
+    //! \brief Setter UI, task priority
+    void setTaskPrio(const QString& p);
+
+    //! Setter for the ui :\n
+    //! This is for task status
+    //! \brief Setter UI, task status
+    void setTaskStatus(const QString& p);
 
     //! Setter for the ui :\n
     //! This is for note titles
     //! \brief Setter UI, note titles
     void setNoteTitle(const QString& t);
 
-    //! Setter for the ui :\n
-    //! This is for note id
-    //! \brief Setter UI, note id
-    void setNoteId(const QString& i);
+//    //! Setter for the ui :\n
+//    //! This is for note id
+//    //! \brief Setter UI, note id
+//    void setNoteId(const QString& i);
 
     //! Setter for the ui :\n
     //! This is for note date
@@ -192,7 +202,7 @@ signals:
     //! Method to change stackedWidget to make new notes
     void toNewNoteForm();
 
-    //! Method to change stackedWidget to the note display window
+    //! Method to change stackedWidget to the note display window and adapt fields
     void displayNote(unsigned int n = 0);
 
     //! \todo What is this ?
@@ -210,8 +220,8 @@ signals:
     //! \todo What is this ?
     void idChanged();
 
-    //! \todo What is this ?
-    void typeChanged();
+    //! Method to change QT fields in the new note form (with type of note in mind)
+    void typeChangedForm();
 
     //! savefunction
     void saveApplication();

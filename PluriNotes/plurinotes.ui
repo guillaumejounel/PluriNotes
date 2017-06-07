@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>799</width>
-    <height>432</height>
+    <width>854</width>
+    <height>602</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,7 +37,7 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="4">
+    <item row="0" column="4" rowspan="2">
      <widget class="QStackedWidget" name="mainStackedWidget">
       <property name="minimumSize">
        <size>
@@ -49,119 +49,98 @@
        <number>0</number>
       </property>
       <widget class="QWidget" name="displayNotePage">
-       <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,0,0,0">
-        <item row="1" column="3">
-         <widget class="QTextEdit" name="noteTextDate">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>30</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="5">
-         <widget class="QTextEdit" name="noteTextTitle">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="readOnly">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="2">
-         <widget class="QTextEdit" name="noteTextId">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="readOnly">
+       <layout class="QGridLayout" name="verticalLayout_2" rowstretch="0">
+        <item row="0" column="0">
+         <widget class="QScrollArea" name="scrollArea_2">
+          <property name="widgetResizable">
            <bool>true</bool>
           </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QPushButton" name="buttonSaveEditArticle">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="text">
-           <string>Save</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="5">
-         <widget class="QTextEdit" name="noteTextContent">
-          <property name="readOnly">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QPushButton" name="buttonCancelEditArticle">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="text">
-           <string>Cancel</string>
-          </property>
-          <property name="autoDefault">
-           <bool>false</bool>
-          </property>
-          <property name="flat">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="4">
-         <widget class="QPushButton" name="deleteNoteButton">
-          <property name="styleSheet">
-           <string notr="true">#deleteNoteButton {
-background-color: rgb(255, 149, 147);
-border-style: outset;
-border-width: 2px;
-border-color: white;
-max-width: 60px;
-font: bold 14px;
-}
-#deleteNoteButton:pressed {
-background-color: rgb(233, 90, 77);
-}</string>
-          </property>
-          <property name="text">
-           <string>Delete</string>
-          </property>
-          <property name="autoDefault">
-           <bool>false</bool>
-          </property>
-          <property name="default">
-           <bool>false</bool>
-          </property>
-          <property name="flat">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QComboBox" name="noteTextVersion">
-          <property name="autoFillBackground">
-           <bool>false</bool>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="currentIndex">
-           <number>-1</number>
-          </property>
-          <property name="duplicatesEnabled">
-           <bool>false</bool>
-          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>679</width>
+             <height>564</height>
+            </rect>
+           </property>
+           <widget class="QWidget" name="verticalLayoutWidget">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>681</width>
+              <height>571</height>
+             </rect>
+            </property>
+            <layout class="QVBoxLayout" name="displayNoteWidget">
+             <item>
+              <widget class="QLabel" name="titleDisplayLabel">
+               <property name="text">
+                <string>Titre</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="titleDisplayLineEdit"/>
+             </item>
+             <item>
+              <widget class="QLabel" name="idDisplayLabel">
+               <property name="text">
+                <string>id</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="idDisplayLineEdit"/>
+             </item>
+             <item>
+              <widget class="QLabel" name="dateDisplayLabel">
+               <property name="text">
+                <string>Date</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="dateDisplayLineEdit"/>
+             </item>
+             <item>
+              <widget class="QComboBox" name="noteTextVersion">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonCancelEditArticle">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Cancel</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonSaveEditArticle">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Save</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="deleteNoteButton">
+               <property name="text">
+                <string>Delete</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </widget>
          </widget>
         </item>
        </layout>
@@ -199,8 +178,8 @@ background-color: rgb(233, 90, 77);
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>623</width>
-             <height>358</height>
+             <width>685</width>
+             <height>570</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
@@ -242,7 +221,7 @@ background-color: rgb(233, 90, 77);
                  <item>
                   <widget class="QLabel" name="titleLabel">
                    <property name="text">
-                    <string>title</string>
+                    <string>Title</string>
                    </property>
                   </widget>
                  </item>
@@ -349,30 +328,14 @@ background-color: rgb(233, 90, 77);
    </hints>
   </connection>
   <connection>
-   <sender>TypeComboBox</sender>
-   <signal>currentTextChanged(QString)</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>typeChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>424</x>
-     <y>359</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>599</x>
-     <y>254</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>titleLineEdit</sender>
    <signal>textChanged(QString)</signal>
    <receiver>PluriNotes</receiver>
    <slot>titleChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>459</x>
-     <y>143</y>
+     <x>605</x>
+     <y>206</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -387,8 +350,8 @@ background-color: rgb(233, 90, 77);
    <slot>saveNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>509</x>
-     <y>403</y>
+     <x>718</x>
+     <y>550</y>
     </hint>
     <hint type="destinationlabel">
      <x>553</x>
@@ -403,8 +366,8 @@ background-color: rgb(233, 90, 77);
    <slot>cancelNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>441</x>
-     <y>403</y>
+     <x>587</x>
+     <y>577</y>
     </hint>
     <hint type="destinationlabel">
      <x>571</x>
@@ -419,12 +382,28 @@ background-color: rgb(233, 90, 77);
    <slot>idChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>413</x>
-     <y>249</y>
+     <x>559</x>
+     <y>374</y>
     </hint>
     <hint type="destinationlabel">
      <x>601</x>
      <y>181</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>TypeComboBox</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>typeChangedForm()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>312</x>
+     <y>528</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>470</x>
+     <y>598</y>
     </hint>
    </hints>
   </connection>
@@ -435,92 +414,12 @@ background-color: rgb(233, 90, 77);
    <slot>deleteNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>742</x>
-     <y>397</y>
+     <x>481</x>
+     <y>571</y>
     </hint>
     <hint type="destinationlabel">
-     <x>789</x>
-     <y>387</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>noteTextContent</sender>
-   <signal>textChanged()</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>noteTextChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>521</x>
-     <y>301</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>541</x>
-     <y>428</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>noteTextTitle</sender>
-   <signal>textChanged()</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>noteTextChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>390</x>
-     <y>75</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>483</x>
-     <y>424</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonCancelEditArticle</sender>
-   <signal>clicked()</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>displayNote()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>223</x>
-     <y>396</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>323</x>
-     <y>425</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonSaveEditArticle</sender>
-   <signal>clicked()</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>saveNewVersion()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>348</x>
-     <y>404</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>106</x>
-     <y>428</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>noteTextVersion</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>noteVersionChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>450</x>
-     <y>398</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>726</x>
-     <y>423</y>
+     <x>306</x>
+     <y>596</y>
     </hint>
    </hints>
   </connection>
@@ -529,7 +428,7 @@ background-color: rgb(233, 90, 77);
   <slot>saveNote()</slot>
   <slot>titleChanged()</slot>
   <slot>idChanged()</slot>
-  <slot>typeChanged()</slot>
+  <slot>typeChangedForm()</slot>
   <slot>cancelNote()</slot>
   <slot>toNewNoteForm()</slot>
   <slot>displayNote()</slot>

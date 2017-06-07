@@ -1,7 +1,6 @@
 #ifndef NOTE_ARTICLE_H
 #define NOTE_ARTICLE_H
 
-
 #include "notetemplate.h"
 
 #include <QString>
@@ -11,7 +10,6 @@
 #include <QDateTime>
 
 using namespace std;
-
 
 setNoteType(Article)
 private:
@@ -28,7 +26,5 @@ public:
     virtual Article* addVersion() const override;
     ~Article() {}
 };
-
-
 
 #endif // NOTE_ARTICLE_H

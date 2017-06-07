@@ -5,9 +5,9 @@
 
 void Article::displayNote() const {
     PluriNotes& manager = PluriNotes::getManager();
-    manager.setTextContentArticle(this->getText());
     manager.setNoteTitle(this->getTitle());
     manager.setNoteDate(this->getCreationDate());
+    manager.setNoteContent(this->getText());
 }
 
 QList<QWidget*> Article::champsForm() {
@@ -23,6 +23,6 @@ Article* Article::saveNote(QString title) {
 }
 
 Article* Article::addVersion() const {
-    PluriNotes& manager = PluriNotes::getManager();
-    return new Article(manager.getUi()->noteTextTitle->toPlainText(), QDateTime::currentDateTime(), manager.getUi()->noteTextContent->toPlainText());
+    //PluriNotes& manager = PluriNotes::getManager();
+    //return new Article(manager.getUi()->noteTextTitle->toPlainText(), QDateTime::currentDateTime(), manager.getUi()->noteTextContent->toPlainText());
 }

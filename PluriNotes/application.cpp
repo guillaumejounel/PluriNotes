@@ -145,24 +145,40 @@ void PluriNotes::toNewNoteForm() {
     ui->TypeComboBox->setCurrentIndex(0);
     ui->listNotesWidget->setEnabled(false);
     ui->mainStackedWidget->setCurrentIndex(1);
-    typeChanged();
+    typeChangedForm();
 }
 
-void PluriNotes::setTextContentArticle(const QString& c){
-    ui->noteTextContent->setText(c);
-}
-
-void PluriNotes::setNoteId(const QString& i){
-    ui->noteTextId->setText(i);
-}
-
+//void PluriNotes::setNoteId(const QString& i){
+//    ui->idDisplayLineEdit->setText(i);
+//}
 
 void PluriNotes::setNoteTitle(const QString& t){
-    ui->noteTextTitle->setText(t);
+    ui->titleDisplayLineEdit->setText(t);
 }
 
 void PluriNotes::setNoteDate(const QDateTime& d){
-    ui->noteTextDate->setText(d.toString("dddd dd MMMM yyyy hh:mm:ss"));
+    ui->dateDisplayLineEdit->setText(d.toString("dddd dd MMMM yyyy hh:mm:ss"));
+}
+
+void PluriNotes::setNoteContent(const QString& c){
+    QLabel* contentDisplayLabel = new QLabel(QString("Contenu"));
+    QTextEdit* contentDisplayTextEdit = new QTextEdit(c);
+    ui->displayNoteWidget->insertWidget(6, contentDisplayTextEdit, 0);
+    ui->displayNoteWidget->insertWidget(6, contentDisplayLabel, 0);
+}
+
+void PluriNotes::setTaskPrio(const QString& p){
+    QLabel* priorityDisplayLabel = new QLabel(QString("Priority"));
+    QLineEdit* priorityDisplayLineEdit = new QLineEdit(p);
+    ui->displayNoteWidget->insertWidget(6, priorityDisplayLineEdit, 0);
+    ui->displayNoteWidget->insertWidget(6, priorityDisplayLabel, 0);
+}
+
+void PluriNotes::setTaskStatus(const QString& p){
+    QLabel* statusDisplayLabel = new QLabel(QString("Status"));
+    QLineEdit* statusDisplayLineEdit = new QLineEdit(p);
+    ui->displayNoteWidget->insertWidget(6, statusDisplayLineEdit, 0);
+    ui->displayNoteWidget->insertWidget(6, statusDisplayLabel, 0);
 }
 
 NoteEntity& PluriNotes::getCurrentNote() {
@@ -174,12 +190,20 @@ void PluriNotes::displayNote(unsigned int n) {
     isDisplayed = false;
     if(notes.size()) {
         const NoteEntity& currentSelectedNote = getCurrentNote();
-        ui->noteTextId->setText(currentSelectedNote.getId());
+        ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
         if (currentSelectedNote.getSize() == 1) {
             ui->noteTextVersion->addItem(QString("Version 1"));
             ui->noteTextVersion->setEnabled(0);
         } else ui->noteTextVersion->setEnabled(1);
         const NoteElement& note = currentSelectedNote.getVersion(n);
+        //Suppression des champs variables
+        while (ui->displayNoteWidget->count() > 10) {
+            QLayoutItem* temp = ui->displayNoteWidget->itemAt(6);
+            temp->widget()->hide();
+            ui->displayNoteWidget->removeItem(temp);
+            delete temp;
+        }
+        //Ajout et remplissage des champs de type de note
         note.displayNote();
         ui->mainStackedWidget->setCurrentIndex(0);
     } else {
@@ -192,11 +216,11 @@ void PluriNotes::noteVersionChanged() {
     if (isDisplayed) {
         displayNote(ui->noteTextVersion->count() - ui->noteTextVersion->currentIndex() - 1);
         if (ui->noteTextVersion->currentIndex() == 0) {
-            ui->noteTextTitle->setReadOnly(0);
-            ui->noteTextContent->setReadOnly(0);
+            ui->titleDisplayLineEdit->setReadOnly(0);
+            //ui->contentDisplayTextEdit->setReadOnly(0);
         } else {
-            ui->noteTextTitle->setReadOnly(1);
-            ui->noteTextContent->setReadOnly(1);
+            ui->titleDisplayLineEdit->setReadOnly(1);
+            //ui->contentDisplayTextEdit->setReadOnly(1);
         }
     }
 }
@@ -207,7 +231,8 @@ void PluriNotes::noteTextChanged() {
     //TODO : adapter ça selon le type de note..?
     const Article& note = static_cast<const Article&>(currentSelectedNote.getLastVersion());
 
-    if((ui->noteTextTitle->toPlainText() == note.getTitle() && ui->noteTextContent->toPlainText() == note.getText())
+    //if((ui->titleDisplayLineEdit->text() == note.getTitle() && ui->contentDisplayTextEdit->text() == note.getText())
+    if(ui->titleDisplayLineEdit->text() == note.getTitle()
             || ui->noteTextVersion->currentIndex() != 0) {
         ui->buttonCancelEditArticle->setEnabled(0);
         ui->buttonSaveEditArticle->setEnabled(0);
@@ -243,7 +268,7 @@ void PluriNotes::saveNewVersion() {
     const NoteElement& newNote = currentNote.getLastVersion();
     currentNote.addVersion(*newNote.addVersion());
     const NoteEntity& currentSelectedNote = getCurrentNote();
-    ui->noteTextId->setText(currentSelectedNote.getId());
+    ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
     ui->noteTextVersion->clear();
     for(unsigned int i = currentSelectedNote.getSize(); i > 0; --i)
         ui->noteTextVersion->addItem(QString("Version ") + QString::number(i));
@@ -324,7 +349,7 @@ void PluriNotes::idChanged() {
     //Checker ici si l'id n'est pas déjà pris
 }
 
-void PluriNotes::typeChanged() {
+void PluriNotes::typeChangedForm() {
     //Suppression des champs non communs
     while (ui->formNoteWidget->count() > 7) {
         QLayoutItem* temp = ui->formNoteWidget->itemAt(6);
