@@ -23,6 +23,7 @@ public:
     virtual void displayNote() const override;
     virtual QList<QWidget*> champsForm() override;
     virtual Article* saveNote(QString title) override;
+    virtual Article* addVersion() const override;
     ~Article() {}
 };
 

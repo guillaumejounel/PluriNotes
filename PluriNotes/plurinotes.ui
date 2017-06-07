@@ -13,6 +13,15 @@
   <property name="windowTitle">
    <string>PluriNotes</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="documentMode">
+   <bool>false</bool>
+  </property>
+  <property name="unifiedTitleAndToolBarOnMac">
+   <bool>false</bool>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout" columnstretch="1,0,0,0,5">
     <property name="leftMargin">
@@ -28,7 +37,7 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="4">
+    <item row="0" column="4" rowspan="2">
      <widget class="QStackedWidget" name="mainStackedWidget">
       <property name="minimumSize">
        <size>
@@ -52,7 +61,7 @@
              <x>0</x>
              <y>0</y>
              <width>679</width>
-             <height>530</height>
+             <height>564</height>
             </rect>
            </property>
            <widget class="QWidget" name="verticalLayoutWidget">
@@ -61,7 +70,7 @@
               <x>0</x>
               <y>0</y>
               <width>681</width>
-              <height>531</height>
+              <height>571</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="displayNoteWidget">
@@ -94,6 +103,33 @@
              </item>
              <item>
               <widget class="QLineEdit" name="dateDisplayLineEdit"/>
+             </item>
+             <item>
+              <widget class="QComboBox" name="noteTextVersion">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonCancelEditArticle">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Cancel</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonSaveEditArticle">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Save</string>
+               </property>
+              </widget>
              </item>
              <item>
               <widget class="QPushButton" name="deleteNoteButton">
@@ -143,7 +179,7 @@
              <x>0</x>
              <y>0</y>
              <width>685</width>
-             <height>536</height>
+             <height>570</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
@@ -397,5 +433,8 @@
   <slot>toNewNoteForm()</slot>
   <slot>displayNote()</slot>
   <slot>deleteNote()</slot>
+  <slot>noteTextChanged()</slot>
+  <slot>saveNewVersion()</slot>
+  <slot>noteVersionChanged()</slot>
  </slots>
 </ui>

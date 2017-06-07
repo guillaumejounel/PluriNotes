@@ -29,6 +29,7 @@ public:
     virtual void displayNote() const override;
     virtual QList<QWidget*> champsForm() override;
     virtual Tache* saveNote(QString title) override;
+    virtual Tache* addVersion() const override;
     ~Tache() {}
 };
 

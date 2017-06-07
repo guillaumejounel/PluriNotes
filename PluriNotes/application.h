@@ -75,6 +75,8 @@ private:
     //! \brief Boolean for the id autofill form
     bool is_idChanged;
 
+    bool isDisplayed;
+
     //! \todo WHAT IS THIS ??
     explicit PluriNotes(QWidget *parent = 0);
 
@@ -115,6 +117,8 @@ private:
 
     QUndoStack *undoStack;
     QUndoView *undoView;
+
+    NoteEntity& getCurrentNote();
 
 
 public:
@@ -199,7 +203,7 @@ signals:
     void toNewNoteForm();
 
     //! Method to change stackedWidget to the note display window and adapt fields
-    void displayNote();
+    void displayNote(unsigned int n = 0);
 
     //! \todo What is this ?
     void saveNote();
@@ -221,6 +225,10 @@ signals:
 
     //! savefunction
     void saveApplication();
+
+    void noteTextChanged();
+    void saveNewVersion();
+    void noteVersionChanged();
 };
 
 

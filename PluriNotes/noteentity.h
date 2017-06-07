@@ -16,7 +16,9 @@ public:
     ~NoteEntity() { versions.clear(); }
     QString getId() const;
     QString getTitle() const;
+    unsigned int getSize() const { return versions.size(); }
     const NoteElement& getLastVersion() const;
+    const NoteElement& getVersion(unsigned int nb) const;
     bool isArchived() const;
     void addVersion(const NoteElement&);
 };

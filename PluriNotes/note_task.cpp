@@ -59,3 +59,7 @@ const QString Tache::getStatus() const {
     qDebug() << statusToString << this->taskStatus << statusToString[this->taskStatus];
     return statusToString[this->taskStatus];
 }
+
+Tache* Tache::addVersion() const {
+    //return new Tache(title, QDateTime::currentDateTime(), descr->text());
+}

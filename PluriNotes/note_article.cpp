@@ -1,4 +1,5 @@
 #include "note_article.h"
+#include "ui_plurinotes.h"
 #include "application.h"
 #include <QDateTime>
 
@@ -21,3 +22,7 @@ Article* Article::saveNote(QString title) {
     return new Article(title, QDateTime::currentDateTime(), textFormZone->toPlainText());
 }
 
+Article* Article::addVersion() const {
+    //PluriNotes& manager = PluriNotes::getManager();
+    //return new Article(manager.getUi()->noteTextTitle->toPlainText(), QDateTime::currentDateTime(), manager.getUi()->noteTextContent->toPlainText());
+}

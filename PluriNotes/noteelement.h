@@ -27,6 +27,7 @@ public:
     virtual QList<QWidget*> champsForm() = 0;
     virtual void displayNote() const = 0;
     virtual NoteElement* saveNote(QString title) = 0;
+    virtual NoteElement* addVersion() const = 0;
     virtual ~NoteElement() = default;
 };
 

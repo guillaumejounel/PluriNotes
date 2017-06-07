@@ -16,15 +16,7 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     for (MapIterator iter = myMap.begin(); iter != myMap.end(); iter++) {
         ui->TypeComboBox->addItem(iter->first);
     }
-    //Affiche l'écran de démarrage
-    if(notes.size()) {
-        ui->mainStackedWidget->setCurrentIndex(0);
-        //Sélectionner la note active
-        ui->listNotesWidget->item(0)->setSelected(true);
-    }
-    else {
-        ui->mainStackedWidget->setCurrentIndex(2);
-    }
+
 
     //! Creation of the undo stack
     undoStack = new QUndoStack(this);
@@ -36,6 +28,16 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
 
     //Chargement des notes existantes
     load();
+
+    //Affiche l'écran de démarrage
+    if(notes.size()) {
+        ui->mainStackedWidget->setCurrentIndex(0);
+        //Sélectionner la note active
+        ui->listNotesWidget->item(0)->setSelected(true);
+    }
+    else {
+        ui->mainStackedWidget->setCurrentIndex(2);
+    }
 }
 
 
@@ -179,14 +181,23 @@ void PluriNotes::setTaskStatus(const QString& p){
     ui->displayNoteWidget->insertWidget(6, statusDisplayLabel, 0);
 }
 
-void PluriNotes::displayNote() {
+NoteEntity& PluriNotes::getCurrentNote() {
+    listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
+    return *item->getNotePointer();
+}
+
+void PluriNotes::displayNote(unsigned int n) {
+    isDisplayed = false;
     if(notes.size()) {
-        listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
-        NoteEntity* currentSelectedNote = item->getNotePointer();
-        const NoteElement& note = currentSelectedNote->getLastVersion();
-        ui->idDisplayLineEdit->setText(currentSelectedNote->getId());
+        const NoteEntity& currentSelectedNote = getCurrentNote();
+        ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
+        if (currentSelectedNote.getSize() == 1) {
+            ui->noteTextVersion->addItem(QString("Version 1"));
+            ui->noteTextVersion->setEnabled(0);
+        } else ui->noteTextVersion->setEnabled(1);
+        const NoteElement& note = currentSelectedNote.getVersion(n);
         //Suppression des champs variables
-        while (ui->displayNoteWidget->count() > 7) {
+        while (ui->displayNoteWidget->count() > 10) {
             QLayoutItem* temp = ui->displayNoteWidget->itemAt(6);
             temp->widget()->hide();
             ui->displayNoteWidget->removeItem(temp);
@@ -194,10 +205,40 @@ void PluriNotes::displayNote() {
         }
         //Ajout et remplissage des champs de type de note
         note.displayNote();
-
         ui->mainStackedWidget->setCurrentIndex(0);
     } else {
         ui->mainStackedWidget->setCurrentIndex(2);
+    }
+    isDisplayed = true;
+}
+
+void PluriNotes::noteVersionChanged() {
+    if (isDisplayed) {
+        displayNote(ui->noteTextVersion->count() - ui->noteTextVersion->currentIndex() - 1);
+        if (ui->noteTextVersion->currentIndex() == 0) {
+            ui->titleDisplayLineEdit->setReadOnly(0);
+            //ui->contentDisplayTextEdit->setReadOnly(0);
+        } else {
+            ui->titleDisplayLineEdit->setReadOnly(1);
+            //ui->contentDisplayTextEdit->setReadOnly(1);
+        }
+    }
+}
+
+void PluriNotes::noteTextChanged() {
+    NoteEntity& currentSelectedNote = getCurrentNote();
+
+    //TODO : adapter ça selon le type de note..?
+    const Article& note = static_cast<const Article&>(currentSelectedNote.getLastVersion());
+
+    //if((ui->titleDisplayLineEdit->text() == note.getTitle() && ui->contentDisplayTextEdit->text() == note.getText())
+    if(ui->titleDisplayLineEdit->text() == note.getTitle()
+            || ui->noteTextVersion->currentIndex() != 0) {
+        ui->buttonCancelEditArticle->setEnabled(0);
+        ui->buttonSaveEditArticle->setEnabled(0);
+    } else {
+        ui->buttonCancelEditArticle->setEnabled(1);
+        ui->buttonSaveEditArticle->setEnabled(1);
     }
 }
 
@@ -207,12 +248,12 @@ void PluriNotes::saveNote() {
     //Puis créer la note
     NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
 
+
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
     NoteElement* newNote = myMap[ui->TypeComboBox->currentText()]->saveNote(ui->titleLineEdit->text());
     QDateTime creationDate = QDateTime::currentDateTime();
     newNote->setCreationDate(creationDate);
     newNoteEntity->addVersion(*newNote);
-
 
     QUndoCommand *addCommand = new addNoteEntityCommand(newNoteEntity);
     undoStack->push(addCommand);
@@ -220,6 +261,18 @@ void PluriNotes::saveNote() {
     //Impossible d'enregistrer des documents pour le moment !
     //Il faut refaire save() pour qu'il s'adapte à tout type de note
     //(créer une méthode virtuelle pure comme pour les boutons...)
+}
+
+void PluriNotes::saveNewVersion() {
+    NoteEntity& currentNote = getCurrentNote();
+    const NoteElement& newNote = currentNote.getLastVersion();
+    currentNote.addVersion(*newNote.addVersion());
+    const NoteEntity& currentSelectedNote = getCurrentNote();
+    ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
+    ui->noteTextVersion->clear();
+    for(unsigned int i = currentSelectedNote.getSize(); i > 0; --i)
+        ui->noteTextVersion->addItem(QString("Version ") + QString::number(i));
+    displayNote(currentNote.getSize()-1);
 }
 
 void PluriNotes::deleteNote() {
