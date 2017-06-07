@@ -170,17 +170,16 @@ NoteEntity& PluriNotes::getCurrentNote() {
     return *item->getNotePointer();
 }
 
-void PluriNotes::displayNote() {
+void PluriNotes::displayNote(unsigned int n) {
     isDisplayed = false;
     if(notes.size()) {
         const NoteEntity& currentSelectedNote = getCurrentNote();
         ui->noteTextId->setText(currentSelectedNote.getId());
-        ui->noteTextVersion->clear();
-        for(unsigned int i = currentSelectedNote.getSize(); i > 0; --i)
-            ui->noteTextVersion->addItem(QString("Version ") + QString::number(i));
-        if (currentSelectedNote.getSize() == 1) ui->noteTextVersion->setEnabled(0);
-        else ui->noteTextVersion->setEnabled(1);
-        const NoteElement& note = currentSelectedNote.getLastVersion();
+        if (currentSelectedNote.getSize() == 1) {
+            ui->noteTextVersion->addItem(QString("Version 1"));
+            ui->noteTextVersion->setEnabled(0);
+        } else ui->noteTextVersion->setEnabled(1);
+        const NoteElement& note = currentSelectedNote.getVersion(n);
         note.displayNote();
         ui->mainStackedWidget->setCurrentIndex(0);
     } else {
@@ -190,8 +189,16 @@ void PluriNotes::displayNote() {
 }
 
 void PluriNotes::noteVersionChanged() {
-    if (isDisplayed)
-        qDebug() << "Version changed";
+    if (isDisplayed) {
+        displayNote(ui->noteTextVersion->count() - ui->noteTextVersion->currentIndex() - 1);
+        if (ui->noteTextVersion->currentIndex() == 0) {
+            ui->noteTextTitle->setReadOnly(0);
+            ui->noteTextContent->setReadOnly(0);
+        } else {
+            ui->noteTextTitle->setReadOnly(1);
+            ui->noteTextContent->setReadOnly(1);
+        }
+    }
 }
 
 void PluriNotes::noteTextChanged() {
@@ -200,7 +207,8 @@ void PluriNotes::noteTextChanged() {
     //TODO : adapter ça selon le type de note..?
     const Article& note = static_cast<const Article&>(currentSelectedNote.getLastVersion());
 
-    if(ui->noteTextTitle->toPlainText() == note.getTitle() && ui->noteTextContent->toPlainText() == note.getText()) {
+    if((ui->noteTextTitle->toPlainText() == note.getTitle() && ui->noteTextContent->toPlainText() == note.getText())
+            || ui->noteTextVersion->currentIndex() != 0) {
         ui->buttonCancelEditArticle->setEnabled(0);
         ui->buttonSaveEditArticle->setEnabled(0);
     } else {
@@ -234,7 +242,12 @@ void PluriNotes::saveNewVersion() {
     NoteEntity& currentNote = getCurrentNote();
     const NoteElement& newNote = currentNote.getLastVersion();
     currentNote.addVersion(*newNote.addVersion());
-    displayNote();
+    const NoteEntity& currentSelectedNote = getCurrentNote();
+    ui->noteTextId->setText(currentSelectedNote.getId());
+    ui->noteTextVersion->clear();
+    for(unsigned int i = currentSelectedNote.getSize(); i > 0; --i)
+        ui->noteTextVersion->addItem(QString("Version ") + QString::number(i));
+    displayNote(currentNote.getSize()-1);
 }
 
 void PluriNotes::deleteNote() {

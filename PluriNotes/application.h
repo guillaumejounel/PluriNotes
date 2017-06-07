@@ -193,7 +193,7 @@ signals:
     void toNewNoteForm();
 
     //! Method to change stackedWidget to the note display window
-    void displayNote();
+    void displayNote(unsigned int n = 0);
 
     //! \todo What is this ?
     void saveNote();

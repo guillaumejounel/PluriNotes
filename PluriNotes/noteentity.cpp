@@ -18,3 +18,8 @@ QString NoteEntity::getTitle() const {
 const NoteElement& NoteEntity::getLastVersion() const {
     return *versions.back();
 }
+
+
+const NoteElement& NoteEntity::getVersion(unsigned int nb) const {
+    return *versions[nb];
+}
