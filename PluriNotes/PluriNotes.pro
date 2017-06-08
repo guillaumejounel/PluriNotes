@@ -39,7 +39,8 @@ SOURCES += \
     commands.cpp \
     note_task.cpp \
     notecouple.cpp \
-    relation.cpp
+    relation.cpp \
+    relationswindows.cpp
 
 HEADERS  += \
     application.h \
@@ -52,6 +53,8 @@ HEADERS  += \
     commands.h \
     note_task.h \
     notecouple.h \
-    relation.h
+    relation.h \
+    relationswindows.h
 
-FORMS    += plurinotes.ui
+FORMS    += plurinotes.ui \
+    relationswindows.ui

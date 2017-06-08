@@ -25,7 +25,7 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     createMenus();
 
     createUndoView();
-
+    createRelationsView();
 
     // Creation of the reference relation
     QString l = "ref";
@@ -59,6 +59,14 @@ void PluriNotes::createUndoView()
     undoView = new QUndoView(undoStack);
     undoView->setWindowTitle(tr("Command List"));
     undoView->setAttribute(Qt::WA_QuitOnClose, false);
+}
+
+void PluriNotes::createRelationsView()
+{
+    relationsView = new relationsWindows();
+    relationsView->setWindowTitle(tr("Relations managment"));
+    relationsView->setAttribute(Qt::WA_QuitOnClose, false);
+    relationsView->show();
 }
 
 void PluriNotes::createActions()

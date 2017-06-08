@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>relationsWindows</class>
+ <widget class="QMainWindow" name="relationsWindows">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuESSAI">
+    <property name="title">
+     <string>ESSAI</string>
+    </property>
+    <addaction name="actionCeci_est_mon_menu"/>
+   </widget>
+   <addaction name="menuESSAI"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionCeci_est_mon_menu">
+   <property name="text">
+    <string>Ceci est mon menu</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

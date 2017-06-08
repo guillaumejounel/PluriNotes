@@ -18,12 +18,15 @@
 #include <QMessageBox>
 #include <QVector>
 
+#include <QWidget>
+
 #include <QCloseEvent>
 
 
 #include "notes.h"
 #include "othertools.h"
 #include "relation.h"
+#include "relationswindows.h"
 
 class QAction;
 class QToolBar;
@@ -107,6 +110,7 @@ private:
     void createActions();
     void createMenus();
     void createUndoView();
+    void createRelationsView();
 
     QAction *deleteAction;
     QAction *undoAction;
@@ -125,7 +129,7 @@ private:
 
     QUndoStack *undoStack;
     QUndoView *undoView;
-
+    QWidget* relationsView;
     NoteEntity& getCurrentNote();
 
 
