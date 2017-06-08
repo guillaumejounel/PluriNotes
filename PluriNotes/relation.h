@@ -33,11 +33,16 @@ private:
     //! Boolean to know is this relations is the reference one
     bool references;
 
+    //! Number of the relation to better identify it
+    unsigned int number;
+
+
+
 public:
     //! \brief constructor of the class
     //! Default orientation is oriented
     //! Default is NOT a references ; we only need one !
-    Relation(QString& t, QString& d, bool o = true, bool ref = false) : title(t), description(d), oriented(o), references(ref){}
+    Relation(QString& t, QString& d, bool o = true, bool ref = false, unsigned int nb = 0);
     Relation(){}
 
     //! \brief getter for the title
@@ -48,6 +53,9 @@ public:
 
     //! \brief getter for the content
     QVector<NoteCouple> getContent() const {return content;}
+
+    //! \brief getter for the number
+    unsigned int getNumber() const {return number;}
 
     //! Accessor to References
     bool isReferences() const {return references;}

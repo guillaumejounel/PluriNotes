@@ -560,6 +560,19 @@ void PluriNotes::closeEvent(QCloseEvent *event){
 }
 
 
+unsigned int PluriNotes::getMaxRelationId(){
+    unsigned int nbOfRealations = relations.size();
+    unsigned int max = 0;
+
+    for (unsigned int i = 0; i < nbOfRealations ; i++){
+        if( (relations[i])->getNumber() > max) max = (relations[i])->getNumber();
+    }
+
+    return max;
+}
+
+
+
 Relation* PluriNotes::getReferencesRelation(){
     unsigned int nbOfRealations = relations.size();
     for (unsigned int i = 0; i < nbOfRealations ; i++){

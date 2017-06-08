@@ -209,6 +209,9 @@ public:
     void closeEvent ( QCloseEvent * event );
 
 
+    //! Getter for the max current nb (id) relations
+    unsigned int getMaxRelationId();
+
     //! Method to get a pointer to the references relation
     Relation* getReferencesRelation();
 

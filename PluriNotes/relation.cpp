@@ -1,5 +1,13 @@
 #include "relation.h"
 #include "notecouple.h"
+#include "application.h"
+
+Relation::Relation(QString& t, QString& d, bool o, bool ref, unsigned int nb) : title(t), description(d), oriented(o), references(ref), number(nb)
+{
+    PluriNotes& manager = PluriNotes::getManager();
+    number = manager.getMaxRelationId();
+    if (number != 0) number++;
+}
 
 bool Relation::isInside(NoteEntity* note1, NoteEntity* note2){
     QString tmp = "tmp";
