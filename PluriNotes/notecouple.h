@@ -11,21 +11,22 @@
 #define NOTECOUPLE_H
 
 #include "noteentity.h"
+#include <QString>
 
 class NoteCouple{
 private:
+    //! \brief label for the couple
+    QString label;
+
      //! \brief pointer to the first NoteEntity of the couple
     NoteEntity* x;
 
     //! \brief pointer to the second NoteEntity of the couple
     NoteEntity* y;
 
-    //! Boolean to know if we actually have to consider both couple (x,y) and (y,x)
-    bool oriented;
-
 public:
     //! \brief Constructor
-    NoteCouple(NoteEntity* x, NoteEntity* y, bool b = true):x(x),y(y), oriented(b) {}
+    NoteCouple(QString& s, NoteEntity* x, NoteEntity* y):label(s), x(x),y(y) {}
 
     //! Constructor with no argument
     NoteCouple(){}
@@ -36,11 +37,8 @@ public:
     //! \brief Accessor to y
     NoteEntity* getY() const {return y;}
 
-    //! \brief Accessor to oriented
-    bool isOriented() const {return oriented;}
-
-    //! setter for the orientation
-    void setOriented(bool b) {oriented = b;}
+    //! \brief getter for the label
+    const QString getLabel() const {return label;}
 
     //! comparaison of note couple
     bool operator==(const NoteCouple& c)const;
@@ -54,12 +52,12 @@ public:
     //! \brief return successor
     //! If (note,y) then y is a successor of note
     //! If (x,note) and oriented = false then x is successor of note
-    NoteEntity* successor(NoteEntity* note) const;
+    NoteEntity* successor(NoteEntity* note, bool oriented = true) const;
 
     //! \brief return predecessor
     //! If (x,note) then y is a predecessor of note
     //! If (note,y) and oriented = false then y is a predecessor of note
-    NoteEntity* predecessor(NoteEntity* note) const;
+    NoteEntity* predecessor(NoteEntity* note, bool oriented = true) const;
 };
 
 #endif // NOTECOUPLE_H

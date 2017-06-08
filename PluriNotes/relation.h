@@ -21,22 +21,19 @@ private:
     //! \brief title of the relation
     QString title;
 
-    //! \brief label associated with the relation
-    QString label;
-
     //! \brief description of the relation
     QString description;
 
     //! \brief content of the relation
     QVector<NoteCouple> content;
 
+    //! Boolean to know if we actually have to consider both couple (x,y) and (y,x)
+    bool oriented;
+
 public:
     //! \brief constructor of the class
-    Relation(QString& l, QString& t, QString& d) : title(t), label(l), description(d){}
+    Relation(QString& t, QString& d, bool& b) : title(t), description(d), oriented(b){}
     Relation(){}
-
-    //! \brief getter for the label
-    const QString getLabel() const {return label;}
 
     //! \brief getter for the title
     const QString getTitle() const {return title;}
@@ -46,6 +43,13 @@ public:
 
     //! \brief getter for the content
     QVector<NoteCouple> getContent() const {return content;}
+
+
+    //! \brief Accessor to oriented
+    bool isOriented() const {return oriented;}
+
+    //! setter for the orientation
+    void setOriented(bool b) {oriented = b;}
 
 
 

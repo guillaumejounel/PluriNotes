@@ -28,11 +28,11 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     createRelationsView();
 
     // Creation of the reference relation
-    QString l = "ref";
     QString t = "References";
     QString d = "Here is the relation with all the diffent reference";
+    bool b = true;
 
-    Relation Reference = Relation(t,l,d);
+    Relation Reference = Relation(t,d,b);
     relations.push_back(&Reference);
 
 
