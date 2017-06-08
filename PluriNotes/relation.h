@@ -30,9 +30,12 @@ private:
     //! Boolean to know if we actually have to consider both couple (x,y) and (y,x)
     bool oriented;
 
+    //! Boolean to know is this relations is the reference one
+    bool references;
+
 public:
     //! \brief constructor of the class
-    Relation(QString& t, QString& d, bool& b) : title(t), description(d), oriented(b){}
+    Relation(QString& t, QString& d, bool& b, bool ref = false) : title(t), description(d), oriented(b), references(ref){}
     Relation(){}
 
     //! \brief getter for the title
@@ -44,6 +47,8 @@ public:
     //! \brief getter for the content
     QVector<NoteCouple> getContent() const {return content;}
 
+    //! Accessor to References
+    bool isReferences() const {return references;}
 
     //! \brief Accessor to oriented
     bool isOriented() const {return oriented;}
@@ -59,6 +64,10 @@ public:
     //! \brief setter for the description
     void setDescription(const QString& d) {description = d;}
 
+
+
+    //! Method to know if couple is already inside a relation
+    bool isInside(NoteEntity* note1, NoteEntity* note2);
 
     //! Method to add a note couple to the relation
     void addCouple(const NoteCouple& c);

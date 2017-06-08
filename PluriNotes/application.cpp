@@ -32,7 +32,7 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     QString d = "Here is the relation with all the diffent reference";
     bool b = true;
 
-    Relation Reference = Relation(t,d,b);
+    Relation Reference = Relation(t,d,b,true);
     relations.push_back(&Reference);
 
 
@@ -557,6 +557,15 @@ void PluriNotes::closeEvent(QCloseEvent *event){
     }
     event->accept();
 
+}
+
+
+Relation* PluriNotes::getReferencesRelation(){
+    unsigned int nbOfRealations = relations.size();
+    for (unsigned int i = 0; i < nbOfRealations ; i++){
+        if( (relations[i])->isReferences()) return const_cast<Relation*>(relations[i]);
+    }
+    return nullptr;
 }
 
 

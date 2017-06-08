@@ -1,4 +1,26 @@
 #include "relation.h"
+#include "notecouple.h"
+
+bool Relation::isInside(NoteEntity* note1, NoteEntity* note2){
+    QString tmp = "tmp";
+    NoteCouple nCouple1 = NoteCouple(tmp,note1,note2);
+    NoteCouple nCouple2 = NoteCouple(tmp,note2,note1);
+
+    unsigned int size = content.size();
+
+    for (unsigned int i = 0;i<size;i++){
+        if ( content[i]==nCouple1 ) return true;
+    }
+
+    if (this->isOriented() == false){
+        for (unsigned int i = 0;i<size;i++){
+            if ( content[i]==nCouple2 ) return true;
+        }
+    }
+
+    return false;
+}
+
 
 void Relation::addCouple(const NoteCouple &c){
     content.push_front(c);
