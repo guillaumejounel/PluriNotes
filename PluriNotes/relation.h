@@ -35,7 +35,9 @@ private:
 
 public:
     //! \brief constructor of the class
-    Relation(QString& t, QString& d, bool& b, bool ref = false) : title(t), description(d), oriented(b), references(ref){}
+    //! Default orientation is oriented
+    //! Default is NOT a references ; we only need one !
+    Relation(QString& t, QString& d, bool o = true, bool ref = false) : title(t), description(d), oriented(o), references(ref){}
     Relation(){}
 
     //! \brief getter for the title
@@ -66,7 +68,7 @@ public:
 
 
 
-    //! Method to know if couple is already inside a relation
+    //! Method to know if a couple is already inside the relation
     bool isInside(NoteEntity* note1, NoteEntity* note2);
 
     //! Method to add a note couple to the relation

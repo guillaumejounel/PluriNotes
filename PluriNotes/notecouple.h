@@ -49,6 +49,10 @@ public:
     //! Check if note is equal to y
     bool isEqualY(const NoteEntity* note) const;
 
+
+    //! \brief setter for the label
+    void setLabel(QString& l) {label = l;}
+
     //! \brief return successor
     //! If (note,y) then y is a successor of note
     //! If (x,note) and oriented = false then x is successor of note

@@ -37,7 +37,7 @@ QSet<NoteEntity*> Relation::successorsOf(NoteEntity* note) const{
     NoteEntity* successor;
 
     for (unsigned int i = 0;i<size;i++){
-        successor = content[i].successor(note);
+        successor = content[i].successor(note,oriented);
         if ( successor != nullptr) result.insert(successor);
     }
 
@@ -51,7 +51,7 @@ QSet<NoteEntity*> Relation::predecessorsOf(NoteEntity* note) const{
     NoteEntity* predecessor;
 
     for (unsigned int i = 0;i<size;i++){
-        predecessor = content[i].predecessor(note);
+        predecessor = content[i].predecessor(note,oriented);
         if ( predecessor != nullptr) result.insert(predecessor);
     }
 
