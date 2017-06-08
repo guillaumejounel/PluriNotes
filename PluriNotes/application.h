@@ -115,9 +115,12 @@ private:
     QAction *saveAction;
     QAction *aboutAction;
 
+    // QActions for windows
+    QAction *viewUndoHistory;
+
     QMenu *fileMenu;
     QMenu *editMenu;
-    QMenu *itemMenu;
+    QMenu *windowsMenu;
     QMenu *helpMenu;
 
     QUndoStack *undoStack;
@@ -208,6 +211,10 @@ public:
     QSet<NoteEntity*> allPredecessorsOf(NoteEntity* note) const;
 
 
+
+
+
+
 signals:
     public slots:
     //! Method to change stackedWidget to make new notes
@@ -240,6 +247,9 @@ signals:
     void noteTextChanged();
     void saveNewVersion();
     void noteVersionChanged();
+
+    /// Windows managment :
+    void showUndoHistoryWindows();
 };
 
 

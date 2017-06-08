@@ -26,6 +26,16 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
 
     createUndoView();
 
+
+    // Creation of the reference relation
+    QString l = "ref";
+    QString t = "References";
+    QString d = "Here is the relation with all the diffent reference";
+
+    Relation Reference = Relation(t,l,d);
+    relations.push_back(&Reference);
+
+
     //Chargement des notes existantes
     load();
 
@@ -48,7 +58,6 @@ void PluriNotes::createUndoView()
 {
     undoView = new QUndoView(undoStack);
     undoView->setWindowTitle(tr("Command List"));
-    undoView->show();
     undoView->setAttribute(Qt::WA_QuitOnClose, false);
 }
 
@@ -84,6 +93,8 @@ void PluriNotes::createActions()
     exitAction->setShortcuts(QKeySequence::Quit);
     connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
 
+    viewUndoHistory = new QAction(tr("View&History"), this);
+    connect(viewUndoHistory, SIGNAL(triggered()), this, SLOT(showUndoHistoryWindows()));
     /*
     aboutAction = new QAction(tr("&About"), this);
     QList<QKeySequence> aboutShortcuts;
@@ -98,6 +109,10 @@ void PluriNotes::saveApplication(){
     save();
 }
 
+void PluriNotes::showUndoHistoryWindows(){
+    undoView->show();
+}
+
 void PluriNotes::createMenus()
 {
     fileMenu = menuBar()->addMenu(tr("&File"));
@@ -108,6 +123,9 @@ void PluriNotes::createMenus()
     editMenu->addAction(undoAction);
     editMenu->addAction(redoAction);
     editMenu->addSeparator();
+
+    windowsMenu = menuBar()->addMenu(tr("&Windows"));
+    windowsMenu->addAction(viewUndoHistory);
     /*
     editMenu->addAction(deleteAction);
 

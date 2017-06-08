@@ -33,11 +33,7 @@ private:
 public:
     //! \brief constructor of the class
     Relation(QString& l, QString& t, QString& d) : title(t), label(l), description(d){}
-
-    /// The destructor is virtual because a class is going to inherit from this one.
-    virtual ~Relation();
-
-
+    Relation(){}
 
     //! \brief getter for the label
     const QString getLabel() const {return label;}
