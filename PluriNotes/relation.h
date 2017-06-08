@@ -13,6 +13,8 @@
 #include "notecouple.h"
 #include <QString>
 #include <QVector>
+#include <QSet>
+
 
 class Relation{
 private:
@@ -63,6 +65,15 @@ public:
 
     //! Method to remove a note couple to the relation
     void removeCouple(const NoteCouple& c);
+
+
+    //! Method to get successors of a note in a relation
+    //! A QSet is used to make sure we don't have twice the same note...
+    QSet<NoteEntity*> successorsOf(NoteEntity* note) const;
+
+    //! Method to get successors of a note in a relation
+    //! A QSet is used to make sure we don't have twice the same note...
+    QSet<NoteEntity*> predecessorsOf(NoteEntity* note) const;
 };
 
 

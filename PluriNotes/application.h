@@ -16,12 +16,14 @@
 #include <QScrollArea>
 #include <QLineEdit>
 #include <QMessageBox>
+#include <QVector>
 
 #include <QCloseEvent>
 
 
 #include "notes.h"
 #include "othertools.h"
+#include "relation.h"
 
 class QAction;
 class QToolBar;
@@ -67,6 +69,9 @@ private:
     //! Vector containing all the notes sent to the trash
     //! \brief Vector containing the trashed notes
     vector<const NoteEntity*> corbeille;
+
+    //! Vector containing all Relations of the application
+    vector<const Relation*> relations;
 
     //! \todo WHAT IS THIS ??
     bool autoDelete;
@@ -195,6 +200,12 @@ public:
     void setDataChanged(bool b);
 
     void closeEvent ( QCloseEvent * event );
+
+    //! Method to get all successors of a note
+    QSet<NoteEntity*> allSuccessorsOf(NoteEntity* note) const;
+
+    //! Method to get all predecessors of a note
+    QSet<NoteEntity*> allPredecessorsOf(NoteEntity* note) const;
 
 
 signals:

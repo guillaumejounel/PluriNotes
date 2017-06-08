@@ -44,6 +44,22 @@ public:
 
     //! comparaison of note couple
     bool operator==(const NoteCouple& c)const;
+
+    //! Check if note is equal to x
+    bool isEqualX(const NoteEntity* note) const;
+
+    //! Check if note is equal to y
+    bool isEqualY(const NoteEntity* note) const;
+
+    //! \brief return successor
+    //! If (note,y) then y is a successor of note
+    //! If (x,note) and oriented = false then x is successor of note
+    NoteEntity* successor(NoteEntity* note) const;
+
+    //! \brief return predecessor
+    //! If (x,note) then y is a predecessor of note
+    //! If (note,y) and oriented = false then y is a predecessor of note
+    NoteEntity* predecessor(NoteEntity* note) const;
 };
 
 #endif // NOTECOUPLE_H

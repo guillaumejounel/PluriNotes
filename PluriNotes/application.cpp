@@ -532,3 +532,29 @@ void PluriNotes::closeEvent(QCloseEvent *event){
     event->accept();
 
 }
+
+
+QSet<NoteEntity*> PluriNotes::allSuccessorsOf(NoteEntity* note) const{
+    unsigned int nbOfRealations = relations.size();
+    QSet<NoteEntity*> result;
+
+    // Quick way to get all successors;
+    for (unsigned int i = 0; i < nbOfRealations ; i++){
+        result = result + (relations[i])->successorsOf(note);
+    }
+
+    return result;
+}
+
+QSet<NoteEntity*> PluriNotes::allPredecessorsOf(NoteEntity* note) const{
+    unsigned int nbOfRealations = relations.size();
+    QSet<NoteEntity*> result;
+
+    // Quick way to get all successors;
+    for (unsigned int i = 0; i < nbOfRealations ; i++){
+        result = result + (relations[i])->predecessorsOf(note);
+    }
+
+    return result;
+}
+
