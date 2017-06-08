@@ -6,7 +6,9 @@
 
 QT       += core gui
 QMAKE_CXXFLAGS = -std=c++11
+QMAKE_CXXFLAGS += -Wall
 QMAKE_LFLAGS = -std=c++11
+CONFIG += warn_on
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -35,7 +37,9 @@ SOURCES += \
     note_article.cpp \
     othertools.cpp \
     commands.cpp \
-    note_task.cpp
+    note_task.cpp \
+    notecouple.cpp \
+    relation.cpp
 
 HEADERS  += \
     application.h \
@@ -46,6 +50,8 @@ HEADERS  += \
     note_article.h \
     othertools.h \
     commands.h \
-    note_task.h
+    note_task.h \
+    notecouple.h \
+    relation.h
 
 FORMS    += plurinotes.ui
