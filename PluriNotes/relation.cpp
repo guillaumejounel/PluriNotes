@@ -23,6 +23,9 @@ bool Relation::isInside(NoteEntity* note1, NoteEntity* note2){
 
 
 void Relation::addCouple(const NoteCouple &c){
+    //Check if the couple isn't already inside
+    if ( isInside(c.getX(),c.getY()) ) return;
+
     content.push_front(c);
 }
 
