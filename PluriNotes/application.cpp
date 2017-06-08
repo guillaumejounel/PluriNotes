@@ -7,6 +7,11 @@
 #include "commands.h"
 #include <QtWidgets>
 
+PluriNotes& PluriNotes::getManager() {
+    if(!instanceUnique) instanceUnique = new PluriNotes;
+    return *instanceUnique;
+}
+
 PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriNotes) {
     //Constructeur de la classe PluriNotes
     ui->setupUi(this);
@@ -30,9 +35,8 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     // Creation of the reference relation
     QString t = "References";
     QString d = "Here is the relation with all the diffent reference";
-    bool b = true;
 
-    Relation Reference = Relation(t,d,b,true);
+    Relation Reference = Relation(t,d,true,0);
     relations.push_back(&Reference);
 
 
@@ -392,10 +396,6 @@ void PluriNotes::typeChangedForm() {
     }
 }
 
-PluriNotes& PluriNotes::getManager() {
-    if(!instanceUnique) instanceUnique = new PluriNotes;
-    return *instanceUnique;
-}
 
 void PluriNotes::save() {
     QString path = QCoreApplication::applicationDirPath();
@@ -562,6 +562,10 @@ void PluriNotes::closeEvent(QCloseEvent *event){
 
 unsigned int PluriNotes::getMaxRelationId(){
     unsigned int nbOfRealations = relations.size();
+    //return nbOfRealations;
+
+    if (nbOfRealations == 0) return 0;
+
     unsigned int max = 0;
 
     for (unsigned int i = 0; i < nbOfRealations ; i++){
