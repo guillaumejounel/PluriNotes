@@ -34,10 +34,12 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
         ui->mainStackedWidget->setCurrentIndex(0);
         //Sélectionner la note active
         ui->listNotesWidget->item(0)->setSelected(true);
+
     }
     else {
         ui->mainStackedWidget->setCurrentIndex(2);
     }
+
 }
 
 
@@ -197,7 +199,7 @@ void PluriNotes::displayNote(unsigned int n) {
         } else ui->noteTextVersion->setEnabled(1);
         const NoteElement& note = currentSelectedNote.getVersion(n);
         //Suppression des champs variables
-        while (ui->displayNoteWidget->count() > 10) {
+        while (ui->displayNoteWidget->count() > 7) {
             QLayoutItem* temp = ui->displayNoteWidget->itemAt(6);
             temp->widget()->hide();
             ui->displayNoteWidget->removeItem(temp);
