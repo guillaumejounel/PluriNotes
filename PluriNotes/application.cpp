@@ -71,6 +71,22 @@ const QDateTime PluriNotes::getTaskDeadline() {
     return ui->taskDeadline->dateTime();
 }
 
+unsigned int PluriNotes::getTaskPriorityEdit() {
+    return ui->taskDisplayPriority->currentIndex();
+}
+
+unsigned int PluriNotes::getTaskStatusEdit() {
+    return ui->taskDisplayStatus->currentIndex();
+}
+
+const QString PluriNotes::getTaskActionEdit() {
+    return ui->taskDisplayAction->toPlainText();
+}
+
+const QDateTime PluriNotes::getTaskDeadlineEdit() {
+    return ui->taskDisplayDeadline->dateTime();
+}
+
 void PluriNotes::createUndoView()
 {
     undoView = new QUndoView(undoStack);
@@ -410,6 +426,7 @@ void PluriNotes::typeChangedForm() {
     //Ajout des champs selon le type de note
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
     ui->customWidgets->setCurrentIndex(myMap[ui->TypeComboBox->currentText()]->indexPageCreation());
+    ui->taskDeadline->setDateTime(QDateTime::currentDateTime());
 }
 
 

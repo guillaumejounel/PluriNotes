@@ -70,7 +70,7 @@
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_12">
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
                   <item>
                    <widget class="QLabel" name="titleDisplayLabel">
                     <property name="sizePolicy">
@@ -94,7 +94,17 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="titleDisplayLineEdit"/>
+                   <widget class="QLineEdit" name="titleDisplayLineEdit">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>2</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">font-size:1cm;</string>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -123,7 +133,11 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="idDisplayLineEdit"/>
+                   <widget class="QLineEdit" name="idDisplayLineEdit">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -152,7 +166,11 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="dateDisplayLineEdit"/>
+                   <widget class="QLineEdit" name="dateDisplayLineEdit">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -190,70 +208,80 @@
                    <widget class="QTextEdit" name="taskDisplayAction"/>
                   </item>
                   <item>
-                   <widget class="QLabel" name="taskDisplayPriorityLabel">
-                    <property name="text">
-                     <string>Priority:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="taskDisplayPriority">
-                    <item>
-                     <property name="text">
-                      <string/>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Low</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Normal</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>High</string>
-                     </property>
-                    </item>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="taskDisplayDeadlineLabel">
-                    <property name="text">
-                     <string>Deadline:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QDateTimeEdit" name="taskDisplayDeadline"/>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="taskDisplayStatusLabel">
-                    <property name="text">
-                     <string>Status:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="taskDisplayStatus">
-                    <item>
-                     <property name="text">
-                      <string>In progress</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Pending</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Done</string>
-                     </property>
-                    </item>
+                   <widget class="QWidget" name="widget_3" native="true">
+                    <layout class="QGridLayout" name="gridLayout_4">
+                     <item row="1" column="0">
+                      <widget class="QComboBox" name="taskDisplayPriority">
+                       <item>
+                        <property name="text">
+                         <string/>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Low</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Normal</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>High</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
+                      <widget class="QDateTimeEdit" name="taskDisplayDeadline">
+                       <property name="calendarPopup">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="QLabel" name="taskDisplayDeadlineLabel">
+                       <property name="text">
+                        <string>Deadline:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="taskDisplayPriorityLabel">
+                       <property name="text">
+                        <string>Priority:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="2">
+                      <widget class="QLabel" name="taskDisplayStatusLabel">
+                       <property name="text">
+                        <string>Status:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="2">
+                      <widget class="QComboBox" name="taskDisplayStatus">
+                       <item>
+                        <property name="text">
+                         <string>In progress</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Pending</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Done</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                    </layout>
                    </widget>
                   </item>
                  </layout>
@@ -357,8 +385,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>189</width>
-             <height>381</height>
+             <width>665</width>
+             <height>540</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
@@ -390,13 +418,20 @@
                 <number>0</number>
                </property>
                <item>
-                <layout class="QVBoxLayout" name="formNoteWidget" stretch="0,0,0">
+                <layout class="QVBoxLayout" name="formNoteWidget" stretch="0,0,0,0">
                  <property name="sizeConstraint">
                   <enum>QLayout::SetMaximumSize</enum>
                  </property>
                  <property name="topMargin">
                   <number>0</number>
                  </property>
+                 <item>
+                  <widget class="QLabel" name="label_2">
+                   <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;New Note&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item>
                   <layout class="QVBoxLayout" name="verticalLayout_9">
                    <item>
@@ -491,7 +526,7 @@
                  <item>
                   <widget class="QStackedWidget" name="customWidgets">
                    <property name="currentIndex">
-                    <number>0</number>
+                    <number>1</number>
                    </property>
                    <widget class="QWidget" name="articleForm">
                     <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -520,45 +555,55 @@
                       <widget class="QTextEdit" name="taskAction"/>
                      </item>
                      <item>
-                      <widget class="QLabel" name="taskPriorityLabel">
-                       <property name="text">
-                        <string>Priority: </string>
-                       </property>
+                      <widget class="QWidget" name="widget_2" native="true">
+                       <layout class="QGridLayout" name="gridLayout_2">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="taskPriorityLabel">
+                          <property name="text">
+                           <string>Priority: </string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="2" column="0">
+                         <widget class="QComboBox" name="taskPriority">
+                          <item>
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>Low</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>Normal</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>High</string>
+                           </property>
+                          </item>
+                         </widget>
+                        </item>
+                        <item row="0" column="1">
+                         <widget class="QLabel" name="taskDeadlineLabel">
+                          <property name="text">
+                           <string>Deadline:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="2" column="1">
+                         <widget class="QDateTimeEdit" name="taskDeadline">
+                          <property name="calendarPopup">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
                       </widget>
-                     </item>
-                     <item>
-                      <widget class="QComboBox" name="taskPriority">
-                       <item>
-                        <property name="text">
-                         <string/>
-                        </property>
-                       </item>
-                       <item>
-                        <property name="text">
-                         <string>Low</string>
-                        </property>
-                       </item>
-                       <item>
-                        <property name="text">
-                         <string>Normal</string>
-                        </property>
-                       </item>
-                       <item>
-                        <property name="text">
-                         <string>High</string>
-                        </property>
-                       </item>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="taskDeadlineLabel">
-                       <property name="text">
-                        <string>Deadline:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QDateTimeEdit" name="taskDeadline"/>
                      </item>
                     </layout>
                    </widget>
@@ -629,7 +674,7 @@
        </widget>
       </widget>
       <widget class="QWidget" name="welcomPage">
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="label_21">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -659,7 +704,7 @@
      <x>0</x>
      <y>0</y>
      <width>854</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

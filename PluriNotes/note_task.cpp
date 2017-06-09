@@ -11,7 +11,6 @@ void Task::displayNote() const {
     manager.setTaskPriority(priority);
     manager.setTaskStatus(status);
     manager.setTaskDeadline(deadline);
-
 }
 
 Task* Task::saveNote(QString title) {
@@ -20,5 +19,6 @@ Task* Task::saveNote(QString title) {
 }
 
 Task* Task::addVersion() const {
-    //return new Task(title, QDateTime::currentDateTime(), descr->text());
+    PluriNotes& manager = PluriNotes::getManager();
+    return new Task(manager.getNoteTitleEdit(), QDateTime::currentDateTime(), manager.getTaskActionEdit(), manager.getTaskStatusEdit(), manager.getTaskPriorityEdit(), manager.getTaskDeadlineEdit());
 }

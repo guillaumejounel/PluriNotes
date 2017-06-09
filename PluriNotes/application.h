@@ -192,6 +192,11 @@ public:
     const QString getTaskAction();
     const QDateTime getTaskDeadline();
 
+    unsigned int getTaskPriorityEdit();
+    unsigned int getTaskStatusEdit();
+    const QString getTaskActionEdit();
+    const QDateTime getTaskDeadlineEdit();
+
     //! Function to add a note in the system \n
     //! Returns an "listItemAndPointer*" the should be usefull in somme cases
     listItemAndPointer* addNote(NoteEntity* note);
