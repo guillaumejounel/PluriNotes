@@ -8,17 +8,21 @@ void Tache::displayNote() const {
     PluriNotes& manager = PluriNotes::getManager();
     manager.setNoteTitle(this->getTitle());
     manager.setNoteDate(this->getCreationDate());
-    manager.setNoteContent(this->getAction());
+    //Action
+    QLabel* contentDisplayLabel = new QLabel(QString("Contenu"));
+    QTextEdit* contentDisplayTextEdit = new QTextEdit(getAction());
+    manager.getUi()->displayNoteWidget->insertWidget(6, contentDisplayTextEdit, 0);
+    manager.getUi()->displayNoteWidget->insertWidget(6, contentDisplayLabel, 0);
     //Status
     QLabel* statusDisplayLabel = new QLabel(QString("Status"));
     QLineEdit* statusDisplayLineEdit = new QLineEdit(getStatus());
-    manager.getUi()->displayNoteWidget->insertWidget(8, statusDisplayLineEdit, 0);
-    manager.getUi()->displayNoteWidget->insertWidget(8, statusDisplayLabel, 0);
+    manager.getUi()->displayNoteWidget->insertWidget(6, statusDisplayLineEdit, 0);
+    manager.getUi()->displayNoteWidget->insertWidget(6, statusDisplayLabel, 0);
     //Priority
     QLabel* priorityDisplayLabel = new QLabel(QString("Priority"));
     QLineEdit* priorityDisplayLineEdit = new QLineEdit(getPriority());
-    manager.getUi()->displayNoteWidget->insertWidget(8, priorityDisplayLineEdit, 0);
-    manager.getUi()->displayNoteWidget->insertWidget(8, priorityDisplayLabel, 0);
+    manager.getUi()->displayNoteWidget->insertWidget(6, priorityDisplayLineEdit, 0);
+    manager.getUi()->displayNoteWidget->insertWidget(6, priorityDisplayLabel, 0);
 }
 
 QList<QWidget*> Tache::champsForm() {

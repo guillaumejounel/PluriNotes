@@ -191,10 +191,6 @@ void PluriNotes::setNoteDate(const QDateTime& d){
     ui->dateDisplayLineEdit->setText(d.toString("dddd dd MMMM yyyy hh:mm:ss"));
 }
 
-void PluriNotes::setNoteContent(const QString& c){
-    ui->contentDisplayTextEdit->setText(c);
-}
-
 NoteEntity& PluriNotes::getCurrentNote() {
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
     return *item->getNotePointer();
@@ -211,8 +207,8 @@ void PluriNotes::displayNote(unsigned int n) {
         } else ui->noteTextVersion->setEnabled(1);
         const NoteElement& note = currentSelectedNote.getVersion(n);
         //Suppression des champs variables
-        while (ui->displayNoteWidget->count() > 9) {
-            QLayoutItem* temp = ui->displayNoteWidget->itemAt(8);
+        while (ui->displayNoteWidget->count() > 7) {
+            QLayoutItem* temp = ui->displayNoteWidget->itemAt(6);
             temp->widget()->hide();
             ui->displayNoteWidget->removeItem(temp);
             delete temp;
