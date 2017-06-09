@@ -34,6 +34,9 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="0">
+     <widget class="QListWidget" name="listNotesWidget"/>
+    </item>
     <item row="0" column="4" rowspan="2">
      <widget class="QStackedWidget" name="mainStackedWidget">
       <property name="minimumSize">
@@ -43,7 +46,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="displayNotePage">
        <layout class="QGridLayout" name="verticalLayout_2" rowstretch="0">
@@ -57,8 +60,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>670</width>
-             <height>539</height>
+             <width>273</width>
+             <height>461</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -158,7 +161,7 @@
               <item>
                <widget class="QStackedWidget" name="noteTypeDisplay">
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="articleDisplay">
                  <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -354,8 +357,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>676</width>
-             <height>545</height>
+             <width>189</width>
+             <height>381</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
@@ -625,10 +628,25 @@
         </property>
        </widget>
       </widget>
+      <widget class="QWidget" name="welcomPage">
+       <widget class="QLabel" name="label_2">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>160</y>
+          <width>591</width>
+          <height>181</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-size: 1cm;</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;Welcome on PluriNote :D&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </widget>
      </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QListWidget" name="listNotesWidget"/>
     </item>
    </layout>
    <zorder>mainStackedWidget</zorder>

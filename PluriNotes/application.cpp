@@ -43,16 +43,7 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     load();
 
     //Affiche l'écran de démarrage
-    if(notes.size()) {
-        ui->mainStackedWidget->setCurrentIndex(0);
-        //Sélectionner la note active
-        ui->listNotesWidget->item(0)->setSelected(true);
-
-    }
-    else {
-        ui->mainStackedWidget->setCurrentIndex(2);
-    }
-
+    ui->mainStackedWidget->setCurrentIndex(3);
 }
 
 const QString PluriNotes::getNoteTitleEdit() {
