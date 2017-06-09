@@ -296,9 +296,9 @@ void PluriNotes::deleteNote() {
 
     //Supprime la note selectionnée du vecteur notes
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
-    //NoteEntity* currentSelectedNote = item->getNotePointer();
+    NoteEntity* currentSelectedNote = item->getNotePointer();
 
-    QUndoCommand *deleteCommand = new deleteNoteCommand(item);
+    QUndoCommand *deleteCommand = new deleteNoteCommand(currentSelectedNote);
     undoStack->push(deleteCommand);
 }
 
@@ -518,7 +518,10 @@ listItemAndPointer* PluriNotes::removeItemNoteFromList(listItemAndPointer* item)
 
 //! ####################################
 //! ####################################
-void PluriNotes::removeNoteFromList(NoteEntity *note, QListWidget* panel){
+void PluriNotes::removeNoteFromList(NoteEntity *note){
+    //! \todo add function to loog for wich panel the note is on!
+    QListWidget* panel = ui->listNotesWidget;
+
     unsigned int nbItems = panel->count();
     listItemAndPointer* current;
 

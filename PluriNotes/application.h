@@ -191,7 +191,7 @@ public:
     //! New methods for better undo redo command handling
     //!
 
-    void removeNoteFromList(NoteEntity* note, QListWidget* panel);
+    void removeNoteFromList(NoteEntity* note);
 
 
     //!

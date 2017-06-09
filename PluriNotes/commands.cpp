@@ -3,27 +3,26 @@
 #include <qdebug.h>
 
 
-deleteNoteCommand::deleteNoteCommand(listItemAndPointer* item, QUndoCommand *parent)
-    : QUndoCommand(parent), item(item){}
+deleteNoteCommand::deleteNoteCommand(NoteEntity *note, QUndoCommand *parent)
+    : QUndoCommand(parent), note(note){}
 
 
 void deleteNoteCommand::undo()
 {
-    setText("Rétablir la Suppression de la note "+item->getNotePointer()->getId());
+    setText("Rétablir la Suppression de la note "+getNote()->getId());
 
     PluriNotes& manager = PluriNotes::getManager();
-    manager.moveBackFromTrash(item->getNotePointer());
-    manager.addItemNoteToList(item);
-
+    manager.moveBackFromTrash(getNote());
+    manager.addNoteToList(getNote());
 }
 
 void deleteNoteCommand::redo()
 {
-    setText("Suppression de la note "+item->getNotePointer()->getId());
+    setText("Suppression de la note "+getNote()->getId());
 
     PluriNotes& manager = PluriNotes::getManager();
-    manager.moveToTrash(item->getNotePointer());
-    manager.removeItemNoteFromList(item);
+    manager.moveToTrash(getNote());
+    manager.removeNoteFromList(getNote());
 
     manager.setDataChanged(true);
 }

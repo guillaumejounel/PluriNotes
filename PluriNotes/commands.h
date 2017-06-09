@@ -8,13 +8,15 @@
 class deleteNoteCommand : public QUndoCommand
 {
 private:
-    listItemAndPointer* item;
+    NoteEntity* note;
 
 public:
-    deleteNoteCommand(listItemAndPointer* item, QUndoCommand *parent = 0);
+    deleteNoteCommand(NoteEntity* note, QUndoCommand *parent = 0);
 
     void undo() override;
     void redo() override;
+
+    NoteEntity* getNote() {return note;}
 };
 
 
