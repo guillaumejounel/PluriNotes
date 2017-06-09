@@ -241,6 +241,8 @@ NoteEntity& PluriNotes::getCurrentNote() {
 
 void PluriNotes::displayNote(unsigned int n) {
     isDisplayed = false;
+    ui->idDisplayLineEdit->setReadOnly(true);
+    ui->dateDisplayLineEdit->setReadOnly(true);
     if(notes.size()) {
         const NoteEntity& currentSelectedNote = getCurrentNote();
         ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
