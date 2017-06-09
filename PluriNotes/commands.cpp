@@ -53,6 +53,7 @@ void addNoteEntityCommand::undo()
     setText("Annulation de la création de la note :"+getNote()->getId());
 
     PluriNotes& manager = PluriNotes::getManager();
+    qWarning()<<QString("je suis dans le undo de add note");
     manager.removeNoteFromList(getNote());
     manager.removeNote(getNote());
 }
@@ -62,6 +63,7 @@ void addNoteEntityCommand::redo()
     setText("Création de la note :"+getNote()->getId());
     PluriNotes& manager = PluriNotes::getManager();
     manager.addNote(note);
+    qWarning()<<QString("je suis dans le redo de add note");
 
     manager.setDataChanged(true);
 }
