@@ -156,11 +156,6 @@ public:
     void setAutoDelete(bool);
 
     //! Setter for the ui :\n
-    //! This is for note content
-    //! \brief Setter UI, note content
-    void setNoteContent(const QString& c);
-
-    //! Setter for the ui :\n
     //! This is for note titles
     //! \brief Setter UI, note titles
     void setNoteTitle(const QString& t);
