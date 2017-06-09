@@ -207,10 +207,9 @@ void PluriNotes::displayNote(unsigned int n) {
         } else ui->noteTextVersion->setEnabled(1);
         const NoteElement& note = currentSelectedNote.getVersion(n);
         //Suppression des champs variables
-        while (ui->displayNoteWidget->count() > 7) {
-            QLayoutItem* temp = ui->displayNoteWidget->itemAt(6);
+        while (auto temp = ui->customDisplayWidgets->takeAt(0)) {
             temp->widget()->hide();
-            ui->displayNoteWidget->removeItem(temp);
+            ui->customDisplayWidgets->removeItem(temp);
             delete temp;
         }
         //Ajout et remplissage des champs de type de note
