@@ -176,9 +176,11 @@ public:
     //! \brief Setter UI, note date
     void setNoteDate(const QDateTime& d);
 
+    const QString getNoteTitleEdit();
 
     void setArticleContent(const QString& content);
     const QString getArticleContent();
+    const QString getArticleContentEdit();
 
 
     void setTaskAction(const QString& action);

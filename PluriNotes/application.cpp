@@ -55,9 +55,17 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
 
 }
 
+const QString PluriNotes::getNoteTitleEdit() {
+    return ui->titleDisplayLineEdit->text();
+}
+
 
 const QString PluriNotes::getArticleContent() {
     return ui->articleContent->toPlainText();
+}
+
+const QString PluriNotes::getArticleContentEdit() {
+    return ui->articleDisplayContent->toPlainText();
 }
 
 unsigned int PluriNotes::getTaskPriority() {

@@ -7,7 +7,6 @@ void Task::displayNote() const {
     PluriNotes& manager = PluriNotes::getManager();
     manager.setNoteTitle(getTitle());
     manager.setNoteDate(getCreationDate());
-
     manager.setTaskAction(action);
     manager.setTaskPriority(priority);
     manager.setTaskStatus(status);
@@ -19,7 +18,6 @@ Task* Task::saveNote(QString title) {
     PluriNotes& manager = PluriNotes::getManager();
     return new Task(title, QDateTime::currentDateTime(), manager.getTaskAction(), 0, manager.getTaskPriority(), manager.getTaskDeadline());
 }
-
 
 Task* Task::addVersion() const {
     //return new Task(title, QDateTime::currentDateTime(), descr->text());

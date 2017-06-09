@@ -567,7 +567,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>767</x>
-     <y>157</y>
+     <y>79</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -615,7 +615,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>721</x>
-     <y>290</y>
+     <y>134</y>
     </hint>
     <hint type="destinationlabel">
      <x>601</x>
@@ -631,7 +631,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>471</x>
-     <y>425</y>
+     <y>192</y>
     </hint>
     <hint type="destinationlabel">
      <x>470</x>
@@ -663,11 +663,27 @@
    <hints>
     <hint type="sourcelabel">
      <x>330</x>
-     <y>528</y>
+     <y>550</y>
     </hint>
     <hint type="destinationlabel">
      <x>176</x>
      <y>593</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>noteTextVersion</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>noteVersionChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>489</x>
+     <y>548</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>149</x>
+     <y>540</y>
     </hint>
    </hints>
   </connection>

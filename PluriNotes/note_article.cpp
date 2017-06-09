@@ -18,5 +18,5 @@ Article* Article::saveNote(QString title) {
 
 Article* Article::addVersion() const {
     PluriNotes& manager = PluriNotes::getManager();
-    //return new Article(manager.getUi()->titleDisplayLineEdit->text(), QDateTime::currentDateTime(), manager.getUi()->contentDisplayTextEdit->toPlainText());
+    return new Article(manager.getNoteTitleEdit(), QDateTime::currentDateTime(), manager.getArticleContentEdit());
 }
