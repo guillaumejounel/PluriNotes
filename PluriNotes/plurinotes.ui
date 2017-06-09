@@ -25,7 +25,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout" columnstretch="1,0,0,0,5">
     <property name="leftMargin">
-     <number>0</number>
+     <number>11</number>
     </property>
     <item row="0" column="0">
      <widget class="QPushButton" name="ButtonNewNote">
@@ -57,7 +57,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>679</width>
+             <width>670</width>
              <height>539</height>
             </rect>
            </property>
@@ -76,8 +76,17 @@
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>50</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="text">
                      <string>Title:</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -96,8 +105,17 @@
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>50</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="text">
                      <string>Id:</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -116,8 +134,17 @@
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>50</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="text">
                      <string>Date:</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
