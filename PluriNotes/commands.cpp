@@ -8,11 +8,18 @@
 deleteNoteCommand::deleteNoteCommand(NoteEntity *note, QUndoCommand *parent)
     : QUndoCommand(parent), note(note){}
 
-/*
+
 deleteNoteCommand::~deleteNoteCommand(){
-    delete getNote();
+    PluriNotes& manager = PluriNotes::getManager();
+    // if we don't actually still have the pointer in the vector we shoult be able to delete it...
+    if (! manager.isInsideApp(getNote())) {
+        qWarning()<<QString("je suis dans le destructeur et je ne fais rien !");
+        delete getNote();
+    }
+    qWarning()<<QString("je sors du destructeur");
+
 }
-*/
+
 
 void deleteNoteCommand::undo()
 {
@@ -42,18 +49,24 @@ void deleteNoteCommand::redo()
 addNoteEntityCommand::addNoteEntityCommand(NoteEntity* note, QUndoCommand *parent )
     : QUndoCommand(parent), note(note) {}
 
-/*
+
 addNoteEntityCommand::~addNoteEntityCommand(){
-    delete getNote();
+    PluriNotes& manager = PluriNotes::getManager();
+    // if we don't actually still have the pointer in the vector we shoult be able to delete it...
+    if (! manager.isInsideApp(getNote())) {
+        qWarning()<<QString("je suis dans le destructeur et je ne fais rien !");
+        delete getNote();
+    }
+    qWarning()<<QString("je sors du destructeur");
+
 }
-*/
+
 
 void addNoteEntityCommand::undo()
 {
     setText("Annulation de la création de la note :"+getNote()->getId());
 
     PluriNotes& manager = PluriNotes::getManager();
-    qWarning()<<QString("je suis dans le undo de add note");
     manager.removeNoteFromList(getNote());
     manager.removeNote(getNote());
 }
@@ -63,7 +76,6 @@ void addNoteEntityCommand::redo()
     setText("Création de la note :"+getNote()->getId());
     PluriNotes& manager = PluriNotes::getManager();
     manager.addNote(note);
-    qWarning()<<QString("je suis dans le redo de add note");
 
     manager.setDataChanged(true);
 }

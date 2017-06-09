@@ -23,3 +23,8 @@ const NoteElement& NoteEntity::getLastVersion() const {
 const NoteElement& NoteEntity::getVersion(unsigned int nb) const {
     return *versions[nb];
 }
+
+
+bool NoteEntity::operator==(const NoteEntity& n)const{
+    return (id==n.getId());
+}

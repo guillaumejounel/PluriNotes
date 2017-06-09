@@ -71,7 +71,7 @@ private:
 
     //! Vector containing all the notes sent to the trash
     //! \brief Vector containing the trashed notes
-    QVector<const NoteEntity*> corbeille;
+    QVector<const NoteEntity*> trash;
 
     //! Vector containing all Relations of the application
     QVector<const Relation*> relations;
@@ -142,6 +142,9 @@ public:
 
     //! Delete note based on its id
     void deleteNote(const QString& id);
+
+    //! \brief Function to know if a note can be deleted
+    bool isInsideApp(const NoteEntity *note);
 
     //! Function to move a note element from notes to trash
     void moveToTrash(NoteEntity* noteEl);

@@ -164,7 +164,7 @@ PluriNotes::~PluriNotes() {
     if(instanceUnique) delete instanceUnique;
     instanceUnique = nullptr;
     notes.clear();
-    corbeille.clear();
+    trash.clear();
 }
 
 void PluriNotes::toNewNoteForm() {
@@ -302,13 +302,30 @@ void PluriNotes::deleteNote() {
     undoStack->push(deleteCommand);
 }
 
+bool PluriNotes::isInsideApp(const NoteEntity *note){
+    for (auto current: notes) {
+        if (current==note) {
+            return true;
+        }
+    }
+
+    for (auto current: trash) {
+        if (current==note) {
+            return true;
+        }
+    }
+
+    return false;
+
+}
+
 //! \todo add error handling
 void PluriNotes::moveToTrash(NoteEntity *noteEl){
     unsigned int i = 0;
     for (auto note: notes) {
         if (noteEl==note) {
             notes.erase(notes.begin()+i);
-            corbeille.push_back(note);
+            trash.push_back(note);
             return;
         }
         ++i;
@@ -320,9 +337,9 @@ void PluriNotes::moveToTrash(NoteEntity *noteEl){
 
 void PluriNotes::moveBackFromTrash(NoteEntity* noteEl){
     unsigned int i = 0;
-    for (auto note: corbeille) {
+    for (auto note: trash) {
         if (noteEl==note) {
-            corbeille.erase(corbeille.begin()+i);
+            trash.erase(trash.begin()+i);
             notes.push_back(note);
             return;
         }

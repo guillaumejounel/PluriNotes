@@ -19,7 +19,7 @@ private:
 public:
     deleteNoteCommand(NoteEntity* note, QUndoCommand *parent = 0);
     //! To prevent memory leaks, we have to redefine the destructor
-    //~deleteNoteCommand();
+    ~deleteNoteCommand();
 
     void undo() override;
     void redo() override;
@@ -43,7 +43,7 @@ public:
     addNoteEntityCommand(NoteEntity* note, QUndoCommand *parent = 0);
 
     //! To prevent memory leaks, we have to redefine the destructor
-    //~addNoteEntityCommand();
+    ~addNoteEntityCommand();
 
     void undo() override;
     void redo() override;
