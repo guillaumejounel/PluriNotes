@@ -9,7 +9,7 @@ deleteNoteCommand::deleteNoteCommand(listItemAndPointer* item, QUndoCommand *par
 
 void deleteNoteCommand::undo()
 {
-    setText("rétablir la Suppression de la note "+item->getNotePointer()->getId());
+    setText("Rétablir la Suppression de la note "+item->getNotePointer()->getId());
 
     PluriNotes& manager = PluriNotes::getManager();
     manager.moveBackFromTrash(item->getNotePointer());

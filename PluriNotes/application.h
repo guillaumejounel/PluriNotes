@@ -186,6 +186,19 @@ public:
     listItemAndPointer* removeItemNoteFromList(listItemAndPointer* item);
 
 
+    //! ######################################################
+    //! ######################################################
+    //! New methods for better undo redo command handling
+    //!
+
+    void removeNoteFromList(NoteEntity* note, QListWidget* panel);
+
+
+    //!
+    //!
+    //! #######################################################
+    //! #######################################################
+
     //! Function to check if their has been modification to plurinotes
     bool hasDataChanged() const {return dataChanged;}
 

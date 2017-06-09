@@ -516,6 +516,28 @@ listItemAndPointer* PluriNotes::removeItemNoteFromList(listItemAndPointer* item)
     return static_cast<listItemAndPointer*>(ui->listNotesWidget->takeItem(i));
 }
 
+//! ####################################
+//! ####################################
+void PluriNotes::removeNoteFromList(NoteEntity *note, QListWidget* panel){
+    unsigned int nbItems = panel->count();
+    listItemAndPointer* current;
+
+    QString idWeAreLookingFor = note->getId();
+
+    // We have to go throw all items in the list to know where is note
+    unsigned int i=0;
+    for(; i<nbItems; i++){
+        current = static_cast<listItemAndPointer*>(panel->item(i));
+        if (current->getNotePointer()->getId() == idWeAreLookingFor) break;
+    }
+
+    //We remove the item from the panel
+    //! \todo check if have to use delete for memomry
+    delete panel->takeItem(i);
+}
+//! ####################################
+//! ####################################
+
 void PluriNotes::setDataChanged(bool b) {
     dataChanged = b;
     saveAction->setEnabled(b);
