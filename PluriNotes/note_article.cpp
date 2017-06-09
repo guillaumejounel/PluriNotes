@@ -7,26 +7,16 @@ void Article::displayNote() const {
     PluriNotes& manager = PluriNotes::getManager();
     manager.setNoteTitle(this->getTitle());
     manager.setNoteDate(this->getCreationDate());
-    //Content
-    QLabel* contentDisplayLabel = new QLabel(QString("Contenu"));
-    QTextEdit* contentDisplayTextEdit = new QTextEdit(this->getText());
-    manager.getUi()->customDisplayWidgets->insertWidget(0, contentDisplayTextEdit);
-    manager.getUi()->customDisplayWidgets->insertWidget(0, contentDisplayLabel);
+    manager.setArticleContent(getText());
 }
 
-QList<QWidget*> Article::champsForm() {
-    textFormZone = new QTextEdit();
-    textLabel = new QLabel(QString("Texte"));
-    QList<QWidget*> listeWidgets;
-    listeWidgets << textFormZone << textLabel;
-    return listeWidgets;
-}
 
 Article* Article::saveNote(QString title) {
-    return new Article(title, QDateTime::currentDateTime(), textFormZone->toPlainText());
+    PluriNotes& manager = PluriNotes::getManager();
+    return new Article(title, QDateTime::currentDateTime(), manager.getArticleContent());
 }
 
 Article* Article::addVersion() const {
-    //PluriNotes& manager = PluriNotes::getManager();
-    //return new Article(manager.getUi()->noteTextTitle->toPlainText(), QDateTime::currentDateTime(), manager.getUi()->noteTextContent->toPlainText());
+    PluriNotes& manager = PluriNotes::getManager();
+    //return new Article(manager.getUi()->titleDisplayLineEdit->text(), QDateTime::currentDateTime(), manager.getUi()->contentDisplayTextEdit->toPlainText());
 }

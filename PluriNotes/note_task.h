@@ -10,27 +10,20 @@
 
 using namespace std;
 
-setNoteType(Tache)
+setNoteType(Task)
 private:
-    enum Priority {low, normal, high};
-    enum Status {awaiting, pending, finished};
     const QString action;
-    Status taskStatus;
-    Priority taskPrio;
-    QLabel *laction, *lprio, *lstatus;
-    QTextEdit* actionFormZone;
-    QComboBox *taskPrioForm, *taskStatusForm;
+    unsigned int status;
+    unsigned int priority;
+    const QDateTime deadline;
 public:
-    Tache() {}
-    Tache(const QString& title, const QDateTime& creaDate, const QString& action, const Status& taskStatus, const Priority& taskPrio): BaseNoteType(title,creaDate), action(action), taskStatus(taskStatus), taskPrio(taskPrio) {}
-    const QString& getAction() const {return action;}
-    const QString getStatus() const;
-    const QString getPriority() const;
+    Task() {}
+    Task(const QString& title, const QDateTime& creaDate, const QString& action, const unsigned int taskStatus, const unsigned int taskPriority, const QDateTime& deadline): BaseNoteType(title,creaDate), action(action), status(taskStatus), priority(taskPriority), deadline(deadline) {}
     virtual void displayNote() const override;
-    virtual QList<QWidget*> champsForm() override;
-    virtual Tache* saveNote(QString title) override;
-    virtual Tache* addVersion() const override;
-    ~Tache() {}
+    virtual unsigned int indexPageCreation() const override { return 1; }
+    virtual Task* saveNote(QString title) override;
+    virtual Task* addVersion() const override;
+    ~Task() {}
 };
 
 #endif // NOTE_TASK_H

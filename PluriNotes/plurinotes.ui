@@ -27,6 +27,13 @@
     <property name="leftMargin">
      <number>0</number>
     </property>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="ButtonNewNote">
+      <property name="text">
+       <string>New note</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="4" rowspan="2">
      <widget class="QStackedWidget" name="mainStackedWidget">
       <property name="minimumSize">
@@ -60,7 +67,7 @@
               <item>
                <widget class="QLabel" name="titleDisplayLabel">
                 <property name="text">
-                 <string>Titre</string>
+                 <string>Title:</string>
                 </property>
                </widget>
               </item>
@@ -70,7 +77,7 @@
               <item>
                <widget class="QLabel" name="idDisplayLabel">
                 <property name="text">
-                 <string>id</string>
+                 <string>Id:</string>
                 </property>
                </widget>
               </item>
@@ -80,7 +87,7 @@
               <item>
                <widget class="QLabel" name="dateDisplayLabel">
                 <property name="text">
-                 <string>Date</string>
+                 <string>Date:</string>
                 </property>
                </widget>
               </item>
@@ -88,24 +95,141 @@
                <widget class="QLineEdit" name="dateDisplayLineEdit"/>
               </item>
               <item>
-               <layout class="QVBoxLayout" name="customDisplayWidgets"/>
+               <widget class="QStackedWidget" name="noteTypeDisplay">
+                <property name="currentIndex">
+                 <number>0</number>
+                </property>
+                <widget class="QWidget" name="articleDisplay">
+                 <layout class="QVBoxLayout" name="verticalLayout_4">
+                  <item>
+                   <widget class="QLabel" name="articleDisplayContentLabel">
+                    <property name="text">
+                     <string>Content:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPlainTextEdit" name="articleDisplayContent"/>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="taskDisplay">
+                 <layout class="QVBoxLayout" name="verticalLayout_8">
+                  <item>
+                   <widget class="QLabel" name="taskDisplayActionLabel">
+                    <property name="text">
+                     <string>Action:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QTextEdit" name="taskDisplayAction"/>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="taskDisplayPriorityLabel">
+                    <property name="text">
+                     <string>Priority:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="taskDisplayPriority">
+                    <item>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Low</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Normal</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>High</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="taskDisplayDeadlineLabel">
+                    <property name="text">
+                     <string>Deadline:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QDateTimeEdit" name="taskDisplayDeadline"/>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="taskDisplayStatusLabel">
+                    <property name="text">
+                     <string>Status:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="taskDisplayStatus">
+                    <item>
+                     <property name="text">
+                      <string>In progress</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Pending</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Done</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="fileDisplay">
+                 <layout class="QVBoxLayout" name="verticalLayout_6">
+                  <item>
+                   <widget class="QLabel" name="fileDisplayDescriptionLabel">
+                    <property name="text">
+                     <string>Description:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QTextEdit" name="fileDisplayDescription"/>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="fileDisplayFileLabel">
+                    <property name="text">
+                     <string>File:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="fileDisplayFile">
+                    <property name="text">
+                     <string>Open file</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_3">
                 <item>
-                 <widget class="QPushButton" name="buttonCancelEditArticle">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="text">
-                   <string>Cancel</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
                  <widget class="QPushButton" name="buttonSaveEditArticle">
                   <property name="enabled">
-                   <bool>false</bool>
+                   <bool>true</bool>
                   </property>
                   <property name="text">
                    <string>Save</string>
@@ -212,7 +336,7 @@
                  <item>
                   <widget class="QLabel" name="titleLabel">
                    <property name="text">
-                    <string>Title</string>
+                    <string>*Title:</string>
                    </property>
                   </widget>
                  </item>
@@ -222,7 +346,7 @@
                  <item>
                   <widget class="QLabel" name="idLabel">
                    <property name="text">
-                    <string>id</string>
+                    <string>*Id:</string>
                    </property>
                   </widget>
                  </item>
@@ -232,7 +356,7 @@
                  <item>
                   <widget class="QLabel" name="typeLabel">
                    <property name="text">
-                    <string>type</string>
+                    <string>*Type:</string>
                    </property>
                   </widget>
                  </item>
@@ -240,7 +364,108 @@
                   <widget class="QComboBox" name="TypeComboBox"/>
                  </item>
                  <item>
-                  <layout class="QVBoxLayout" name="formCustomWidgets"/>
+                  <widget class="QStackedWidget" name="customWidgets">
+                   <property name="currentIndex">
+                    <number>0</number>
+                   </property>
+                   <widget class="QWidget" name="articleForm">
+                    <layout class="QVBoxLayout" name="verticalLayout_3">
+                     <item>
+                      <widget class="QLabel" name="articleContentLabel">
+                       <property name="text">
+                        <string>*Content :</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPlainTextEdit" name="articleContent"/>
+                     </item>
+                    </layout>
+                   </widget>
+                   <widget class="QWidget" name="taskForm">
+                    <layout class="QVBoxLayout" name="verticalLayout_5">
+                     <item>
+                      <widget class="QLabel" name="taskActionLabel">
+                       <property name="text">
+                        <string>*Action:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QTextEdit" name="taskAction"/>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="taskPriorityLabel">
+                       <property name="text">
+                        <string>Priority: </string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QComboBox" name="taskPriority">
+                       <item>
+                        <property name="text">
+                         <string/>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Low</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Normal</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>High</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="taskDeadlineLabel">
+                       <property name="text">
+                        <string>Deadline:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QDateTimeEdit" name="taskDeadline"/>
+                     </item>
+                    </layout>
+                   </widget>
+                   <widget class="QWidget" name="fileForm">
+                    <layout class="QVBoxLayout" name="verticalLayout_7">
+                     <item>
+                      <widget class="QLabel" name="fileDescriptionLabel">
+                       <property name="text">
+                        <string>*Description: </string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QTextEdit" name="fileDescription"/>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="fileFileLabel">
+                       <property name="text">
+                        <string>*File: </string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="fileFile">
+                       <property name="text">
+                        <string>Select file</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </widget>
                  </item>
                  <item>
                   <widget class="QDialogButtonBox" name="buttonBox">
@@ -278,13 +503,6 @@
         </property>
        </widget>
       </widget>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QPushButton" name="ButtonNewNote">
-      <property name="text">
-       <string>New note</string>
-      </property>
      </widget>
     </item>
     <item row="1" column="0">
@@ -429,11 +647,27 @@
    <hints>
     <hint type="sourcelabel">
      <x>815</x>
-     <y>563</y>
+     <y>541</y>
     </hint>
     <hint type="destinationlabel">
      <x>306</x>
      <y>596</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonSaveEditArticle</sender>
+   <signal>clicked()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>saveNewVersion()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>330</x>
+     <y>528</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>176</x>
+     <y>593</y>
     </hint>
    </hints>
   </connection>

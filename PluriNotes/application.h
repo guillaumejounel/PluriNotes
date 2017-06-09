@@ -165,10 +165,27 @@ public:
 //    //! \brief Setter UI, note id
 //    void setNoteId(const QString& i);
 
+
+
+
     //! Setter for the ui :\n
     //! This is for note date
     //! \brief Setter UI, note date
     void setNoteDate(const QDateTime& d);
+
+
+    void setArticleContent(const QString& content);
+    const QString getArticleContent();
+
+
+    void setTaskAction(const QString& action);
+    void setTaskStatus(unsigned int i);
+    void setTaskPriority(unsigned int i);
+    void setTaskDeadline(const QDateTime& date);
+
+    unsigned int getTaskPriority();
+    const QString getTaskAction();
+    const QDateTime getTaskDeadline();
 
     //! Function to add a note in the system \n
     //! Returns an "listItemAndPointer*" the should be usefull in somme cases

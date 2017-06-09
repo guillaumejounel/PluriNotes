@@ -3,76 +3,24 @@
 #include "application.h"
 #include <QDateTime>
 
-
-void Tache::displayNote() const {
+void Task::displayNote() const {
     PluriNotes& manager = PluriNotes::getManager();
-    manager.setNoteTitle(this->getTitle());
-    manager.setNoteDate(this->getCreationDate());
-    //Action
-    QLabel* contentDisplayLabel = new QLabel(QString("Contenu"));
-    QTextEdit* contentDisplayTextEdit = new QTextEdit(getAction());
-    manager.getUi()->customDisplayWidgets->insertWidget(0, contentDisplayTextEdit);
-    manager.getUi()->customDisplayWidgets->insertWidget(0, contentDisplayLabel);
-    //Status
-    QLabel* statusDisplayLabel = new QLabel(QString("Status"));
-    QLineEdit* statusDisplayLineEdit = new QLineEdit(getStatus());
-    manager.getUi()->customDisplayWidgets->insertWidget(0, statusDisplayLineEdit);
-    manager.getUi()->customDisplayWidgets->insertWidget(0, statusDisplayLabel);
-    //Priority
-    QLabel* priorityDisplayLabel = new QLabel(QString("Priority"));
-    QLineEdit* priorityDisplayLineEdit = new QLineEdit(getPriority());
-    manager.getUi()->customDisplayWidgets->insertWidget(0, priorityDisplayLineEdit);
-    manager.getUi()->customDisplayWidgets->insertWidget(0, priorityDisplayLabel);
+    manager.setNoteTitle(getTitle());
+    manager.setNoteDate(getCreationDate());
+
+    manager.setTaskAction(action);
+    manager.setTaskPriority(priority);
+    manager.setTaskStatus(status);
+    manager.setTaskDeadline(deadline);
+
 }
 
-QList<QWidget*> Tache::champsForm() {
-    laction = new QLabel(QString("Tache"));
-    actionFormZone = new QTextEdit();
-    lprio = new QLabel(QString("Priorité"));
-    taskPrioForm = new QComboBox();
-    taskPrioForm->addItems(QStringList({"Faible","Normale","Elevée"}));
-    taskPrioForm->setCurrentText(QString("Normale"));
-    lstatus = new QLabel(QString("Statut"));
-    taskStatusForm = new QComboBox();
-    taskStatusForm->addItems(QStringList({"En attente","En cours","Accomplie"}));
-    QList<QWidget*> listeWidgets;
-    listeWidgets << actionFormZone << laction << taskStatusForm << lstatus << taskPrioForm << lprio;
-    return listeWidgets;
+Task* Task::saveNote(QString title) {
+    PluriNotes& manager = PluriNotes::getManager();
+    return new Task(title, QDateTime::currentDateTime(), manager.getTaskAction(), 0, manager.getTaskPriority(), manager.getTaskDeadline());
 }
 
-Tache* Tache::saveNote(QString title) {
-    QMap<QString, Status> stringToStatus;
-    QMap<QString, Priority> stringToPrio;
 
-    stringToStatus.insert("En attente", awaiting);
-    stringToStatus.insert("En cours", pending);
-    stringToStatus.insert("Accomplie", finished);
-    stringToPrio.insert("Faible", low);
-    stringToPrio.insert("Normale", normal);
-    stringToPrio.insert("Elevée", high);
-
-    Status taskStatus = stringToStatus[taskStatusForm->currentText()];
-    Priority taskPrio = stringToPrio[taskPrioForm->currentText()];
-    return new Tache(title, QDateTime::currentDateTime(), actionFormZone->toPlainText(), taskStatus, taskPrio);
-}
-
-const QString Tache::getPriority() const {
-    QMap<Priority, QString> prioToString;
-    prioToString.insert(low, "Faible");
-    prioToString.insert(normal, "Normale");
-    prioToString.insert(high, "Elevée");
-    return prioToString[this->taskPrio];
-}
-
-const QString Tache::getStatus() const {
-    QMap<Status, QString> statusToString;
-    statusToString.insert(awaiting, "En attente");
-    statusToString.insert(pending, "En cours");
-    statusToString.insert(finished, "Accomplie");
-    qDebug() << statusToString << this->taskStatus << statusToString[this->taskStatus];
-    return statusToString[this->taskStatus];
-}
-
-Tache* Tache::addVersion() const {
-    //return new Tache(title, QDateTime::currentDateTime(), descr->text());
+Task* Task::addVersion() const {
+    //return new Task(title, QDateTime::currentDateTime(), descr->text());
 }

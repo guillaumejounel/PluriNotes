@@ -56,6 +56,21 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
 }
 
 
+const QString PluriNotes::getArticleContent() {
+    return ui->articleContent->toPlainText();
+}
+
+unsigned int PluriNotes::getTaskPriority() {
+    return ui->taskPriority->currentIndex();
+}
+
+const QString PluriNotes::getTaskAction() {
+    return ui->taskAction->toPlainText();
+}
+
+const QDateTime PluriNotes::getTaskDeadline() {
+    return ui->taskDeadline->dateTime();
+}
 
 void PluriNotes::createUndoView()
 {
@@ -183,12 +198,32 @@ void PluriNotes::toNewNoteForm() {
 //    ui->idDisplayLineEdit->setText(i);
 //}
 
+void PluriNotes::setArticleContent(const QString& content) {
+    ui->articleDisplayContent->setPlainText(content);
+}
+
 void PluriNotes::setNoteTitle(const QString& t){
     ui->titleDisplayLineEdit->setText(t);
 }
 
 void PluriNotes::setNoteDate(const QDateTime& d){
     ui->dateDisplayLineEdit->setText(d.toString("dddd dd MMMM yyyy hh:mm:ss"));
+}
+
+void PluriNotes::setTaskAction(const QString& action) {
+    ui->taskDisplayAction->setText(action);
+}
+
+void PluriNotes::setTaskStatus(unsigned int i) {
+    ui->taskDisplayStatus->setCurrentIndex(i);
+}
+
+void PluriNotes::setTaskPriority(unsigned int i) {
+    ui->taskDisplayPriority->setCurrentIndex(i);
+}
+
+void PluriNotes::setTaskDeadline(const QDateTime& date) {
+    ui->taskDisplayDeadline->setDateTime(date);
 }
 
 NoteEntity& PluriNotes::getCurrentNote() {
@@ -206,12 +241,7 @@ void PluriNotes::displayNote(unsigned int n) {
             ui->noteTextVersion->setEnabled(0);
         } else ui->noteTextVersion->setEnabled(1);
         const NoteElement& note = currentSelectedNote.getVersion(n);
-        //Suppression des champs variables
-        while (auto temp = ui->customDisplayWidgets->takeAt(0)) {
-            temp->widget()->hide();
-            ui->customDisplayWidgets->removeItem(temp);
-            delete temp;
-        }
+        ui->noteTypeDisplay->setCurrentIndex(note.indexPageCreation());
         //Ajout et remplissage des champs de type de note
         note.displayNote();
         ui->mainStackedWidget->setCurrentIndex(0);
@@ -235,12 +265,12 @@ void PluriNotes::noteVersionChanged() {
 }
 
 void PluriNotes::noteTextChanged() {
-    NoteEntity& currentSelectedNote = getCurrentNote();
+    //NoteEntity& currentSelectedNote = getCurrentNote();
 
     //TODO : adapter ça selon le type de note..?
-    const Article& note = static_cast<const Article&>(currentSelectedNote.getLastVersion());
+    //const Article& note = static_cast<const Article&>(currentSelectedNote.getLastVersion());
 
-    //if((ui->titleDisplayLineEdit->text() == note.getTitle() && ui->contentDisplayTextEdit->text() == note.getText())
+    /*if((ui->titleDisplayLineEdit->text() == note.getTitle() && ui->contentDisplayTextEdit->text() == note.getText())
     if(ui->titleDisplayLineEdit->text() == note.getTitle()
             || ui->noteTextVersion->currentIndex() != 0) {
         ui->buttonCancelEditArticle->setEnabled(0);
@@ -248,7 +278,7 @@ void PluriNotes::noteTextChanged() {
     } else {
         ui->buttonCancelEditArticle->setEnabled(1);
         ui->buttonSaveEditArticle->setEnabled(1);
-    }
+    }*/
 }
 
 void PluriNotes::saveNote() {
@@ -359,17 +389,9 @@ void PluriNotes::idChanged() {
 }
 
 void PluriNotes::typeChangedForm() {
-    //Suppression des champs non communs
-    while (auto temp = ui->formCustomWidgets->takeAt(0)) {
-        temp->widget()->hide();
-        ui->formCustomWidgets->removeItem(temp);
-        delete temp;
-    }
     //Ajout des champs selon le type de note
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
-    for (auto widget: myMap[ui->TypeComboBox->currentText()]->champsForm()) {
-        ui->formCustomWidgets->insertWidget(0,widget);
-    }
+    ui->customWidgets->setCurrentIndex(myMap[ui->TypeComboBox->currentText()]->indexPageCreation());
 }
 
 
