@@ -36,7 +36,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="displayNotePage">
        <layout class="QGridLayout" name="verticalLayout_2" rowstretch="0">
@@ -50,8 +50,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>679</width>
-             <height>539</height>
+             <width>659</width>
+             <height>530</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -183,8 +183,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>183</width>
-             <height>210</height>
+             <width>669</width>
+             <height>540</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
@@ -216,7 +216,7 @@
                 <number>0</number>
                </property>
                <item>
-                <layout class="QVBoxLayout" name="formNoteWidget" stretch="0,0,0,0,0,0,0">
+                <layout class="QVBoxLayout" name="formNoteWidget" stretch="0,0,0,0,0,0,0,0">
                  <property name="sizeConstraint">
                   <enum>QLayout::SetMaximumSize</enum>
                  </property>
@@ -252,6 +252,9 @@
                  </item>
                  <item>
                   <widget class="QComboBox" name="TypeComboBox"/>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="formCustomWidgets"/>
                  </item>
                  <item>
                   <widget class="QDialogButtonBox" name="buttonBox">
@@ -312,7 +315,7 @@
      <x>0</x>
      <y>0</y>
      <width>854</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
@@ -359,8 +362,8 @@
    <slot>titleChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>605</x>
-     <y>206</y>
+     <x>767</x>
+     <y>157</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -391,8 +394,8 @@
    <slot>cancelNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>587</x>
-     <y>577</y>
+     <x>743</x>
+     <y>573</y>
     </hint>
     <hint type="destinationlabel">
      <x>571</x>
@@ -407,8 +410,8 @@
    <slot>idChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>559</x>
-     <y>374</y>
+     <x>721</x>
+     <y>290</y>
     </hint>
     <hint type="destinationlabel">
      <x>601</x>
@@ -423,8 +426,8 @@
    <slot>typeChangedForm()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>312</x>
-     <y>528</y>
+     <x>471</x>
+     <y>425</y>
     </hint>
     <hint type="destinationlabel">
      <x>470</x>
@@ -439,8 +442,8 @@
    <slot>deleteNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>481</x>
-     <y>571</y>
+     <x>815</x>
+     <y>563</y>
     </hint>
     <hint type="destinationlabel">
      <x>306</x>

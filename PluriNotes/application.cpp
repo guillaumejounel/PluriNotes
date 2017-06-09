@@ -365,16 +365,15 @@ void PluriNotes::idChanged() {
 
 void PluriNotes::typeChangedForm() {
     //Suppression des champs non communs
-    while (ui->formNoteWidget->count() > 7) {
-        QLayoutItem* temp = ui->formNoteWidget->itemAt(6);
+    while (auto temp = ui->formCustomWidgets->takeAt(0)) {
         temp->widget()->hide();
-        ui->formNoteWidget->removeItem(temp);
+        ui->formCustomWidgets->removeItem(temp);
         delete temp;
     }
     //Ajout des champs selon le type de note
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
     for (auto widget: myMap[ui->TypeComboBox->currentText()]->champsForm()) {
-        ui->formNoteWidget->insertWidget(6,widget,0);
+        ui->formCustomWidgets->insertWidget(0,widget);
     }
 }
 
