@@ -10,8 +10,8 @@ void Article::displayNote() const {
     //Content
     QLabel* contentDisplayLabel = new QLabel(QString("Contenu"));
     QTextEdit* contentDisplayTextEdit = new QTextEdit(this->getText());
-    manager.getUi()->displayNoteWidget->insertWidget(6, contentDisplayTextEdit, 0);
-    manager.getUi()->displayNoteWidget->insertWidget(6, contentDisplayLabel, 0);
+    manager.getUi()->customDisplayWidgets->insertWidget(0, contentDisplayTextEdit);
+    manager.getUi()->customDisplayWidgets->insertWidget(0, contentDisplayLabel);
 }
 
 QList<QWidget*> Article::champsForm() {
