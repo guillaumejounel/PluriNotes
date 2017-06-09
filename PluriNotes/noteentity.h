@@ -21,6 +21,9 @@ public:
     const NoteElement& getVersion(unsigned int nb) const;
     bool isArchived() const;
     void addVersion(const NoteElement&);
+
+    //! comparaison of note NoteEntity
+    bool operator==(const NoteEntity& n)const;
 };
 
 

@@ -29,7 +29,7 @@ private :
     NoteEntity* notePointer;
 public :
     //! Constructor for the class
-    listItemAndPointer(NoteEntity* ptr) : notePointer(ptr) {}
+    listItemAndPointer(NoteEntity* ptr = nullptr) : notePointer(ptr) {}
 
     //! Accessor to the added attribute
     NoteEntity* getNotePointer() const {return notePointer;}

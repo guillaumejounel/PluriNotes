@@ -3,52 +3,79 @@
 #include <qdebug.h>
 
 
-deleteNoteCommand::deleteNoteCommand(listItemAndPointer* item, QUndoCommand *parent)
-    : QUndoCommand(parent), item(item){}
+// deleteNoteCommand
+// ########################################
+deleteNoteCommand::deleteNoteCommand(NoteEntity *note, QUndoCommand *parent)
+    : QUndoCommand(parent), note(note){}
+
+
+deleteNoteCommand::~deleteNoteCommand(){
+    PluriNotes& manager = PluriNotes::getManager();
+    // if we don't actually still have the pointer in the vector we shoult be able to delete it...
+    if (! manager.isInsideApp(getNote())) {
+        qWarning()<<QString("je suis dans le destructeur et je ne fais rien !");
+        delete getNote();
+    }
+    qWarning()<<QString("je sors du destructeur");
+
+}
 
 
 void deleteNoteCommand::undo()
 {
-    setText("rétablir la Suppression de la note "+item->getNotePointer()->getId());
+    setText("Rétablir la Suppression de la note "+getNote()->getId());
 
     PluriNotes& manager = PluriNotes::getManager();
-    manager.moveBackFromTrash(item->getNotePointer());
-    manager.addItemNoteToList(item);
-
+    manager.moveBackFromTrash(getNote());
+    manager.addNoteToList(getNote());
 }
 
 void deleteNoteCommand::redo()
 {
-    setText("Suppression de la note "+item->getNotePointer()->getId());
+    setText("Suppression de la note "+getNote()->getId());
 
     PluriNotes& manager = PluriNotes::getManager();
-    manager.moveToTrash(item->getNotePointer());
-    manager.removeItemNoteFromList(item);
+    manager.moveToTrash(getNote());
+    manager.removeNoteFromList(getNote());
 
     manager.setDataChanged(true);
 }
+// ########################################
 
 
-addNoteEntityCommand::addNoteEntityCommand(NoteEntity* noteEn, listItemAndPointer* item, QUndoCommand *parent )
-    : QUndoCommand(parent), noteEn(noteEn), item(item){}
+
+// addNoteEntityCommand
+// ########################################
+addNoteEntityCommand::addNoteEntityCommand(NoteEntity* note, QUndoCommand *parent )
+    : QUndoCommand(parent), note(note) {}
+
+
+addNoteEntityCommand::~addNoteEntityCommand(){
+    PluriNotes& manager = PluriNotes::getManager();
+    // if we don't actually still have the pointer in the vector we shoult be able to delete it...
+    if (! manager.isInsideApp(getNote())) {
+        qWarning()<<QString("je suis dans le destructeur et je ne fais rien !");
+        delete getNote();
+    }
+    qWarning()<<QString("je sors du destructeur");
+
+}
 
 
 void addNoteEntityCommand::undo()
 {
-    setText("Annulation de la création de la note :"+noteEn->getId());
+    setText("Annulation de la création de la note :"+getNote()->getId());
 
     PluriNotes& manager = PluriNotes::getManager();
-    manager.removeItemNoteFromList(item);
-    //! \todo ajouter contrainte non nullité de item
-    //! \todo vérifier fuite mémoire !!!
+    manager.removeNoteFromList(getNote());
+    manager.removeNote(getNote());
 }
 
 void addNoteEntityCommand::redo()
 {
-    setText("Création de la note :"+noteEn->getId());
+    setText("Création de la note :"+getNote()->getId());
     PluriNotes& manager = PluriNotes::getManager();
-    listItemAndPointer* item = manager.addNote(noteEn);
-    this->setItem(item);
+    manager.addNote(note);
 
     manager.setDataChanged(true);
 }

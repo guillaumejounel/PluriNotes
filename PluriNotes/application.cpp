@@ -179,7 +179,7 @@ PluriNotes::~PluriNotes() {
     if(instanceUnique) delete instanceUnique;
     instanceUnique = nullptr;
     notes.clear();
-    corbeille.clear();
+    trash.clear();
 }
 
 void PluriNotes::toNewNoteForm() {
@@ -325,10 +325,27 @@ void PluriNotes::deleteNote() {
 
     //Supprime la note selectionnée du vecteur notes
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
-    //NoteEntity* currentSelectedNote = item->getNotePointer();
+    NoteEntity* currentSelectedNote = item->getNotePointer();
 
-    QUndoCommand *deleteCommand = new deleteNoteCommand(item);
+    QUndoCommand *deleteCommand = new deleteNoteCommand(currentSelectedNote);
     undoStack->push(deleteCommand);
+}
+
+bool PluriNotes::isInsideApp(const NoteEntity *note){
+    for (auto current: notes) {
+        if (current==note) {
+            return true;
+        }
+    }
+
+    for (auto current: trash) {
+        if (current==note) {
+            return true;
+        }
+    }
+
+    return false;
+
 }
 
 //! \todo add error handling
@@ -337,7 +354,7 @@ void PluriNotes::moveToTrash(NoteEntity *noteEl){
     for (auto note: notes) {
         if (noteEl==note) {
             notes.erase(notes.begin()+i);
-            corbeille.push_back(note);
+            trash.push_back(note);
             return;
         }
         ++i;
@@ -349,9 +366,9 @@ void PluriNotes::moveToTrash(NoteEntity *noteEl){
 
 void PluriNotes::moveBackFromTrash(NoteEntity* noteEl){
     unsigned int i = 0;
-    for (auto note: corbeille) {
+    for (auto note: trash) {
         if (noteEl==note) {
-            corbeille.erase(corbeille.begin()+i);
+            trash.erase(trash.begin()+i);
             notes.push_back(note);
             return;
         }
@@ -514,6 +531,10 @@ listItemAndPointer* PluriNotes::addNote(NoteEntity *note){
     return item;
 }
 
+void PluriNotes::removeNote(NoteEntity *note){
+    notes.removeAll(note);
+}
+
 //! \todo add item to list based on last modified date !
 listItemAndPointer* PluriNotes::addNoteToList(NoteEntity* note){
     listItemAndPointer* itm = new listItemAndPointer(note);
@@ -536,6 +557,32 @@ listItemAndPointer* PluriNotes::removeItemNoteFromList(listItemAndPointer* item)
     unsigned int i = ui->listNotesWidget->row(item);
     return static_cast<listItemAndPointer*>(ui->listNotesWidget->takeItem(i));
 }
+
+//! ####################################
+//! ####################################
+void PluriNotes::removeNoteFromList(NoteEntity *note){
+    //! \todo add function to loog for wich panel the note is on!
+    QListWidget* panel = ui->listNotesWidget;
+
+    unsigned int nbItems = panel->count();
+    listItemAndPointer* current;
+
+    QString idWeAreLookingFor = note->getId();
+
+    // We have to go throw all items in the list to know where is note
+    unsigned int i=0;
+    for(i=0; i<nbItems; i++){
+        current = static_cast<listItemAndPointer*>(panel->item(i));
+        if (current->getNotePointer()->getId() == idWeAreLookingFor) break;
+    }
+
+    //We remove the item from the panel
+    //! \todo check if have to use delete for memomry
+    panel->takeItem(i);
+
+}
+//! ####################################
+//! ####################################
 
 void PluriNotes::setDataChanged(bool b) {
     dataChanged = b;

@@ -67,14 +67,14 @@ private:
 
     //! Vector containing all the active notes in the application
     //! \brief Vector containing the active notes
-    vector<const NoteEntity*> notes;
+    QVector<const NoteEntity*> notes;
 
     //! Vector containing all the notes sent to the trash
     //! \brief Vector containing the trashed notes
-    vector<const NoteEntity*> corbeille;
+    QVector<const NoteEntity*> trash;
 
     //! Vector containing all Relations of the application
-    vector<const Relation*> relations;
+    QVector<const Relation*> relations;
 
     //! \todo WHAT IS THIS ??
     bool autoDelete;
@@ -143,6 +143,9 @@ public:
     //! Delete note based on its id
     void deleteNote(const QString& id);
 
+    //! \brief Function to know if a note can be deleted
+    bool isInsideApp(const NoteEntity *note);
+
     //! Function to move a note element from notes to trash
     void moveToTrash(NoteEntity* noteEl);
 
@@ -191,6 +194,11 @@ public:
     //! Returns an "listItemAndPointer*" the should be usefull in somme cases
     listItemAndPointer* addNote(NoteEntity* note);
 
+    //! \brief Function to remove a note
+    //! \warning the memory is not fried
+    void removeNote(NoteEntity* note);
+
+
     //! Function to add an listItemAndPointer* to the list of notes
     void addItemNoteToList(listItemAndPointer* item);
 
@@ -202,6 +210,19 @@ public:
     //! it is returned so that it can be stored if we need it
     listItemAndPointer* removeItemNoteFromList(listItemAndPointer* item);
 
+
+    //! ######################################################
+    //! ######################################################
+    //! New methods for better undo redo command handling
+    //!
+
+    void removeNoteFromList(NoteEntity* note);
+
+
+    //!
+    //!
+    //! #######################################################
+    //! #######################################################
 
     //! Function to check if their has been modification to plurinotes
     bool hasDataChanged() const {return dataChanged;}
