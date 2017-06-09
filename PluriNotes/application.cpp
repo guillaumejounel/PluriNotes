@@ -22,7 +22,6 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
         ui->TypeComboBox->addItem(iter->first);
     }
 
-
     //! Creation of the undo stack
     undoStack = new QUndoStack(this);
 
@@ -193,24 +192,7 @@ void PluriNotes::setNoteDate(const QDateTime& d){
 }
 
 void PluriNotes::setNoteContent(const QString& c){
-    QLabel* contentDisplayLabel = new QLabel(QString("Contenu"));
-    QTextEdit* contentDisplayTextEdit = new QTextEdit(c);
-    ui->displayNoteWidget->insertWidget(6, contentDisplayTextEdit, 0);
-    ui->displayNoteWidget->insertWidget(6, contentDisplayLabel, 0);
-}
-
-void PluriNotes::setTaskPrio(const QString& p){
-    QLabel* priorityDisplayLabel = new QLabel(QString("Priority"));
-    QLineEdit* priorityDisplayLineEdit = new QLineEdit(p);
-    ui->displayNoteWidget->insertWidget(6, priorityDisplayLineEdit, 0);
-    ui->displayNoteWidget->insertWidget(6, priorityDisplayLabel, 0);
-}
-
-void PluriNotes::setTaskStatus(const QString& p){
-    QLabel* statusDisplayLabel = new QLabel(QString("Status"));
-    QLineEdit* statusDisplayLineEdit = new QLineEdit(p);
-    ui->displayNoteWidget->insertWidget(6, statusDisplayLineEdit, 0);
-    ui->displayNoteWidget->insertWidget(6, statusDisplayLabel, 0);
+    ui->contentDisplayTextEdit->setText(c);
 }
 
 NoteEntity& PluriNotes::getCurrentNote() {
@@ -229,8 +211,8 @@ void PluriNotes::displayNote(unsigned int n) {
         } else ui->noteTextVersion->setEnabled(1);
         const NoteElement& note = currentSelectedNote.getVersion(n);
         //Suppression des champs variables
-        while (ui->displayNoteWidget->count() > 7) {
-            QLayoutItem* temp = ui->displayNoteWidget->itemAt(6);
+        while (ui->displayNoteWidget->count() > 9) {
+            QLayoutItem* temp = ui->displayNoteWidget->itemAt(8);
             temp->widget()->hide();
             ui->displayNoteWidget->removeItem(temp);
             delete temp;

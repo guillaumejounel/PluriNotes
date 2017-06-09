@@ -50,8 +50,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>686</width>
-             <height>546</height>
+             <width>679</width>
+             <height>539</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -86,6 +86,23 @@
               </item>
               <item>
                <widget class="QLineEdit" name="dateDisplayLineEdit"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="contentDisplayLabel">
+                <property name="text">
+                 <string>Contenu</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTextEdit" name="contentDisplayTextEdit">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+               </widget>
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -166,8 +183,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>199</width>
-             <height>242</height>
+             <width>183</width>
+             <height>210</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
@@ -295,7 +312,7 @@
      <x>0</x>
      <y>0</y>
      <width>854</width>
-     <height>28</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

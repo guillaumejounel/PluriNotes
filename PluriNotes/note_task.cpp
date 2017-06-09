@@ -1,4 +1,5 @@
 #include "note_task.h"
+#include "ui_plurinotes.h"
 #include "application.h"
 #include <QDateTime>
 
@@ -8,8 +9,16 @@ void Tache::displayNote() const {
     manager.setNoteTitle(this->getTitle());
     manager.setNoteDate(this->getCreationDate());
     manager.setNoteContent(this->getAction());
-    manager.setTaskStatus(this->getStatus());
-    manager.setTaskPrio(this->getPriority());
+    //Status
+    QLabel* statusDisplayLabel = new QLabel(QString("Status"));
+    QLineEdit* statusDisplayLineEdit = new QLineEdit(getStatus());
+    manager.getUi()->displayNoteWidget->insertWidget(8, statusDisplayLineEdit, 0);
+    manager.getUi()->displayNoteWidget->insertWidget(8, statusDisplayLabel, 0);
+    //Priority
+    QLabel* priorityDisplayLabel = new QLabel(QString("Priority"));
+    QLineEdit* priorityDisplayLineEdit = new QLineEdit(getPriority());
+    manager.getUi()->displayNoteWidget->insertWidget(8, priorityDisplayLineEdit, 0);
+    manager.getUi()->displayNoteWidget->insertWidget(8, priorityDisplayLabel, 0);
 }
 
 QList<QWidget*> Tache::champsForm() {
