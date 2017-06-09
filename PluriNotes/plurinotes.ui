@@ -57,42 +57,76 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>659</width>
-             <height>530</height>
+             <width>679</width>
+             <height>539</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
              <layout class="QVBoxLayout" name="displayNoteWidget">
               <item>
-               <widget class="QLabel" name="titleDisplayLabel">
-                <property name="text">
-                 <string>Title:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="titleDisplayLineEdit"/>
-              </item>
-              <item>
-               <widget class="QLabel" name="idDisplayLabel">
-                <property name="text">
-                 <string>Id:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="idDisplayLineEdit"/>
-              </item>
-              <item>
-               <widget class="QLabel" name="dateDisplayLabel">
-                <property name="text">
-                 <string>Date:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="dateDisplayLineEdit"/>
+               <layout class="QVBoxLayout" name="verticalLayout_12">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_5">
+                  <item>
+                   <widget class="QLabel" name="titleDisplayLabel">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Title:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="titleDisplayLineEdit"/>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_6">
+                  <item>
+                   <widget class="QLabel" name="idDisplayLabel">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Id:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="idDisplayLineEdit"/>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_4">
+                  <item>
+                   <widget class="QLabel" name="dateDisplayLabel">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Date:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="dateDisplayLineEdit"/>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
               </item>
               <item>
                <widget class="QStackedWidget" name="noteTypeDisplay">
@@ -293,8 +327,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>669</width>
-             <height>540</height>
+             <width>189</width>
+             <height>451</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
@@ -519,7 +553,7 @@
      <x>0</x>
      <y>0</y>
      <width>854</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
