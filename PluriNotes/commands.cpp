@@ -3,9 +3,16 @@
 #include <qdebug.h>
 
 
+// deleteNoteCommand
+// ########################################
 deleteNoteCommand::deleteNoteCommand(NoteEntity *note, QUndoCommand *parent)
     : QUndoCommand(parent), note(note){}
 
+/*
+deleteNoteCommand::~deleteNoteCommand(){
+    delete getNote();
+}
+*/
 
 void deleteNoteCommand::undo()
 {
@@ -26,28 +33,35 @@ void deleteNoteCommand::redo()
 
     manager.setDataChanged(true);
 }
+// ########################################
 
 
-addNoteEntityCommand::addNoteEntityCommand(NoteEntity* noteEn, listItemAndPointer* item, QUndoCommand *parent )
-    : QUndoCommand(parent), noteEn(noteEn), item(item){}
 
+// addNoteEntityCommand
+// ########################################
+addNoteEntityCommand::addNoteEntityCommand(NoteEntity* note, QUndoCommand *parent )
+    : QUndoCommand(parent), note(note) {}
+
+/*
+addNoteEntityCommand::~addNoteEntityCommand(){
+    delete getNote();
+}
+*/
 
 void addNoteEntityCommand::undo()
 {
-    setText("Annulation de la création de la note :"+noteEn->getId());
+    setText("Annulation de la création de la note :"+getNote()->getId());
 
     PluriNotes& manager = PluriNotes::getManager();
-    manager.removeItemNoteFromList(item);
-    //! \todo ajouter contrainte non nullité de item
-    //! \todo vérifier fuite mémoire !!!
+    manager.removeNoteFromList(getNote());
+    manager.removeNote(getNote());
 }
 
 void addNoteEntityCommand::redo()
 {
-    setText("Création de la note :"+noteEn->getId());
+    setText("Création de la note :"+getNote()->getId());
     PluriNotes& manager = PluriNotes::getManager();
-    listItemAndPointer* item = manager.addNote(noteEn);
-    this->setItem(item);
+    manager.addNote(note);
 
     manager.setDataChanged(true);
 }

@@ -493,6 +493,10 @@ listItemAndPointer* PluriNotes::addNote(NoteEntity *note){
     return item;
 }
 
+void PluriNotes::removeNote(NoteEntity *note){
+    notes.removeAll(note);
+}
+
 //! \todo add item to list based on last modified date !
 listItemAndPointer* PluriNotes::addNoteToList(NoteEntity* note){
     listItemAndPointer* itm = new listItemAndPointer(note);
@@ -528,15 +532,17 @@ void PluriNotes::removeNoteFromList(NoteEntity *note){
     QString idWeAreLookingFor = note->getId();
 
     // We have to go throw all items in the list to know where is note
-    unsigned int i=0;
-    for(; i<nbItems; i++){
+    unsigned int i;
+    for(i=0; i<nbItems; ++i){
         current = static_cast<listItemAndPointer*>(panel->item(i));
         if (current->getNotePointer()->getId() == idWeAreLookingFor) break;
     }
 
     //We remove the item from the panel
     //! \todo check if have to use delete for memomry
-    delete panel->takeItem(i);
+    panel->takeItem(panel->row(current));
+    //current = static_cast<listItemAndPointer*>(panel->takeItem(i));
+    //delete ;
 }
 //! ####################################
 //! ####################################

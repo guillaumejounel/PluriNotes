@@ -67,14 +67,14 @@ private:
 
     //! Vector containing all the active notes in the application
     //! \brief Vector containing the active notes
-    vector<const NoteEntity*> notes;
+    QVector<const NoteEntity*> notes;
 
     //! Vector containing all the notes sent to the trash
     //! \brief Vector containing the trashed notes
-    vector<const NoteEntity*> corbeille;
+    QVector<const NoteEntity*> corbeille;
 
     //! Vector containing all Relations of the application
-    vector<const Relation*> relations;
+    QVector<const Relation*> relations;
 
     //! \todo WHAT IS THIS ??
     bool autoDelete;
@@ -173,6 +173,11 @@ public:
     //! Function to add a note in the system \n
     //! Returns an "listItemAndPointer*" the should be usefull in somme cases
     listItemAndPointer* addNote(NoteEntity* note);
+
+    //! \brief Function to remove a note
+    //! \warning the memory is not fried
+    void removeNote(NoteEntity* note);
+
 
     //! Function to add an listItemAndPointer* to the list of notes
     void addItemNoteToList(listItemAndPointer* item);
