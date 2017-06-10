@@ -42,28 +42,33 @@ namespace Ui {
     class PluriNotes;
 }
 
-//! What is this for ???
-//! ??
+//! \todo add comment for this line ; I don't understant what it is ! :p
 typedef map<QString,NoteElement*>::const_iterator MapIterator;
 
 /**
 \class Plurinotes
-\brief Main class of the applicatin with the ui
-
-Write description here
-
-\todo Many Things
+\brief Main class of the applicatin with the ui for the core application
 **/
 class PluriNotes : public QMainWindow {
     Q_OBJECT
 private:
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // Basics, main attributes :
+    // --------------------------------------------------------------------------
+
     //! \brief Pointer to the ui
     Ui::PluriNotes *ui;
+
+    //! Implementation of the singleton design pattern, the destructor has to be private
+    ~PluriNotes();
 
     //! Implementation of the singleton design pattern
     //! \brief Pointer to the unique class instanciation
     static PluriNotes* instanceUnique;
 
+    //! Core
     //! Vector containing all the active notes in the application
     //! \brief Vector containing the active notes
     QVector<const NoteEntity*> notes;
@@ -75,27 +80,96 @@ private:
     //! Vector containing all Relations of the application
     QVector<const Relation*> relations;
 
-    //! \todo WHAT IS THIS ??
+    //! \todo Add documentation !!!!
     bool autoDelete;
 
-    //! Boolean for the id autofill form if not already changed
-    //! \brief Boolean for the id autofill form
-    bool is_idChanged;
-
+    //! \todo Add documentation !!!!
     bool isDisplayed;
 
-    //! \todo WHAT IS THIS ??
-    explicit PluriNotes(QWidget *parent = 0);
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
-    //! Implementation of the singleton design pattern, the destructor has to be private
-    ~PluriNotes();
 
-    //! \todo Details ??
-    PluriNotes(const PluriNotes& m);
 
-    //! \todo Details ??
-    PluriNotes& operator=(const PluriNotes& m);
 
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // UI related creation elements :
+    // --------------------------------------------------------------------------
+
+    //! \brief method to create the menu on the main window
+    void createMenus();
+
+    //! \brief method to create the actions on the main window
+    void createActions();
+
+    //! \brief method to create the undo window
+    //! It is not shown after the creation.
+    void createUndoView();
+
+    //! \brief method to create the relations managment window
+    //! It is not shown after the creation.
+    void createRelationsView();
+
+    //-------
+    // Other Windows
+    //! \brief history window
+    QUndoView *undoView;
+
+    //! \brief Relation window
+    QWidget* relationsView;
+    //-------
+
+    //! Undostack for the undo/redo process in the app
+    QUndoStack *undoStack;
+
+    //-------
+    // Menus
+    //! \brief File menu
+    QMenu *fileMenu;
+
+    //! \brief edit menu
+    QMenu *editMenu;
+
+    //! \brief windows menu
+    QMenu *windowsMenu;
+    //-------
+
+    //-------
+    // Actions
+    //! \brief QAction for undoing
+    QAction *undoAction;
+
+    //! \brief QAction for redoing
+    QAction *redoAction;
+
+    //! \brief QAction to exit the app
+    QAction *exitAction;
+
+    //! \brief QAction to save the content of the app
+    QAction *saveAction;
+
+
+    //! \brief QAction to open the relation window
+    QAction *openRelations;
+
+    //! \brief QAction to open the history window
+    QAction *viewUndoHistory;
+    //-------
+
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+
+
+
+
+
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // Important methods for the app :
+    // --------------------------------------------------------------------------
     //! Function to load the notes from the saved file
     //! \brief loading function
     void load();
@@ -103,40 +177,39 @@ private:
     //! Function to save the notes to an xml
     //! \brief saving function
     void save();
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
+
+
+
+
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // Other stuff
+    // --------------------------------------------------------------------------
+    //! Boolean for the id autofill form if not already changed
+    //! \brief Boolean for the id autofill form
+    bool is_idChanged;
+
+    //! \todo add documentation
+    explicit PluriNotes(QWidget *parent = 0);
+
+    //! \todo add documentation
+    PluriNotes(const PluriNotes& m);
+
+    //! \todo add documentation
+    PluriNotes& operator=(const PluriNotes& m);
+
+    //! \todo add documentation
     bool dataChanged = false;
 
-    void createActions();
-    void createMenus();
-    void createUndoView();
-    void createRelationsView();
-
-    QAction *deleteAction;
-    QAction *undoAction;
-    QAction *redoAction;
-    QAction *exitAction;
-    QAction *saveAction;
-    QAction *aboutAction;
-    QAction *openRelations;
-
-    // QActions for windows
-    QAction *viewUndoHistory;
-
-    QMenu *fileMenu;
-    QMenu *editMenu;
-    QMenu *relationsMenu;
-    QMenu *windowsMenu;
-    QMenu *helpMenu;
-
-    QUndoStack *undoStack;
-
-    //! \brief history window
-    QUndoView *undoView;
-
-    //! \brief Relation window
-    QWidget* relationsView;
-
+    //! \todo add documentation
     NoteEntity& getCurrentNote();
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+
 
 
 public:
