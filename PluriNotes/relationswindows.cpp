@@ -49,6 +49,21 @@ void relationsWindows::displayRelation() {
 //    ui->mainStackedWidget->setCurrentIndex(0);
 }
 
+void relationsWindows::saveRelation() {
+    //Enregistre dans le vecteur relation de la classe PluriNotes
+    //! \todo Faire des vérifications de validité (id...)
+    //Puis créer la relation
+    QString relationTitle = ui->titleLineEdit->text();
+    QString relationDesc = ui->descriptionLineEdit->text();
+    bool relationOriented;
+    (ui->orientationSelection->currentIndex()==0)?relationOriented=true:relationOriented=false;
+    Relation* newRelation = new Relation(relationTitle, relationDesc, relationOriented);
+
+    addRelationToList(newRelation);
+    PluriNotes& manager = PluriNotes::getManager();
+    manager.addRelationToVector(newRelation);
+}
+
 void relationsWindows::closeEvent(QCloseEvent *event) {
     event->ignore();
     beforeClose();

@@ -251,6 +251,9 @@ public:
     //! Method to get a pointer to the references relation
     Relation* getReferencesRelation();
 
+    //! Method to push_back a new Relation
+    void addRelationToVector(Relation* r);
+
     //! Method to get all successors of a note
     QSet<NoteEntity*> allSuccessorsOf(NoteEntity* note) const;
 

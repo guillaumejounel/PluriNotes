@@ -686,6 +686,10 @@ Relation* PluriNotes::getReferencesRelation(){
     return nullptr;
 }
 
+void PluriNotes::addRelationToVector(Relation* r) {
+    relations.push_back(r);
+}
+
 
 QSet<NoteEntity*> PluriNotes::allSuccessorsOf(NoteEntity* note) const{
     unsigned int nbOfRealations = relations.size();
