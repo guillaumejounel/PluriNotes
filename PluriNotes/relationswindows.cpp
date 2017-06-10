@@ -8,7 +8,8 @@ relationsWindows::relationsWindows(QWidget *parent) : QMainWindow(parent), ui(ne
     exitAction->setShortcuts(QKeySequence::Quit);
     connect(exitAction, SIGNAL(triggered()), this, SLOT(beforeClose()));
 
-    ui->mainStackedWidget->setCurrentIndex(1);
+//    ui->mainStackedWidget->setCurrentIndex(0);
+    displayRelation();
 }
 
 void relationsWindows::beforeClose() {
@@ -67,6 +68,6 @@ listRelationAndPointer* relationsWindows::addRelationToList(Relation* rel) {
 
 void relationsWindows::addItemRelationToList(listRelationAndPointer *item) {
     ui->listOfAllRelations->insertItem(0, item);
-//    ui->listOfAllRelations->setCurrentRow(0);
+    ui->listOfAllRelations->setCurrentRow(0);
 }
 
