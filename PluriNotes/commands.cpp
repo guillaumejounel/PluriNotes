@@ -61,7 +61,7 @@ addNoteEntityCommand::~addNoteEntityCommand(){
 
 void addNoteEntityCommand::undo()
 {
-    setText("Annulation de la création de la note :"+getNote()->getId());
+    setText("Undo cration of the note : "+getNote()->getId());
 
     PluriNotes& manager = PluriNotes::getManager();
     manager.removeNoteFromList(getNote());
@@ -70,7 +70,7 @@ void addNoteEntityCommand::undo()
 
 void addNoteEntityCommand::redo()
 {
-    setText("Création de la note :"+getNote()->getId());
+    setText("Creation of the note :"+getNote()->getId());
     PluriNotes& manager = PluriNotes::getManager();
     manager.addNote(note);
 
@@ -80,7 +80,7 @@ void addNoteEntityCommand::redo()
 
 
 
-// addNoteEntityCommand
+// addVersionNoteCommand
 // ########################################
 addVersionNoteCommand::addVersionNoteCommand(NoteEntity* note, NoteElement* version, QUndoCommand *parent)
     : note(note), version(version) {}
@@ -93,6 +93,7 @@ void addVersionNoteCommand::undo()
     getNote()->deleteVersion(*getVersion());
 
     PluriNotes& manager = PluriNotes::getManager();
+    manager.selectItemIntoList(manager.findItemInList(getNote()));
     manager.displayNote();
 
 }
@@ -103,9 +104,6 @@ void addVersionNoteCommand::redo(){
     getNote()->addVersion(*getVersion());
 
     PluriNotes& manager = PluriNotes::getManager();
-
-    //! \todo setter !
-    //manager.ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
     manager.displayNote();
 
     manager.setDataChanged(true);
@@ -116,3 +114,4 @@ addVersionNoteCommand::~addVersionNoteCommand(){
         delete getVersion();
     }
 }
+

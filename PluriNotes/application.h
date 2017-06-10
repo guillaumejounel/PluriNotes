@@ -172,12 +172,6 @@ public:
     //! Loading data into interface function
     void loadDataIntoUi();
 
-//    //! Setter for the ui :\n
-//    //! This is for note id
-//    //! \brief Setter UI, note id
-//    void setNoteId(const QString& i);
-
-
 
 
     //! Setter for the ui :\n
@@ -226,6 +220,8 @@ public:
     //! it is returned so that it can be stored if we need it
     listItemAndPointer* removeItemNoteFromList(listItemAndPointer* item);
 
+    //! Function to select an item
+    void selectItemIntoList(listItemAndPointer* item);
 
     //! ######################################################
     //! ######################################################
@@ -233,6 +229,8 @@ public:
     //!
 
     void removeNoteFromList(NoteEntity* note);
+
+    listItemAndPointer* findItemInList(NoteEntity* note);
 
 
     //!

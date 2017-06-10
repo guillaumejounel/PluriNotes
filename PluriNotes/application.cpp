@@ -626,6 +626,15 @@ listItemAndPointer* PluriNotes::removeItemNoteFromList(listItemAndPointer* item)
 //! ####################################
 //! ####################################
 void PluriNotes::removeNoteFromList(NoteEntity *note){
+    QListWidget* panel = ui->listNotesWidget;
+
+    //We remove the item from the panel
+    //! \todo check if have to use delete for memomry
+    unsigned int i = panel->row(findItemInList(note));
+    panel->takeItem(i);
+}
+
+listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note){
     //! \todo add function to loog for wich panel the note is on!
     QListWidget* panel = ui->listNotesWidget;
 
@@ -641,11 +650,15 @@ void PluriNotes::removeNoteFromList(NoteEntity *note){
         if (current->getNotePointer()->getId() == idWeAreLookingFor) break;
     }
 
-    //We remove the item from the panel
-    //! \todo check if have to use delete for memomry
-    panel->takeItem(i);
-
+    return current;
 }
+
+void PluriNotes::selectItemIntoList(listItemAndPointer* item){
+    QListWidget* panel = ui->listNotesWidget;
+    panel->setCurrentItem(item);
+}
+
+
 //! ####################################
 //! ####################################
 
