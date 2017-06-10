@@ -129,8 +129,13 @@ private:
     QMenu *helpMenu;
 
     QUndoStack *undoStack;
+
+    //! \brief history window
     QUndoView *undoView;
+
+    //! \brief Relation window
     QWidget* relationsView;
+
     NoteEntity& getCurrentNote();
 
 

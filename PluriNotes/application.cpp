@@ -104,6 +104,58 @@ void PluriNotes::createRelationsView()
     //relationsView->show();
 }
 
+
+void PluriNotes::saveApplication(){
+    save();
+}
+
+
+void PluriNotes::openRelationsWindow(){
+    relationsView->show();
+    setEnabled(false);
+}
+
+void PluriNotes::showUndoHistoryWindows(){
+    undoView->show();
+}
+
+void PluriNotes::createMenus()
+{
+    fileMenu = menuBar()->addMenu(tr("&File"));
+    fileMenu->addAction(saveAction);
+    fileMenu->addAction(exitAction);
+
+    editMenu = menuBar()->addMenu(tr("&Edit"));
+    editMenu->addAction(undoAction);
+    editMenu->addAction(redoAction);
+    editMenu->addSeparator();
+
+    openRelations = menuBar()->addAction(QString("Manage Relations"));
+    connect(openRelations,SIGNAL(triggered()),this, SLOT(openRelationsWindow()));
+
+    windowsMenu = menuBar()->addMenu(tr("&Windows"));
+    windowsMenu->addAction(viewUndoHistory);
+    /*
+    editMenu->addAction(deleteAction);
+
+    connect(editMenu, SIGNAL(aboutToShow()),
+            this, SLOT(itemMenuAboutToShow()));
+    connect(editMenu, SIGNAL(aboutToHide()),
+            this, SLOT(itemMenuAboutToHide()));
+    */
+    /*
+    itemMenu = menuBar()->addMenu(tr("&Item"));
+
+    itemMenu->addAction(addBoxAction);
+    itemMenu->addAction(addTriangleAction);
+
+    helpMenu = menuBar()->addMenu(tr("&About"));
+    helpMenu->addAction(aboutAction);
+    */
+}
+
+
+
 void PluriNotes::createActions()
 {
     /*
@@ -144,57 +196,6 @@ void PluriNotes::createActions()
     aboutShortcuts << tr("Ctrl+A") << tr("Ctrl+B");
     aboutAction->setShortcuts(aboutShortcuts);
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
-    */
-}
-
-
-void PluriNotes::saveApplication(){
-    save();
-}
-
-
-void PluriNotes::openRelationsWindow(){
-    relationsView->show();
-    qWarning()<<"je suis bien passé ici";
-}
-
-void PluriNotes::showUndoHistoryWindows(){
-    undoView->show();
-    qWarning()<<"je suis bien passé ici history";
-}
-
-void PluriNotes::createMenus()
-{
-    fileMenu = menuBar()->addMenu(tr("&File"));
-    fileMenu->addAction(saveAction);
-    fileMenu->addAction(exitAction);
-
-    editMenu = menuBar()->addMenu(tr("&Edit"));
-    editMenu->addAction(undoAction);
-    editMenu->addAction(redoAction);
-    editMenu->addSeparator();
-
-    openRelations = menuBar()->addAction(QString("Manage Relations"));
-    connect(openRelations,SIGNAL(triggered()),this, SLOT(openRelationsWindow()));
-
-    windowsMenu = menuBar()->addMenu(tr("&Windows"));
-    windowsMenu->addAction(viewUndoHistory);
-    /*
-    editMenu->addAction(deleteAction);
-
-    connect(editMenu, SIGNAL(aboutToShow()),
-            this, SLOT(itemMenuAboutToShow()));
-    connect(editMenu, SIGNAL(aboutToHide()),
-            this, SLOT(itemMenuAboutToHide()));
-    */
-    /*
-    itemMenu = menuBar()->addMenu(tr("&Item"));
-
-    itemMenu->addAction(addBoxAction);
-    itemMenu->addAction(addTriangleAction);
-
-    helpMenu = menuBar()->addMenu(tr("&About"));
-    helpMenu->addAction(aboutAction);
     */
 }
 

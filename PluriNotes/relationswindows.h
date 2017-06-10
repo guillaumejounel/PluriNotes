@@ -18,10 +18,16 @@ private:
 
     ~relationsWindows();
 
+    QAction* exitAction;
+
 public:
     explicit relationsWindows(QWidget *parent = 0);
 
 
+signals:
+    public slots:
+    //! Short function to be called before closing the window
+    void beforeClose();
 
 };
 
