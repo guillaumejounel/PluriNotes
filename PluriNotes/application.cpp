@@ -266,7 +266,6 @@ NoteEntity& PluriNotes::getCurrentNote() {
 }
 
 void PluriNotes::displayNote(unsigned int n) {
-    if (ui->noteTextVersion->count()) n = ui->noteTextVersion->count() - ui->noteTextVersion->currentIndex() - 1;
     isDisplayed = false;
     ui->idDisplayLineEdit->setReadOnly(true);
     ui->dateDisplayLineEdit->setReadOnly(true);
@@ -277,6 +276,8 @@ void PluriNotes::displayNote(unsigned int n) {
             ui->noteTextVersion->addItem(QString("Version 1"));
             ui->noteTextVersion->setEnabled(0);
         } else ui->noteTextVersion->setEnabled(1);
+
+        if (ui->noteTextVersion->count()) n = ui->noteTextVersion->count() - ui->noteTextVersion->currentIndex() - 1;
         const NoteElement& note = currentSelectedNote.getVersion(n);
         ui->noteTypeDisplay->setCurrentIndex(note.indexPageCreation());
         //Ajout et remplissage des champs de type de note
