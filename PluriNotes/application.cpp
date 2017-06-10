@@ -358,13 +358,17 @@ void PluriNotes::saveNote() {
 }
 
 void PluriNotes::saveNewVersion() {
+    // We get which not is selected
     NoteEntity& currentNote = getCurrentNote();
-    const NoteElement& newNote = currentNote.getLastVersion();
-    currentNote.addVersion(*newNote.addVersion());
-    const NoteEntity& currentSelectedNote = getCurrentNote();
-    ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
-    displayNote();
+    // We create a newVersion identical to the last one
+    const NoteElement& currentVersion = currentNote.getLastVersion();
+
+    const NoteElement& newVersion = *currentVersion.addVersion();
+
+    QUndoCommand *addVersionCommand = new addVersionNoteCommand(const_cast<NoteEntity*>(&currentNote),const_cast<NoteElement*>(&newVersion));
+    undoStack->push(addVersionCommand);
 }
+
 
 void PluriNotes::deleteNote() {
     //Demande de confirmation

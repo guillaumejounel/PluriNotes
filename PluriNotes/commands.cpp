@@ -54,11 +54,8 @@ addNoteEntityCommand::~addNoteEntityCommand(){
     PluriNotes& manager = PluriNotes::getManager();
     // if we don't actually still have the pointer in the vector we shoult be able to delete it...
     if (! manager.isInsideApp(getNote())) {
-        qWarning()<<QString("je suis dans le destructeur et je ne fais rien !");
         delete getNote();
     }
-    qWarning()<<QString("je sors du destructeur");
-
 }
 
 
@@ -78,4 +75,44 @@ void addNoteEntityCommand::redo()
     manager.addNote(note);
 
     manager.setDataChanged(true);
+}
+// ########################################
+
+
+
+// addNoteEntityCommand
+// ########################################
+addVersionNoteCommand::addVersionNoteCommand(NoteEntity* note, NoteElement* version, QUndoCommand *parent)
+    : note(note), version(version) {}
+
+void addVersionNoteCommand::undo()
+{
+    setText("Annulation de l'ajout d'une version à la note : "+getNote()->getId());
+
+    // We remove the version from the noteentity
+    getNote()->deleteVersion(*getVersion());
+
+    PluriNotes& manager = PluriNotes::getManager();
+    manager.displayNote();
+
+}
+
+void addVersionNoteCommand::redo(){
+    setText("Ajout d'une version à la note : "+getNote()->getId());
+
+    getNote()->addVersion(*getVersion());
+
+    PluriNotes& manager = PluriNotes::getManager();
+
+    //! \todo setter !
+    //manager.ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
+    manager.displayNote();
+
+    manager.setDataChanged(true);
+}
+
+addVersionNoteCommand::~addVersionNoteCommand(){
+    if (! getNote()->isVersionInsideNote(*getVersion())) {
+        delete getVersion();
+    }
 }

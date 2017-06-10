@@ -4,6 +4,7 @@
 
 #include <QUndoCommand>
 #include "othertools.h"
+#include "noteelement.h"
 
 /**
 \class deleteNoteCommand
@@ -49,5 +50,41 @@ public:
     void redo() override;
 
     NoteEntity* getNote() {return note;}
+};
+
+
+
+/**
+\class addNoteEntityCommand
+\brief Undo/redo adding version
+
+This class enables the undo/redo process when creating a version of the note in the app
+**/
+class addVersionNoteCommand : public QUndoCommand
+{
+private:
+    //! \brief pointer to the note parent
+    NoteEntity* note;
+
+    //! \brief pointer to the new version
+    NoteElement* version;
+
+public:
+    addVersionNoteCommand(NoteEntity* note, NoteElement* version, QUndoCommand *parent = 0);
+
+    //! To prevent memory leaks, we have to redefine the destructor
+    ~addVersionNoteCommand();
+
+    //! Undo add version method
+    void undo() override;
+
+    //! Do/redo add version method
+    void redo() override;
+
+    //! \brief getter to the note pointer
+    NoteEntity* getNote() {return note;}
+
+    //! \brief getter to the version pointer
+    NoteElement* getVersion() {return version;}
 };
 #endif // COMMANDS_H

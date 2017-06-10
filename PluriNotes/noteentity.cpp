@@ -28,3 +28,13 @@ const NoteElement& NoteEntity::getVersion(unsigned int nb) const {
 bool NoteEntity::operator==(const NoteEntity& n)const{
     return (id==n.getId());
 }
+
+
+void NoteEntity::deleteVersion(const NoteElement &version){
+    versions.removeAll(&version);
+}
+
+
+bool NoteEntity::isVersionInsideNote(const NoteElement& version) const{
+    return versions.contains(&version);
+}

@@ -300,6 +300,8 @@ signals:
 
     void noteTextChanged();
     void saveNewVersion();
+
+
     void noteVersionChanged();
 
     /// Windows managment :
