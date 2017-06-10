@@ -277,7 +277,7 @@ void PluriNotes::displayNote(unsigned int n) {
             ui->noteTextVersion->setEnabled(0);
         } else ui->noteTextVersion->setEnabled(1);
 
-        if (ui->noteTextVersion->count()) n = ui->noteTextVersion->count() - ui->noteTextVersion->currentIndex() - 1;
+        //if (ui->noteTextVersion->count() > 1) n = ui->noteTextVersion->count() - ui->noteTextVersion->currentIndex() - 1;
         const NoteElement& note = currentSelectedNote.getVersion(n);
         ui->noteTypeDisplay->setCurrentIndex(note.indexPageCreation());
         //Ajout et remplissage des champs de type de note
