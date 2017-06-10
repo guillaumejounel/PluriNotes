@@ -177,9 +177,6 @@ public:
 //    //! \brief Setter UI, note id
 //    void setNoteId(const QString& i);
 
-
-
-
     //! Setter for the ui :\n
     //! This is for note date
     //! \brief Setter UI, note date
@@ -190,7 +187,6 @@ public:
     void setArticleContent(const QString& content);
     const QString getArticleContent();
     const QString getArticleContentEdit();
-
 
     void setTaskAction(const QString& action);
     void setTaskStatus(unsigned int i);
@@ -260,9 +256,6 @@ public:
 
     //! Method to get all predecessors of a note
     QSet<NoteEntity*> allPredecessorsOf(NoteEntity* note) const;
-
-
-
 
 
 

@@ -104,7 +104,6 @@ void PluriNotes::createRelationsView()
     relationsView = new relationsWindows();
     relationsView->setWindowTitle(tr("Relations managment"));
     relationsView->setAttribute(Qt::WA_QuitOnClose, false);
-    //relationsView->show();
 }
 
 
@@ -430,8 +429,6 @@ void PluriNotes::moveBackFromTrash(NoteEntity* noteEl){
     //! \todo add error ?
 }
 
-
-
 void PluriNotes::cancelNote() {
     ui->ButtonNewNote->setEnabled(true);
     ui->listNotesWidget->setEnabled(true);
@@ -581,7 +578,7 @@ void PluriNotes::loadDataIntoUi(){
     //! \todo add loading functionnalities to trash and notes
 
      for(auto& rel: relations){
-         static_cast<relationsWindows*>(relationsView)->addNoteToList(const_cast<Relation*>(rel));
+         static_cast<relationsWindows*>(relationsView)->addRelationToList(const_cast<Relation*>(rel));
      }
 }
 
@@ -683,8 +680,8 @@ unsigned int PluriNotes::getMaxRelationId(){
 
 
 Relation* PluriNotes::getReferencesRelation(){
-    unsigned int nbOfRealations = relations.size();
-    for (unsigned int i = 0; i < nbOfRealations ; i++){
+    unsigned int nbOfRelations = relations.size();
+    for (unsigned int i = 0; i < nbOfRelations ; i++){
         if( (relations[i])->isReferences()) return const_cast<Relation*>(relations[i]);
     }
     return nullptr;

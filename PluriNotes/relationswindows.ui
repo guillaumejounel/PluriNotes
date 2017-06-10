@@ -40,9 +40,9 @@
      </size>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
-    <widget class="QWidget" name="newRelationPage">
+    <widget class="QWidget" name="relationPage">
      <layout class="QVBoxLayout" name="verticalLayout">
       <property name="leftMargin">
        <number>0</number>
@@ -535,8 +535,42 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>listOfAllRelations</sender>
+   <signal>currentItemChanged(QListWidgetItem*,QListWidgetItem*)</signal>
+   <receiver>relationsWindows</receiver>
+   <slot>displayRelation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>151</x>
+     <y>315</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>123</x>
+     <y>477</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancelRelationCreationButton</sender>
+   <signal>clicked()</signal>
+   <receiver>relationsWindows</receiver>
+   <slot>displayRelation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>720</x>
+     <y>266</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>893</x>
+     <y>343</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>toNewRelationForm()</slot>
+  <slot>displayRelation()</slot>
+  <slot>cancelRelation()</slot>
  </slots>
 </ui>
