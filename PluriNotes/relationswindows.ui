@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
+      <y>70</y>
       <width>181</width>
-      <height>421</height>
+      <height>371</height>
      </rect>
     </property>
    </widget>
@@ -156,7 +156,7 @@
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_8">
                    <item>
-                    <widget class="QLabel" name="idLabel">
+                    <widget class="QLabel" name="descriptionLabel">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                        <horstretch>0</horstretch>
@@ -178,14 +178,14 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="idLineEdit"/>
+                    <widget class="QLineEdit" name="descriptionLineEdit"/>
                    </item>
                   </layout>
                  </item>
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_9">
                    <item alignment="Qt::AlignLeft">
-                    <widget class="QLabel" name="typeLabel">
+                    <widget class="QLabel" name="orientationLabel">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                        <horstretch>0</horstretch>
@@ -210,7 +210,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QComboBox" name="TypeComboBox">
+                    <widget class="QComboBox" name="orientationSelection">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -264,7 +264,7 @@
                <item>
                 <widget class="QStackedWidget" name="customWidgets">
                  <property name="currentIndex">
-                  <number>1</number>
+                  <number>0</number>
                  </property>
                  <widget class="QWidget" name="page">
                   <widget class="QWidget" name="horizontalLayoutWidget_2">
@@ -294,14 +294,14 @@
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QPushButton" name="pushButton_4">
+                     <widget class="QPushButton" name="cancelRelationCreationButton">
                       <property name="text">
                        <string>Cancel</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QPushButton" name="pushButton_2">
+                     <widget class="QPushButton" name="saveRelationCreationButton">
                       <property name="text">
                        <string>Save Relation</string>
                       </property>
@@ -344,7 +344,7 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="QComboBox" name="TypeComboBox_2">
+                      <widget class="QComboBox" name="noteSelectorX">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                          <horstretch>0</horstretch>
@@ -376,7 +376,7 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="QComboBox" name="TypeComboBox_3">
+                      <widget class="QComboBox" name="noteSelectorY">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                          <horstretch>0</horstretch>
@@ -401,7 +401,7 @@
                       </widget>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="pushButton_6">
+                      <widget class="QPushButton" name="addCoupleBoutton">
                        <property name="text">
                         <string>Add couple</string>
                        </property>
@@ -412,10 +412,10 @@
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_5">
                      <item>
-                      <widget class="QListView" name="listView"/>
+                      <widget class="QListView" name="listCoupleView"/>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="pushButton_5">
+                      <widget class="QPushButton" name="removeCoupleButton">
                        <property name="text">
                         <string>Remove couple</string>
                        </property>
@@ -439,14 +439,14 @@
                       </spacer>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="pushButton_3">
+                      <widget class="QPushButton" name="deleteRelationButton">
                        <property name="text">
                         <string>Delete Relation</string>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="pushButton">
+                      <widget class="QPushButton" name="saveRelationEditButton">
                        <property name="text">
                         <string>Save Relation</string>
                        </property>
@@ -487,6 +487,19 @@
       </property>
      </widget>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="newRelationButton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>138</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>New relation</string>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
