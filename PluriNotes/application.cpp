@@ -267,7 +267,6 @@ NoteEntity& PluriNotes::getCurrentNote() {
 
 void PluriNotes::displayNote(unsigned int n) {
     if (ui->noteTextVersion->count()) n = ui->noteTextVersion->count() - ui->noteTextVersion->currentIndex() - 1;
-    qDebug() << ui->noteTextVersion->count();
     isDisplayed = false;
     ui->idDisplayLineEdit->setReadOnly(true);
     ui->dateDisplayLineEdit->setReadOnly(true);
