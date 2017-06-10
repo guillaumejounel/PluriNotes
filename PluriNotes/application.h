@@ -202,7 +202,7 @@ private:
     //! \todo add documentation
     PluriNotes& operator=(const PluriNotes& m);
 
-    //! \todo add documentation
+    //! \todo attributes to store whether there has been data modification or not
     bool dataChanged = false;
 
     //! \todo add documentation
@@ -212,17 +212,67 @@ private:
 
 
 
+
+
+
+
+
+
+
+
+
 public:
+
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // Basics and getters
+    // --------------------------------------------------------------------------
     //! Implementation of the singleton design pattern : get the only instance
     static PluriNotes& getManager();
 
     //! \brief Accessor to the ui
     Ui::PluriNotes* getUi() { return ui; }
 
-    //! Delete note based on its id
+    //! \brief method to load data into interface
+    void loadDataIntoUi();
+
+
+    //! Getter for the max current nb (id) relations
+    unsigned int getMaxRelationId();
+
+    //! Method to get a pointer to the references relation
+    Relation* getReferencesRelation();
+
+
+    //! \todo add documentation
+    void setAutoDelete(bool);
+
+
+    //! Function to check if their has been modification to plurinotes
+    bool hasDataChanged() const {return dataChanged;}
+
+    //! Function to say if the data has changed.
+    void setDataChanged(bool b);
+
+
+
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+
+
+
+
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // Interaction with the content of the class
+    // --------------------------------------------------------------------------
+
+    //! \brief Delete note based on its id
     void deleteNote(const QString& id);
 
-    //! \brief Function to know if a note can be deleted
+    //! \brief Function to know if a note is inside the vector note
     bool isInsideApp(const NoteEntity *note);
 
     //! Function to move a note element from notes to trash
@@ -234,148 +284,183 @@ public:
     //! \brief Empty trash
     void emptyTrash();
 
-    //! \todo What is this ?
-    void setAutoDelete(bool);
-
-    //! Setter for the ui :\n
-    //! This is for note titles
-    //! \brief Setter UI, note titles
-    void setNoteTitle(const QString& t);
-
-    //! Loading data into interface function
-    void loadDataIntoUi();
-
-
-
-    //! Setter for the ui :\n
-    //! This is for note date
-    //! \brief Setter UI, note date
-    void setNoteDate(const QDateTime& d);
-
-    const QString getNoteTitleEdit();
-
-    void setArticleContent(const QString& content);
-    const QString getArticleContent();
-    const QString getArticleContentEdit();
-
-
-    void setTaskAction(const QString& action);
-    void setTaskStatus(unsigned int i);
-    void setTaskPriority(unsigned int i);
-    void setTaskDeadline(const QDateTime& date);
-
-    unsigned int getTaskPriority();
-    const QString getTaskAction();
-    const QDateTime getTaskDeadline();
-
-    unsigned int getTaskPriorityEdit();
-    unsigned int getTaskStatusEdit();
-    const QString getTaskActionEdit();
-    const QDateTime getTaskDeadlineEdit();
-
-    //! Function to add a note in the system \n
-    //! Returns an "listItemAndPointer*" the should be usefull in somme cases
-    listItemAndPointer* addNote(NoteEntity* note);
 
     //! \brief Function to remove a note
     //! \warning the memory is not fried
     void removeNote(NoteEntity* note);
 
 
-    //! Function to add an listItemAndPointer* to the list of notes
-    void addItemNoteToList(listItemAndPointer* item);
-
-    //! Function to add a NoteEntity to the list of note \n
-    //! With creation of a listItemAndPointer*
-    listItemAndPointer* addNoteToList(NoteEntity* note);
-
-    //! Function wich removes a listItemAndPointer* from the list\n
-    //! it is returned so that it can be stored if we need it
-    listItemAndPointer* removeItemNoteFromList(listItemAndPointer* item);
-
-    //! Function to select an item
-    void selectItemIntoList(listItemAndPointer* item);
-
-    //! ######################################################
-    //! ######################################################
-    //! New methods for better undo redo command handling
-    //!
-
-    void removeNoteFromList(NoteEntity* note);
-
-    listItemAndPointer* findItemInList(NoteEntity* note);
-
-
-    //!
-    //!
-    //! #######################################################
-    //! #######################################################
-
-    //! Function to check if their has been modification to plurinotes
-    bool hasDataChanged() const {return dataChanged;}
-
-    void setDataChanged(bool b);
-
-    //! Before closing
-    void closeEvent ( QCloseEvent * event );
-
-
-    //! Getter for the max current nb (id) relations
-    unsigned int getMaxRelationId();
-
-    //! Method to get a pointer to the references relation
-    Relation* getReferencesRelation();
-
     //! Method to get all successors of a note
     QSet<NoteEntity*> allSuccessorsOf(NoteEntity* note) const;
 
     //! Method to get all predecessors of a note
     QSet<NoteEntity*> allPredecessorsOf(NoteEntity* note) const;
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
 
+
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // Interaction content/ui
+    // --------------------------------------------------------------------------
+    //! Function to add a note in the system \n
+    //! Returns an "listItemAndPointer*" the should be usefull in somme cases
+    listItemAndPointer* addNote(NoteEntity* note);
+
+    //! Function to add an listItemAndPointer* to the list of notes
+    void addItemNoteToList(listItemAndPointer* item);
+
+
+
+    //! Function to add a NoteEntity to the list of note \n
+    //! With creation of a listItemAndPointer*
+    listItemAndPointer* addNoteToList(NoteEntity* note);
+
+    //! Function to remove a note from the list
+    void removeNoteFromList(NoteEntity* note);
+
+    //! Function to find an item in the list based on the note
+    listItemAndPointer* findItemInList(NoteEntity* note);
+
+    //! Function wich removes a listItemAndPointer* from the list\n
+    //! it is returned so that it can be stored if we need it
+    listItemAndPointer* removeItemNoteFromList(listItemAndPointer* item);
+
+    //! Function to select an item in the list of notes
+    void selectItemIntoList(listItemAndPointer* item);
+
+
+
+
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // UI setters/getters
+    // --------------------------------------------------------------------------
+
+    //! \brief Set the note title in the UI
+    void setNoteTitle(const QString& t);
+
+    //! \brief Get the note title int the UI
+    const QString getNoteTitleEdit();
+
+
+    //! \brief set the date fiel in the UI
+    void setNoteDate(const QDateTime& d);
+
+
+    //-------
+    // Article related
+    // \todo move to an other class for better POO ?
+
+    //! \brief set the article Content in the UI
+    void setArticleContent(const QString& content);
+
+    //! \brief get the article articleContent in the UI
+    const QString getArticleContent();
+
+    //! \brief get the article articleDisplayContent in the UI
+    const QString getArticleContentEdit();
+    //-------
+
+
+
+    //-------
+    // Task related
+    //\todo move to an other class for better POO ?
+
+    //! \todo add documentation
+    void setTaskAction(const QString& action);
+
+    //! \todo add documentation
+    const QString getTaskAction();
+
+    //! \todo add documentation
+    const QString getTaskActionEdit();
+
+
+    //! \brief Set the task status in the UI
+    void setTaskStatus(unsigned int i);
+
+    //! \brief get task status edit from the UI
+    unsigned int getTaskStatusEdit();
+
+
+    //! \brief set task priority in the UI
+    void setTaskPriority(unsigned int i);
+
+    //! \brief get Task Priority from thu ui
+    unsigned int getTaskPriority();
+
+    //! \brief get Task PriorityEdit from thu ui
+    unsigned int getTaskPriorityEdit();
+
+
+    //! \brief set task deadline in the UI
+    void setTaskDeadline(const QDateTime& date);
+
+    //! \brief get the task deadline from the UI
+    const QDateTime getTaskDeadline();
+
+    //! \brief get the task deadlineEdit from the UI
+    const QDateTime getTaskDeadlineEdit();
+    //-------
+
+
+    //! Before closing we have to execut this
+    void closeEvent ( QCloseEvent * event );
+
+
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
 
 
 
 signals:
     public slots:
-    //! Method to change stackedWidget to make new notes
+    //! \brief switch to the new note window.
     void toNewNoteForm();
 
     //! Method to change stackedWidget to the note display window and adapt fields
     void displayNote(unsigned int n = 0);
 
-    //! \todo What is this ?
+    //! \todo Add documentation !!!!
     void saveNote();
 
-    //! \todo What is this ?
+    //! \todo Add documentation !!!!
     void deleteNote();
 
-    //! \todo What is this ?
+    //! \todo Add documentation !!!!
     void cancelNote();
 
-    //! \todo What is this ?
+    //! \todo Add documentation !!!!
     void titleChanged();
 
-    //! \todo What is this ?
+    //! \todo Add documentation !!!!
     void idChanged();
 
     //! Method to change QT fields in the new note form (with type of note in mind)
     void typeChangedForm();
 
-    //! savefunction
+    //! \todo Add documentation !!!!
     void saveApplication();
 
-    //! open relationsWidnows
+    //! \todo Add documentation !!!!
     void openRelationsWindow();
 
+    //! \todo Add documentation !!!!
     void noteTextChanged();
+
+    //! \todo Add documentation !!!!
     void saveNewVersion();
 
-
+    //! \todo Add documentation !!!!
     void noteVersionChanged();
 
-    /// Windows managment :
+    //! \todo Add documentation !!!!
     void showUndoHistoryWindows();
 };
 
