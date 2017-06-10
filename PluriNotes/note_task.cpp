@@ -22,3 +22,8 @@ Task* Task::addVersion() const {
     PluriNotes& manager = PluriNotes::getManager();
     return new Task(manager.getNoteTitleEdit(), QDateTime::currentDateTime(), manager.getTaskActionEdit(), manager.getTaskStatusEdit(), manager.getTaskPriorityEdit(), manager.getTaskDeadlineEdit());
 }
+
+bool Task::textChanged() const {
+    PluriNotes& manager = PluriNotes::getManager();
+    return action == manager.getTaskActionEdit() && status == manager.getTaskStatusEdit() && priority == manager.getTaskPriorityEdit() && deadline == manager.getTaskDeadlineEdit();
+}

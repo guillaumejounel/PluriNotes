@@ -23,6 +23,7 @@ public:
     virtual unsigned int indexPageCreation() const override { return 1; }
     virtual Task* saveNote(QString title) override;
     virtual Task* addVersion() const override;
+    virtual bool textChanged() const override;
     ~Task() {}
 };
 
