@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>854</width>
+    <width>887</width>
     <height>602</height>
    </rect>
   </property>
@@ -46,7 +46,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="displayNotePage">
        <layout class="QGridLayout" name="verticalLayout_2" rowstretch="0">
@@ -60,115 +60,297 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>472</width>
-             <height>380</height>
+             <width>697</width>
+             <height>539</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <layout class="QVBoxLayout" name="displayNoteWidget">
+             <layout class="QHBoxLayout" name="horizontalLayout_10">
               <item>
-               <layout class="QVBoxLayout" name="verticalLayout_12">
+               <layout class="QVBoxLayout" name="displayNoteWidget">
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
+                 <layout class="QVBoxLayout" name="verticalLayout_12">
                   <item>
-                   <widget class="QLabel" name="titleDisplayLabel">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>50</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>Title:</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
+                   <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
+                    <item>
+                     <widget class="QLabel" name="titleDisplayLabel">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>50</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>Title:</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="titleDisplayLineEdit">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>2</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">font-size:1cm;</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="titleDisplayLineEdit">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>2</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">font-size:1cm;</string>
-                    </property>
-                   </widget>
+                   <layout class="QHBoxLayout" name="horizontalLayout_6">
+                    <item>
+                     <widget class="QLabel" name="idDisplayLabel">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>50</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>Id:</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="idDisplayLineEdit">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_4">
+                    <item>
+                     <widget class="QLabel" name="dateDisplayLabel">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>50</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>Date:</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="dateDisplayLineEdit">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
                   </item>
                  </layout>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_6">
+                 <widget class="QStackedWidget" name="noteTypeDisplay">
+                  <property name="currentIndex">
+                   <number>0</number>
+                  </property>
+                  <widget class="QWidget" name="articleDisplay">
+                   <layout class="QVBoxLayout" name="verticalLayout_4">
+                    <item>
+                     <widget class="QLabel" name="articleDisplayContentLabel">
+                      <property name="text">
+                       <string>Content:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPlainTextEdit" name="articleDisplayContent"/>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="taskDisplay">
+                   <layout class="QVBoxLayout" name="verticalLayout_8">
+                    <item>
+                     <widget class="QLabel" name="taskDisplayActionLabel">
+                      <property name="text">
+                       <string>Action:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QTextEdit" name="taskDisplayAction"/>
+                    </item>
+                    <item>
+                     <widget class="QWidget" name="widget_3" native="true">
+                      <layout class="QGridLayout" name="gridLayout_4">
+                       <item row="1" column="0">
+                        <widget class="QComboBox" name="taskDisplayPriority">
+                         <item>
+                          <property name="text">
+                           <string/>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>Low</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>Normal</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>High</string>
+                          </property>
+                         </item>
+                        </widget>
+                       </item>
+                       <item row="1" column="1">
+                        <widget class="QDateTimeEdit" name="taskDisplayDeadline">
+                         <property name="calendarPopup">
+                          <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="1">
+                        <widget class="QLabel" name="taskDisplayDeadlineLabel">
+                         <property name="text">
+                          <string>Deadline:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="taskDisplayPriorityLabel">
+                         <property name="text">
+                          <string>Priority:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="2">
+                        <widget class="QLabel" name="taskDisplayStatusLabel">
+                         <property name="text">
+                          <string>Status:</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="1" column="2">
+                        <widget class="QComboBox" name="taskDisplayStatus">
+                         <item>
+                          <property name="text">
+                           <string>In progress</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>Pending</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>Done</string>
+                          </property>
+                         </item>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="fileDisplay">
+                   <layout class="QVBoxLayout" name="verticalLayout_6">
+                    <item>
+                     <widget class="QLabel" name="fileDisplayDescriptionLabel">
+                      <property name="text">
+                       <string>Description:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QTextEdit" name="fileDisplayDescription"/>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="fileDisplayFileLabel">
+                      <property name="text">
+                       <string>File:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="fileDisplayFile">
+                      <property name="text">
+                       <string>Open file</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_3">
                   <item>
-                   <widget class="QLabel" name="idDisplayLabel">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>50</width>
-                      <height>0</height>
-                     </size>
+                   <widget class="QPushButton" name="buttonCancelEdit">
+                    <property name="enabled">
+                     <bool>false</bool>
                     </property>
                     <property name="text">
-                     <string>Id:</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     <string>Cancel</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="idDisplayLineEdit">
+                   <widget class="QPushButton" name="buttonSaveEdit">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="text">
+                     <string>Save</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="noteTextVersion">
                     <property name="enabled">
                      <bool>false</bool>
                     </property>
                    </widget>
                   </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_4">
                   <item>
-                   <widget class="QLabel" name="dateDisplayLabel">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>50</width>
-                      <height>0</height>
-                     </size>
-                    </property>
+                   <widget class="QPushButton" name="deleteNoteButton">
                     <property name="text">
-                     <string>Date:</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="dateDisplayLineEdit">
-                    <property name="enabled">
-                     <bool>false</bool>
+                     <string>Delete</string>
                     </property>
                    </widget>
                   </item>
@@ -177,179 +359,23 @@
                </layout>
               </item>
               <item>
-               <widget class="QStackedWidget" name="noteTypeDisplay">
-                <property name="currentIndex">
-                 <number>0</number>
-                </property>
-                <widget class="QWidget" name="articleDisplay">
-                 <layout class="QVBoxLayout" name="verticalLayout_4">
-                  <item>
-                   <widget class="QLabel" name="articleDisplayContentLabel">
-                    <property name="text">
-                     <string>Content:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QPlainTextEdit" name="articleDisplayContent"/>
-                  </item>
-                 </layout>
-                </widget>
-                <widget class="QWidget" name="taskDisplay">
-                 <layout class="QVBoxLayout" name="verticalLayout_8">
-                  <item>
-                   <widget class="QLabel" name="taskDisplayActionLabel">
-                    <property name="text">
-                     <string>Action:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QTextEdit" name="taskDisplayAction"/>
-                  </item>
-                  <item>
-                   <widget class="QWidget" name="widget_3" native="true">
-                    <layout class="QGridLayout" name="gridLayout_4">
-                     <item row="1" column="0">
-                      <widget class="QComboBox" name="taskDisplayPriority">
-                       <item>
-                        <property name="text">
-                         <string/>
-                        </property>
-                       </item>
-                       <item>
-                        <property name="text">
-                         <string>Low</string>
-                        </property>
-                       </item>
-                       <item>
-                        <property name="text">
-                         <string>Normal</string>
-                        </property>
-                       </item>
-                       <item>
-                        <property name="text">
-                         <string>High</string>
-                        </property>
-                       </item>
-                      </widget>
-                     </item>
-                     <item row="1" column="1">
-                      <widget class="QDateTimeEdit" name="taskDisplayDeadline">
-                       <property name="calendarPopup">
-                        <bool>true</bool>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="1">
-                      <widget class="QLabel" name="taskDisplayDeadlineLabel">
-                       <property name="text">
-                        <string>Deadline:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="0">
-                      <widget class="QLabel" name="taskDisplayPriorityLabel">
-                       <property name="text">
-                        <string>Priority:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="2">
-                      <widget class="QLabel" name="taskDisplayStatusLabel">
-                       <property name="text">
-                        <string>Status:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="2">
-                      <widget class="QComboBox" name="taskDisplayStatus">
-                       <item>
-                        <property name="text">
-                         <string>In progress</string>
-                        </property>
-                       </item>
-                       <item>
-                        <property name="text">
-                         <string>Pending</string>
-                        </property>
-                       </item>
-                       <item>
-                        <property name="text">
-                         <string>Done</string>
-                        </property>
-                       </item>
-                      </widget>
-                     </item>
-                    </layout>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-                <widget class="QWidget" name="fileDisplay">
-                 <layout class="QVBoxLayout" name="verticalLayout_6">
-                  <item>
-                   <widget class="QLabel" name="fileDisplayDescriptionLabel">
-                    <property name="text">
-                     <string>Description:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QTextEdit" name="fileDisplayDescription"/>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="fileDisplayFileLabel">
-                    <property name="text">
-                     <string>File:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="fileDisplayFile">
-                    <property name="text">
-                     <string>Open file</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </widget>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <layout class="QVBoxLayout" name="verticalLayout_13">
                 <item>
-                 <widget class="QPushButton" name="buttonCancelEdit">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="text">
-                   <string>Cancel</string>
-                  </property>
+                 <widget class="QTreeWidget" name="treeViewPredecessors">
+                  <column>
+                   <property name="text">
+                    <string notr="true">1</string>
+                   </property>
+                  </column>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="buttonSaveEdit">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="text">
-                   <string>Save</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QComboBox" name="noteTextVersion">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="deleteNoteButton">
-                  <property name="text">
-                   <string>Delete</string>
-                  </property>
+                 <widget class="QTreeWidget" name="treeViewSuccessors">
+                  <column>
+                   <property name="text">
+                    <string notr="true">1</string>
+                   </property>
+                  </column>
                  </widget>
                 </item>
                </layout>
@@ -395,8 +421,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>665</width>
-             <height>540</height>
+             <width>703</width>
+             <height>545</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
@@ -713,8 +739,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>854</width>
-     <height>22</height>
+     <width>887</width>
+     <height>25</height>
     </rect>
    </property>
   </widget>
