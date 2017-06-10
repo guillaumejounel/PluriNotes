@@ -40,9 +40,9 @@
      </size>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
-    <widget class="QWidget" name="newNotePage">
+    <widget class="QWidget" name="newRelationPage">
      <layout class="QVBoxLayout" name="verticalLayout">
       <property name="leftMargin">
        <number>0</number>
@@ -108,7 +108,7 @@
               <number>0</number>
              </property>
              <item>
-              <layout class="QVBoxLayout" name="formNoteWidget" stretch="0,0,0">
+              <layout class="QVBoxLayout" name="formRelationWidget" stretch="0,0,0">
                <property name="sizeConstraint">
                 <enum>QLayout::SetMaximumSize</enum>
                </property>
@@ -266,7 +266,7 @@
                  <property name="currentIndex">
                   <number>0</number>
                  </property>
-                 <widget class="QWidget" name="page">
+                 <widget class="QWidget" name="basePage">
                   <widget class="QWidget" name="horizontalLayoutWidget_2">
                    <property name="geometry">
                     <rect>
@@ -309,10 +309,8 @@
                     </item>
                    </layout>
                   </widget>
-                  <zorder>horizontalLayoutWidget_2</zorder>
-                  <zorder>horizontalSpacer_3</zorder>
                  </widget>
-                 <widget class="QWidget" name="articleForm">
+                 <widget class="QWidget" name="editRelationForm">
                   <layout class="QVBoxLayout" name="verticalLayout_3">
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -520,6 +518,25 @@
   </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>newRelationButton</sender>
+   <signal>clicked()</signal>
+   <receiver>relationsWindows</receiver>
+   <slot>toNewRelationForm()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>124</x>
+     <y>61</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>156</x>
+     <y>38</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>toNewRelationForm()</slot>
+ </slots>
 </ui>
-

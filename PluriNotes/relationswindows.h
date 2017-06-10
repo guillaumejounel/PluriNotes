@@ -38,6 +38,7 @@ signals:
     public slots:
     //! Short function to be called before closing the window
     void beforeClose();
+    void toNewRelationForm();
 
 };
 
