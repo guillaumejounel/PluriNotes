@@ -272,12 +272,17 @@ void PluriNotes::displayNote(unsigned int n) {
     if(notes.size()) {
         const NoteEntity& currentSelectedNote = getCurrentNote();
         ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
+        ui->noteTextVersion->clear();
         if (currentSelectedNote.getSize() == 1) {
             ui->noteTextVersion->addItem(QString("Version 1"));
             ui->noteTextVersion->setEnabled(0);
-        } else ui->noteTextVersion->setEnabled(1);
-
-        //if (ui->noteTextVersion->count() > 1) n = ui->noteTextVersion->count() - ui->noteTextVersion->currentIndex() - 1;
+        } else {
+            ui->noteTextVersion->setEnabled(1);
+            for(unsigned int i = currentSelectedNote.getSize(); i > 0; --i)
+                ui->noteTextVersion->addItem(QString("Version ") + QString::number(i));
+            ui->noteTextVersion->setCurrentIndex(n);
+        }
+        n = ui->noteTextVersion->count() - ui->noteTextVersion->currentIndex() - 1;
         const NoteElement& note = currentSelectedNote.getVersion(n);
         ui->noteTypeDisplay->setCurrentIndex(note.indexPageCreation());
         //Ajout et remplissage des champs de type de note
@@ -291,7 +296,7 @@ void PluriNotes::displayNote(unsigned int n) {
 
 void PluriNotes::noteVersionChanged() {
     if (isDisplayed) {
-        displayNote();
+        displayNote(ui->noteTextVersion->currentIndex());
         if (ui->noteTextVersion->currentIndex() == 0) {
             ui->buttonSaveEdit->setText(QString("Save"));
             ui->titleDisplayLineEdit->setReadOnly(0);
@@ -338,7 +343,6 @@ void PluriNotes::saveNote() {
     //Puis créer la note
     NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
 
-
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
     NoteElement* newNote = myMap[ui->TypeComboBox->currentText()]->saveNote(ui->titleLineEdit->text());
     QDateTime creationDate = QDateTime::currentDateTime();
@@ -359,10 +363,7 @@ void PluriNotes::saveNewVersion() {
     currentNote.addVersion(*newNote.addVersion());
     const NoteEntity& currentSelectedNote = getCurrentNote();
     ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
-    ui->noteTextVersion->clear();
-    for(unsigned int i = currentSelectedNote.getSize(); i > 0; --i)
-        ui->noteTextVersion->addItem(QString("Version ") + QString::number(i));
-    displayNote(currentNote.getSize()-1);
+    displayNote();
 }
 
 void PluriNotes::deleteNote() {
