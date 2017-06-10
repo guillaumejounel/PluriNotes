@@ -2,6 +2,8 @@
 #include "ui_plurinotes.h"
 #include "othertools.h"
 #include "notes.h"
+#include "relationswindows.h"
+
 #include <QDateTime>
 
 #include "commands.h"
@@ -34,13 +36,15 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     // Creation of the reference relation
     QString t = "References";
     QString d = "Here is the relation with all the diffent reference";
-
     Relation Reference = Relation(t,d,true,0);
     relations.push_back(&Reference);
 
 
-    //Chargement des notes existantes
+    //Load data from UML
     load();
+
+    //! Load data into UI
+    loadDataIntoUi();
 
     //Affiche l'écran de démarrage
     ui->mainStackedWidget->setCurrentIndex(3);
@@ -96,11 +100,64 @@ void PluriNotes::createUndoView()
 
 void PluriNotes::createRelationsView()
 {
+
     relationsView = new relationsWindows();
     relationsView->setWindowTitle(tr("Relations managment"));
     relationsView->setAttribute(Qt::WA_QuitOnClose, false);
-    relationsView->show();
+    //relationsView->show();
 }
+
+
+void PluriNotes::saveApplication(){
+    save();
+}
+
+
+void PluriNotes::openRelationsWindow(){
+    relationsView->show();
+    setEnabled(false);
+}
+
+void PluriNotes::showUndoHistoryWindows(){
+    undoView->show();
+}
+
+void PluriNotes::createMenus()
+{
+    fileMenu = menuBar()->addMenu(tr("&File"));
+    fileMenu->addAction(saveAction);
+    fileMenu->addAction(exitAction);
+
+    editMenu = menuBar()->addMenu(tr("&Edit"));
+    editMenu->addAction(undoAction);
+    editMenu->addAction(redoAction);
+    editMenu->addSeparator();
+
+    openRelations = menuBar()->addAction(QString("Manage Relations"));
+    connect(openRelations,SIGNAL(triggered()),this, SLOT(openRelationsWindow()));
+
+    windowsMenu = menuBar()->addMenu(tr("&Windows"));
+    windowsMenu->addAction(viewUndoHistory);
+    /*
+    editMenu->addAction(deleteAction);
+
+    connect(editMenu, SIGNAL(aboutToShow()),
+            this, SLOT(itemMenuAboutToShow()));
+    connect(editMenu, SIGNAL(aboutToHide()),
+            this, SLOT(itemMenuAboutToHide()));
+    */
+    /*
+    itemMenu = menuBar()->addMenu(tr("&Item"));
+
+    itemMenu->addAction(addBoxAction);
+    itemMenu->addAction(addTriangleAction);
+
+    helpMenu = menuBar()->addMenu(tr("&About"));
+    helpMenu->addAction(aboutAction);
+    */
+}
+
+
 
 void PluriNotes::createActions()
 {
@@ -146,47 +203,6 @@ void PluriNotes::createActions()
 }
 
 
-void PluriNotes::saveApplication(){
-    save();
-}
-
-void PluriNotes::showUndoHistoryWindows(){
-    undoView->show();
-}
-
-void PluriNotes::createMenus()
-{
-    fileMenu = menuBar()->addMenu(tr("&File"));
-    fileMenu->addAction(saveAction);
-    fileMenu->addAction(exitAction);
-
-    editMenu = menuBar()->addMenu(tr("&Edit"));
-    editMenu->addAction(undoAction);
-    editMenu->addAction(redoAction);
-    editMenu->addSeparator();
-
-    windowsMenu = menuBar()->addMenu(tr("&Windows"));
-    windowsMenu->addAction(viewUndoHistory);
-    /*
-    editMenu->addAction(deleteAction);
-
-    connect(editMenu, SIGNAL(aboutToShow()),
-            this, SLOT(itemMenuAboutToShow()));
-    connect(editMenu, SIGNAL(aboutToHide()),
-            this, SLOT(itemMenuAboutToHide()));
-    */
-    /*
-    itemMenu = menuBar()->addMenu(tr("&Item"));
-
-    itemMenu->addAction(addBoxAction);
-    itemMenu->addAction(addTriangleAction);
-
-    helpMenu = menuBar()->addMenu(tr("&About"));
-    helpMenu->addAction(aboutAction);
-    */
-}
-
-
 
 PluriNotes::~PluriNotes() {
     //Destructeur de la classe PluriNotes
@@ -195,6 +211,9 @@ PluriNotes::~PluriNotes() {
     instanceUnique = nullptr;
     notes.clear();
     trash.clear();
+
+    delete relationsView;
+    delete undoView;
 }
 
 void PluriNotes::toNewNoteForm() {
@@ -548,6 +567,14 @@ void PluriNotes::load() {
     setDataChanged(false);
 }
 
+void PluriNotes::loadDataIntoUi(){
+    //! \todo add loading functionnalities to trash and notes
+
+     for(auto& rel: relations){
+         static_cast<relationsWindows*>(relationsView)->addNoteToList(const_cast<Relation*>(rel));
+     }
+}
+
 
 listItemAndPointer* PluriNotes::addNote(NoteEntity *note){
     notes.push_back(note);
@@ -625,7 +652,6 @@ void PluriNotes::closeEvent(QCloseEvent *event){
          }
     }
     event->accept();
-
 }
 
 

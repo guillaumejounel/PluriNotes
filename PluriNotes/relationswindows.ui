@@ -14,17 +14,18 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QListView" name="listOfAllRelations">
+   <widget class="QListWidget" name="listOfAllRelations">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
-      <width>221</width>
-      <height>511</height>
+      <y>20</y>
+      <width>181</width>
+      <height>421</height>
      </rect>
     </property>
    </widget>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -34,15 +35,7 @@
      <height>25</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuESSAI">
-    <property name="title">
-     <string>ESSAI</string>
-    </property>
-    <addaction name="actionCeci_est_mon_menu"/>
-   </widget>
-   <addaction name="menuESSAI"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionCeci_est_mon_menu">
    <property name="text">
     <string>Ceci est mon menu</string>
