@@ -46,7 +46,11 @@
        </size>
       </property>
       <property name="currentIndex">
+<<<<<<< HEAD
+       <number>1</number>
+=======
        <number>0</number>
+>>>>>>> d3ee4a8da35256854b0101dcfcaae54dea939b74
       </property>
       <widget class="QWidget" name="displayNotePage">
        <layout class="QGridLayout" name="verticalLayout_2" rowstretch="0">
