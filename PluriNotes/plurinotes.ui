@@ -179,7 +179,7 @@
               <item>
                <widget class="QStackedWidget" name="noteTypeDisplay">
                 <property name="currentIndex">
-                 <number>2</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="articleDisplay">
                  <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -395,8 +395,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>676</width>
-             <height>545</height>
+             <width>346</width>
+             <height>415</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
@@ -714,7 +714,7 @@
      <x>0</x>
      <y>0</y>
      <width>854</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

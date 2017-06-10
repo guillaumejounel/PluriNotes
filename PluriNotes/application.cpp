@@ -266,6 +266,8 @@ NoteEntity& PluriNotes::getCurrentNote() {
 }
 
 void PluriNotes::displayNote(unsigned int n) {
+    if (ui->noteTextVersion->count()) n = ui->noteTextVersion->count() - ui->noteTextVersion->currentIndex() - 1;
+    qDebug() << ui->noteTextVersion->count();
     isDisplayed = false;
     ui->idDisplayLineEdit->setReadOnly(true);
     ui->dateDisplayLineEdit->setReadOnly(true);
@@ -289,8 +291,9 @@ void PluriNotes::displayNote(unsigned int n) {
 
 void PluriNotes::noteVersionChanged() {
     if (isDisplayed) {
-        displayNote(ui->noteTextVersion->count() - ui->noteTextVersion->currentIndex() - 1);
+        displayNote();
         if (ui->noteTextVersion->currentIndex() == 0) {
+            ui->buttonSaveEdit->setText(QString("Save"));
             ui->titleDisplayLineEdit->setReadOnly(0);
             ui->articleDisplayContent->setReadOnly(0);
             ui->taskDisplayAction->setReadOnly(0);
@@ -300,6 +303,7 @@ void PluriNotes::noteVersionChanged() {
             ui->fileDisplayDescription->setReadOnly(0);
             ui->fileDisplayFile->setDisabled(0);
         } else {
+            ui->buttonSaveEdit->setText(QString("Restore"));
             ui->titleDisplayLineEdit->setReadOnly(1);
             ui->articleDisplayContent->setReadOnly(1);
             ui->taskDisplayAction->setReadOnly(1);
@@ -314,12 +318,17 @@ void PluriNotes::noteVersionChanged() {
 
 void PluriNotes::noteTextChanged() {
     const NoteElement& note = getCurrentNote().getLastVersion();
-    if((ui->titleDisplayLineEdit->text() == note.getTitle() && note.textChanged()) || ui->noteTextVersion->currentIndex() != 0) {
-        ui->buttonCancelEdit->setEnabled(0);
-        ui->buttonSaveEdit->setEnabled(0);
-    } else {
-        ui->buttonCancelEdit->setEnabled(1);
+    if(ui->noteTextVersion->currentIndex() != 0) {
         ui->buttonSaveEdit->setEnabled(1);
+        ui->buttonCancelEdit->setEnabled(0);
+    } else {
+        if((ui->titleDisplayLineEdit->text() == note.getTitle() && note.textChanged())) {
+            ui->buttonCancelEdit->setEnabled(0);
+            ui->buttonSaveEdit->setEnabled(0);
+        } else {
+            ui->buttonCancelEdit->setEnabled(1);
+            ui->buttonSaveEdit->setEnabled(1);
+        }
     }
 }
 
