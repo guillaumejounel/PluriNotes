@@ -169,6 +169,9 @@ public:
     //! \brief Setter UI, note titles
     void setNoteTitle(const QString& t);
 
+    //! Loading data into interface function
+    void loadDataIntoUi();
+
 //    //! Setter for the ui :\n
 //    //! This is for note id
 //    //! \brief Setter UI, note id
@@ -242,6 +245,7 @@ public:
 
     void setDataChanged(bool b);
 
+    //! Before closing
     void closeEvent ( QCloseEvent * event );
 
 

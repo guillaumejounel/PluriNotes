@@ -25,7 +25,32 @@ void relationsWindows::beforeClose(){
     close();
 }
 
+
+void relationsWindows::closeEvent(QCloseEvent *event){
+    event->ignore();
+    beforeClose();
+    event->accept();
+}
+
+
 relationsWindows::~relationsWindows()
 {
     delete ui;
 }
+
+
+
+
+listRelationAndPointer* relationsWindows::addNoteToList(Relation* rel){
+    listRelationAndPointer* itm = new listRelationAndPointer(rel);
+    itm->setText(rel->getTitle());
+    addItemRelationToList(itm);
+    return itm;
+}
+
+
+void relationsWindows::addItemRelationToList(listRelationAndPointer *item){
+    ui->listOfAllRelations->insertItem(0, item);
+    ui->listOfAllRelations->setCurrentRow(0);
+}
+

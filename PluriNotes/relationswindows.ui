@@ -14,13 +14,13 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QListView" name="listOfAllRelations">
+   <widget class="QListWidget" name="listOfAllRelations">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>10</y>
-      <width>221</width>
-      <height>501</height>
+      <x>10</x>
+      <y>20</y>
+      <width>181</width>
+      <height>421</height>
      </rect>
     </property>
    </widget>

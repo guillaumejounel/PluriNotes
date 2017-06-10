@@ -40,8 +40,11 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     relations.push_back(&Reference);
 
 
-    //Chargement des notes existantes
+    //Load data from UML
     load();
+
+    //! Load data into UI
+    loadDataIntoUi();
 
     //Affiche l'écran de démarrage
     ui->mainStackedWidget->setCurrentIndex(3);
@@ -558,6 +561,14 @@ void PluriNotes::load() {
     setDataChanged(false);
 }
 
+void PluriNotes::loadDataIntoUi(){
+    //! \todo add loading functionnalities to trash and notes
+
+     for(auto& rel: relations){
+         static_cast<relationsWindows*>(relationsView)->addNoteToList(const_cast<Relation*>(rel));
+     }
+}
+
 
 listItemAndPointer* PluriNotes::addNote(NoteEntity *note){
     notes.push_back(note);
@@ -635,7 +646,6 @@ void PluriNotes::closeEvent(QCloseEvent *event){
          }
     }
     event->accept();
-
 }
 
 
