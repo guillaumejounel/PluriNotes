@@ -57,7 +57,6 @@ Write description here
 class PluriNotes : public QMainWindow {
     Q_OBJECT
 private:
-
     //! \brief Pointer to the ui
     Ui::PluriNotes *ui;
 
@@ -118,12 +117,14 @@ private:
     QAction *exitAction;
     QAction *saveAction;
     QAction *aboutAction;
+    QAction *openRelations;
 
     // QActions for windows
     QAction *viewUndoHistory;
 
     QMenu *fileMenu;
     QMenu *editMenu;
+    QMenu *relationsMenu;
     QMenu *windowsMenu;
     QMenu *helpMenu;
 
@@ -284,6 +285,9 @@ signals:
 
     //! savefunction
     void saveApplication();
+
+    //! open relationsWidnows
+    void openRelationsWindow();
 
     void noteTextChanged();
     void saveNewVersion();

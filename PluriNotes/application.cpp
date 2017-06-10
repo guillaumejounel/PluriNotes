@@ -2,6 +2,8 @@
 #include "ui_plurinotes.h"
 #include "othertools.h"
 #include "notes.h"
+#include "relationswindows.h"
+
 #include <QDateTime>
 
 #include "commands.h"
@@ -34,7 +36,6 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     // Creation of the reference relation
     QString t = "References";
     QString d = "Here is the relation with all the diffent reference";
-
     Relation Reference = Relation(t,d,true,0);
     relations.push_back(&Reference);
 
@@ -96,10 +97,11 @@ void PluriNotes::createUndoView()
 
 void PluriNotes::createRelationsView()
 {
+
     relationsView = new relationsWindows();
     relationsView->setWindowTitle(tr("Relations managment"));
     relationsView->setAttribute(Qt::WA_QuitOnClose, false);
-    relationsView->show();
+    //relationsView->show();
 }
 
 void PluriNotes::createActions()
@@ -150,8 +152,15 @@ void PluriNotes::saveApplication(){
     save();
 }
 
+
+void PluriNotes::openRelationsWindow(){
+    relationsView->show();
+    qWarning()<<"je suis bien passé ici";
+}
+
 void PluriNotes::showUndoHistoryWindows(){
     undoView->show();
+    qWarning()<<"je suis bien passé ici history";
 }
 
 void PluriNotes::createMenus()
@@ -164,6 +173,9 @@ void PluriNotes::createMenus()
     editMenu->addAction(undoAction);
     editMenu->addAction(redoAction);
     editMenu->addSeparator();
+
+    openRelations = menuBar()->addAction(QString("Manage Relations"));
+    connect(openRelations,SIGNAL(triggered()),this, SLOT(openRelationsWindow()));
 
     windowsMenu = menuBar()->addMenu(tr("&Windows"));
     windowsMenu->addAction(viewUndoHistory);
@@ -195,6 +207,9 @@ PluriNotes::~PluriNotes() {
     instanceUnique = nullptr;
     notes.clear();
     trash.clear();
+
+    delete relationsView;
+    delete undoView;
 }
 
 void PluriNotes::toNewNoteForm() {

@@ -12,7 +12,7 @@
 
 #include <QListWidgetItem>
 #include "notes.h"
-
+#include "relation.h"
 
 /**
 \class listItemAndPointer
@@ -35,5 +35,26 @@ public :
     NoteEntity* getNotePointer() const {return notePointer;}
 };
 
+
+
+/**
+\class listItemAndPointer
+\brief Class herited from QListWidgetItem, to add a point to a relation
+
+This class is herited from QListWidgetItem in order to add an attribut "relationPointer"\n
+to each items, so when we click on an item in the list we can directly access the relation\n
+in the application.
+**/
+class listRelationAndPointer : public QListWidgetItem {
+private :
+    //! \brief Pointer to a note entity
+    Relation* relationPointer;
+public :
+    //! Constructor for the class
+    listRelationAndPointer(Relation* ptr = nullptr) : relationPointer(ptr) {}
+
+    //! Accessor to the added attribute
+    Relation* getRelationPointer() const {return relationPointer;}
+};
 
 #endif // OTHERTOOLS_H

@@ -2,6 +2,7 @@
 #define RELATIONSWINDOWS_H
 
 #include <QMainWindow>
+#include "application.h"
 
 namespace Ui {
 class relationsWindows;
@@ -11,12 +12,17 @@ class relationsWindows : public QMainWindow
 {
     Q_OBJECT
 
-public:
-    explicit relationsWindows(QWidget *parent = 0);
+private:
+
+    Ui::relationsWindows *ui;
+
     ~relationsWindows();
 
-private:
-    Ui::relationsWindows *ui;
+public:
+    explicit relationsWindows(QWidget *parent = 0);
+
+
+
 };
 
 #endif // RELATIONSWINDOWS_H

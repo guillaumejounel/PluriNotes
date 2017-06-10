@@ -46,7 +46,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="displayNotePage">
        <layout class="QGridLayout" name="verticalLayout_2" rowstretch="0">
@@ -60,8 +60,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>273</width>
-             <height>461</height>
+             <width>670</width>
+             <height>539</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -385,8 +385,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>665</width>
-             <height>540</height>
+             <width>676</width>
+             <height>545</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
@@ -704,7 +704,7 @@
      <x>0</x>
      <y>0</y>
      <width>854</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

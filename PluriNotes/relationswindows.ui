@@ -17,10 +17,10 @@
    <widget class="QListView" name="listOfAllRelations">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>10</y>
       <width>221</width>
-      <height>511</height>
+      <height>541</height>
      </rect>
     </property>
    </widget>
@@ -36,11 +36,23 @@
    </property>
    <widget class="QMenu" name="menuESSAI">
     <property name="title">
-     <string>ESSAI</string>
+     <string>Close Window</string>
     </property>
     <addaction name="actionCeci_est_mon_menu"/>
    </widget>
+   <widget class="QMenu" name="menuAdd_Relation">
+    <property name="title">
+     <string>Add Relation</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuDelete_relation">
+    <property name="title">
+     <string>Delete relation</string>
+    </property>
+   </widget>
    <addaction name="menuESSAI"/>
+   <addaction name="menuAdd_Relation"/>
+   <addaction name="menuDelete_relation"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionCeci_est_mon_menu">
