@@ -46,7 +46,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="displayNotePage">
        <layout class="QGridLayout" name="verticalLayout_2" rowstretch="0">
@@ -60,8 +60,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>273</width>
-             <height>461</height>
+             <width>655</width>
+             <height>530</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -179,7 +179,7 @@
               <item>
                <widget class="QStackedWidget" name="noteTypeDisplay">
                 <property name="currentIndex">
-                 <number>1</number>
+                 <number>2</number>
                 </property>
                 <widget class="QWidget" name="articleDisplay">
                  <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -319,9 +319,19 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_3">
                 <item>
-                 <widget class="QPushButton" name="buttonSaveEditArticle">
+                 <widget class="QPushButton" name="buttonCancelEdit">
                   <property name="enabled">
-                   <bool>true</bool>
+                   <bool>false</bool>
+                  </property>
+                  <property name="text">
+                   <string>Cancel</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="buttonSaveEdit">
+                  <property name="enabled">
+                   <bool>false</bool>
                   </property>
                   <property name="text">
                    <string>Save</string>
@@ -677,8 +687,8 @@
        <widget class="QLabel" name="label_21">
         <property name="geometry">
          <rect>
-          <x>70</x>
-          <y>160</y>
+          <x>130</x>
+          <y>130</y>
           <width>591</width>
           <height>181</height>
          </rect>
@@ -751,8 +761,8 @@
    <slot>titleChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>767</x>
-     <y>79</y>
+     <x>802</x>
+     <y>108</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -815,8 +825,8 @@
    <slot>typeChangedForm()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>471</x>
-     <y>192</y>
+     <x>696</x>
+     <y>178</y>
     </hint>
     <hint type="destinationlabel">
      <x>470</x>
@@ -841,14 +851,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonSaveEditArticle</sender>
+   <sender>buttonSaveEdit</sender>
    <signal>clicked()</signal>
    <receiver>PluriNotes</receiver>
    <slot>saveNewVersion()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>330</x>
-     <y>550</y>
+     <x>500</x>
+     <y>563</y>
     </hint>
     <hint type="destinationlabel">
      <x>176</x>
@@ -863,12 +873,140 @@
    <slot>noteVersionChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>489</x>
-     <y>548</y>
+     <x>654</x>
+     <y>559</y>
     </hint>
     <hint type="destinationlabel">
      <x>149</x>
      <y>540</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>articleDisplayContent</sender>
+   <signal>textChanged()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>noteTextChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>327</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>160</x>
+     <y>199</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>titleDisplayLineEdit</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>noteTextChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>354</x>
+     <y>71</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>160</x>
+     <y>138</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>taskDisplayAction</sender>
+   <signal>textChanged()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>noteTextChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>328</x>
+     <y>251</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>taskDisplayPriority</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>noteTextChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>338</x>
+     <y>483</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>156</x>
+     <y>455</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>taskDisplayDeadline</sender>
+   <signal>dateTimeChanged(QDateTime)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>noteTextChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>500</x>
+     <y>481</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>346</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>taskDisplayStatus</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>noteTextChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>673</x>
+     <y>486</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>153</x>
+     <y>315</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fileDisplayDescription</sender>
+   <signal>textChanged()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>noteTextChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>284</x>
+     <y>234</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>160</x>
+     <y>95</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonCancelEdit</sender>
+   <signal>clicked()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>displayNote()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>233</x>
+     <y>551</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>154</x>
+     <y>502</y>
     </hint>
    </hints>
   </connection>

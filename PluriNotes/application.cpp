@@ -273,29 +273,35 @@ void PluriNotes::noteVersionChanged() {
         displayNote(ui->noteTextVersion->count() - ui->noteTextVersion->currentIndex() - 1);
         if (ui->noteTextVersion->currentIndex() == 0) {
             ui->titleDisplayLineEdit->setReadOnly(0);
-            //ui->contentDisplayTextEdit->setReadOnly(0);
+            ui->articleDisplayContent->setReadOnly(0);
+            ui->taskDisplayAction->setReadOnly(0);
+            ui->taskDisplayDeadline->setReadOnly(0);
+            ui->taskDisplayPriority->setDisabled(0);
+            ui->taskDisplayStatus->setDisabled(0);
+            ui->fileDisplayDescription->setReadOnly(0);
+            ui->fileDisplayFile->setDisabled(0);
         } else {
             ui->titleDisplayLineEdit->setReadOnly(1);
-            //ui->contentDisplayTextEdit->setReadOnly(1);
+            ui->articleDisplayContent->setReadOnly(1);
+            ui->taskDisplayAction->setReadOnly(1);
+            ui->taskDisplayDeadline->setReadOnly(1);
+            ui->taskDisplayPriority->setDisabled(1);
+            ui->taskDisplayStatus->setDisabled(1);
+            ui->fileDisplayDescription->setReadOnly(1);
+            ui->fileDisplayFile->setDisabled(1);
         }
     }
 }
 
 void PluriNotes::noteTextChanged() {
-    //NoteEntity& currentSelectedNote = getCurrentNote();
-
-    //TODO : adapter ça selon le type de note..?
-    //const Article& note = static_cast<const Article&>(currentSelectedNote.getLastVersion());
-
-    /*if((ui->titleDisplayLineEdit->text() == note.getTitle() && ui->contentDisplayTextEdit->text() == note.getText())
-    if(ui->titleDisplayLineEdit->text() == note.getTitle()
-            || ui->noteTextVersion->currentIndex() != 0) {
-        ui->buttonCancelEditArticle->setEnabled(0);
-        ui->buttonSaveEditArticle->setEnabled(0);
+    const NoteElement& note = getCurrentNote().getLastVersion();
+    if((ui->titleDisplayLineEdit->text() == note.getTitle() && note.textChanged()) || ui->noteTextVersion->currentIndex() != 0) {
+        ui->buttonCancelEdit->setEnabled(0);
+        ui->buttonSaveEdit->setEnabled(0);
     } else {
-        ui->buttonCancelEditArticle->setEnabled(1);
-        ui->buttonSaveEditArticle->setEnabled(1);
-    }*/
+        ui->buttonCancelEdit->setEnabled(1);
+        ui->buttonSaveEdit->setEnabled(1);
+    }
 }
 
 void PluriNotes::saveNote() {

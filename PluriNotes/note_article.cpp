@@ -20,3 +20,8 @@ Article* Article::addVersion() const {
     PluriNotes& manager = PluriNotes::getManager();
     return new Article(manager.getNoteTitleEdit(), QDateTime::currentDateTime(), manager.getArticleContentEdit());
 }
+
+bool Article::textChanged() const {
+    PluriNotes& manager = PluriNotes::getManager();
+    return text == manager.getArticleContentEdit();
+}
