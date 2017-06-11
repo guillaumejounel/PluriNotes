@@ -27,6 +27,7 @@
 #include "othertools.h"
 #include "relation.h"
 #include "relationswindows.h"
+#include "notecouple.h"
 
 class QAction;
 class QToolBar;
@@ -71,14 +72,14 @@ private:
     //! Core
     //! Vector containing all the active notes in the application
     //! \brief Vector containing the active notes
-    QVector<const NoteEntity*> notes;
+    QVector<NoteEntity*> notes;
 
     //! Vector containing all the notes sent to the trash
     //! \brief Vector containing the trashed notes
-    QVector<const NoteEntity*> trash;
+    QVector<NoteEntity*> trash;
 
     //! Vector containing all Relations of the application
-    QVector<const Relation*> relations;
+    QVector<Relation*> relations;
 
     //! \todo Add documentation !!!!
     bool autoDelete;
@@ -294,10 +295,10 @@ public:
 
 
     //! Method to get all successors of a note
-    QSet<NoteEntity*> allSuccessorsOf(NoteEntity* note) const;
+    QSet<NoteEntity*> getAllSuccessorsOf(NoteEntity* note) const;
 
     //! Method to get all predecessors of a note
-    QSet<NoteEntity*> allPredecessorsOf(NoteEntity* note) const;
+    QSet<NoteEntity*> getAllPredecessorsOf(NoteEntity* note) const;
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 
@@ -335,7 +336,13 @@ public:
     void selectItemIntoList(listItemAndPointer* item);
 
 
+    //--- treeView
+    //! Function to add a NoteEntity to the list of note \n
+    //! With creation of a listItemAndPointer*
+    treeItemNoteAndPointer* addNoteToTree(NoteEntity* note, QTreeWidget* tree);
 
+    //! Function to update trees based on the selected note.
+    void updateTrees(NoteEntity* note);
 
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
@@ -419,7 +426,7 @@ public:
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 
-
+    void testFunction();
 
 
 signals:

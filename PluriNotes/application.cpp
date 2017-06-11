@@ -42,11 +42,26 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     //Load data from UML
     load();
 
+    //! \toto delete
+    testFunction();
+
     //! Load data into UI
     loadDataIntoUi();
 
     //Affiche l'écran de démarrage
     ui->mainStackedWidget->setCurrentIndex(3);
+}
+
+void PluriNotes::testFunction(){
+    Relation* ref = relations[0];
+    QString l = QString("couple 1");
+    NoteCouple& c = *(new NoteCouple(l,notes[0],notes[1]));
+    ref->addCouple(c);
+
+
+    l = QString("couple 2");
+    c = *(new NoteCouple(l,notes[1],notes[2]));
+    ref->addCouple(c);
 }
 
 const QString PluriNotes::getNoteTitleEdit() {
@@ -271,6 +286,7 @@ void PluriNotes::displayNote(unsigned int n) {
         const NoteEntity& currentSelectedNote = getCurrentNote();
         ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
         ui->noteTextVersion->clear();
+        updateTrees(const_cast<NoteEntity*>(&currentSelectedNote));
         if (currentSelectedNote.getSize() == 1) {
             ui->noteTextVersion->addItem(QString("Version 1"));
             ui->noteTextVersion->setEnabled(0);
@@ -655,6 +671,32 @@ void PluriNotes::selectItemIntoList(listItemAndPointer* item){
 }
 
 
+
+//! \todo add item to list based on last modified date !
+treeItemNoteAndPointer* PluriNotes::addNoteToTree(NoteEntity* note, QTreeWidget* tree){
+    treeItemNoteAndPointer* itm = new treeItemNoteAndPointer(note);
+    itm->setText(0,note->getTitle());
+    tree->addTopLevelItem(itm);
+    return itm;
+}
+
+
+void PluriNotes::updateTrees(NoteEntity* note){
+    ui->treeViewPredecessors->clear();
+    ui->treeViewSuccessors->clear();
+
+    QSet<NoteEntity*> successorsOfNote = getAllSuccessorsOf(note);
+    QSet<NoteEntity*> predecessorsOfNote = getAllPredecessorsOf(note);
+
+    for(auto note : successorsOfNote){
+        addNoteToTree(note,ui->treeViewSuccessors);
+    }
+
+    for(auto note : predecessorsOfNote){
+        addNoteToTree(note,ui->treeViewPredecessors);
+    }
+}
+
 //! ####################################
 //! ####################################
 
@@ -708,7 +750,7 @@ void PluriNotes::addRelationToVector(Relation* r) {
 }
 
 
-QSet<NoteEntity*> PluriNotes::allSuccessorsOf(NoteEntity* note) const{
+QSet<NoteEntity*> PluriNotes::getAllSuccessorsOf(NoteEntity* note) const{
     unsigned int nbOfRealations = relations.size();
     QSet<NoteEntity*> result;
 
@@ -720,7 +762,7 @@ QSet<NoteEntity*> PluriNotes::allSuccessorsOf(NoteEntity* note) const{
     return result;
 }
 
-QSet<NoteEntity*> PluriNotes::allPredecessorsOf(NoteEntity* note) const{
+QSet<NoteEntity*> PluriNotes::getAllPredecessorsOf(NoteEntity* note) const{
     unsigned int nbOfRealations = relations.size();
     QSet<NoteEntity*> result;
 
