@@ -36,7 +36,7 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     // Creation of the reference relation
     QString t = "References";
     QString d = "Here is the relation with all the diffent reference";
-    Relation* Reference = new Relation(t,d,true,0);
+    Relation* Reference = new Relation(t,d,true,true);
     relations.push_back(Reference);
 
     //Load data from UML
