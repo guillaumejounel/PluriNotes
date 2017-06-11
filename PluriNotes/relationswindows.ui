@@ -303,7 +303,7 @@
                     <item>
                      <widget class="QPushButton" name="saveRelationCreationButton">
                       <property name="text">
-                       <string>Save Relation</string>
+                       <string>Add Relation</string>
                       </property>
                      </widget>
                     </item>
@@ -571,15 +571,15 @@
    <sender>saveRelationCreationButton</sender>
    <signal>clicked()</signal>
    <receiver>relationsWindows</receiver>
-   <slot>saveRelation()</slot>
+   <slot>addRelation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>799</x>
-     <y>276</y>
+     <x>834</x>
+     <y>275</y>
     </hint>
     <hint type="destinationlabel">
-     <x>893</x>
-     <y>307</y>
+     <x>894</x>
+     <y>291</y>
     </hint>
    </hints>
   </connection>
@@ -589,5 +589,6 @@
   <slot>displayRelation()</slot>
   <slot>cancelRelation()</slot>
   <slot>saveRelation()</slot>
+  <slot>addRelation()</slot>
  </slots>
 </ui>

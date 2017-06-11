@@ -50,7 +50,7 @@ void relationsWindows::displayRelation() {
 //    ui->mainStackedWidget->setCurrentIndex(0);
 }
 
-void relationsWindows::saveRelation() {
+void relationsWindows::addRelation() {
     //Enregistre dans le vecteur relation de la classe PluriNotes
     //! \todo Faire des vérifications de validité (id...)
     //Puis créer la relation
