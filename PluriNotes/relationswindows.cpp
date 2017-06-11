@@ -71,6 +71,11 @@ void relationsWindows::closeEvent(QCloseEvent *event) {
     event->accept();
 }
 
+void relationsWindows::showEvent(QShowEvent *event) {
+    event->accept();
+    addNoteEntityToComboBoxes();
+}
+
 relationsWindows::~relationsWindows() {
     delete ui;
 }
@@ -85,5 +90,21 @@ listRelationAndPointer* relationsWindows::addRelationToList(Relation* rel) {
 void relationsWindows::addItemRelationToList(listRelationAndPointer *item) {
     ui->listOfAllRelations->insertItem(0, item);
     ui->listOfAllRelations->setCurrentRow(0);
+}
+
+void relationsWindows::addNoteEntityToComboBoxes() {
+    PluriNotes& manager = PluriNotes::getManager();
+    QVector<NoteEntity*> notes = manager.getNotesVector();
+    if(notes.size()) {
+        ui->noteSelectorX->setEnabled(true);
+        ui->noteSelectorY->setEnabled(true);
+        for(auto note : notes) {
+            ui->noteSelectorX->addItem(note->getId());
+            ui->noteSelectorY->addItem(note->getId());
+        }
+    } else {
+        ui->noteSelectorX->setEnabled(false);
+        ui->noteSelectorY->setEnabled(false);
+    }
 }
 
