@@ -370,7 +370,6 @@ void PluriNotes::saveNote() {
     for(QTextEdit* widget: ui->customWidgets->widget(myMap[ui->TypeComboBox->currentText()]->indexPageCreation())->findChildren<QTextEdit*>())
         if(widget->property("obligatory").toBool() && widget->toPlainText() == QString("")) flag = false;
 
-
     if(flag) {
         //Create and save the note
         NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
@@ -382,6 +381,7 @@ void PluriNotes::saveNote() {
         QUndoCommand *addCommand = new addNoteEntityCommand(newNoteEntity);
         undoStack->push(addCommand);
     } else {
+        //Input is not valid
         QMessageBox msgBox;
         msgBox.setText("Please check your input");
         msgBox.exec();

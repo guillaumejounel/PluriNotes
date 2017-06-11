@@ -27,6 +27,88 @@
     <property name="leftMargin">
      <number>11</number>
     </property>
+    <item row="1" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_11">
+      <item>
+       <widget class="QToolBox" name="toolBox">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="page">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>140</width>
+           <height>176</height>
+          </rect>
+         </property>
+         <attribute name="label">
+          <string>Active notes</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_6">
+          <item row="0" column="0">
+           <widget class="QListWidget" name="listNotesWidget"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_2">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>140</width>
+           <height>352</height>
+          </rect>
+         </property>
+         <attribute name="label">
+          <string>Archived</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="0" column="0">
+           <widget class="QListWidget" name="listWidget"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_3">
+         <attribute name="label">
+          <string>Trash</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_7">
+          <item row="0" column="0">
+           <widget class="QListWidget" name="listWidget_2"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="title">
+         <string>Tasks</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_8">
+         <item row="0" column="0">
+          <widget class="QListWidget" name="listWidget_3"/>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item row="0" column="0">
      <widget class="QPushButton" name="ButtonNewNote">
       <property name="text">
@@ -34,10 +116,7 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QListWidget" name="listNotesWidget"/>
-    </item>
-    <item row="0" column="4" rowspan="2">
+    <item row="0" column="4" rowspan="3">
      <widget class="QStackedWidget" name="mainStackedWidget">
       <property name="minimumSize">
        <size>
@@ -60,8 +139,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>682</width>
-             <height>530</height>
+             <width>597</width>
+             <height>382</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -837,8 +916,8 @@
     </item>
    </layout>
    <zorder>mainStackedWidget</zorder>
-   <zorder>listNotesWidget</zorder>
    <zorder>ButtonNewNote</zorder>
+   <zorder>verticalLayoutWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
