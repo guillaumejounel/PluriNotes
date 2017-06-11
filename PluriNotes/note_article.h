@@ -23,6 +23,8 @@ public:
     virtual Article* saveNote(QString title) override;
     virtual Article* addVersion() const override;
     virtual bool textChanged() const override;
+    virtual void saveToXML(QXmlStreamWriter& stream) const override;
+    virtual void loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) const override;
     ~Article() {}
 };
 

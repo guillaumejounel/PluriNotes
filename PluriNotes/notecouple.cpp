@@ -32,3 +32,9 @@ NoteEntity* NoteCouple::predecessor(NoteEntity* note, bool oriented) const{
     if (oriented == false && isEqualX(note)) return y;
     return nullptr;
 }
+
+
+QString NoteCouple::print() const {
+    QString result =  QString("(") + this->getX()->getId() + QString(" , ") + this->getY()->getId() + QString(")") ;
+    return result;
+}

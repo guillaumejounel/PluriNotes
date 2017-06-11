@@ -10,7 +10,9 @@ class BaseNoteType : public NoteElement {
 public:
     BaseNoteType() {}
     BaseNoteType(const QString& title, const QDateTime& creaDate) : NoteElement(title,creaDate)  {}
-
+    virtual QString typeName() const override {
+        return Note::name();
+    }
     static int setTypeInList() {
         return NoteTypeList(Note::name(), Note::newType()).size();
     }

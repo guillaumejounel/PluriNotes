@@ -13,10 +13,8 @@ deleteNoteCommand::~deleteNoteCommand(){
     PluriNotes& manager = PluriNotes::getManager();
     // if we don't actually still have the pointer in the vector we shoult be able to delete it...
     if (! manager.isInsideApp(getNote())) {
-        qWarning()<<QString("je suis dans le destructeur et je ne fais rien !");
         delete getNote();
     }
-    qWarning()<<QString("je sors du destructeur");
 
 }
 
@@ -72,7 +70,7 @@ void addNoteEntityCommand::redo()
 {
     setText("Creation of the note :"+getNote()->getId());
     PluriNotes& manager = PluriNotes::getManager();
-    manager.addNote(note);
+    manager.addNote(*note);
 
     manager.setDataChanged(true);
 }

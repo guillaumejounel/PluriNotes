@@ -39,14 +39,27 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     Relation* Reference = new Relation(t,d,true,true);
     relations.push_back(Reference);
 
-    //Load data from UML
-    load();
-
-    //! Load data into UI
-    loadDataIntoUi();
-
     //Affiche l'écran de démarrage
     ui->mainStackedWidget->setCurrentIndex(3);
+}
+
+void PluriNotes::testFunction(){
+    /*
+    Relation* ref = relations[0];
+    QString l = QString("couple 1");
+    NoteCouple& c = *(new NoteCouple(l,notes[0],notes[1]));
+    ref->addCouple(c);
+
+
+    l = QString("couple 2");
+    c = *(new NoteCouple(l,notes[1],notes[2]));
+    ref->addCouple(c);
+
+
+    l = QString("couple 3");
+    c = *(new NoteCouple(l,notes[2],notes[3]));
+    ref->addCouple(c);
+    */
 }
 
 const QString PluriNotes::getNoteTitleEdit() {
@@ -218,8 +231,8 @@ void PluriNotes::toNewNoteForm() {
     //Ouverture du formulaire de création de notes
     is_idChanged = false;
     ui->ButtonNewNote->setEnabled(false);
-    ui->idLineEdit->setText("");
-    ui->titleLineEdit->setText("");
+    ui->idLineEdit->clear();
+    ui->titleLineEdit->clear();
     ui->TypeComboBox->setCurrentIndex(0);
     ui->listNotesWidget->setEnabled(false);
     ui->mainStackedWidget->setCurrentIndex(1);
@@ -229,6 +242,10 @@ void PluriNotes::toNewNoteForm() {
 //void PluriNotes::setNoteId(const QString& i){
 //    ui->idDisplayLineEdit->setText(i);
 //}
+
+void PluriNotes::initArticleForm() {
+    ui->articleContent->clear();
+}
 
 void PluriNotes::setArticleContent(const QString& content) {
     ui->articleDisplayContent->setPlainText(content);
@@ -240,6 +257,12 @@ void PluriNotes::setNoteTitle(const QString& t){
 
 void PluriNotes::setNoteDate(const QDateTime& d){
     ui->dateDisplayLineEdit->setText(d.toString("dddd dd MMMM yyyy hh:mm:ss"));
+}
+
+void PluriNotes::initTaskForm() {
+    ui->taskAction->clear();
+    ui->taskPriority->setCurrentIndex(0);
+    ui->taskDeadline->setDateTime(QDateTime::currentDateTime());
 }
 
 void PluriNotes::setTaskAction(const QString& action) {
@@ -271,6 +294,7 @@ void PluriNotes::displayNote(unsigned int n) {
         const NoteEntity& currentSelectedNote = getCurrentNote();
         ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
         ui->noteTextVersion->clear();
+        updateTrees(const_cast<NoteEntity*>(&currentSelectedNote));
         if (currentSelectedNote.getSize() == 1) {
             ui->noteTextVersion->addItem(QString("Version 1"));
             ui->noteTextVersion->setEnabled(0);
@@ -461,7 +485,9 @@ void PluriNotes::typeChangedForm() {
     //Ajout des champs selon le type de note
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
     ui->customWidgets->setCurrentIndex(myMap[ui->TypeComboBox->currentText()]->indexPageCreation());
-    ui->taskDeadline->setDateTime(QDateTime::currentDateTime());
+    initArticleForm();
+    initTaskForm();
+    initFileForm();
 }
 
 
@@ -475,21 +501,20 @@ void PluriNotes::save() {
     QXmlStreamWriter stream(&newfile);
     stream.setAutoFormatting(true);
     stream.writeStartDocument();
-    stream.writeStartElement("notes");
-    //à terminer !
-    for(auto const& note: notes) {
-        stream.writeStartElement("article");
-        stream.writeTextElement("id",note->getId());
-        stream.writeTextElement("title",note->getTitle());
-        const Article *noteContent = dynamic_cast<const Article*>(&note->getLastVersion());
-        stream.writeTextElement("creationDate",noteContent->getCreationDate().toString("dddd dd MMMM yyyy hh:mm:ss"));
-        stream.writeTextElement("content",noteContent->getText());
+    stream.writeStartElement("data");
+    {
+        stream.writeStartElement("notes");
+            for(auto const& note: notes)
+                note->saveToXML(stream);
+        stream.writeEndElement();
+        stream.writeStartElement("trash");
+            for(auto const& note: trash)
+                note->saveToXML(stream);
         stream.writeEndElement();
     }
     stream.writeEndElement();
     stream.writeEndDocument();
     newfile.close();
-
     setDataChanged(false);
 }
 
@@ -498,101 +523,54 @@ void PluriNotes::load() {
     path.append("/data");
     QFile fin(path);
     if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qDebug() << "Erreur ouverture fichier notes";
+        qDebug() << "Error opening the data file";
     }
     QXmlStreamReader xml(&fin);
-    //qDebug()<<"debut fichier\n";
-    // We'll parse the XML until we reach end of it.
+    bool toTrash = false;
+    NoteEntity* newNoteEntity;
     while(!xml.atEnd() && !xml.hasError()) {
-        // Read next element.
-        QXmlStreamReader::TokenType token = xml.readNext();
-        // If token is just StartDocument, we'll go to next.
-        if(token == QXmlStreamReader::StartDocument) continue;
-        // If token is StartElement, we'll see if we can read it.
-        if(token == QXmlStreamReader::StartElement) {
-            // If it's named taches, we'll go to the next.
-            if(xml.name() == "notes") continue;
-            // If it's named tache, we'll dig the information from there.
-            if(xml.name() == "article") {
-                qDebug()<<"new article\n";
-                QString id;
-                QString title;
-                QString creationDate;
-                QString content;
-                QXmlStreamAttributes attributes = xml.attributes();
-                xml.readNext();
-                //We're going to loop over the things because the order might change.
-                //We'll continue the loop until we hit an EndElement named article.
-                while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "article")) {
-                    if(xml.tokenType() == QXmlStreamReader::StartElement) {
-                        // We've found identificateur.
-                        if(xml.name() == "id") {
-                            xml.readNext(); id=xml.text().toString();
-                            qDebug()<<"id="<<id<<"\n";
-                        }
-
-                        // We've found title.
-                        if(xml.name() == "title") {
-                            xml.readNext(); title=xml.text().toString();
-                            qDebug()<<"title="<<title<<"\n";
-                        }
-
-
-                        // We've found date.
-                        if(xml.name() == "creationDate") {
-                            xml.readNext(); creationDate=xml.text().toString();
-                            qDebug()<<"creationDate="<<creationDate<<"\n";
-                        }
-
-
-                        // We've found text
-                        if(xml.name() == "content") {
-                            xml.readNext();
-                            content=xml.text().toString();
-                            qDebug()<<"content="<<content<<"\n";
-                        }
-                    }
-                    // ...and next...
-                    xml.readNext();
-                }
-                qDebug()<<"ajout note "<<id<<"\n";
-                NoteEntity *newNoteEntity = new NoteEntity(QString(id));
-                const Article *newNote = new Article(QString(title), QDateTime::fromString(QString(creationDate),"dddd dd MMMM yyyy hh:mm:ss"), QString(content));
-                newNoteEntity->addVersion(*newNote);
-                notes.push_back(newNoteEntity);
-                listItemAndPointer* itm = new listItemAndPointer(newNoteEntity);
-                itm->setText(title);
-                ui->listNotesWidget->insertItem(0, itm);
-            }
+        if(xml.name() == "trash") toTrash = true;
+        if(xml.name() == "note" && xml.tokenType() == QXmlStreamReader::StartElement) {
+            newNoteEntity = NoteEntity::loadFromXML(xml);
+            if (toTrash) trash.push_back(newNoteEntity);
+            else notes.push_back(newNoteEntity);
         }
+        xml.readNext();
     }
     // Error handling.
     if(xml.hasError()) {
-        qDebug() << "Erreur lecteur fichier notes, parser xml";
+        qDebug() << "Data file is corrupted";
     }
-    // Removes any device() or data from the reader * and resets its internal state to the initial state.
     xml.clear();
-    qDebug()<<"fin load\n";
-
     setDataChanged(false);
 }
 
-void PluriNotes::loadDataIntoUi(){
+void PluriNotes::loadDataIntoUi() {
     //! \todo add loading functionnalities to trash and notes
 
-     for(auto& rel: relations){
+     for(auto& rel: relations) {
          static_cast<relationsWindows*>(relationsView)->addRelationToList(const_cast<Relation*>(rel));
+     }
+
+
+     for(auto note:notes){
+         addNoteToList(note);
      }
 }
 
 
-listItemAndPointer* PluriNotes::addNote(NoteEntity *note){
-    notes.push_back(note);
-    listItemAndPointer* item = addNoteToList(note);
+listItemAndPointer* PluriNotes::addNote(NoteEntity& note) {
+    notes.push_back(&note);
+    listItemAndPointer* item = addNoteToList(&note);
     return item;
 }
 
-void PluriNotes::removeNote(NoteEntity *note){
+bool PluriNotes::isIdAvailable(const QString& id) const {
+    //TODO
+    return true;
+}
+
+void PluriNotes::removeNote(NoteEntity *note) {
     notes.removeAll(note);
 }
 
@@ -605,7 +583,7 @@ listItemAndPointer* PluriNotes::addNoteToList(NoteEntity* note){
 }
 
 
-void PluriNotes::addItemNoteToList(listItemAndPointer *item){
+void PluriNotes::addItemNoteToList(listItemAndPointer *item) {
     ui->listNotesWidget->insertItem(0, item);
     ui->listNotesWidget->setCurrentRow(0);
     ui->mainStackedWidget->setCurrentIndex(0);
@@ -614,14 +592,14 @@ void PluriNotes::addItemNoteToList(listItemAndPointer *item){
 }
 
 
-listItemAndPointer* PluriNotes::removeItemNoteFromList(listItemAndPointer* item){
+listItemAndPointer* PluriNotes::removeItemNoteFromList(listItemAndPointer* item) {
     unsigned int i = ui->listNotesWidget->row(item);
     return static_cast<listItemAndPointer*>(ui->listNotesWidget->takeItem(i));
 }
 
 //! ####################################
 //! ####################################
-void PluriNotes::removeNoteFromList(NoteEntity *note){
+void PluriNotes::removeNoteFromList(NoteEntity *note) {
     QListWidget* panel = ui->listNotesWidget;
 
     //We remove the item from the panel
@@ -630,7 +608,7 @@ void PluriNotes::removeNoteFromList(NoteEntity *note){
     panel->takeItem(i);
 }
 
-listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note){
+listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note) {
     //! \todo add function to loog for wich panel the note is on!
     QListWidget* panel = ui->listNotesWidget;
 
@@ -649,11 +627,88 @@ listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note){
     return current;
 }
 
-void PluriNotes::selectItemIntoList(listItemAndPointer* item){
+void PluriNotes::selectItemIntoList(listItemAndPointer* item) {
     QListWidget* panel = ui->listNotesWidget;
     panel->setCurrentItem(item);
 }
 
+
+
+//! \todo add item to list based on last modified date !
+treeItemNoteAndPointer* PluriNotes::addNoteToTree(NoteEntity* note, QTreeWidget* tree){
+    treeItemNoteAndPointer* itm = new treeItemNoteAndPointer(note);
+    itm->setText(0,note->getTitle());
+    tree->insertTopLevelItem(0,itm);
+    addNoteChildToTree(itm,tree);
+    return itm;
+}
+
+
+
+void PluriNotes::addNoteChildToTree(treeItemNoteAndPointer* item, QTreeWidget* tree){
+    QSet<NoteEntity*> noteChildren;
+
+    // Which tree is concerned ?
+    if(tree == ui->treeViewPredecessors) {
+        noteChildren = getAllPredecessorsOf(item->getNotePointer());
+    }
+    else{
+        noteChildren = getAllSuccessorsOf(item->getNotePointer());
+    }
+
+
+    treeItemNoteAndPointer* child;
+
+    for (auto note : noteChildren){
+        child = new treeItemNoteAndPointer(note);
+        child->setText(0,note->getTitle());
+        item->addChild(child);
+    }
+}
+
+void PluriNotes::addNoteChildrenToItem(QTreeWidgetItem* item, QTreeWidget* tree){
+    treeItemNoteAndPointer* tmp = static_cast<treeItemNoteAndPointer*>(item);
+
+    //We have to check if we haven't already calculated the children
+    if (!tmp->hasBeenExpended()){
+        QList<QTreeWidgetItem*> childrenList =	item->takeChildren();
+        // We add back the childre because this process removes them...
+        item->addChildren(childrenList);
+
+        for(auto noteChild : childrenList){
+            addNoteChildToTree(static_cast<treeItemNoteAndPointer*>(noteChild),tree);
+        }
+        tmp->setExpensionCalculusStatus(true);
+    }
+
+}
+
+void PluriNotes::updateAddChildTreeSuccessors(QTreeWidgetItem* item){
+    QTreeWidget* tree = ui->treeViewSuccessors;
+    addNoteChildrenToItem(item,tree);
+}
+
+void PluriNotes::updateAddChildTreePredecessors(QTreeWidgetItem* item){
+    QTreeWidget* tree = ui->treeViewPredecessors;
+    addNoteChildrenToItem(item,tree);
+}
+
+
+void PluriNotes::updateTrees(NoteEntity* note){
+    ui->treeViewPredecessors->clear();
+    ui->treeViewSuccessors->clear();
+
+    QSet<NoteEntity*> successorsOfNote = getAllSuccessorsOf(note);
+    QSet<NoteEntity*> predecessorsOfNote = getAllPredecessorsOf(note);
+
+    for(auto note : successorsOfNote){
+        addNoteToTree(note,ui->treeViewSuccessors);
+    }
+
+    for(auto note : predecessorsOfNote){
+        addNoteToTree(note,ui->treeViewPredecessors);
+    }
+}
 
 //! ####################################
 //! ####################################
@@ -663,8 +718,11 @@ void PluriNotes::setDataChanged(bool b) {
     saveAction->setEnabled(b);
 }
 
+void PluriNotes::initFileForm() {
+    ui->fileDescription->clear();
+}
 
-void PluriNotes::closeEvent(QCloseEvent *event){
+void PluriNotes::closeEvent(QCloseEvent *event) {
     event->ignore();
     if (hasDataChanged()) {
         if (QMessageBox::Yes == QMessageBox::question(this, "Save data?",
@@ -708,7 +766,7 @@ void PluriNotes::addRelationToVector(Relation* r) {
 }
 
 
-QSet<NoteEntity*> PluriNotes::allSuccessorsOf(NoteEntity* note) const{
+QSet<NoteEntity*> PluriNotes::getAllSuccessorsOf(NoteEntity* note) const{
     unsigned int nbOfRealations = relations.size();
     QSet<NoteEntity*> result;
 
@@ -720,7 +778,7 @@ QSet<NoteEntity*> PluriNotes::allSuccessorsOf(NoteEntity* note) const{
     return result;
 }
 
-QSet<NoteEntity*> PluriNotes::allPredecessorsOf(NoteEntity* note) const{
+QSet<NoteEntity*> PluriNotes::getAllPredecessorsOf(NoteEntity* note) const{
     unsigned int nbOfRealations = relations.size();
     QSet<NoteEntity*> result;
 
@@ -732,3 +790,13 @@ QSet<NoteEntity*> PluriNotes::allPredecessorsOf(NoteEntity* note) const{
     return result;
 }
 
+
+void PluriNotes::updateSelectionFromTreeSuccessors(){
+    treeItemNoteAndPointer* itm = static_cast<treeItemNoteAndPointer*>(ui->treeViewSuccessors->currentItem());
+    selectItemIntoList(findItemInList(itm->getNotePointer()));
+}
+
+void PluriNotes::updateSelectionFromTreePredecessors(){
+    treeItemNoteAndPointer* itm = static_cast<treeItemNoteAndPointer*>(ui->treeViewPredecessors->currentItem());
+    selectItemIntoList(findItemInList(itm->getNotePointer()));
+}

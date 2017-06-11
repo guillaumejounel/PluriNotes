@@ -27,6 +27,7 @@
 #include "othertools.h"
 #include "relation.h"
 #include "relationswindows.h"
+#include "notecouple.h"
 
 class QAction;
 class QToolBar;
@@ -71,14 +72,14 @@ private:
     //! Core
     //! Vector containing all the active notes in the application
     //! \brief Vector containing the active notes
-    QVector<const NoteEntity*> notes;
+    QVector<NoteEntity*> notes;
 
     //! Vector containing all the notes sent to the trash
     //! \brief Vector containing the trashed notes
-    QVector<const NoteEntity*> trash;
+    QVector<NoteEntity*> trash;
 
     //! Vector containing all Relations of the application
-    QVector<const Relation*> relations;
+    QVector<Relation*> relations;
 
     //! \todo Add documentation !!!!
     bool autoDelete;
@@ -165,21 +166,6 @@ private:
 
 
 
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-    // Important methods for the app :
-    // --------------------------------------------------------------------------
-    //! Function to load the notes from the saved file
-    //! \brief loading function
-    void load();
-
-    //! Function to save the notes to an xml
-    //! \brief saving function
-    void save();
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
 
 
 
@@ -222,6 +208,21 @@ private:
 
 
 public:
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // Important methods for the app :
+    // --------------------------------------------------------------------------
+    //! Function to load the notes from the saved file
+    //! \brief loading function
+    void load();
+
+    //! Function to save the notes to an xml
+    //! \brief saving function
+    void save();
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+
 
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
@@ -287,6 +288,8 @@ public:
     //! \brief add relation to the vector of relations
     void addRelationToVector(Relation* r);
 
+    //! \brief Check if an id is available
+    bool isIdAvailable(const QString& id) const;
 
     //! \brief Function to remove a note
     //! \warning the memory is not fried
@@ -294,10 +297,10 @@ public:
 
 
     //! Method to get all successors of a note
-    QSet<NoteEntity*> allSuccessorsOf(NoteEntity* note) const;
+    QSet<NoteEntity*> getAllSuccessorsOf(NoteEntity* note) const;
 
     //! Method to get all predecessors of a note
-    QSet<NoteEntity*> allPredecessorsOf(NoteEntity* note) const;
+    QSet<NoteEntity*> getAllPredecessorsOf(NoteEntity* note) const;
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 
@@ -310,7 +313,7 @@ public:
     // --------------------------------------------------------------------------
     //! Function to add a note in the system \n
     //! Returns an "listItemAndPointer*" the should be usefull in somme cases
-    listItemAndPointer* addNote(NoteEntity* note);
+    listItemAndPointer* addNote(NoteEntity& note);
 
     //! Function to add an listItemAndPointer* to the list of notes
     void addItemNoteToList(listItemAndPointer* item);
@@ -335,7 +338,19 @@ public:
     void selectItemIntoList(listItemAndPointer* item);
 
 
+    //--- treeView
+    //! Function to add a NoteEntity to the list of note \n
+    //! With creation of a listItemAndPointer*
+    treeItemNoteAndPointer* addNoteToTree(NoteEntity* note, QTreeWidget* tree);
 
+    //! function to add the child elements
+    void addNoteChildToTree(treeItemNoteAndPointer* item, QTreeWidget* tree);
+
+    //! function to add the child of an item
+    void addNoteChildrenToItem(QTreeWidgetItem* item, QTreeWidget* tree);
+
+    //! Function to update trees based on the selected note.
+    void updateTrees(NoteEntity* note);
 
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
@@ -358,6 +373,9 @@ public:
     // Article related
     // \todo move to an other class for better POO ?
 
+    //! \brief Initialize the Article creation form
+    void initArticleForm();
+
     //! \brief set the article Content in the UI
     void setArticleContent(const QString& content);
 
@@ -373,6 +391,9 @@ public:
     //-------
     // Task related
     //\todo move to an other class for better POO ?
+
+    //! \brief Initialize the Task creation form
+    void initTaskForm();
 
     //! \todo add documentation
     void setTaskAction(const QString& action);
@@ -412,6 +433,16 @@ public:
     //-------
 
 
+    //-------
+    // File related
+    // \todo move to an other class for better POO ?
+
+    //! \brief Initialize the File creation form
+    void initFileForm();
+
+    //-------
+
+
     //! Before closing we have to execut this
     void closeEvent ( QCloseEvent * event );
 
@@ -419,7 +450,7 @@ public:
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 
-
+    void testFunction();
 
 
 signals:
@@ -465,6 +496,18 @@ signals:
 
     //! \todo Add documentation !!!!
     void showUndoHistoryWindows();
+
+    //! \brief update selected note when selecting a note in the successors tree
+    void updateSelectionFromTreeSuccessors();
+
+    //! \brief update selected note when selecting a note in the predecessors tree
+    void updateSelectionFromTreePredecessors();
+
+    //! \brief add child in Successors tree to the item
+    void updateAddChildTreeSuccessors(QTreeWidgetItem* item);
+
+    //! \brief add child in Predecessors tree to the item
+    void updateAddChildTreePredecessors(QTreeWidgetItem* item);
 };
 
 
