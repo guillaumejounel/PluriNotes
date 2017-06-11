@@ -361,33 +361,22 @@
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_13">
                 <item>
-                 <widget class="QLabel" name="label_3">
-                  <property name="text">
-                   <string>Predecessors :</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
                  <widget class="QTreeWidget" name="treeViewPredecessors">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
                   <column>
                    <property name="text">
-                    <string notr="true">1</string>
+                    <string notr="true">Predecessors of the note :</string>
                    </property>
                   </column>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_4">
-                  <property name="text">
-                   <string>Successors :</string>
-                  </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QTreeWidget" name="treeViewSuccessors">
                   <column>
                    <property name="text">
-                    <string notr="true">1</string>
+                    <string notr="true">Successors of the note :</string>
                    </property>
                   </column>
                  </widget>

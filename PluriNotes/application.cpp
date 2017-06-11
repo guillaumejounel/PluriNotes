@@ -60,6 +60,7 @@ void PluriNotes::testFunction(){
     c = *(new NoteCouple(l,notes[2],notes[3]));
     ref->addCouple(c);
     */
+
 }
 
 const QString PluriNotes::getNoteTitleEdit() {
@@ -714,6 +715,26 @@ void PluriNotes::updateTrees(NoteEntity* note){
     for(auto note : predecessorsOfNote){
         addNoteToTree(note,ui->treeViewPredecessors);
     }
+
+    QString label;
+    if (successorsOfNote.isEmpty()){
+        label = QString("This note has no Successors");
+        ui->treeViewSuccessors->setHeaderLabel(label);
+    }
+    else{
+        label = QString("Successors of the note :");
+        ui->treeViewSuccessors->setHeaderLabel(label);
+    }
+
+    if (predecessorsOfNote.isEmpty()){
+        label = QString("This note has no Predecessors");
+        ui->treeViewPredecessors->setHeaderLabel(label);
+    }
+    else{
+        label = QString("Predecessors of the note :");
+        ui->treeViewPredecessors->setHeaderLabel(label);
+    }
+
 }
 
 //! ####################################
