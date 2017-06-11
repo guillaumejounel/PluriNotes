@@ -12,6 +12,7 @@
 using namespace std;
 
 class NoteEntity;
+class PluriNotes;
 
 class NoteElement {
 private:
@@ -44,7 +45,7 @@ public:
     void setUiNoteTitle(const QString& t) const;
 
     //! \brief Get the note title int the UI
-    const QString geUiNoteTitleEdit() const;
+    const QString getUiNoteTitleEdit() const;
 
 
     //! \brief set the date fiel in the UI

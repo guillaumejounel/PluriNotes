@@ -3,9 +3,8 @@
 #include <QDateTime>
 
 void Task::displayNote() const {
-    PluriNotes& manager = PluriNotes::getManager();
-    manager.setUiNoteTitle(getTitle());
-    manager.setUiNoteDate(getCreationDate());
+    setUiNoteTitle(getTitle());
+    setUiNoteDate(getCreationDate());
     setUiTaskAction(action);
     setUiTaskPriority(priority);
     setUiTaskStatus(status);
@@ -13,17 +12,14 @@ void Task::displayNote() const {
 }
 
 Task* Task::saveNote(QString title) {
-    PluriNotes& manager = PluriNotes::getManager();
     return new Task(title, QDateTime::currentDateTime(), getUiTaskAction(), 0, getUiTaskPriority(), getUiTaskDeadline());
 }
 
 Task* Task::addVersion() const {
-    PluriNotes& manager = PluriNotes::getManager();
-    return new Task(manager.geUiNoteTitleEdit(), QDateTime::currentDateTime(), getUiTaskActionEdit(), getUiTaskStatusEdit(), getUiTaskPriorityEdit(), getUiTaskDeadlineEdit());
+    return new Task(getUiNoteTitleEdit(), QDateTime::currentDateTime(), getUiTaskActionEdit(), getUiTaskStatusEdit(), getUiTaskPriorityEdit(), getUiTaskDeadlineEdit());
 }
 
 bool Task::textChanged() const {
-    PluriNotes& manager = PluriNotes::getManager();
     return action == getUiTaskActionEdit() && status == getUiTaskStatusEdit() && priority == getUiTaskPriorityEdit() && deadline == getUiTaskDeadlineEdit();
 }
 

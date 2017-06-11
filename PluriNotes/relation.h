@@ -15,6 +15,9 @@
 #include <QVector>
 #include <QSet>
 
+class NoteCouple;
+class NoteEntity;
+class Relation;
 
 class Relation{
 private:

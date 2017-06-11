@@ -15,6 +15,10 @@
 #include "relation.h"
 #include "notecouple.h"
 
+class NoteEntity;
+class Relation;
+class NoteCouple;
+
 /**
 \class listItemAndPointer
 \brief Class herited from QListWidgetItem, to add a point to note

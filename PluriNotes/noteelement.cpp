@@ -26,7 +26,7 @@ void NoteElement::setUiNoteDate(const QDateTime& d) const{
 }
 
 
-const QString NoteElement::geUiNoteTitleEdit()const {
+const QString NoteElement::getUiNoteTitleEdit()const {
     Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
     return ui->titleDisplayLineEdit->text();
 }

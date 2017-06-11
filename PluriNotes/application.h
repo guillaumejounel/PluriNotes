@@ -23,7 +23,7 @@
 
 #include "othertools.h"
 #include "relation.h"
-#include "relationswindows.h"
+//#include "relationswindows.h"
 
 class QAction;
 class QToolBar;
@@ -35,6 +35,9 @@ using namespace std;
 
 class NoteEntity;
 class NoteElement;
+class listItemAndPointer;
+class treeItemNoteAndPointer;
+class Relation;
 
 namespace Ui {
     class PluriNotes;

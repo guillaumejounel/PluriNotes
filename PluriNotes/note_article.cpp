@@ -16,7 +16,7 @@ Article* Article::saveNote(QString title) {
 }
 
 Article* Article::addVersion() const {
-    return new Article(geUiNoteTitleEdit(), QDateTime::currentDateTime(), getUiArticleContentEdit());
+    return new Article(getUiNoteTitleEdit(), QDateTime::currentDateTime(), getUiArticleContentEdit());
 }
 
 bool Article::textChanged() const {

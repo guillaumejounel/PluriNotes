@@ -2,13 +2,13 @@
 #define RELATIONSWINDOWS_H
 
 #include <QMainWindow>
-//#include "application.h"
 #include "othertools.h"
-#include "relation.h"
 
 namespace Ui {
 class relationsWindows;
 }
+
+class Relation;
 
 class relationsWindows : public QMainWindow
 {
