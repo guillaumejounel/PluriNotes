@@ -237,6 +237,7 @@ void PluriNotes::toNewNoteForm() {
     ui->TypeComboBox->setCurrentIndex(0);
     ui->listNotesWidget->setEnabled(false);
     ui->mainStackedWidget->setCurrentIndex(1);
+    ui->idUniqueEdit->hide();
     typeChangedForm();
 }
 
@@ -361,23 +362,30 @@ void PluriNotes::noteTextChanged() {
 }
 
 void PluriNotes::saveNote() {
-    //Enregistre dans le vecteur notes de la classe PluriNotes
-    //! \todo Faire des vérifications de validité (id...)
-    //Puis créer la note
-    NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
-
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
-    NoteElement* newNote = myMap[ui->TypeComboBox->currentText()]->saveNote(ui->titleLineEdit->text());
-    QDateTime creationDate = QDateTime::currentDateTime();
-    newNote->setCreationDate(creationDate);
-    newNoteEntity->addVersion(*newNote);
+    bool flag = true;
 
-    QUndoCommand *addCommand = new addNoteEntityCommand(newNoteEntity);
-    undoStack->push(addCommand);
+    //Check validity
+    if (ui->titleLineEdit->text() == QString("") || ui->idLineEdit->text() == QString("") || !isIdAvailable(ui->idLineEdit->text())) flag = false;
+    for(QTextEdit* widget: ui->customWidgets->widget(myMap[ui->TypeComboBox->currentText()]->indexPageCreation())->findChildren<QTextEdit*>())
+        if(widget->property("obligatory").toBool() && widget->toPlainText() == QString("")) flag = false;
 
-    //Impossible d'enregistrer des documents pour le moment !
-    //Il faut refaire save() pour qu'il s'adapte à tout type de note
-    //(créer une méthode virtuelle pure comme pour les boutons...)
+
+    if(flag) {
+        //Create and save the note
+        NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
+        NoteElement* newNote = myMap[ui->TypeComboBox->currentText()]->saveNote(ui->titleLineEdit->text());
+        QDateTime creationDate = QDateTime::currentDateTime();
+        newNote->setCreationDate(creationDate);
+        newNoteEntity->addVersion(*newNote);
+
+        QUndoCommand *addCommand = new addNoteEntityCommand(newNoteEntity);
+        undoStack->push(addCommand);
+    } else {
+        QMessageBox msgBox;
+        msgBox.setText("Please check your input");
+        msgBox.exec();
+    }
 }
 
 void PluriNotes::saveNewVersion() {
@@ -473,13 +481,16 @@ void PluriNotes::titleChanged() {
     currentTitle.replace("ê", "e"); currentTitle.replace("à", "a"); currentTitle.replace("â", "a");
     currentTitle.replace("ù", "u"); currentTitle.replace("ö", "o"); currentTitle.replace("ï", "i");
     currentTitle.replace("ç", "c");
-    if (!is_idChanged) { ui->idLineEdit->setText(currentTitle); } //Modifier id
+    if (!is_idChanged) { ui->idLineEdit->setText(currentTitle); idChanged(true); }
 }
 
-void PluriNotes::idChanged() {
+void PluriNotes::idChanged(bool fromTitle) {
     //Si l'id est modifié manuellement, on arrête de le changer automatiquement
-    is_idChanged = true;
-    //Checker ici si l'id n'est pas déjà pris
+    if (!fromTitle) is_idChanged = true;
+    //Check si l'id n'est pas déjà pris
+    if (!isIdAvailable(ui->idLineEdit->text()))
+        ui->idUniqueEdit->show();
+    else ui->idUniqueEdit->hide();
 }
 
 void PluriNotes::typeChangedForm() {
@@ -548,15 +559,12 @@ void PluriNotes::load() {
 
 void PluriNotes::loadDataIntoUi() {
     //! \todo add loading functionnalities to trash and notes
-
-     for(auto& rel: relations) {
-         static_cast<relationsWindows*>(relationsView)->addRelationToList(const_cast<Relation*>(rel));
-     }
-
-
-     for(auto note:notes){
-         addNoteToList(note);
-     }
+    for(auto& rel: relations) {
+        static_cast<relationsWindows*>(relationsView)->addRelationToList(const_cast<Relation*>(rel));
+    }
+    for(auto note:notes){
+        addNoteToList(note);
+    }
 }
 
 
@@ -570,7 +578,6 @@ bool PluriNotes::isIdAvailable(const QString& id) const {
     for (auto note : notes){
         if(note->getId() == id) return false;
     }
-
     for (auto note : trash){
         if(note->getId() == id) return false;
     }

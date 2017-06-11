@@ -20,9 +20,6 @@ int main(int argc, char *argv[])
     //! Load data into UI
     w.loadDataIntoUi();
 
-
     w.show();
-
-
     return a.exec();
 }

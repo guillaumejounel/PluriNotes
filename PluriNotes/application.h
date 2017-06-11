@@ -474,7 +474,7 @@ signals:
     void titleChanged();
 
     //! \todo Add documentation !!!!
-    void idChanged();
+    void idChanged(bool fromTitle = false);
 
     //! Method to change QT fields in the new note form (with type of note in mind)
     void typeChangedForm();
