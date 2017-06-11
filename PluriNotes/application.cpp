@@ -53,7 +53,7 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
 }
 
 void PluriNotes::testFunction(){
-    /*
+
     Relation* ref = relations[0];
     QString l = QString("couple 1");
     NoteCouple& c = *(new NoteCouple(l,notes[0],notes[1]));
@@ -68,7 +68,7 @@ void PluriNotes::testFunction(){
     l = QString("couple 3");
     c = *(new NoteCouple(l,notes[2],notes[3]));
     ref->addCouple(c);
-    */
+
 }
 
 const QString PluriNotes::getNoteTitleEdit() {
@@ -548,7 +548,7 @@ void PluriNotes::load() {
     }
     // Error handling.
     if(xml.hasError()) {
-        qDebug() << "Data file is corrupt";
+        qDebug() << "Data file is corrupted";
     }
     xml.clear();
     setDataChanged(false);
@@ -560,6 +560,18 @@ void PluriNotes::loadDataIntoUi() {
      for(auto& rel: relations) {
          static_cast<relationsWindows*>(relationsView)->addRelationToList(const_cast<Relation*>(rel));
      }
+
+     /*
+     qWarning()<<QString("here");
+
+     for(auto note:notes){
+         qWarning()<<QString("here1");
+
+         addNoteToList(note);
+         qWarning()<<note->getTitle();
+     }
+     */
+
 }
 
 
