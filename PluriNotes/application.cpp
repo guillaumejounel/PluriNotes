@@ -531,22 +531,27 @@ void PluriNotes::load() {
     setDataChanged(false);
 }
 
-void PluriNotes::loadDataIntoUi(){
+void PluriNotes::loadDataIntoUi() {
     //! \todo add loading functionnalities to trash and notes
 
-     for(auto& rel: relations){
+     for(auto& rel: relations) {
          static_cast<relationsWindows*>(relationsView)->addRelationToList(const_cast<Relation*>(rel));
      }
 }
 
 
-listItemAndPointer* PluriNotes::addNote(NoteEntity& note){
+listItemAndPointer* PluriNotes::addNote(NoteEntity& note) {
     notes.push_back(&note);
     listItemAndPointer* item = addNoteToList(&note);
     return item;
 }
 
-void PluriNotes::removeNote(NoteEntity *note){
+bool PluriNotes::isIdAvailable(const QString& id) const {
+    //TODO
+    return true;
+}
+
+void PluriNotes::removeNote(NoteEntity *note) {
     notes.removeAll(note);
 }
 
@@ -559,7 +564,7 @@ listItemAndPointer* PluriNotes::addNoteToList(NoteEntity* note){
 }
 
 
-void PluriNotes::addItemNoteToList(listItemAndPointer *item){
+void PluriNotes::addItemNoteToList(listItemAndPointer *item) {
     ui->listNotesWidget->insertItem(0, item);
     ui->listNotesWidget->setCurrentRow(0);
     ui->mainStackedWidget->setCurrentIndex(0);
@@ -568,14 +573,14 @@ void PluriNotes::addItemNoteToList(listItemAndPointer *item){
 }
 
 
-listItemAndPointer* PluriNotes::removeItemNoteFromList(listItemAndPointer* item){
+listItemAndPointer* PluriNotes::removeItemNoteFromList(listItemAndPointer* item) {
     unsigned int i = ui->listNotesWidget->row(item);
     return static_cast<listItemAndPointer*>(ui->listNotesWidget->takeItem(i));
 }
 
 //! ####################################
 //! ####################################
-void PluriNotes::removeNoteFromList(NoteEntity *note){
+void PluriNotes::removeNoteFromList(NoteEntity *note) {
     QListWidget* panel = ui->listNotesWidget;
 
     //We remove the item from the panel
@@ -584,7 +589,7 @@ void PluriNotes::removeNoteFromList(NoteEntity *note){
     panel->takeItem(i);
 }
 
-listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note){
+listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note) {
     //! \todo add function to loog for wich panel the note is on!
     QListWidget* panel = ui->listNotesWidget;
 
@@ -603,7 +608,7 @@ listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note){
     return current;
 }
 
-void PluriNotes::selectItemIntoList(listItemAndPointer* item){
+void PluriNotes::selectItemIntoList(listItemAndPointer* item) {
     QListWidget* panel = ui->listNotesWidget;
     panel->setCurrentItem(item);
 }
@@ -621,7 +626,7 @@ void PluriNotes::initFileForm() {
     ui->fileDescription->clear();
 }
 
-void PluriNotes::closeEvent(QCloseEvent *event){
+void PluriNotes::closeEvent(QCloseEvent *event) {
     event->ignore();
     if (hasDataChanged()) {
         if (QMessageBox::Yes == QMessageBox::question(this, "Save data?",

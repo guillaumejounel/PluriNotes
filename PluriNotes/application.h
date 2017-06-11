@@ -287,6 +287,8 @@ public:
     //! \brief add relation to the vector of relations
     void addRelationToVector(Relation* r);
 
+    //! \brief Check if an id is available
+    bool isIdAvailable(const QString& id) const;
 
     //! \brief Function to remove a note
     //! \warning the memory is not fried
