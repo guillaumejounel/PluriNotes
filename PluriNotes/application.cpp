@@ -682,8 +682,11 @@ treeItemNoteAndPointer* PluriNotes::addNoteToTree(NoteEntity* note, QTreeWidget*
 }
 
 
+
 void PluriNotes::addNoteChildToTree(treeItemNoteAndPointer* item, QTreeWidget* tree){
     QSet<NoteEntity*> noteChildren;
+
+    // Which tree is concerned ?
     if(tree == ui->treeViewPredecessors) {
         noteChildren = getAllPredecessorsOf(item->getNotePointer());
     }
@@ -701,6 +704,32 @@ void PluriNotes::addNoteChildToTree(treeItemNoteAndPointer* item, QTreeWidget* t
     }
 }
 
+void PluriNotes::addNoteChildrenToItem(QTreeWidgetItem* item, QTreeWidget* tree){
+    treeItemNoteAndPointer* tmp = static_cast<treeItemNoteAndPointer*>(item);
+
+    //We have to check if we haven't already calculated the children
+    if (!tmp->hasBeenExpended()){
+        QList<QTreeWidgetItem*> childrenList =	item->takeChildren();
+        // We add back the childre because this process removes them...
+        item->addChildren(childrenList);
+
+        for(auto noteChild : childrenList){
+            addNoteChildToTree(static_cast<treeItemNoteAndPointer*>(noteChild),tree);
+        }
+        tmp->setExpensionCalculusStatus(true);
+    }
+
+}
+
+void PluriNotes::updateAddChildTreeSuccessors(QTreeWidgetItem* item){
+    QTreeWidget* tree = ui->treeViewSuccessors;
+    addNoteChildrenToItem(item,tree);
+}
+
+void PluriNotes::updateAddChildTreePredecessors(QTreeWidgetItem* item){
+    QTreeWidget* tree = ui->treeViewPredecessors;
+    addNoteChildrenToItem(item,tree);
+}
 
 
 void PluriNotes::updateTrees(NoteEntity* note){

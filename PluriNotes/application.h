@@ -344,6 +344,9 @@ public:
     //! function to add the child elements
     void addNoteChildToTree(treeItemNoteAndPointer* item, QTreeWidget* tree);
 
+    //! function to add the child of an item
+    void addNoteChildrenToItem(QTreeWidgetItem* item, QTreeWidget* tree);
+
     //! Function to update trees based on the selected note.
     void updateTrees(NoteEntity* note);
 
@@ -481,6 +484,12 @@ signals:
 
     //! \brief update selected note when selecting a note in the predecessors tree
     void updateSelectionFromTreePredecessors();
+
+    //! \brief add child in Successors tree to the item
+    void updateAddChildTreeSuccessors(QTreeWidgetItem* item);
+
+    //! \brief add child in Predecessors tree to the item
+    void updateAddChildTreePredecessors(QTreeWidgetItem* item);
 };
 
 

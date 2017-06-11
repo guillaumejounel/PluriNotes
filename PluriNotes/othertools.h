@@ -72,12 +72,16 @@ class treeItemNoteAndPointer : public QTreeWidgetItem {
 private :
     //! \brief Pointer to a note entity
     NoteEntity* notePointer;
+
+    bool previouslyExpended;
 public :
     //! Constructor for the class
-    treeItemNoteAndPointer(NoteEntity* ptr = nullptr) : notePointer(ptr) {}
+    treeItemNoteAndPointer(NoteEntity* ptr = nullptr) : notePointer(ptr), previouslyExpended(false) {}
 
     //! Accessor to the added attribute
     NoteEntity* getNotePointer() const {return notePointer;}
+    bool hasBeenExpended() const {return previouslyExpended;}
+    void setExpensionCalculusStatus(bool status = true) {previouslyExpended = status;}
 };
 
 
