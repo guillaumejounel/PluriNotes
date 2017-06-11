@@ -17,6 +17,10 @@ void relationsWindows::beforeClose() {
     PluriNotes& manager = PluriNotes::getManager();
     manager.setEnabled(true);
 
+    //Clear the couples ComboBoxes (to be reflilled at opening)
+    ui->noteSelectorX->clear();
+    ui->noteSelectorY->clear();
+
     //Close the window
     close();
 }
