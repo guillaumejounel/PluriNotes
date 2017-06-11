@@ -30,7 +30,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     plurinotes.cpp \
     application.cpp \
-    notes.cpp \
     noteentity.cpp \
     noteelement.cpp \
     notetemplate.cpp \
@@ -44,7 +43,6 @@ SOURCES += \
 
 HEADERS  += \
     application.h \
-    notes.h \
     noteentity.h \
     noteelement.h \
     notetemplate.h \

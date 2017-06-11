@@ -1,10 +1,9 @@
 #ifndef NOTEENTITY_H
 #define NOTEENTITY_H
 
-#include "notes.h"
 #include "noteelement.h"
 #include <QVector>
-
+class NoteElement;
 
 class NoteEntity {
 private:

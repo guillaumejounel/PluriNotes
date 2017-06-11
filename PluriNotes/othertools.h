@@ -12,7 +12,6 @@
 
 #include <QListWidgetItem>
 #include <QTreeWidgetItem>
-#include "notes.h"
 #include "relation.h"
 #include "notecouple.h"
 

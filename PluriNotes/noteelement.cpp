@@ -10,3 +10,24 @@ const map<QString, NoteElement*>& NoteElement::NoteTypeList(QString typeName, No
 map<QString, NoteElement*> NoteElement::getTypesNotes() {
     return NoteTypeList("", nullptr);
 }
+
+
+
+// UI
+
+void NoteElement::setUiNoteTitle(const QString& t) const{
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    ui->titleDisplayLineEdit->setText(t);
+}
+
+void NoteElement::setUiNoteDate(const QDateTime& d) const{
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    ui->dateDisplayLineEdit->setText(d.toString("dddd dd MMMM yyyy hh:mm:ss"));
+}
+
+
+const QString NoteElement::geUiNoteTitleEdit()const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    return ui->titleDisplayLineEdit->text();
+}
+

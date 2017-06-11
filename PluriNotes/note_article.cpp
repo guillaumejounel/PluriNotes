@@ -5,9 +5,8 @@
 #include <QString>
 
 void Article::displayNote() const {
-    PluriNotes& manager = PluriNotes::getManager();
-    manager.setNoteTitle(this->getTitle());
-    manager.setNoteDate(this->getCreationDate());
+    setUiNoteTitle(this->getTitle());
+    setUiNoteDate(this->getCreationDate());
     setUiArticleContent(getText());
 }
 
@@ -17,8 +16,7 @@ Article* Article::saveNote(QString title) {
 }
 
 Article* Article::addVersion() const {
-    PluriNotes& manager = PluriNotes::getManager();
-    return new Article(manager.getNoteTitleEdit(), QDateTime::currentDateTime(), getUiArticleContentEdit());
+    return new Article(geUiNoteTitleEdit(), QDateTime::currentDateTime(), getUiArticleContentEdit());
 }
 
 bool Article::textChanged() const {

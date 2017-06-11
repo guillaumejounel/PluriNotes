@@ -1,12 +1,11 @@
 #include "note_task.h"
 #include "ui_plurinotes.h"
-#include "application.h"
 #include <QDateTime>
 
 void Task::displayNote() const {
     PluriNotes& manager = PluriNotes::getManager();
-    manager.setNoteTitle(getTitle());
-    manager.setNoteDate(getCreationDate());
+    manager.setUiNoteTitle(getTitle());
+    manager.setUiNoteDate(getCreationDate());
     setUiTaskAction(action);
     setUiTaskPriority(priority);
     setUiTaskStatus(status);
@@ -20,7 +19,7 @@ Task* Task::saveNote(QString title) {
 
 Task* Task::addVersion() const {
     PluriNotes& manager = PluriNotes::getManager();
-    return new Task(manager.getNoteTitleEdit(), QDateTime::currentDateTime(), getUiTaskActionEdit(), getUiTaskStatusEdit(), getUiTaskPriorityEdit(), getUiTaskDeadlineEdit());
+    return new Task(manager.geUiNoteTitleEdit(), QDateTime::currentDateTime(), getUiTaskActionEdit(), getUiTaskStatusEdit(), getUiTaskPriorityEdit(), getUiTaskDeadlineEdit());
 }
 
 bool Task::textChanged() const {

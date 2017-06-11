@@ -5,6 +5,8 @@
 #include <QDateTime>
 #include "noteelement.h"
 
+class NoteElement;
+
 template <class Note>
 class BaseNoteType : public NoteElement {
 public:

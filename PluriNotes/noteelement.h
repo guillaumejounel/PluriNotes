@@ -6,6 +6,8 @@
 #include <QDateTime>
 #include <QString>
 #include <QtGui>
+#include "ui_plurinotes.h"
+#include "application.h"
 
 using namespace std;
 
@@ -35,6 +37,18 @@ public:
     virtual QString typeName() const = 0;
     virtual void loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) const = 0;
     virtual ~NoteElement() = default;
+
+    // UI
+
+    //! \brief Set the note title in the UI
+    void setUiNoteTitle(const QString& t) const;
+
+    //! \brief Get the note title int the UI
+    const QString geUiNoteTitleEdit() const;
+
+
+    //! \brief set the date fiel in the UI
+    void setUiNoteDate(const QDateTime& d) const;
 };
 
 

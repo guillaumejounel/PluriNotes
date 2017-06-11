@@ -1,7 +1,6 @@
 #include "application.h"
 #include "ui_plurinotes.h"
 #include "othertools.h"
-#include "notes.h"
 #include "relationswindows.h"
 
 #include <QDateTime>
@@ -62,14 +61,6 @@ void PluriNotes::testFunction(){
     */
 
 }
-
-const QString PluriNotes::getNoteTitleEdit() {
-    return ui->titleDisplayLineEdit->text();
-}
-
-
-
-
 
 
 
@@ -209,27 +200,6 @@ void PluriNotes::toNewNoteForm() {
     ui->idUniqueEdit->hide();
     typeChangedForm();
 }
-
-//void PluriNotes::setNoteId(const QString& i){
-//    ui->idDisplayLineEdit->setText(i);
-//}
-
-
-
-
-
-void PluriNotes::setNoteTitle(const QString& t){
-    ui->titleDisplayLineEdit->setText(t);
-}
-
-void PluriNotes::setNoteDate(const QDateTime& d){
-    ui->dateDisplayLineEdit->setText(d.toString("dddd dd MMMM yyyy hh:mm:ss"));
-}
-
-
-
-
-
 
 
 

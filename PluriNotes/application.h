@@ -9,8 +9,6 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include <iostream>
-#include <vector>
 #include <QMainWindow>
 #include <QString>
 #include <QScrollArea>
@@ -23,11 +21,9 @@
 #include <QCloseEvent>
 
 
-#include "notes.h"
 #include "othertools.h"
 #include "relation.h"
 #include "relationswindows.h"
-#include "notecouple.h"
 
 class QAction;
 class QToolBar;
@@ -38,6 +34,7 @@ class QUndoView;
 using namespace std;
 
 class NoteEntity;
+class NoteElement;
 
 namespace Ui {
     class PluriNotes;
@@ -358,15 +355,7 @@ public:
     // UI setters/getters
     // --------------------------------------------------------------------------
 
-    //! \brief Set the note title in the UI
-    void setNoteTitle(const QString& t);
 
-    //! \brief Get the note title int the UI
-    const QString getNoteTitleEdit();
-
-
-    //! \brief set the date fiel in the UI
-    void setNoteDate(const QDateTime& d);
 
 
     //! Before closing we have to execut this
