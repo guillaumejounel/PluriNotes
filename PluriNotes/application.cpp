@@ -515,14 +515,14 @@ void PluriNotes::loadDataIntoUi() {
     for(auto& rel: relations) {
         static_cast<relationsWindows*>(relationsView)->addRelationToList(const_cast<Relation*>(rel));
     }
+    for(NoteEntity* note:trash) {
+        addNoteToList(note, ui->listTrashWidget);
+    }
     for(NoteEntity* note:notes) {
         if (note->getLastVersion().typeName() == "Task")
             addNoteToList(note, ui->listTaskWidget);
         else
             addNoteToList(note, note->isArchived()?ui->listArchivedWidget:ui->listNotesWidget);
-    }
-    for(NoteEntity* note:trash) {
-        addNoteToList(note, ui->listTrashWidget);
     }
 }
 

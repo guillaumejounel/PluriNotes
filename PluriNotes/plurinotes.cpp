@@ -9,16 +9,16 @@ int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
-    PluriNotes& w = PluriNotes::getManager();
+    PluriNotes& manager = PluriNotes::getManager();
     //Load data from UML
-    w.load();
+    manager.load();
 
     //! test functionnalities
-    w.testFunction();
+    manager.testFunction();
 
     //! Load data into UI
-    w.loadDataIntoUi();
+    manager.loadDataIntoUi();
 
-    w.show();
+    manager.show();
     return a.exec();
 }
