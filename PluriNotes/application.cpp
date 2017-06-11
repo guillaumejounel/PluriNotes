@@ -306,6 +306,13 @@ bool PluriNotes::isIdAvailable(const QString& id) const {
     return true;
 }
 
+NoteEntity* PluriNotes::getNoteById(const QString& id) {
+    for (auto note : notes) {
+        if(note->getId() == id) return note;
+    }
+    return nullptr;
+}
+
 void PluriNotes::saveNote() {
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
     bool flag = true;

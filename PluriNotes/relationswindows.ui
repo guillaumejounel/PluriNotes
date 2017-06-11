@@ -410,7 +410,7 @@
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_5">
                      <item>
-                      <widget class="QListView" name="listCoupleView"/>
+                      <widget class="QListWidget" name="listCoupleWidget"/>
                      </item>
                      <item>
                       <widget class="QPushButton" name="removeCoupleButton">
@@ -583,6 +583,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>addCoupleBoutton</sender>
+   <signal>clicked()</signal>
+   <receiver>relationsWindows</receiver>
+   <slot>addCouple()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>806</x>
+     <y>250</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>897</x>
+     <y>269</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>toNewRelationForm()</slot>
@@ -590,5 +606,6 @@
   <slot>cancelRelation()</slot>
   <slot>saveRelation()</slot>
   <slot>addRelation()</slot>
+  <slot>addCouple()</slot>
  </slots>
 </ui>

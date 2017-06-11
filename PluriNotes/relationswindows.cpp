@@ -69,6 +69,19 @@ void relationsWindows::addRelation() {
     manager.addRelationToVector(newRelation);
 }
 
+void relationsWindows::addCouple() {
+    PluriNotes& manager = PluriNotes::getManager();
+    NoteEntity* note1 = manager.getNoteById(ui->noteSelectorX->currentText());
+    NoteEntity* note2 = manager.getNoteById(ui->noteSelectorY->currentText());
+    QString defaultTitle = "";
+    NoteCouple newCouple(defaultTitle, note1, note2);
+
+    Relation& currentSelectedRelation = getCurrentRelation();
+    if (currentSelectedRelation.addCouple(newCouple)) {
+        addCoupleToList(newCouple);
+    }
+}
+
 void relationsWindows::closeEvent(QCloseEvent *event) {
     event->ignore();
     beforeClose();
@@ -91,9 +104,21 @@ listRelationAndPointer* relationsWindows::addRelationToList(Relation* rel) {
     return itm;
 }
 
+listCoupleAndReference* relationsWindows::addCoupleToList(NoteCouple& couple) {
+    listCoupleAndReference* itm = new listCoupleAndReference(couple);
+    itm->setText(couple.print());
+    addItemCoupleToList(itm);
+    return itm;
+}
+
 void relationsWindows::addItemRelationToList(listRelationAndPointer *item) {
     ui->listOfAllRelations->insertItem(0, item);
     ui->listOfAllRelations->setCurrentRow(0);
+}
+
+void relationsWindows::addItemCoupleToList(listCoupleAndReference *item) {
+    ui->listCoupleWidget->insertItem(0, item);
+    ui->listCoupleWidget->setCurrentRow(0);
 }
 
 void relationsWindows::addNoteEntityToComboBoxes() {

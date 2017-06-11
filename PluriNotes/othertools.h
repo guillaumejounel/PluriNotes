@@ -71,16 +71,16 @@ This class is herited from QListWidgetItem in order to add an attribut "couplePo
 to each items, so when we click on an item in the list we can directly access the couple\n
 in the application.
 **/
-class listCoupleAndPointer : public QListWidgetItem {
+class listCoupleAndReference : public QListWidgetItem {
 private :
     //! \brief Pointer to a couple
-    NoteCouple* couplePointer;
+    NoteCouple& couple;
 public :
     //! Constructor for the class
-    listCoupleAndPointer(NoteCouple* ptr = nullptr) : couplePointer(ptr) {}
+    listCoupleAndReference(NoteCouple& couple) : couple(couple) {}
 
     //! Accessor to the added attribute
-    NoteCouple* getCouplePointer() const {return couplePointer;}
+    NoteCouple& getCouple() const {return couple;}
 };
 
 

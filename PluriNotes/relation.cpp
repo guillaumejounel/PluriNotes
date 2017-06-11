@@ -44,11 +44,11 @@ bool Relation::isInside(NoteEntity* note) const{
 }
 
 
-void Relation::addCouple(const NoteCouple &c) {
+bool Relation::addCouple(const NoteCouple& c) {
     //Check if the couple isn't already inside
-    if ( isInside(c) ) return;
-
+    if ( isInside(c) ) return false;
     content.push_front(c);
+    return true;
 }
 
 coupleAndRelation Relation::removeCouple(const NoteCouple &c) {

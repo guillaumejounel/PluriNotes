@@ -93,7 +93,7 @@ public:
     bool isInside(const NoteCouple& c) const;
 
     //! Method to add a note couple to the relation
-    void addCouple(const NoteCouple& c);
+    bool addCouple(const NoteCouple& c);
 
     //! Method to remove a note couple to the relation
     coupleAndRelation removeCouple(const NoteCouple& c);

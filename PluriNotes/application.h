@@ -335,6 +335,9 @@ public:
     //! \brief Check if an id is available
     bool isIdAvailable(const QString& id) const;
 
+    //! \brief return the note having this id
+    NoteEntity* getNoteById(const QString& id);
+
     //! Function to add a note in the system \n
     //! Returns an "listItemAndPointer*" the should be usefull in somme cases
     listItemAndPointer* addNote(NoteEntity& note, QListWidget *list);

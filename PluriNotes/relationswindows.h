@@ -27,12 +27,19 @@ private:
 public:
     explicit relationsWindows(QWidget *parent = 0);
 
-    //! Function to add an listRelationAndPointer* to the list of notes
+    //! Function to add an listRelationAndPointer* to the list of relation
     void addItemRelationToList(listRelationAndPointer* item);
+
+    //! Function to add an listCoupleAndPointer* to the list of couple
+    void addItemCoupleToList(listCoupleAndReference *item);
 
     //! Function to add a Relation to the list of Relations in the UI \n
     //! With creation of a listRelationAndPointer*
     listRelationAndPointer* addRelationToList(Relation *rel);
+
+    //! Function to add a Couple to the list of Couple in the UI \n
+    //! With creation of a listCoupleAndPointer*
+    listCoupleAndReference* addCoupleToList(NoteCouple& couple);
 
     //! Function to populate the comboboxes of NoteEntities in the UI \n
     void addNoteEntityToComboBoxes();
@@ -50,6 +57,7 @@ signals:
     void toNewRelationForm();
     void displayRelation();
     void addRelation();
+    void addCouple();
 
 };
 
