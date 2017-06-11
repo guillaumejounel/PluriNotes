@@ -567,10 +567,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>saveRelationCreationButton</sender>
+   <signal>clicked()</signal>
+   <receiver>relationsWindows</receiver>
+   <slot>saveRelation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>799</x>
+     <y>276</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>893</x>
+     <y>307</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>toNewRelationForm()</slot>
   <slot>displayRelation()</slot>
   <slot>cancelRelation()</slot>
+  <slot>saveRelation()</slot>
  </slots>
 </ui>
