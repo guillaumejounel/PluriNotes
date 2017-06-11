@@ -9,7 +9,7 @@ relationsWindows::relationsWindows(QWidget *parent) : QMainWindow(parent), ui(ne
     connect(exitAction, SIGNAL(triggered()), this, SLOT(beforeClose()));
 
 //    ui->mainStackedWidget->setCurrentIndex(0);
-    displayRelation();
+    //displayRelation();
 }
 
 void relationsWindows::beforeClose() {
