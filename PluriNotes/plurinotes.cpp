@@ -1,4 +1,3 @@
-#include "notes.h"
 #include "application.h"
 #include "relationswindows.h"
 #include <QApplication>

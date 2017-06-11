@@ -3,7 +3,6 @@
 
 
 #include <QUndoCommand>
-#include "othertools.h"
 #include "noteelement.h"
 
 /**

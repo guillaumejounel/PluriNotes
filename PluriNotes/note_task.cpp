@@ -1,31 +1,26 @@
 #include "note_task.h"
 #include "ui_plurinotes.h"
-#include "application.h"
 #include <QDateTime>
 
 void Task::displayNote() const {
-    PluriNotes& manager = PluriNotes::getManager();
-    manager.setNoteTitle(getTitle());
-    manager.setNoteDate(getCreationDate());
-    manager.setTaskAction(action);
-    manager.setTaskPriority(priority);
-    manager.setTaskStatus(status);
-    manager.setTaskDeadline(deadline);
+    setUiNoteTitle(getTitle());
+    setUiNoteDate(getCreationDate());
+    setUiTaskAction(action);
+    setUiTaskPriority(priority);
+    setUiTaskStatus(status);
+    setUiTaskDeadline(deadline);
 }
 
 Task* Task::saveNote(QString title) {
-    PluriNotes& manager = PluriNotes::getManager();
-    return new Task(title, QDateTime::currentDateTime(), manager.getTaskAction(), 0, manager.getTaskPriority(), manager.getTaskDeadline());
+    return new Task(title, QDateTime::currentDateTime(), getUiTaskAction(), 0, getUiTaskPriority(), getUiTaskDeadline());
 }
 
 Task* Task::addVersion() const {
-    PluriNotes& manager = PluriNotes::getManager();
-    return new Task(manager.getNoteTitleEdit(), QDateTime::currentDateTime(), manager.getTaskActionEdit(), manager.getTaskStatusEdit(), manager.getTaskPriorityEdit(), manager.getTaskDeadlineEdit());
+    return new Task(getUiNoteTitleEdit(), QDateTime::currentDateTime(), getUiTaskActionEdit(), getUiTaskStatusEdit(), getUiTaskPriorityEdit(), getUiTaskDeadlineEdit());
 }
 
 bool Task::textChanged() const {
-    PluriNotes& manager = PluriNotes::getManager();
-    return action == manager.getTaskActionEdit() && status == manager.getTaskStatusEdit() && priority == manager.getTaskPriorityEdit() && deadline == manager.getTaskDeadlineEdit();
+    return action == getUiTaskActionEdit() && status == getUiTaskStatusEdit() && priority == getUiTaskPriorityEdit() && deadline == getUiTaskDeadlineEdit();
 }
 
 void Task::saveToXML(QXmlStreamWriter& stream) const {
@@ -74,4 +69,72 @@ void Task::loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) cons
         }
         stream.readNext();
     }
+}
+
+
+// UI
+void Task::setUiTaskAction(const QString& action) const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    ui->taskDisplayAction->setText(action);
+}
+
+
+const QString Task::getUiTaskActionEdit() const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    return ui->taskDisplayAction->toPlainText();
+}
+
+const QString Task::getUiTaskAction() const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    return ui->taskAction->toPlainText();
+}
+
+
+void Task::setUiTaskStatus(unsigned int i) const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    ui->taskDisplayStatus->setCurrentIndex(i);
+}
+
+
+unsigned int Task::getUiTaskStatusEdit() const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    return ui->taskDisplayStatus->currentIndex();
+}
+
+
+void Task::setUiTaskPriority(unsigned int i) const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    ui->taskDisplayPriority->setCurrentIndex(i);
+}
+
+
+unsigned int Task::getUiTaskPriority() const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    return ui->taskPriority->currentIndex();
+}
+
+unsigned int Task::getUiTaskPriorityEdit() const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    return ui->taskDisplayPriority->currentIndex();
+}
+
+
+
+
+const QDateTime Task::getUiTaskDeadline() const  {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    return ui->taskDeadline->dateTime();
+}
+
+
+
+void Task::setUiTaskDeadline(const QDateTime& date)const  {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    ui->taskDisplayDeadline->setDateTime(date);
+}
+
+
+const QDateTime Task::getUiTaskDeadlineEdit()const  {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    return ui->taskDisplayDeadline->dateTime();
 }

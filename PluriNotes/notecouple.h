@@ -14,6 +14,8 @@
 #include <QString>
 #include <ostream>
 
+class NoteEntity;
+
 class NoteCouple{
 private:
     //! \brief label for the couple

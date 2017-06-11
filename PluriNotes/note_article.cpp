@@ -5,26 +5,22 @@
 #include <QString>
 
 void Article::displayNote() const {
-    PluriNotes& manager = PluriNotes::getManager();
-    manager.setNoteTitle(this->getTitle());
-    manager.setNoteDate(this->getCreationDate());
-    manager.setArticleContent(getText());
+    setUiNoteTitle(this->getTitle());
+    setUiNoteDate(this->getCreationDate());
+    setUiArticleContent(getText());
 }
 
 
 Article* Article::saveNote(QString title) {
-    PluriNotes& manager = PluriNotes::getManager();
-    return new Article(title, QDateTime::currentDateTime(), manager.getArticleContent());
+    return new Article(title, QDateTime::currentDateTime(), getUiArticleContent());
 }
 
 Article* Article::addVersion() const {
-    PluriNotes& manager = PluriNotes::getManager();
-    return new Article(manager.getNoteTitleEdit(), QDateTime::currentDateTime(), manager.getArticleContentEdit());
+    return new Article(getUiNoteTitleEdit(), QDateTime::currentDateTime(), getUiArticleContentEdit());
 }
 
 bool Article::textChanged() const {
-    PluriNotes& manager = PluriNotes::getManager();
-    return text == manager.getArticleContentEdit();
+    return text == getUiArticleContentEdit();
 }
 
 void Article::saveToXML(QXmlStreamWriter& stream) const {
@@ -60,4 +56,21 @@ void Article::loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) c
         }
         stream.readNext();
     }
+}
+
+
+// UI
+void Article::setUiArticleContent(const QString& content) const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    ui->articleDisplayContent->setPlainText(content);
+}
+
+const QString Article::getUiArticleContent() const{
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    return ui->articleContent->toPlainText();
+}
+
+const QString Article::getUiArticleContentEdit() const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    return ui->articleDisplayContent->toPlainText();
 }

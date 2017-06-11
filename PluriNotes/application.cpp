@@ -1,7 +1,5 @@
 #include "application.h"
 #include "ui_plurinotes.h"
-#include "othertools.h"
-#include "notes.h"
 #include "relationswindows.h"
 
 #include <QDateTime>
@@ -63,46 +61,7 @@ void PluriNotes::testFunction() {
 
 }
 
-const QString PluriNotes::getNoteTitleEdit() {
-    return ui->titleDisplayLineEdit->text();
-}
 
-
-const QString PluriNotes::getArticleContent() {
-    return ui->articleContent->toPlainText();
-}
-
-const QString PluriNotes::getArticleContentEdit() {
-    return ui->articleDisplayContent->toPlainText();
-}
-
-unsigned int PluriNotes::getTaskPriority() {
-    return ui->taskPriority->currentIndex();
-}
-
-const QString PluriNotes::getTaskAction() {
-    return ui->taskAction->toPlainText();
-}
-
-const QDateTime PluriNotes::getTaskDeadline() {
-    return ui->taskDeadline->dateTime();
-}
-
-unsigned int PluriNotes::getTaskPriorityEdit() {
-    return ui->taskDisplayPriority->currentIndex();
-}
-
-unsigned int PluriNotes::getTaskStatusEdit() {
-    return ui->taskDisplayStatus->currentIndex();
-}
-
-const QString PluriNotes::getTaskActionEdit() {
-    return ui->taskDisplayAction->toPlainText();
-}
-
-const QDateTime PluriNotes::getTaskDeadlineEdit() {
-    return ui->taskDisplayDeadline->dateTime();
-}
 
 void PluriNotes::createUndoView()
 {
@@ -241,18 +200,6 @@ void PluriNotes::toNewNoteForm() {
     typeChangedForm();
 }
 
-//void PluriNotes::setNoteId(const QString& i) {
-//    ui->idDisplayLineEdit->setText(i);
-//}
-
-void PluriNotes::initArticleForm() {
-    ui->articleContent->clear();
-}
-
-void PluriNotes::setArticleContent(const QString& content) {
-    ui->articleDisplayContent->setPlainText(content);
-}
-
 
 QListWidget* PluriNotes::getListActiveNotes() const {
     return ui->listNotesWidget;
@@ -270,36 +217,6 @@ QListWidget* PluriNotes::getListTasks() const {
     return ui->listTaskWidget;
 }
 
-
-void PluriNotes::setNoteTitle(const QString& t) {
-    ui->titleDisplayLineEdit->setText(t);
-}
-
-void PluriNotes::setNoteDate(const QDateTime& d) {
-    ui->dateDisplayLineEdit->setText(d.toString("dddd dd MMMM yyyy hh:mm:ss"));
-}
-
-void PluriNotes::initTaskForm() {
-    ui->taskAction->clear();
-    ui->taskPriority->setCurrentIndex(0);
-    ui->taskDeadline->setDateTime(QDateTime::currentDateTime());
-}
-
-void PluriNotes::setTaskAction(const QString& action) {
-    ui->taskDisplayAction->setText(action);
-}
-
-void PluriNotes::setTaskStatus(unsigned int i) {
-    ui->taskDisplayStatus->setCurrentIndex(i);
-}
-
-void PluriNotes::setTaskPriority(unsigned int i) {
-    ui->taskDisplayPriority->setCurrentIndex(i);
-}
-
-void PluriNotes::setTaskDeadline(const QDateTime& date) {
-    ui->taskDisplayDeadline->setDateTime(date);
-}
 
 NoteEntity& PluriNotes::getCurrentNote() {
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
@@ -522,12 +439,20 @@ void PluriNotes::idChanged(bool fromTitle) {
 }
 
 void PluriNotes::typeChangedForm() {
+    //! \todo évolutivité ??
     //Ajout des champs selon le type de note
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
     ui->customWidgets->setCurrentIndex(myMap[ui->TypeComboBox->currentText()]->indexPageCreation());
-    initArticleForm();
-    initTaskForm();
-    initFileForm();
+    //init article form
+    ui->articleContent->clear();
+
+    //init task form
+    ui->taskAction->clear();
+    ui->taskPriority->setCurrentIndex(0);
+    ui->taskDeadline->setDateTime(QDateTime::currentDateTime());
+
+    //init file form
+    ui->fileDescription->clear();
 }
 
 
@@ -774,9 +699,6 @@ void PluriNotes::setDataChanged(bool b) {
     saveAction->setEnabled(b);
 }
 
-void PluriNotes::initFileForm() {
-    ui->fileDescription->clear();
-}
 
 void PluriNotes::closeEvent(QCloseEvent *event) {
     event->ignore();

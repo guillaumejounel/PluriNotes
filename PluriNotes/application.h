@@ -9,8 +9,6 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include <iostream>
-#include <vector>
 #include <QMainWindow>
 #include <QString>
 #include <QScrollArea>
@@ -23,11 +21,9 @@
 #include <QCloseEvent>
 
 
-#include "notes.h"
 #include "othertools.h"
 #include "relation.h"
-#include "relationswindows.h"
-#include "notecouple.h"
+//#include "relationswindows.h"
 
 class QAction;
 class QToolBar;
@@ -38,6 +34,10 @@ class QUndoView;
 using namespace std;
 
 class NoteEntity;
+class NoteElement;
+class listItemAndPointer;
+class treeItemNoteAndPointer;
+class Relation;
 
 namespace Ui {
     class PluriNotes;
@@ -359,6 +359,7 @@ public:
     // UI setters/getters
     // --------------------------------------------------------------------------
 
+
     //! \brief Get the list of active notes in the UI
     QListWidget* getListActiveNotes() const;
 
@@ -374,86 +375,7 @@ public:
     //! \brief Set the note title in the UI
     void setNoteTitle(const QString& t);
 
-    //! \brief Get the note title int the UI
-    const QString getNoteTitleEdit();
 
-
-    //! \brief set the date fiel in the UI
-    void setNoteDate(const QDateTime& d);
-
-
-    //-------
-    // Article related
-    // \todo move to an other class for better POO ?
-
-    //! \brief Initialize the Article creation form
-    void initArticleForm();
-
-    //! \brief set the article Content in the UI
-    void setArticleContent(const QString& content);
-
-    //! \brief get the article articleContent in the UI
-    const QString getArticleContent();
-
-    //! \brief get the article articleDisplayContent in the UI
-    const QString getArticleContentEdit();
-    //-------
-
-
-
-    //-------
-    // Task related
-    //\todo move to an other class for better POO ?
-
-    //! \brief Initialize the Task creation form
-    void initTaskForm();
-
-    //! \todo add documentation
-    void setTaskAction(const QString& action);
-
-    //! \todo add documentation
-    const QString getTaskAction();
-
-    //! \todo add documentation
-    const QString getTaskActionEdit();
-
-
-    //! \brief Set the task status in the UI
-    void setTaskStatus(unsigned int i);
-
-    //! \brief get task status edit from the UI
-    unsigned int getTaskStatusEdit();
-
-
-    //! \brief set task priority in the UI
-    void setTaskPriority(unsigned int i);
-
-    //! \brief get Task Priority from thu ui
-    unsigned int getTaskPriority();
-
-    //! \brief get Task PriorityEdit from thu ui
-    unsigned int getTaskPriorityEdit();
-
-
-    //! \brief set task deadline in the UI
-    void setTaskDeadline(const QDateTime& date);
-
-    //! \brief get the task deadline from the UI
-    const QDateTime getTaskDeadline();
-
-    //! \brief get the task deadlineEdit from the UI
-    const QDateTime getTaskDeadlineEdit();
-    //-------
-
-
-    //-------
-    // File related
-    // \todo move to an other class for better POO ?
-
-    //! \brief Initialize the File creation form
-    void initFileForm();
-
-    //-------
 
 
     //! Before closing we have to execut this
