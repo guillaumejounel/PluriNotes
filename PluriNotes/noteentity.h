@@ -2,15 +2,15 @@
 #define NOTEENTITY_H
 
 #include "notes.h"
-#include <vector>
 #include "noteelement.h"
+#include <QVector>
 
 
 class NoteEntity {
 private:
     QString id;
     bool archived;
-    std::vector<const NoteElement*> versions;
+    QVector<const NoteElement*> versions;
 public:
     NoteEntity(const QString& id, const bool& archived = false);
     virtual ~NoteEntity() { versions.clear(); }
@@ -20,8 +20,14 @@ public:
     const NoteElement& getLastVersion() const;
     const NoteElement& getVersion(unsigned int nb) const;
     bool isArchived() const;
-    void addVersion(const NoteElement&);
+
+    void addVersion(const NoteElement& newVersion);
+    void deleteVersion(const NoteElement& version);
     virtual void saveToXML(QXmlStreamWriter& stream) const;
+
+    //! Method to know if a version is inside the note entity
+    bool isVersionInsideNote(const NoteElement& version) const;
+
     //! comparaison of note NoteEntity
     bool operator==(const NoteEntity& n)const;
     static void loadFromXML(QXmlStreamReader& stream);

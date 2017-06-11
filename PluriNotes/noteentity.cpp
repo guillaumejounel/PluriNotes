@@ -74,9 +74,13 @@ void NoteEntity::loadFromXML(QXmlStreamReader& stream) {
         }
         stream.readNext();
     }
+}
+
+void NoteEntity::deleteVersion(const NoteElement &version){
+    versions.removeAll(&version);
+}
 
 
-
-
-
+bool NoteEntity::isVersionInsideNote(const NoteElement& version) const{
+    return versions.contains(&version);
 }

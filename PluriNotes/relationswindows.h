@@ -21,6 +21,8 @@ private:
 
     QAction* exitAction;
 
+    Relation& getCurrentRelation();
+
 public:
     explicit relationsWindows(QWidget *parent = 0);
 
@@ -29,7 +31,7 @@ public:
 
     //! Function to add a Relation to the list of Relations in the UI \n
     //! With creation of a listRelationAndPointer*
-    listRelationAndPointer* addNoteToList(Relation *rel);
+    listRelationAndPointer* addRelationToList(Relation *rel);
 
     //! Before closing
     void closeEvent ( QCloseEvent * event );
@@ -38,6 +40,9 @@ signals:
     public slots:
     //! Short function to be called before closing the window
     void beforeClose();
+    void toNewRelationForm();
+    void displayRelation();
+    void saveRelation();
 
 };
 

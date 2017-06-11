@@ -42,8 +42,8 @@ public:
     //! \brief constructor of the class
     //! Default orientation is oriented
     //! Default is NOT a references ; we only need one !
-    Relation(QString& t, QString& d, bool o = true, unsigned int nb = 0);
-    Relation(QString& t, QString& d, bool o = true);
+    Relation(QString& t, QString& d, bool isOriented);
+    Relation(QString& t, QString& d, bool isOriented, bool isReferences);
 
     Relation(){}
 

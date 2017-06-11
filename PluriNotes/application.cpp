@@ -36,9 +36,8 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     // Creation of the reference relation
     QString t = "References";
     QString d = "Here is the relation with all the diffent reference";
-    Relation Reference = Relation(t,d,true,0);
-    relations.push_back(&Reference);
-
+    Relation* Reference = new Relation(t,d,true,true);
+    relations.push_back(Reference);
 
     //Load data from UML
     load();
@@ -104,7 +103,6 @@ void PluriNotes::createRelationsView()
     relationsView = new relationsWindows();
     relationsView->setWindowTitle(tr("Relations managment"));
     relationsView->setAttribute(Qt::WA_QuitOnClose, false);
-    //relationsView->show();
 }
 
 
@@ -358,13 +356,17 @@ void PluriNotes::saveNote() {
 }
 
 void PluriNotes::saveNewVersion() {
+    // We get which not is selected
     NoteEntity& currentNote = getCurrentNote();
-    const NoteElement& newNote = currentNote.getLastVersion();
-    currentNote.addVersion(*newNote.addVersion());
-    const NoteEntity& currentSelectedNote = getCurrentNote();
-    ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
-    displayNote();
+    // We create a newVersion identical to the last one
+    const NoteElement& currentVersion = currentNote.getLastVersion();
+
+    const NoteElement& newVersion = *currentVersion.addVersion();
+
+    QUndoCommand *addVersionCommand = new addVersionNoteCommand(const_cast<NoteEntity*>(&currentNote),const_cast<NoteElement*>(&newVersion));
+    undoStack->push(addVersionCommand);
 }
+
 
 void PluriNotes::deleteNote() {
     //Demande de confirmation
@@ -429,8 +431,6 @@ void PluriNotes::moveBackFromTrash(NoteEntity* noteEl){
 
     //! \todo add error ?
 }
-
-
 
 void PluriNotes::cancelNote() {
     ui->ButtonNewNote->setEnabled(true);
@@ -520,7 +520,7 @@ void PluriNotes::loadDataIntoUi(){
     //! \todo add loading functionnalities to trash and notes
 
      for(auto& rel: relations){
-         static_cast<relationsWindows*>(relationsView)->addNoteToList(const_cast<Relation*>(rel));
+         static_cast<relationsWindows*>(relationsView)->addRelationToList(const_cast<Relation*>(rel));
      }
 }
 
@@ -561,6 +561,15 @@ listItemAndPointer* PluriNotes::removeItemNoteFromList(listItemAndPointer* item)
 //! ####################################
 //! ####################################
 void PluriNotes::removeNoteFromList(NoteEntity *note){
+    QListWidget* panel = ui->listNotesWidget;
+
+    //We remove the item from the panel
+    //! \todo check if have to use delete for memomry
+    unsigned int i = panel->row(findItemInList(note));
+    panel->takeItem(i);
+}
+
+listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note){
     //! \todo add function to loog for wich panel the note is on!
     QListWidget* panel = ui->listNotesWidget;
 
@@ -576,11 +585,15 @@ void PluriNotes::removeNoteFromList(NoteEntity *note){
         if (current->getNotePointer()->getId() == idWeAreLookingFor) break;
     }
 
-    //We remove the item from the panel
-    //! \todo check if have to use delete for memomry
-    panel->takeItem(i);
-
+    return current;
 }
+
+void PluriNotes::selectItemIntoList(listItemAndPointer* item){
+    QListWidget* panel = ui->listNotesWidget;
+    panel->setCurrentItem(item);
+}
+
+
 //! ####################################
 //! ####################################
 
@@ -622,11 +635,15 @@ unsigned int PluriNotes::getMaxRelationId(){
 
 
 Relation* PluriNotes::getReferencesRelation(){
-    unsigned int nbOfRealations = relations.size();
-    for (unsigned int i = 0; i < nbOfRealations ; i++){
+    unsigned int nbOfRelations = relations.size();
+    for (unsigned int i = 0; i < nbOfRelations ; i++){
         if( (relations[i])->isReferences()) return const_cast<Relation*>(relations[i]);
     }
     return nullptr;
+}
+
+void PluriNotes::addRelationToVector(Relation* r) {
+    relations.push_back(r);
 }
 
 
