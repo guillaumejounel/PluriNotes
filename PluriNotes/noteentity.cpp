@@ -24,6 +24,13 @@ const NoteElement& NoteEntity::getVersion(unsigned int nb) const {
     return *versions[nb];
 }
 
+QString NoteEntity::getId() const {
+    return id;
+}
+
+bool NoteEntity::isArchived() const {
+    return archived;
+}
 
 bool NoteEntity::operator==(const NoteEntity& n)const {
     return (id==n.getId());
@@ -70,9 +77,10 @@ NoteEntity* NoteEntity::loadFromXML(QXmlStreamReader& stream) {
         }
         stream.readNext();
     }
+    return nullptr;
 }
 
-void NoteEntity::deleteVersion(const NoteElement &version){
+void NoteEntity::deleteVersion(const NoteElement &version) {
     versions.removeAll(&version);
 }
 

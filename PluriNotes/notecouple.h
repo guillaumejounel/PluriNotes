@@ -30,7 +30,7 @@ public:
     NoteCouple(QString& s, NoteEntity* x, NoteEntity* y):label(s), x(x),y(y) {}
 
     //! Constructor with no argument
-    NoteCouple(){}
+    NoteCouple() {}
 
     //! \brief Accessor to x
     NoteEntity* getX() const {return x;}

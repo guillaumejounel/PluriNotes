@@ -19,7 +19,7 @@ protected:
     static map<QString, NoteElement*> const& NoteTypeList (QString typeName, NoteElement* ptNote);
 public:
     NoteElement() {}
-    NoteElement(const QString& title, const QDateTime& creaDate) : title(title), creationDate(creaDate){
+    NoteElement(const QString& title, const QDateTime& creaDate) : title(title), creationDate(creaDate) {
        // creationDate = QDateTime::currentDateTime();
     }
     static map<QString, NoteElement*> getTypesNotes();

@@ -45,7 +45,7 @@ public:
     Relation(QString& t, QString& d, bool isOriented);
     Relation(QString& t, QString& d, bool isOriented, bool isReferences);
 
-    Relation(){}
+    Relation() {}
 
     //! \brief getter for the title
     const QString getTitle() const {return title;}
