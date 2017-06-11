@@ -53,6 +53,7 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
 }
 
 void PluriNotes::testFunction(){
+    /*
     Relation* ref = relations[0];
     QString l = QString("couple 1");
     NoteCouple& c = *(new NoteCouple(l,notes[0],notes[1]));
@@ -62,6 +63,12 @@ void PluriNotes::testFunction(){
     l = QString("couple 2");
     c = *(new NoteCouple(l,notes[1],notes[2]));
     ref->addCouple(c);
+
+
+    l = QString("couple 3");
+    c = *(new NoteCouple(l,notes[2],notes[3]));
+    ref->addCouple(c);
+    */
 }
 
 const QString PluriNotes::getNoteTitleEdit() {
@@ -827,13 +834,11 @@ QSet<NoteEntity*> PluriNotes::getAllPredecessorsOf(NoteEntity* note) const{
 
 
 void PluriNotes::updateSelectionFromTreeSuccessors(){
-    qWarning()<<QString("Enter updateSelectionFromTreeSuccessors");
     treeItemNoteAndPointer* itm = static_cast<treeItemNoteAndPointer*>(ui->treeViewSuccessors->currentItem());
     selectItemIntoList(findItemInList(itm->getNotePointer()));
 }
 
 void PluriNotes::updateSelectionFromTreePredecessors(){
-    qWarning()<<QString("Enter updateSelectionFromTreePredecessors");
     treeItemNoteAndPointer* itm = static_cast<treeItemNoteAndPointer*>(ui->treeViewPredecessors->currentItem());
     selectItemIntoList(findItemInList(itm->getNotePointer()));
 }
