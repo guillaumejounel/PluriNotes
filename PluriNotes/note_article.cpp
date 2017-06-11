@@ -13,7 +13,6 @@ void Article::displayNote() const {
 
 
 Article* Article::saveNote(QString title) {
-    PluriNotes& manager = PluriNotes::getManager();
     return new Article(title, QDateTime::currentDateTime(), getUiArticleContent());
 }
 
@@ -23,7 +22,6 @@ Article* Article::addVersion() const {
 }
 
 bool Article::textChanged() const {
-    PluriNotes& manager = PluriNotes::getManager();
     return text == getUiArticleContentEdit();
 }
 

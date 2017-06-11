@@ -70,29 +70,8 @@ const QString PluriNotes::getNoteTitleEdit() {
 
 
 
-unsigned int PluriNotes::getTaskPriority() {
-    return ui->taskPriority->currentIndex();
-}
 
 
-
-const QDateTime PluriNotes::getTaskDeadline() {
-    return ui->taskDeadline->dateTime();
-}
-
-unsigned int PluriNotes::getTaskPriorityEdit() {
-    return ui->taskDisplayPriority->currentIndex();
-}
-
-unsigned int PluriNotes::getTaskStatusEdit() {
-    return ui->taskDisplayStatus->currentIndex();
-}
-
-
-
-const QDateTime PluriNotes::getTaskDeadlineEdit() {
-    return ui->taskDisplayDeadline->dateTime();
-}
 
 void PluriNotes::createUndoView()
 {
@@ -250,17 +229,9 @@ void PluriNotes::setNoteDate(const QDateTime& d){
 
 
 
-void PluriNotes::setTaskStatus(unsigned int i) {
-    ui->taskDisplayStatus->setCurrentIndex(i);
-}
 
-void PluriNotes::setTaskPriority(unsigned int i) {
-    ui->taskDisplayPriority->setCurrentIndex(i);
-}
 
-void PluriNotes::setTaskDeadline(const QDateTime& date) {
-    ui->taskDisplayDeadline->setDateTime(date);
-}
+
 
 NoteEntity& PluriNotes::getCurrentNote() {
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());

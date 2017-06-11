@@ -8,24 +8,24 @@ void Task::displayNote() const {
     manager.setNoteTitle(getTitle());
     manager.setNoteDate(getCreationDate());
     setUiTaskAction(action);
-    manager.setTaskPriority(priority);
-    manager.setTaskStatus(status);
-    manager.setTaskDeadline(deadline);
+    setUiTaskPriority(priority);
+    setUiTaskStatus(status);
+    setUiTaskDeadline(deadline);
 }
 
 Task* Task::saveNote(QString title) {
     PluriNotes& manager = PluriNotes::getManager();
-    return new Task(title, QDateTime::currentDateTime(), getUiTaskAction(), 0, manager.getTaskPriority(), manager.getTaskDeadline());
+    return new Task(title, QDateTime::currentDateTime(), getUiTaskAction(), 0, getUiTaskPriority(), getUiTaskDeadline());
 }
 
 Task* Task::addVersion() const {
     PluriNotes& manager = PluriNotes::getManager();
-    return new Task(manager.getNoteTitleEdit(), QDateTime::currentDateTime(), getUiTaskActionEdit(), manager.getTaskStatusEdit(), manager.getTaskPriorityEdit(), manager.getTaskDeadlineEdit());
+    return new Task(manager.getNoteTitleEdit(), QDateTime::currentDateTime(), getUiTaskActionEdit(), getUiTaskStatusEdit(), getUiTaskPriorityEdit(), getUiTaskDeadlineEdit());
 }
 
 bool Task::textChanged() const {
     PluriNotes& manager = PluriNotes::getManager();
-    return action == getUiTaskActionEdit() && status == manager.getTaskStatusEdit() && priority == manager.getTaskPriorityEdit() && deadline == manager.getTaskDeadlineEdit();
+    return action == getUiTaskActionEdit() && status == getUiTaskStatusEdit() && priority == getUiTaskPriorityEdit() && deadline == getUiTaskDeadlineEdit();
 }
 
 void Task::saveToXML(QXmlStreamWriter& stream) const {
@@ -92,4 +92,54 @@ const QString Task::getUiTaskActionEdit() const {
 const QString Task::getUiTaskAction() const {
     Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
     return ui->taskAction->toPlainText();
+}
+
+
+void Task::setUiTaskStatus(unsigned int i) const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    ui->taskDisplayStatus->setCurrentIndex(i);
+}
+
+
+unsigned int Task::getUiTaskStatusEdit() const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    return ui->taskDisplayStatus->currentIndex();
+}
+
+
+void Task::setUiTaskPriority(unsigned int i) const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    ui->taskDisplayPriority->setCurrentIndex(i);
+}
+
+
+unsigned int Task::getUiTaskPriority() const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    return ui->taskPriority->currentIndex();
+}
+
+unsigned int Task::getUiTaskPriorityEdit() const {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    return ui->taskDisplayPriority->currentIndex();
+}
+
+
+
+
+const QDateTime Task::getUiTaskDeadline() const  {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    return ui->taskDeadline->dateTime();
+}
+
+
+
+void Task::setUiTaskDeadline(const QDateTime& date)const  {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    ui->taskDisplayDeadline->setDateTime(date);
+}
+
+
+const QDateTime Task::getUiTaskDeadlineEdit()const  {
+    Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
+    return ui->taskDisplayDeadline->dateTime();
 }

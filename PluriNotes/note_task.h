@@ -42,35 +42,36 @@ public:
 
     //! \todo add documentation
     const QString getUiTaskActionEdit() const;
-/*
+
 
     //! \brief Set the task status in the UI
-    void setTaskStatus(unsigned int i) const;
+    void setUiTaskStatus(unsigned int i) const;
+
 
     //! \brief get task status edit from the UI
-    unsigned int getTaskStatusEdit() const;
+    unsigned int getUiTaskStatusEdit() const;
 
 
     //! \brief set task priority in the UI
-    void setTaskPriority(unsigned int i) const;
+    void setUiTaskPriority(unsigned int i) const;
 
     //! \brief get Task Priority from thu ui
-    unsigned int getTaskPriority() const;
+    unsigned int getUiTaskPriority() const;
 
     //! \brief get Task PriorityEdit from thu ui
-    unsigned int getTaskPriorityEdit() const;
+    unsigned int getUiTaskPriorityEdit() const;
 
 
     //! \brief set task deadline in the UI
-    void setTaskDeadline(const QDateTime& date) const;
+    void setUiTaskDeadline(const QDateTime& date) const;
 
     //! \brief get the task deadline from the UI
-    const QDateTime getTaskDeadline() const;
+    const QDateTime getUiTaskDeadline() const;
 
     //! \brief get the task deadlineEdit from the UI
-    const QDateTime getTaskDeadlineEdit() const;
+    const QDateTime getUiTaskDeadlineEdit() const;
     //-------
-*/
+
 
     };
 
