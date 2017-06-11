@@ -52,6 +52,9 @@ public:
     //! Check if note is equal to y
     bool isEqualY(const NoteEntity* note) const;
 
+    //! \brief Metod to know if a couple contains a note
+    bool contains(const NoteEntity* note) const;
+
 
     //! \brief setter for the label
     void setLabel(QString& l) {label = l;}

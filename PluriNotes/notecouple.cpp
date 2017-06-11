@@ -10,12 +10,20 @@ bool NoteCouple::isEqualY(const NoteEntity* note) const{
     return false;
 }
 
+bool NoteCouple::contains(const NoteEntity* note) const{
+    return (isEqualX(note)||isEqualY(note));
+}
+
+
+
 
 bool NoteCouple::operator==(const NoteCouple& c)const{
     if (isEqualX(c.getX()) && isEqualY(c.getY())) return true;
 
     return false;
 }
+
+
 
 
 NoteEntity* NoteCouple::successor(NoteEntity* note, bool oriented) const{

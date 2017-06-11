@@ -12,7 +12,11 @@ Relation::Relation(QString &t, QString &d, bool isOriented) : title(t), descript
     if (number != 0) number++;
 }
 
-bool Relation::isInside(NoteEntity* note1, NoteEntity* note2) {
+bool Relation::isInside(const NoteCouple &c) const {
+    return isInside(c.getX(),c.getY());
+}
+
+bool Relation::isInside(NoteEntity* note1, NoteEntity* note2) const {
     QString tmp = "tmp";
     NoteCouple nCouple1 = NoteCouple(tmp,note1,note2);
     NoteCouple nCouple2 = NoteCouple(tmp,note2,note1);
@@ -35,7 +39,7 @@ bool Relation::isInside(NoteEntity* note1, NoteEntity* note2) {
 
 void Relation::addCouple(const NoteCouple &c) {
     //Check if the couple isn't already inside
-    if ( isInside(c.getX(),c.getY()) ) return;
+    if ( isInside(c) ) return;
 
     content.push_front(c);
 }
@@ -43,6 +47,27 @@ void Relation::addCouple(const NoteCouple &c) {
 void Relation::removeCouple(const NoteCouple &c) {
     content.removeAll(c);
 }
+
+void Relation::removeCouple(const QList<NoteCouple> coupleList){
+    for (auto couple : coupleList){
+        removeCouple(couple);
+    }
+}
+
+
+void Relation::removeCoupleWithNote(const NoteEntity* note){
+    for (auto couple : content){
+        if (couple.contains(note)) content.removeAll(couple);
+    }
+}
+
+
+void Relation::removeCoupleWithNote(const QList<NoteEntity*> noteList){
+    for (auto note : noteList){
+        removeCoupleWithNote(note);
+    }
+}
+
 
 
 QSet<NoteEntity*> Relation::successorsOf(NoteEntity* note) const{

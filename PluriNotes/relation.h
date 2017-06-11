@@ -82,13 +82,25 @@ public:
 
 
     //! Method to know if a couple is already inside the relation
-    bool isInside(NoteEntity* note1, NoteEntity* note2);
+    bool isInside(NoteEntity* note1, NoteEntity* note2) const;
+
+    //! oberload for use with a note couple directly
+    bool isInside(const NoteCouple& c) const;
 
     //! Method to add a note couple to the relation
     void addCouple(const NoteCouple& c);
 
     //! Method to remove a note couple to the relation
     void removeCouple(const NoteCouple& c);
+
+    //! Method to remove a list of note from the relation
+    void removeCouple(const QList<NoteCouple> coupleList);
+
+    //! Method to remove all couples that contains a note
+    void removeCoupleWithNote(const NoteEntity* note);
+
+    //! Method to remove all couples that contains one of the note from the list
+    void removeCoupleWithNote(const QList<NoteEntity*> noteList);
 
 
     //! Method to get successors of a note in a relation
