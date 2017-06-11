@@ -32,7 +32,7 @@
       <item>
        <widget class="QToolBox" name="toolBox">
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="page">
          <property name="geometry">
@@ -58,7 +58,7 @@
            <x>0</x>
            <y>0</y>
            <width>140</width>
-           <height>352</height>
+           <height>176</height>
           </rect>
          </property>
          <attribute name="label">
@@ -66,17 +66,25 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout_5">
           <item row="0" column="0">
-           <widget class="QListWidget" name="listWidget"/>
+           <widget class="QListWidget" name="listArchivedWidget"/>
           </item>
          </layout>
         </widget>
         <widget class="QWidget" name="page_3">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>140</width>
+           <height>176</height>
+          </rect>
+         </property>
          <attribute name="label">
           <string>Trash</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_7">
           <item row="0" column="0">
-           <widget class="QListWidget" name="listWidget_2"/>
+           <widget class="QListWidget" name="listTrashWidget"/>
           </item>
          </layout>
         </widget>
@@ -102,7 +110,7 @@
         </property>
         <layout class="QGridLayout" name="gridLayout_8">
          <item row="0" column="0">
-          <widget class="QListWidget" name="listWidget_3"/>
+          <widget class="QListWidget" name="listTaskWidget"/>
          </item>
         </layout>
        </widget>
@@ -917,7 +925,6 @@
    </layout>
    <zorder>mainStackedWidget</zorder>
    <zorder>ButtonNewNote</zorder>
-   <zorder>verticalLayoutWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

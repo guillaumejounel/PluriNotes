@@ -253,6 +253,24 @@ void PluriNotes::setArticleContent(const QString& content) {
     ui->articleDisplayContent->setPlainText(content);
 }
 
+
+QListWidget* PluriNotes::getListActiveNotes() const {
+    return ui->listNotesWidget;
+}
+
+QListWidget* PluriNotes::getListArchived() const {
+    return ui->listArchivedWidget;
+}
+
+QListWidget* PluriNotes::getListTrash() const {
+    return ui->listTrashWidget;
+}
+
+QListWidget* PluriNotes::getListTasks() const {
+    return ui->listTaskWidget;
+}
+
+
 void PluriNotes::setNoteTitle(const QString& t){
     ui->titleDisplayLineEdit->setText(t);
 }
@@ -359,6 +377,16 @@ void PluriNotes::noteTextChanged() {
             ui->buttonSaveEdit->setEnabled(1);
         }
     }
+}
+
+bool PluriNotes::isIdAvailable(const QString& id) const {
+    for (auto note : notes){
+        if(note->getId() == id) return false;
+    }
+    for (auto note : trash){
+        if(note->getId() == id) return false;
+    }
+    return true;
 }
 
 void PluriNotes::saveNote() {
@@ -563,25 +591,18 @@ void PluriNotes::loadDataIntoUi() {
         static_cast<relationsWindows*>(relationsView)->addRelationToList(const_cast<Relation*>(rel));
     }
     for(auto note:notes){
-        addNoteToList(note);
+        addNoteToList(note, ui->listNotesWidget);
+    }
+    for(auto note:trash){
+        addNoteToList(note, ui->listTrashWidget);
     }
 }
 
 
-listItemAndPointer* PluriNotes::addNote(NoteEntity& note) {
+listItemAndPointer* PluriNotes::addNote(NoteEntity& note, QListWidget* list) {
     notes.push_back(&note);
-    listItemAndPointer* item = addNoteToList(&note);
+    listItemAndPointer* item = addNoteToList(&note, list);
     return item;
-}
-
-bool PluriNotes::isIdAvailable(const QString& id) const {
-    for (auto note : notes){
-        if(note->getId() == id) return false;
-    }
-    for (auto note : trash){
-        if(note->getId() == id) return false;
-    }
-    return true;
 }
 
 void PluriNotes::removeNote(NoteEntity *note) {
@@ -589,42 +610,40 @@ void PluriNotes::removeNote(NoteEntity *note) {
 }
 
 //! \todo add item to list based on last modified date !
-listItemAndPointer* PluriNotes::addNoteToList(NoteEntity* note){
+listItemAndPointer* PluriNotes::addNoteToList(NoteEntity* note, QListWidget* list){
     listItemAndPointer* itm = new listItemAndPointer(note);
     itm->setText(note->getTitle());
-    addItemNoteToList(itm);
+    addItemNoteToList(itm, list);
     return itm;
 }
 
 
-void PluriNotes::addItemNoteToList(listItemAndPointer *item) {
-    ui->listNotesWidget->insertItem(0, item);
-    ui->listNotesWidget->setCurrentRow(0);
+void PluriNotes::addItemNoteToList(listItemAndPointer *item, QListWidget* list) {
+    list->insertItem(0, item);
+    list->setCurrentRow(0);
     ui->mainStackedWidget->setCurrentIndex(0);
     ui->ButtonNewNote->setEnabled(true);
     ui->listNotesWidget->setEnabled(true);
 }
 
 
-listItemAndPointer* PluriNotes::removeItemNoteFromList(listItemAndPointer* item) {
-    unsigned int i = ui->listNotesWidget->row(item);
-    return static_cast<listItemAndPointer*>(ui->listNotesWidget->takeItem(i));
+listItemAndPointer* PluriNotes::removeItemNoteFromList(listItemAndPointer* item, QListWidget* list) {
+    unsigned int i = list->row(item);
+    return static_cast<listItemAndPointer*>(list->takeItem(i));
 }
 
 //! ####################################
 //! ####################################
-void PluriNotes::removeNoteFromList(NoteEntity *note) {
-    QListWidget* panel = ui->listNotesWidget;
-
+void PluriNotes::removeNoteFromList(NoteEntity *note, QListWidget* list) {
     //We remove the item from the panel
     //! \todo check if have to use delete for memomry
-    unsigned int i = panel->row(findItemInList(note));
-    panel->takeItem(i);
+    unsigned int i = list->row(findItemInList(note, list));
+    list->takeItem(i);
 }
 
-listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note) {
+listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note, QListWidget* list) {
     //! \todo add function to loog for wich panel the note is on!
-    QListWidget* panel = ui->listNotesWidget;
+    QListWidget* panel = list;
 
     unsigned int nbItems = panel->count();
     listItemAndPointer* current;
@@ -641,8 +660,8 @@ listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note) {
     return current;
 }
 
-void PluriNotes::selectItemIntoList(listItemAndPointer* item) {
-    QListWidget* panel = ui->listNotesWidget;
+void PluriNotes::selectItemIntoList(listItemAndPointer* item, QListWidget* list) {
+    QListWidget* panel = list;
     panel->setCurrentItem(item);
 }
 
@@ -827,12 +846,12 @@ QSet<NoteEntity*> PluriNotes::getAllPredecessorsOf(NoteEntity* note) const{
 
 void PluriNotes::updateSelectionFromTreeSuccessors(){
     treeItemNoteAndPointer* itm = static_cast<treeItemNoteAndPointer*>(ui->treeViewSuccessors->currentItem());
-    selectItemIntoList(findItemInList(itm->getNotePointer()));
+    selectItemIntoList(findItemInList(itm->getNotePointer(), ui->listNotesWidget), ui->listNotesWidget);
 }
 
 void PluriNotes::updateSelectionFromTreePredecessors(){
     treeItemNoteAndPointer* itm = static_cast<treeItemNoteAndPointer*>(ui->treeViewPredecessors->currentItem());
-    selectItemIntoList(findItemInList(itm->getNotePointer()));
+    selectItemIntoList(findItemInList(itm->getNotePointer(), ui->listNotesWidget), ui->listNotesWidget);
 }
 
 

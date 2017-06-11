@@ -11,7 +11,7 @@ deleteNoteCommand::deleteNoteCommand(NoteEntity *note, QUndoCommand *parent)
 
 deleteNoteCommand::~deleteNoteCommand(){
     PluriNotes& manager = PluriNotes::getManager();
-    // if we don't actually still have the pointer in the vector we shoult be able to delete it...
+    // if we don't actually still have the pointer in the vector we should be able to delete it...
     if (! manager.isInsideApp(getNote())) {
         delete getNote();
     }
@@ -25,7 +25,8 @@ void deleteNoteCommand::undo()
 
     PluriNotes& manager = PluriNotes::getManager();
     manager.moveBackFromTrash(getNote());
-    manager.addNoteToList(getNote());
+    manager.removeNoteFromList(getNote(), manager.getListTrash());
+    manager.addNoteToList(getNote(), manager.getListActiveNotes());
 }
 
 void deleteNoteCommand::redo()
@@ -34,7 +35,8 @@ void deleteNoteCommand::redo()
 
     PluriNotes& manager = PluriNotes::getManager();
     manager.moveToTrash(getNote());
-    manager.removeNoteFromList(getNote());
+    manager.removeNoteFromList(getNote(), manager.getListActiveNotes());
+    manager.addNoteToList(getNote(), manager.getListTrash());
 
     manager.setDataChanged(true);
 }
@@ -59,10 +61,10 @@ addNoteEntityCommand::~addNoteEntityCommand(){
 
 void addNoteEntityCommand::undo()
 {
-    setText("Undo cration of the note : "+getNote()->getId());
+    setText("Undo creation of the note : "+getNote()->getId());
 
     PluriNotes& manager = PluriNotes::getManager();
-    manager.removeNoteFromList(getNote());
+    manager.removeNoteFromList(getNote(), manager.getListActiveNotes());
     manager.removeNote(getNote());
 }
 
@@ -70,7 +72,7 @@ void addNoteEntityCommand::redo()
 {
     setText("Creation of the note :"+getNote()->getId());
     PluriNotes& manager = PluriNotes::getManager();
-    manager.addNote(*note);
+    manager.addNote(*note, manager.getListActiveNotes());
 
     manager.setDataChanged(true);
 }
@@ -91,7 +93,7 @@ void addVersionNoteCommand::undo()
     getNote()->deleteVersion(*getVersion());
 
     PluriNotes& manager = PluriNotes::getManager();
-    manager.selectItemIntoList(manager.findItemInList(getNote()));
+    manager.selectItemIntoList(manager.findItemInList(getNote(), manager.getListActiveNotes()), manager.getListActiveNotes());
     manager.displayNote();
 
 }

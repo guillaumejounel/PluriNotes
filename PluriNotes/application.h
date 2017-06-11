@@ -288,9 +288,6 @@ public:
     //! \brief add relation to the vector of relations
     void addRelationToVector(Relation* r);
 
-    //! \brief Check if an id is available
-    bool isIdAvailable(const QString& id) const;
-
     //! \brief Function to remove a note
     //! \warning the memory is not fried
     void removeNote(NoteEntity* note);
@@ -311,31 +308,35 @@ public:
     // --------------------------------------------------------------------------
     // Interaction content/ui
     // --------------------------------------------------------------------------
+
+    //! \brief Check if an id is available
+    bool isIdAvailable(const QString& id) const;
+
     //! Function to add a note in the system \n
     //! Returns an "listItemAndPointer*" the should be usefull in somme cases
-    listItemAndPointer* addNote(NoteEntity& note);
+    listItemAndPointer* addNote(NoteEntity& note, QListWidget *list);
 
     //! Function to add an listItemAndPointer* to the list of notes
-    void addItemNoteToList(listItemAndPointer* item);
+    void addItemNoteToList(listItemAndPointer* item, QListWidget *list);
 
 
 
     //! Function to add a NoteEntity to the list of note \n
     //! With creation of a listItemAndPointer*
-    listItemAndPointer* addNoteToList(NoteEntity* note);
+    listItemAndPointer* addNoteToList(NoteEntity* note, QListWidget* list);
 
     //! Function to remove a note from the list
-    void removeNoteFromList(NoteEntity* note);
+    void removeNoteFromList(NoteEntity* note, QListWidget* list);
 
     //! Function to find an item in the list based on the note
-    listItemAndPointer* findItemInList(NoteEntity* note);
+    listItemAndPointer* findItemInList(NoteEntity* note, QListWidget* list);
 
     //! Function wich removes a listItemAndPointer* from the list\n
     //! it is returned so that it can be stored if we need it
-    listItemAndPointer* removeItemNoteFromList(listItemAndPointer* item);
+    listItemAndPointer* removeItemNoteFromList(listItemAndPointer* item, QListWidget* list);
 
     //! Function to select an item in the list of notes
-    void selectItemIntoList(listItemAndPointer* item);
+    void selectItemIntoList(listItemAndPointer* item, QListWidget* list);
 
 
     //--- treeView
@@ -357,6 +358,18 @@ public:
     // --------------------------------------------------------------------------
     // UI setters/getters
     // --------------------------------------------------------------------------
+
+    //! \brief Get the list of active notes in the UI
+    QListWidget* getListActiveNotes() const;
+
+    //! \brief Get the list of archived notes in the UI
+    QListWidget* getListArchived() const;
+
+    //! \brief Get the list of notes in trash in the UI
+    QListWidget* getListTrash() const;
+
+    //! \brief Get the list of tasks in the UI
+    QListWidget* getListTasks() const;
 
     //! \brief Set the note title in the UI
     void setNoteTitle(const QString& t);
