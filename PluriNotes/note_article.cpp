@@ -38,21 +38,25 @@ void Article::saveToXML(QXmlStreamWriter& stream) const {
 void Article::loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) const {
     QString title, content;
     QDateTime date;
-    while(stream.name() != "note") {
-        if(stream.tokenType() == QXmlStreamReader::StartElement) {
-            if(stream.name() == "title") {
-                stream.readNext(); title=stream.text().toString();
-                qDebug()<<"title="<<title;
+    Article *newNote;
+    while(!(stream.tokenType() == QXmlStreamReader::EndElement && stream.name() == "versions")) {
+        if(stream.tokenType() == QXmlStreamReader::StartElement && stream.name() == "version") {
+            while(!(stream.tokenType() == QXmlStreamReader::EndElement && stream.name() == "version")) {
+                if(stream.tokenType() == QXmlStreamReader::StartElement) {
+                    if(stream.name() == "title") {
+                        stream.readNext(); title=stream.text().toString();
+                    }
+                    if(stream.name() == "content") {
+                        stream.readNext(); content=stream.text().toString();
+                    }
+                    if(stream.name() == "date") {
+                        stream.readNext(); date=QDateTime::fromString(stream.text().toString(),"dddd dd MMMM yyyy hh:mm:ss");
+                    }
+                }
+                stream.readNext();
             }
-            if(stream.name() == "content") {
-                stream.readNext(); content=stream.text().toString();
-                qDebug()<<"content="<<content;
-            }
-            if(stream.name() == "date") {
-                stream.readNext(); date=QDateTime::fromString(stream.text().toString(),"dddd dd MMMM yyyy hh:mm:ss");
-                qDebug()<<"date="<<date.toString("dddd dd MMMM yyyy hh:mm:ss");
-            }
-            const Article *newNote = new Article(title, date, content);
+            qDebug() << " Version : " << title << ", " << content << ", " << date.toString("dddd dd MMMM yyyy hh:mm:ss");
+            newNote = new Article(title, date, content);
             newNoteEntity.addVersion(*newNote);
         }
         stream.readNext();

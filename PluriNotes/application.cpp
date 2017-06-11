@@ -475,17 +475,20 @@ void PluriNotes::save() {
     QXmlStreamWriter stream(&newfile);
     stream.setAutoFormatting(true);
     stream.writeStartDocument();
-    stream.writeStartElement("notes");
-    for(auto const& note: notes)
-        note->saveToXML(stream);
-    stream.writeEndElement();
-    stream.writeStartElement("trash");
-    for(auto const& note: trash)
-        note->saveToXML(stream);
+    stream.writeStartElement("data");
+    {
+        stream.writeStartElement("notes");
+            for(auto const& note: notes)
+                note->saveToXML(stream);
+        stream.writeEndElement();
+        stream.writeStartElement("trash");
+            for(auto const& note: trash)
+                note->saveToXML(stream);
+        stream.writeEndElement();
+    }
     stream.writeEndElement();
     stream.writeEndDocument();
     newfile.close();
-
     setDataChanged(false);
 }
 
@@ -494,25 +497,25 @@ void PluriNotes::load() {
     path.append("/data");
     QFile fin(path);
     if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qDebug() << "Erreur ouverture fichier notes";
+        qDebug() << "Error opening the data file";
     }
     QXmlStreamReader xml(&fin);
-    bool trash = false;
+    bool toTrash = false;
+    NoteEntity* newNoteEntity;
     while(!xml.atEnd() && !xml.hasError()) {
-        if(xml.name() == "trash") trash = true;
+        if(xml.name() == "trash") toTrash = true;
         if(xml.name() == "note" && xml.tokenType() == QXmlStreamReader::StartElement) {
-            NoteEntity::loadFromXML(xml);
+            newNoteEntity = NoteEntity::loadFromXML(xml);
+            if (toTrash) trash.push_back(newNoteEntity);
+            else notes.push_back(newNoteEntity);
         }
         xml.readNext();
     }
     // Error handling.
     if(xml.hasError()) {
-        qDebug() << "Erreur lecteur fichier notes, parser xml";
+        qDebug() << "Data file is corrupt";
     }
-    // Removes any device() or data from the reader * and resets its internal state to the initial state.
     xml.clear();
-    qDebug()<<"fin load\n";
-
     setDataChanged(false);
 }
 
@@ -525,9 +528,9 @@ void PluriNotes::loadDataIntoUi(){
 }
 
 
-listItemAndPointer* PluriNotes::addNote(NoteEntity *note){
-    notes.push_back(note);
-    listItemAndPointer* item = addNoteToList(note);
+listItemAndPointer* PluriNotes::addNote(NoteEntity& note){
+    notes.push_back(&note);
+    listItemAndPointer* item = addNoteToList(&note);
     return item;
 }
 

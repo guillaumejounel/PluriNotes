@@ -30,7 +30,7 @@ public:
 
     //! comparaison of note NoteEntity
     bool operator==(const NoteEntity& n)const;
-    static void loadFromXML(QXmlStreamReader& stream);
+    static NoteEntity* loadFromXML(QXmlStreamReader& stream);
 };
 
 

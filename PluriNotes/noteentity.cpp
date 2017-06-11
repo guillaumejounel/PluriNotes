@@ -42,34 +42,31 @@ void NoteEntity::saveToXML(QXmlStreamWriter& stream) const {
     stream.writeEndElement();
 }
 
-void NoteEntity::loadFromXML(QXmlStreamReader& stream) {
+NoteEntity* NoteEntity::loadFromXML(QXmlStreamReader& stream) {
     QString type, id;
     bool archived;
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
-
+    NoteEntity *newNoteEntity;
     while(!(stream.tokenType() == QXmlStreamReader::EndElement && stream.name() == "note")) {
         if(stream.tokenType() == QXmlStreamReader::StartElement) {
             if(stream.name() == "type") {
                 stream.readNext(); type=stream.text().toString();
-                qDebug()<<"type="<<type;
             }
             if(stream.name() == "id") {
                 stream.readNext(); id=stream.text().toString();
-                qDebug()<<"id="<<id;
             }
             if(stream.name() == "archived") {
                 stream.readNext(); archived=(stream.text().toString()==QString("true")?true:false);
-                qDebug()<<"archived="<<(archived?"true":"false");
             }
             if(stream.name() == "versions") {
-                NoteEntity *newNoteEntity = new NoteEntity(QString(id));
+                newNoteEntity = new NoteEntity(QString(id), archived);
+                qDebug() << id << " (" << type << ")";
                 while (!(stream.tokenType() == QXmlStreamReader::EndElement && stream.name() == "versions")) {
-                    //if(stream.tokenType() == QXmlStreamReader::StartElement && stream.name() == "version")
-                        //myMap[type.toUtf8().constData()]->loadFromXML(stream, *newNoteEntity);
                     stream.readNext();
+                    if(stream.tokenType() == QXmlStreamReader::StartElement && stream.name() == "version")
+                        myMap[type.toUtf8().constData()]->loadFromXML(stream, *newNoteEntity);
                 }
-                PluriNotes& manager = PluriNotes::getManager();
-                //manager.addNote(newNoteEntity);
+                return newNoteEntity;
             }
         }
         stream.readNext();

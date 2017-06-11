@@ -72,7 +72,7 @@ void addNoteEntityCommand::redo()
 {
     setText("Creation of the note :"+getNote()->getId());
     PluriNotes& manager = PluriNotes::getManager();
-    manager.addNote(note);
+    manager.addNote(*note);
 
     manager.setDataChanged(true);
 }

@@ -310,7 +310,7 @@ public:
     // --------------------------------------------------------------------------
     //! Function to add a note in the system \n
     //! Returns an "listItemAndPointer*" the should be usefull in somme cases
-    listItemAndPointer* addNote(NoteEntity* note);
+    listItemAndPointer* addNote(NoteEntity& note);
 
     //! Function to add an listItemAndPointer* to the list of notes
     void addItemNoteToList(listItemAndPointer* item);
