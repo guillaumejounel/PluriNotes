@@ -472,6 +472,12 @@ signals:
 
     //! \todo Add documentation !!!!
     void showUndoHistoryWindows();
+
+    //! \brief update selected note when selecting a note in the successors tree
+    void updateSelectionFromTreeSuccessors();
+
+    //! \brief update selected note when selecting a note in the predecessors tree
+    void updateSelectionFromTreePredecessors();
 };
 
 
