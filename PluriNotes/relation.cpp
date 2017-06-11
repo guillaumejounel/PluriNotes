@@ -36,6 +36,13 @@ bool Relation::isInside(NoteEntity* note1, NoteEntity* note2) const {
     return false;
 }
 
+bool Relation::isInside(NoteEntity* note) const{
+    for (auto couple : content){
+        if (couple.contains(note)) return true;
+    }
+    return false;
+}
+
 
 void Relation::addCouple(const NoteCouple &c) {
     //Check if the couple isn't already inside
@@ -44,28 +51,50 @@ void Relation::addCouple(const NoteCouple &c) {
     content.push_front(c);
 }
 
-void Relation::removeCouple(const NoteCouple &c) {
-    content.removeAll(c);
+coupleAndRelation Relation::removeCouple(const NoteCouple &c) {
+     for (auto couple : content){
+        if (couple == c){
+            // We duplicate the couple
+            NoteCouple* tmp = new NoteCouple(couple);
+            coupleAndRelation output = coupleAndRelation(tmp,this);
+
+            content.removeAll(c);
+            break;
+        }
+    }
 }
 
-void Relation::removeCouple(const QList<NoteCouple> coupleList){
+QList<coupleAndRelation> Relation::removeCouple(const QList<NoteCouple> coupleList){
+    QList<coupleAndRelation> output;
     for (auto couple : coupleList){
-        removeCouple(couple);
+        output.append(removeCouple(couple));
     }
+
+    return output;
 }
 
 
-void Relation::removeCoupleWithNote(const NoteEntity* note){
+QList<coupleAndRelation> Relation::removeCoupleWithNote(const NoteEntity* note){
+    QList<coupleAndRelation> output;
+
     for (auto couple : content){
-        if (couple.contains(note)) content.removeAll(couple);
+        if (couple.contains(note)) {
+            NoteCouple* tmp = new NoteCouple(couple);
+            output += coupleAndRelation(tmp,this);
+            content.removeAll(couple);
+        }
     }
+    return output;
 }
 
 
-void Relation::removeCoupleWithNote(const QList<NoteEntity*> noteList){
+QList<coupleAndRelation> Relation::removeCoupleWithNote(const QList<NoteEntity*> noteList){
+    QList<coupleAndRelation> output;
     for (auto note : noteList){
-        removeCoupleWithNote(note);
+        output+=removeCoupleWithNote(note);
     }
+
+    return output;
 }
 
 
@@ -94,4 +123,9 @@ QSet<NoteEntity*> Relation::predecessorsOf(NoteEntity* note) const{
     }
 
     return result;
+}
+
+
+bool Relation::hasPredecessors(NoteEntity *note) const{
+    return predecessorsOf(note).size() != 0;
 }

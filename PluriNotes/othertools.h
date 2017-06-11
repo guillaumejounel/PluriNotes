@@ -111,4 +111,23 @@ public :
 
 
 
+/**
+\class coupleAndRelation
+\brief Class to be able to store/restore couples in relations
+**/
+class coupleAndRelation {
+private :
+    //! \brief couple
+    NoteCouple* couplePointer;
+    Relation* relationPointer;
+public :
+    //! Constructor for the class
+    coupleAndRelation(NoteCouple* couple, Relation* relation) : couplePointer(couple), relationPointer(relation) {}
+    ~coupleAndRelation(){delete couplePointer;}
+    NoteCouple* getCouple() const {return couplePointer;}
+    Relation* getRelation() const {return relationPointer;}
+};
+
+
+
 #endif // OTHERTOOLS_H
