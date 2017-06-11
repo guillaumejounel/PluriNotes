@@ -12,6 +12,7 @@
 
 #include "noteentity.h"
 #include <QString>
+#include <ostream>
 
 class NoteCouple{
 private:
@@ -62,6 +63,9 @@ public:
     //! If (x,note) then y is a predecessor of note
     //! If (note,y) and oriented = false then y is a predecessor of note
     NoteEntity* predecessor(NoteEntity* note, bool oriented = true) const;
+
+    //! for easier debug
+    QString print() const;
 };
 
 #endif // NOTECOUPLE_H

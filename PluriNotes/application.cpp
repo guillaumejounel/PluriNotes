@@ -42,11 +42,33 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     //Load data from UML
     load();
 
+    //! \toto delete
+    testFunction();
+
     //! Load data into UI
     loadDataIntoUi();
 
     //Affiche l'écran de démarrage
     ui->mainStackedWidget->setCurrentIndex(3);
+}
+
+void PluriNotes::testFunction(){
+    /*
+    Relation* ref = relations[0];
+    QString l = QString("couple 1");
+    NoteCouple& c = *(new NoteCouple(l,notes[0],notes[1]));
+    ref->addCouple(c);
+
+
+    l = QString("couple 2");
+    c = *(new NoteCouple(l,notes[1],notes[2]));
+    ref->addCouple(c);
+
+
+    l = QString("couple 3");
+    c = *(new NoteCouple(l,notes[2],notes[3]));
+    ref->addCouple(c);
+    */
 }
 
 const QString PluriNotes::getNoteTitleEdit() {
@@ -281,6 +303,7 @@ void PluriNotes::displayNote(unsigned int n) {
         const NoteEntity& currentSelectedNote = getCurrentNote();
         ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
         ui->noteTextVersion->clear();
+        updateTrees(const_cast<NoteEntity*>(&currentSelectedNote));
         if (currentSelectedNote.getSize() == 1) {
             ui->noteTextVersion->addItem(QString("Version 1"));
             ui->noteTextVersion->setEnabled(0);
@@ -614,6 +637,83 @@ void PluriNotes::selectItemIntoList(listItemAndPointer* item) {
 }
 
 
+
+//! \todo add item to list based on last modified date !
+treeItemNoteAndPointer* PluriNotes::addNoteToTree(NoteEntity* note, QTreeWidget* tree){
+    treeItemNoteAndPointer* itm = new treeItemNoteAndPointer(note);
+    itm->setText(0,note->getTitle());
+    tree->insertTopLevelItem(0,itm);
+    addNoteChildToTree(itm,tree);
+    return itm;
+}
+
+
+
+void PluriNotes::addNoteChildToTree(treeItemNoteAndPointer* item, QTreeWidget* tree){
+    QSet<NoteEntity*> noteChildren;
+
+    // Which tree is concerned ?
+    if(tree == ui->treeViewPredecessors) {
+        noteChildren = getAllPredecessorsOf(item->getNotePointer());
+    }
+    else{
+        noteChildren = getAllSuccessorsOf(item->getNotePointer());
+    }
+
+
+    treeItemNoteAndPointer* child;
+
+    for (auto note : noteChildren){
+        child = new treeItemNoteAndPointer(note);
+        child->setText(0,note->getTitle());
+        item->addChild(child);
+    }
+}
+
+void PluriNotes::addNoteChildrenToItem(QTreeWidgetItem* item, QTreeWidget* tree){
+    treeItemNoteAndPointer* tmp = static_cast<treeItemNoteAndPointer*>(item);
+
+    //We have to check if we haven't already calculated the children
+    if (!tmp->hasBeenExpended()){
+        QList<QTreeWidgetItem*> childrenList =	item->takeChildren();
+        // We add back the childre because this process removes them...
+        item->addChildren(childrenList);
+
+        for(auto noteChild : childrenList){
+            addNoteChildToTree(static_cast<treeItemNoteAndPointer*>(noteChild),tree);
+        }
+        tmp->setExpensionCalculusStatus(true);
+    }
+
+}
+
+void PluriNotes::updateAddChildTreeSuccessors(QTreeWidgetItem* item){
+    QTreeWidget* tree = ui->treeViewSuccessors;
+    addNoteChildrenToItem(item,tree);
+}
+
+void PluriNotes::updateAddChildTreePredecessors(QTreeWidgetItem* item){
+    QTreeWidget* tree = ui->treeViewPredecessors;
+    addNoteChildrenToItem(item,tree);
+}
+
+
+void PluriNotes::updateTrees(NoteEntity* note){
+    ui->treeViewPredecessors->clear();
+    ui->treeViewSuccessors->clear();
+
+    QSet<NoteEntity*> successorsOfNote = getAllSuccessorsOf(note);
+    QSet<NoteEntity*> predecessorsOfNote = getAllPredecessorsOf(note);
+
+    for(auto note : successorsOfNote){
+        addNoteToTree(note,ui->treeViewSuccessors);
+    }
+
+    for(auto note : predecessorsOfNote){
+        addNoteToTree(note,ui->treeViewPredecessors);
+    }
+}
+
 //! ####################################
 //! ####################################
 
@@ -670,7 +770,7 @@ void PluriNotes::addRelationToVector(Relation* r) {
 }
 
 
-QSet<NoteEntity*> PluriNotes::allSuccessorsOf(NoteEntity* note) const{
+QSet<NoteEntity*> PluriNotes::getAllSuccessorsOf(NoteEntity* note) const{
     unsigned int nbOfRealations = relations.size();
     QSet<NoteEntity*> result;
 
@@ -682,7 +782,7 @@ QSet<NoteEntity*> PluriNotes::allSuccessorsOf(NoteEntity* note) const{
     return result;
 }
 
-QSet<NoteEntity*> PluriNotes::allPredecessorsOf(NoteEntity* note) const{
+QSet<NoteEntity*> PluriNotes::getAllPredecessorsOf(NoteEntity* note) const{
     unsigned int nbOfRealations = relations.size();
     QSet<NoteEntity*> result;
 
@@ -694,3 +794,13 @@ QSet<NoteEntity*> PluriNotes::allPredecessorsOf(NoteEntity* note) const{
     return result;
 }
 
+
+void PluriNotes::updateSelectionFromTreeSuccessors(){
+    treeItemNoteAndPointer* itm = static_cast<treeItemNoteAndPointer*>(ui->treeViewSuccessors->currentItem());
+    selectItemIntoList(findItemInList(itm->getNotePointer()));
+}
+
+void PluriNotes::updateSelectionFromTreePredecessors(){
+    treeItemNoteAndPointer* itm = static_cast<treeItemNoteAndPointer*>(ui->treeViewPredecessors->currentItem());
+    selectItemIntoList(findItemInList(itm->getNotePointer()));
+}

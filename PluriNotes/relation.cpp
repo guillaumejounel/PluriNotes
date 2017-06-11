@@ -49,7 +49,6 @@ QSet<NoteEntity*> Relation::successorsOf(NoteEntity* note) const{
     QSet<NoteEntity*> result;
     unsigned int size = content.size();
     NoteEntity* successor;
-
     for (unsigned int i = 0;i<size;i++){
         successor = content[i].successor(note,oriented);
         if ( successor != nullptr) result.insert(successor);
