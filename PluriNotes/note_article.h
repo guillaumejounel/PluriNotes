@@ -26,6 +26,23 @@ public:
     virtual void saveToXML(QXmlStreamWriter& stream) const override;
     virtual void loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) const override;
     ~Article() {}
+
+
+    //-------
+    // Article related Ui element setter.getter
+    // \todo move to an other class for better POO ?
+
+
+    //! \brief set the article Content in the UI
+    void setUiArticleContent(const QString& content) const;
+
+    //! \brief get the article articleContent in the UI
+    const QString getUiArticleContent() const;
+
+    //! \brief get the article articleDisplayContent in the UI
+    const QString getUiArticleContentEdit() const;
+    //-------
+
 };
 
 #endif // NOTE_ARTICLE_H

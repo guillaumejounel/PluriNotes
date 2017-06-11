@@ -370,39 +370,15 @@ public:
 
 
     //-------
-    // Article related
-    // \todo move to an other class for better POO ?
-
-    //! \brief Initialize the Article creation form
-    void initArticleForm();
-
-    //! \brief set the article Content in the UI
-    void setArticleContent(const QString& content);
-
-    //! \brief get the article articleContent in the UI
-    const QString getArticleContent();
-
-    //! \brief get the article articleDisplayContent in the UI
-    const QString getArticleContentEdit();
-    //-------
-
-
-
-    //-------
     // Task related
     //\todo move to an other class for better POO ?
 
-    //! \brief Initialize the Task creation form
-    void initTaskForm();
 
     //! \todo add documentation
     void setTaskAction(const QString& action);
 
-    //! \todo add documentation
-    const QString getTaskAction();
 
-    //! \todo add documentation
-    const QString getTaskActionEdit();
+
 
 
     //! \brief Set the task status in the UI
@@ -433,14 +409,6 @@ public:
     //-------
 
 
-    //-------
-    // File related
-    // \todo move to an other class for better POO ?
-
-    //! \brief Initialize the File creation form
-    void initFileForm();
-
-    //-------
 
 
     //! Before closing we have to execut this

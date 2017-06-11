@@ -27,6 +27,51 @@ public:
     virtual void saveToXML(QXmlStreamWriter& stream) const override;
     virtual void loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) const override;
     ~Task() {}
-};
+
+    // UI
+    //-------
+    // Task related
+    //\todo move to an other class for better POO ?
+
+
+    //! \todo add documentation
+    void setUiTaskAction(const QString& action) const;
+
+    //! \todo add documentation
+    const QString getUiTaskAction() const;
+
+    //! \todo add documentation
+    const QString getUiTaskActionEdit() const;
+/*
+
+    //! \brief Set the task status in the UI
+    void setTaskStatus(unsigned int i) const;
+
+    //! \brief get task status edit from the UI
+    unsigned int getTaskStatusEdit() const;
+
+
+    //! \brief set task priority in the UI
+    void setTaskPriority(unsigned int i) const;
+
+    //! \brief get Task Priority from thu ui
+    unsigned int getTaskPriority() const;
+
+    //! \brief get Task PriorityEdit from thu ui
+    unsigned int getTaskPriorityEdit() const;
+
+
+    //! \brief set task deadline in the UI
+    void setTaskDeadline(const QDateTime& date) const;
+
+    //! \brief get the task deadline from the UI
+    const QDateTime getTaskDeadline() const;
+
+    //! \brief get the task deadlineEdit from the UI
+    const QDateTime getTaskDeadlineEdit() const;
+    //-------
+*/
+
+    };
 
 #endif // NOTE_TASK_H
