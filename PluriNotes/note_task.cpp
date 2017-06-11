@@ -27,3 +27,11 @@ bool Task::textChanged() const {
     PluriNotes& manager = PluriNotes::getManager();
     return action == manager.getTaskActionEdit() && status == manager.getTaskStatusEdit() && priority == manager.getTaskPriorityEdit() && deadline == manager.getTaskDeadlineEdit();
 }
+
+void Task::saveToXML(QXmlStreamWriter& stream) const {
+
+}
+
+void Task::loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) const {
+
+}

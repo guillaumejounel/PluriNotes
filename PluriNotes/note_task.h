@@ -24,6 +24,8 @@ public:
     virtual Task* saveNote(QString title) override;
     virtual Task* addVersion() const override;
     virtual bool textChanged() const override;
+    virtual void saveToXML(QXmlStreamWriter& stream) const override;
+    virtual void loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) const override;
     ~Task() {}
 };
 

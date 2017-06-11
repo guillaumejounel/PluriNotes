@@ -476,16 +476,12 @@ void PluriNotes::save() {
     stream.setAutoFormatting(true);
     stream.writeStartDocument();
     stream.writeStartElement("notes");
-    //à terminer !
-    for(auto const& note: notes) {
-        stream.writeStartElement("article");
-        stream.writeTextElement("id",note->getId());
-        stream.writeTextElement("title",note->getTitle());
-        const Article *noteContent = dynamic_cast<const Article*>(&note->getLastVersion());
-        stream.writeTextElement("creationDate",noteContent->getCreationDate().toString("dddd dd MMMM yyyy hh:mm:ss"));
-        stream.writeTextElement("content",noteContent->getText());
-        stream.writeEndElement();
-    }
+    for(auto const& note: notes)
+        note->saveToXML(stream);
+    stream.writeEndElement();
+    stream.writeStartElement("trash");
+    for(auto const& note: trash)
+        note->saveToXML(stream);
     stream.writeEndElement();
     stream.writeEndDocument();
     newfile.close();
@@ -501,70 +497,13 @@ void PluriNotes::load() {
         qDebug() << "Erreur ouverture fichier notes";
     }
     QXmlStreamReader xml(&fin);
-    //qDebug()<<"debut fichier\n";
-    // We'll parse the XML until we reach end of it.
+    bool trash = false;
     while(!xml.atEnd() && !xml.hasError()) {
-        // Read next element.
-        QXmlStreamReader::TokenType token = xml.readNext();
-        // If token is just StartDocument, we'll go to next.
-        if(token == QXmlStreamReader::StartDocument) continue;
-        // If token is StartElement, we'll see if we can read it.
-        if(token == QXmlStreamReader::StartElement) {
-            // If it's named taches, we'll go to the next.
-            if(xml.name() == "notes") continue;
-            // If it's named tache, we'll dig the information from there.
-            if(xml.name() == "article") {
-                qDebug()<<"new article\n";
-                QString id;
-                QString title;
-                QString creationDate;
-                QString content;
-                QXmlStreamAttributes attributes = xml.attributes();
-                xml.readNext();
-                //We're going to loop over the things because the order might change.
-                //We'll continue the loop until we hit an EndElement named article.
-                while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "article")) {
-                    if(xml.tokenType() == QXmlStreamReader::StartElement) {
-                        // We've found identificateur.
-                        if(xml.name() == "id") {
-                            xml.readNext(); id=xml.text().toString();
-                            qDebug()<<"id="<<id<<"\n";
-                        }
-
-                        // We've found title.
-                        if(xml.name() == "title") {
-                            xml.readNext(); title=xml.text().toString();
-                            qDebug()<<"title="<<title<<"\n";
-                        }
-
-
-                        // We've found date.
-                        if(xml.name() == "creationDate") {
-                            xml.readNext(); creationDate=xml.text().toString();
-                            qDebug()<<"creationDate="<<creationDate<<"\n";
-                        }
-
-
-                        // We've found text
-                        if(xml.name() == "content") {
-                            xml.readNext();
-                            content=xml.text().toString();
-                            qDebug()<<"content="<<content<<"\n";
-                        }
-                    }
-                    // ...and next...
-                    xml.readNext();
-                }
-                qDebug()<<"ajout note "<<id<<"\n";
-                NoteEntity *newNoteEntity = new NoteEntity(QString(id));
-                const Article *newNote = new Article(QString(title), QDateTime::fromString(QString(creationDate),"dddd dd MMMM yyyy hh:mm:ss"), QString(content));
-                newNoteEntity->addVersion(*newNote);
-                notes.push_back(newNoteEntity);
-                listItemAndPointer* itm = new listItemAndPointer(newNoteEntity);
-                itm->setText(title);
-                ui->listNotesWidget->insertItem(0, itm);
-            }
+        if(xml.name() == "trash") trash = true;
+        if(xml.name() == "note" && xml.tokenType() == QXmlStreamReader::StartElement) {
+            NoteEntity::loadFromXML(xml);
         }
+        xml.readNext();
     }
     // Error handling.
     if(xml.hasError()) {

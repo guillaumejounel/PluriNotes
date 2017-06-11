@@ -12,8 +12,8 @@ private:
     bool archived;
     std::vector<const NoteElement*> versions;
 public:
-    NoteEntity(const QString& id);
-    ~NoteEntity() { versions.clear(); }
+    NoteEntity(const QString& id, const bool& archived = false);
+    virtual ~NoteEntity() { versions.clear(); }
     QString getId() const;
     QString getTitle() const;
     unsigned int getSize() const { return versions.size(); }
@@ -21,9 +21,10 @@ public:
     const NoteElement& getVersion(unsigned int nb) const;
     bool isArchived() const;
     void addVersion(const NoteElement&);
-
+    virtual void saveToXML(QXmlStreamWriter& stream) const;
     //! comparaison of note NoteEntity
     bool operator==(const NoteEntity& n)const;
+    static void loadFromXML(QXmlStreamReader& stream);
 };
 
 

@@ -9,6 +9,8 @@
 
 using namespace std;
 
+class NoteEntity;
+
 class NoteElement {
 private:
     const QString title;
@@ -29,6 +31,9 @@ public:
     virtual NoteElement* saveNote(QString title) = 0;
     virtual NoteElement* addVersion() const = 0;
     virtual bool textChanged() const = 0;
+    virtual void saveToXML(QXmlStreamWriter& stream) const = 0;
+    virtual QString typeName() const = 0;
+    virtual void loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) const = 0;
     virtual ~NoteElement() = default;
 };
 
