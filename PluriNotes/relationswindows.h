@@ -2,6 +2,7 @@
 #define RELATIONSWINDOWS_H
 
 #include <QMainWindow>
+#include <QInputDialog>
 #include "othertools.h"
 
 namespace Ui {
@@ -58,6 +59,7 @@ signals:
     void displayRelation();
     void addRelation();
     void addCouple();
+    void changeCoupleLabel();
 
 };
 

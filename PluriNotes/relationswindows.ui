@@ -483,13 +483,6 @@
                        </property>
                       </widget>
                      </item>
-                     <item>
-                      <widget class="QPushButton" name="saveRelationEditButton">
-                       <property name="text">
-                        <string>Save Relation</string>
-                       </property>
-                      </widget>
-                     </item>
                     </layout>
                    </item>
                   </layout>
@@ -639,6 +632,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>editCoupleLabelButton</sender>
+   <signal>clicked()</signal>
+   <receiver>relationsWindows</receiver>
+   <slot>changeCoupleLabel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>767</x>
+     <y>381</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>898</x>
+     <y>405</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>toNewRelationForm()</slot>
@@ -647,5 +656,6 @@
   <slot>saveRelation()</slot>
   <slot>addRelation()</slot>
   <slot>addCouple()</slot>
+  <slot>changeCoupleLabel()</slot>
  </slots>
 </ui>

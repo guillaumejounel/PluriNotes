@@ -50,7 +50,12 @@ void relationsWindows::displayRelation() {
     ui->titleLineEdit->setText(currentSelectedRelation.getTitle());
     ui->descriptionLineEdit->setText(currentSelectedRelation.getDescription());
     (currentSelectedRelation.isOriented())?ui->orientationSelection->setCurrentIndex(0):ui->orientationSelection->setCurrentIndex(1);
+
     ui->customWidgets->setCurrentIndex(1);
+    ui->listCoupleWidget->clear();
+    for (auto couple : currentSelectedRelation.getContent()) {
+        addCoupleToList(couple);
+    }
 //    ui->mainStackedWidget->setCurrentIndex(0);
 }
 
@@ -80,6 +85,15 @@ void relationsWindows::addCouple() {
     if (currentSelectedRelation.addCouple(newCouple)) {
         addCoupleToList(newCouple);
     }
+}
+
+void relationsWindows::changeCoupleLabel() {
+    QString label = QInputDialog::getText(this, "Change Couple Label", "New label :");
+    listCoupleAndReference* item = static_cast<listCoupleAndReference*> (ui->listCoupleWidget->currentItem());
+    // TODO : solve force crash here : (ASSERT: "&other != this" in file /usr/include/qt/QtCore/qstring.h, line 919)
+    //NoteCouple currentSelectedCouple = item->getCouple();
+    //currentSelectedCouple.setLabel(label);
+    //displayRelation();
 }
 
 void relationsWindows::closeEvent(QCloseEvent *event) {
