@@ -41,7 +41,6 @@ public :
 };
 
 
-
 /**
 \class listRelationAndPointer
 \brief Class herited from QListWidgetItem, to add a point to a relation

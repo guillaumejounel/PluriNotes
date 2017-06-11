@@ -264,7 +264,7 @@
                <item>
                 <widget class="QStackedWidget" name="customWidgets">
                  <property name="currentIndex">
-                  <number>0</number>
+                  <number>1</number>
                  </property>
                  <widget class="QWidget" name="basePage">
                   <widget class="QWidget" name="horizontalLayoutWidget_2">

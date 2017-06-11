@@ -298,6 +298,9 @@ public:
 
     //! Method to get all predecessors of a note
     QSet<NoteEntity*> getAllPredecessorsOf(NoteEntity* note) const;
+
+    //! Method to get all predecessors of a note
+    QVector<NoteEntity*> getNotesVector() const {return notes;}
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 

@@ -34,8 +34,14 @@ public:
     //! With creation of a listRelationAndPointer*
     listRelationAndPointer* addRelationToList(Relation *rel);
 
+    //! Function to populate the comboboxes of NoteEntities in the UI \n
+    void addNoteEntityToComboBoxes();
+
     //! Before closing
     void closeEvent ( QCloseEvent * event );
+
+    //! After showing
+    void showEvent ( QShowEvent * event );
 
 signals:
     public slots:
