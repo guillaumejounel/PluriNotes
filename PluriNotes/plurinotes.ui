@@ -1051,3 +1051,4 @@
   <slot>noteVersionChanged()</slot>
  </slots>
 </ui>
+

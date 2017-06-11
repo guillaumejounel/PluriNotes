@@ -284,6 +284,9 @@ public:
     //! \brief Empty trash
     void emptyTrash();
 
+    //! \brief add relation to the vector of relations
+    void addRelationToVector(Relation* r);
+
 
     //! \brief Function to remove a note
     //! \warning the memory is not fried

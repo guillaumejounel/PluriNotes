@@ -36,9 +36,8 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
     // Creation of the reference relation
     QString t = "References";
     QString d = "Here is the relation with all the diffent reference";
-    Relation Reference = Relation(t,d,true,0);
-    relations.push_back(&Reference);
-
+    Relation* Reference = new Relation(t,d,true,true);
+    relations.push_back(Reference);
 
     //Load data from UML
     load();
@@ -104,7 +103,6 @@ void PluriNotes::createRelationsView()
     relationsView = new relationsWindows();
     relationsView->setWindowTitle(tr("Relations managment"));
     relationsView->setAttribute(Qt::WA_QuitOnClose, false);
-    //relationsView->show();
 }
 
 
@@ -434,8 +432,6 @@ void PluriNotes::moveBackFromTrash(NoteEntity* noteEl){
     //! \todo add error ?
 }
 
-
-
 void PluriNotes::cancelNote() {
     ui->ButtonNewNote->setEnabled(true);
     ui->listNotesWidget->setEnabled(true);
@@ -585,7 +581,7 @@ void PluriNotes::loadDataIntoUi(){
     //! \todo add loading functionnalities to trash and notes
 
      for(auto& rel: relations){
-         static_cast<relationsWindows*>(relationsView)->addNoteToList(const_cast<Relation*>(rel));
+         static_cast<relationsWindows*>(relationsView)->addRelationToList(const_cast<Relation*>(rel));
      }
 }
 
@@ -700,11 +696,15 @@ unsigned int PluriNotes::getMaxRelationId(){
 
 
 Relation* PluriNotes::getReferencesRelation(){
-    unsigned int nbOfRealations = relations.size();
-    for (unsigned int i = 0; i < nbOfRealations ; i++){
+    unsigned int nbOfRelations = relations.size();
+    for (unsigned int i = 0; i < nbOfRelations ; i++){
         if( (relations[i])->isReferences()) return const_cast<Relation*>(relations[i]);
     }
     return nullptr;
+}
+
+void PluriNotes::addRelationToVector(Relation* r) {
+    relations.push_back(r);
 }
 
 
