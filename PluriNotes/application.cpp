@@ -566,7 +566,13 @@ listItemAndPointer* PluriNotes::addNote(NoteEntity& note) {
 }
 
 bool PluriNotes::isIdAvailable(const QString& id) const {
-    //TODO
+    for (auto note : notes){
+        if(note->getId() == id) return false;
+    }
+
+    for (auto note : trash){
+        if(note->getId() == id) return false;
+    }
     return true;
 }
 
