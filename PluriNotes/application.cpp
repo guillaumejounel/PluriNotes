@@ -677,8 +677,30 @@ treeItemNoteAndPointer* PluriNotes::addNoteToTree(NoteEntity* note, QTreeWidget*
     treeItemNoteAndPointer* itm = new treeItemNoteAndPointer(note);
     itm->setText(0,note->getTitle());
     tree->insertTopLevelItem(0,itm);
+    addNoteChildToTree(itm,tree);
     return itm;
 }
+
+
+void PluriNotes::addNoteChildToTree(treeItemNoteAndPointer* item, QTreeWidget* tree){
+    QSet<NoteEntity*> noteChildren;
+    if(tree == ui->treeViewPredecessors) {
+        noteChildren = getAllPredecessorsOf(item->getNotePointer());
+    }
+    else{
+        noteChildren = getAllSuccessorsOf(item->getNotePointer());
+    }
+
+
+    treeItemNoteAndPointer* child;
+
+    for (auto note : noteChildren){
+        child = new treeItemNoteAndPointer(note);
+        child->setText(0,note->getTitle());
+        item->addChild(child);
+    }
+}
+
 
 
 void PluriNotes::updateTrees(NoteEntity* note){
@@ -779,12 +801,10 @@ void PluriNotes::updateSelectionFromTreeSuccessors(){
     qWarning()<<QString("Enter updateSelectionFromTreeSuccessors");
     treeItemNoteAndPointer* itm = static_cast<treeItemNoteAndPointer*>(ui->treeViewSuccessors->currentItem());
     selectItemIntoList(findItemInList(itm->getNotePointer()));
-    //ui->treeViewSuccessors->clear();
 }
 
 void PluriNotes::updateSelectionFromTreePredecessors(){
     qWarning()<<QString("Enter updateSelectionFromTreePredecessors");
     treeItemNoteAndPointer* itm = static_cast<treeItemNoteAndPointer*>(ui->treeViewPredecessors->currentItem());
     selectItemIntoList(findItemInList(itm->getNotePointer()));
-    //ui->treeViewPredecessors->clear();
 }

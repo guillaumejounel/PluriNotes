@@ -341,6 +341,9 @@ public:
     //! With creation of a listItemAndPointer*
     treeItemNoteAndPointer* addNoteToTree(NoteEntity* note, QTreeWidget* tree);
 
+    //! function to add the child elements
+    void addNoteChildToTree(treeItemNoteAndPointer* item, QTreeWidget* tree);
+
     //! Function to update trees based on the selected note.
     void updateTrees(NoteEntity* note);
 
