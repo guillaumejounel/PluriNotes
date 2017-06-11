@@ -508,6 +508,9 @@ signals:
 
     //! \brief add child in Predecessors tree to the item
     void updateAddChildTreePredecessors(QTreeWidgetItem* item);
+
+    //! \brief animation of the retracable area
+    void retracteOrUnretracteArborescence();
 };
 
 

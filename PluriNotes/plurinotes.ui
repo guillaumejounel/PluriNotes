@@ -359,6 +359,55 @@
                </layout>
               </item>
               <item>
+               <layout class="QVBoxLayout" name="verticalLayout_10">
+                <item>
+                 <spacer name="verticalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="showArborescenceButton">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>200</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>15</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item>
                <layout class="QVBoxLayout" name="verticalLayout_13">
                 <item>
                  <widget class="QTreeWidget" name="treeViewPredecessors">
@@ -424,8 +473,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>290</width>
-             <height>407</height>
+             <width>703</width>
+             <height>545</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
@@ -790,8 +839,8 @@
    <slot>saveNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>261</x>
-     <y>439</y>
+     <x>422</x>
+     <y>577</y>
     </hint>
     <hint type="destinationlabel">
      <x>553</x>
@@ -806,8 +855,8 @@
    <slot>cancelNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>261</x>
-     <y>439</y>
+     <x>422</x>
+     <y>577</y>
     </hint>
     <hint type="destinationlabel">
      <x>571</x>
@@ -1103,6 +1152,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>showArborescenceButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>retracteOrUnretracteArborescence()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>584</x>
+     <y>314</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>386</x>
+     <y>31</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>saveNote()</slot>
@@ -1120,5 +1185,6 @@
   <slot>updateSelectionFromTreePredecessors()</slot>
   <slot>updateAddChildTreePredecessors(QTreeWidgetItem*)</slot>
   <slot>updateAddChildTreeSuccessors(QTreeWidgetItem*)</slot>
+  <slot>retracteOrUnretracteArborescence()</slot>
  </slots>
 </ui>

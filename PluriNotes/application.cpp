@@ -827,3 +827,24 @@ void PluriNotes::updateSelectionFromTreePredecessors(){
     treeItemNoteAndPointer* itm = static_cast<treeItemNoteAndPointer*>(ui->treeViewPredecessors->currentItem());
     selectItemIntoList(findItemInList(itm->getNotePointer()));
 }
+
+
+void PluriNotes::retracteOrUnretracteArborescence(){
+    QString text;
+    QToolButton* button = ui -> showArborescenceButton;
+    if (button->text() == QString(">")){
+        text = QString("<");
+        button->setText(text);
+        button->setMinimumHeight(400);
+
+        ui->treeViewPredecessors->hide();
+        ui->treeViewSuccessors->hide();
+    }
+    else{
+        text = QString(">");
+        button->setText(text);
+        button->setMinimumHeight(200);
+        ui->treeViewPredecessors->show();
+        ui->treeViewSuccessors->show();
+    }
+}
