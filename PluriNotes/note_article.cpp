@@ -55,7 +55,6 @@ void Article::loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) c
                 }
                 stream.readNext();
             }
-            qDebug() << " Version : " << title << ", " << content << ", " << date.toString("dddd dd MMMM yyyy hh:mm:ss");
             newNote = new Article(title, date, content);
             newNoteEntity.addVersion(*newNote);
         }

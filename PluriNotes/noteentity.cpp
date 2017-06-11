@@ -60,7 +60,6 @@ NoteEntity* NoteEntity::loadFromXML(QXmlStreamReader& stream) {
             }
             if(stream.name() == "versions") {
                 newNoteEntity = new NoteEntity(QString(id), archived);
-                qDebug() << id << " (" << type << ")";
                 while (!(stream.tokenType() == QXmlStreamReader::EndElement && stream.name() == "versions")) {
                     stream.readNext();
                     if(stream.tokenType() == QXmlStreamReader::StartElement && stream.name() == "version")
