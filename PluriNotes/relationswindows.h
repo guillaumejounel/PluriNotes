@@ -42,7 +42,7 @@ signals:
     void beforeClose();
     void toNewRelationForm();
     void displayRelation();
-    void saveRelation();
+    void addRelation();
 
 };
 

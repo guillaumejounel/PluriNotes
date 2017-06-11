@@ -14,6 +14,7 @@
 #include <QTreeWidgetItem>
 #include "notes.h"
 #include "relation.h"
+#include "notecouple.h"
 
 /**
 \class listItemAndPointer
@@ -48,7 +49,7 @@ in the application.
 **/
 class listRelationAndPointer : public QListWidgetItem {
 private :
-    //! \brief Pointer to a note entity
+    //! \brief Pointer to a relation
     Relation* relationPointer;
 public :
     //! Constructor for the class
@@ -56,6 +57,28 @@ public :
 
     //! Accessor to the added attribute
     Relation* getRelationPointer() const {return relationPointer;}
+};
+
+
+
+/**
+\class listCoupleAndPointer
+\brief Class herited from QListWidgetItem, to add a point to a couple
+
+This class is herited from QListWidgetItem in order to add an attribut "couplePointer"\n
+to each items, so when we click on an item in the list we can directly access the couple\n
+in the application.
+**/
+class listCoupleAndPointer : public QListWidgetItem {
+private :
+    //! \brief Pointer to a couple
+    NoteCouple* couplePointer;
+public :
+    //! Constructor for the class
+    listCoupleAndPointer(NoteCouple* ptr = nullptr) : couplePointer(ptr) {}
+
+    //! Accessor to the added attribute
+    NoteCouple* getCouplePointer() const {return couplePointer;}
 };
 
 
@@ -83,6 +106,7 @@ public :
     bool hasBeenExpended() const {return previouslyExpended;}
     void setExpensionCalculusStatus(bool status = true) {previouslyExpended = status;}
 };
+
 
 
 #endif // OTHERTOOLS_H

@@ -45,11 +45,12 @@ void relationsWindows::displayRelation() {
     const Relation& currentSelectedRelation = getCurrentRelation();
     ui->titleLineEdit->setText(currentSelectedRelation.getTitle());
     ui->descriptionLineEdit->setText(currentSelectedRelation.getDescription());
+    (currentSelectedRelation.isOriented())?ui->orientationSelection->setCurrentIndex(0):ui->orientationSelection->setCurrentIndex(1);
     ui->customWidgets->setCurrentIndex(1);
 //    ui->mainStackedWidget->setCurrentIndex(0);
 }
 
-void relationsWindows::saveRelation() {
+void relationsWindows::addRelation() {
     //Enregistre dans le vecteur relation de la classe PluriNotes
     //! \todo Faire des vérifications de validité (id...)
     //Puis créer la relation
