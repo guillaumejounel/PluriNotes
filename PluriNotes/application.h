@@ -358,6 +358,9 @@ public:
     // Article related
     // \todo move to an other class for better POO ?
 
+    //! \brief Initialize the Article creation form
+    void initArticleForm();
+
     //! \brief set the article Content in the UI
     void setArticleContent(const QString& content);
 
@@ -373,6 +376,9 @@ public:
     //-------
     // Task related
     //\todo move to an other class for better POO ?
+
+    //! \brief Initialize the Task creation form
+    void initTaskForm();
 
     //! \todo add documentation
     void setTaskAction(const QString& action);
@@ -409,6 +415,16 @@ public:
 
     //! \brief get the task deadlineEdit from the UI
     const QDateTime getTaskDeadlineEdit();
+    //-------
+
+
+    //-------
+    // File related
+    // \todo move to an other class for better POO ?
+
+    //! \brief Initialize the File creation form
+    void initFileForm();
+
     //-------
 
 

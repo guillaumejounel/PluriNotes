@@ -218,8 +218,8 @@ void PluriNotes::toNewNoteForm() {
     //Ouverture du formulaire de création de notes
     is_idChanged = false;
     ui->ButtonNewNote->setEnabled(false);
-    ui->idLineEdit->setText("");
-    ui->titleLineEdit->setText("");
+    ui->idLineEdit->clear();
+    ui->titleLineEdit->clear();
     ui->TypeComboBox->setCurrentIndex(0);
     ui->listNotesWidget->setEnabled(false);
     ui->mainStackedWidget->setCurrentIndex(1);
@@ -229,6 +229,10 @@ void PluriNotes::toNewNoteForm() {
 //void PluriNotes::setNoteId(const QString& i){
 //    ui->idDisplayLineEdit->setText(i);
 //}
+
+void PluriNotes::initArticleForm() {
+    ui->articleContent->clear();
+}
 
 void PluriNotes::setArticleContent(const QString& content) {
     ui->articleDisplayContent->setPlainText(content);
@@ -240,6 +244,12 @@ void PluriNotes::setNoteTitle(const QString& t){
 
 void PluriNotes::setNoteDate(const QDateTime& d){
     ui->dateDisplayLineEdit->setText(d.toString("dddd dd MMMM yyyy hh:mm:ss"));
+}
+
+void PluriNotes::initTaskForm() {
+    ui->taskAction->clear();
+    ui->taskPriority->setCurrentIndex(0);
+    ui->taskDeadline->setDateTime(QDateTime::currentDateTime());
 }
 
 void PluriNotes::setTaskAction(const QString& action) {
@@ -461,7 +471,9 @@ void PluriNotes::typeChangedForm() {
     //Ajout des champs selon le type de note
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
     ui->customWidgets->setCurrentIndex(myMap[ui->TypeComboBox->currentText()]->indexPageCreation());
-    ui->taskDeadline->setDateTime(QDateTime::currentDateTime());
+    initArticleForm();
+    initTaskForm();
+    initFileForm();
 }
 
 
@@ -605,6 +617,9 @@ void PluriNotes::setDataChanged(bool b) {
     saveAction->setEnabled(b);
 }
 
+void PluriNotes::initFileForm() {
+    ui->fileDescription->clear();
+}
 
 void PluriNotes::closeEvent(QCloseEvent *event){
     event->ignore();
