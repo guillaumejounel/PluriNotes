@@ -53,7 +53,7 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
 }
 
 void PluriNotes::testFunction(){
-
+    /*
     Relation* ref = relations[0];
     QString l = QString("couple 1");
     NoteCouple& c = *(new NoteCouple(l,notes[0],notes[1]));
@@ -68,7 +68,7 @@ void PluriNotes::testFunction(){
     l = QString("couple 3");
     c = *(new NoteCouple(l,notes[2],notes[3]));
     ref->addCouple(c);
-
+    */
 }
 
 const QString PluriNotes::getNoteTitleEdit() {
