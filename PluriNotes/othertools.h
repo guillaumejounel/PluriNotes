@@ -123,7 +123,7 @@ private :
 public :
     //! Constructor for the class
     coupleAndRelation(NoteCouple* couple, Relation* relation) : couplePointer(couple), relationPointer(relation) {}
-    ~coupleAndRelation(){delete couplePointer;}
+    ~coupleAndRelation() {}
     NoteCouple* getCouple() const {return couplePointer;}
     Relation* getRelation() const {return relationPointer;}
 };

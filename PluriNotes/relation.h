@@ -97,16 +97,16 @@ public:
     bool addCouple(const NoteCouple* c);
 
     //! Method to remove a note couple to the relation
-    coupleAndRelation removeCouple(const NoteCouple* c);
+    void removeCouple(const NoteCouple* c);
 
     //! Method to remove a list of note from the relation
-    QList<coupleAndRelation> removeCouple(const QList<NoteCouple*> coupleList);
+    void removeCouple(const QList<NoteCouple*> coupleList);
 
     //! Method to remove all couples that contains a note
-    QList<coupleAndRelation> removeCoupleWithNote(const NoteEntity* note);
+    void removeCoupleWithNote(const NoteEntity* note);
 
     //! Method to remove all couples that contains one of the note from the list
-    QList<coupleAndRelation> removeCoupleWithNote(const QList<NoteEntity*> noteList);
+    void removeCoupleWithNote(const QList<NoteEntity*> noteList);
 
 
     //! Method to get successors of a note in a relation

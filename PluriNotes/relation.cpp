@@ -52,12 +52,12 @@ bool Relation::addCouple(const NoteCouple* c) {
     return true;
 }
 
-coupleAndRelation Relation::removeCouple(const NoteCouple*c) {
+void Relation::removeCouple(const NoteCouple*c) {
      for (auto couple : content){
         if (couple == c){
             // We duplicate the couple
-            NoteCouple* tmp = new NoteCouple(*couple);
-            coupleAndRelation output = coupleAndRelation(tmp,this);
+            //NoteCouple* tmp = new NoteCouple(*couple);
+            //coupleAndRelation output = coupleAndRelation(tmp,this);
 
             content.removeAll(const_cast<NoteCouple*>(c));
             delete c;
@@ -66,37 +66,33 @@ coupleAndRelation Relation::removeCouple(const NoteCouple*c) {
     }
 }
 
-QList<coupleAndRelation> Relation::removeCouple(const QList<NoteCouple*> coupleList){
-    QList<coupleAndRelation> output;
-    for (auto couple : coupleList){
-        output.append(removeCouple(couple));
-    }
+void Relation::removeCouple(const QList<NoteCouple*> coupleList){
 
-    return output;
+    for (auto couple : coupleList){
+        removeCouple(couple);
+    }
 }
 
 
-QList<coupleAndRelation> Relation::removeCoupleWithNote(const NoteEntity* note){
-    QList<coupleAndRelation> output;
-
-    for (auto couple : content){
+void Relation::removeCoupleWithNote(const NoteEntity* note){
+     for (auto couple : content){
         if (couple->contains(note)) {
-            NoteCouple* tmp = new NoteCouple(*couple);
-            output += coupleAndRelation(tmp,this);
+            //output.append(coupleAndRelation(new NoteCouple(*couple),this));
             content.removeAll(couple);
+            delete couple;
         }
     }
-    return output;
+    //return output;
 }
 
 
-QList<coupleAndRelation> Relation::removeCoupleWithNote(const QList<NoteEntity*> noteList){
-    QList<coupleAndRelation> output;
+void Relation::removeCoupleWithNote(const QList<NoteEntity*> noteList){
+    //QList<coupleAndRelation> output;
     for (auto note : noteList){
-        output+=removeCoupleWithNote(note);
+        removeCoupleWithNote(note);
     }
 
-    return output;
+    //return output;
 }
 
 
