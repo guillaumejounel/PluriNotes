@@ -188,6 +188,7 @@ PluriNotes::~PluriNotes() {
 }
 
 void PluriNotes::toNewNoteForm() {
+    ui -> toolBox -> setCurrentIndex(0);
     setInteractivity(false);
     //Ouverture du formulaire de création de notes
     is_idChanged = false;
