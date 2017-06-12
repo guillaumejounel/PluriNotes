@@ -42,23 +42,7 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
 }
 
 void PluriNotes::testFunction() {
-    /*
-    Relation* ref = relations[0];
-    QString l = QString("couple 1");
-    NoteCouple& c = *(new NoteCouple(l,notes[0],notes[1]));
-    ref->addCouple(c);
-
-
-    l = QString("couple 2");
-    c = *(new NoteCouple(l,notes[1],notes[2]));
-    ref->addCouple(c);
-
-
-    l = QString("couple 3");
-    c = *(new NoteCouple(l,notes[2],notes[3]));
-    ref->addCouple(c);
-    */
-
+//
 }
 
 
@@ -162,7 +146,7 @@ void PluriNotes::createActions()
     exitAction->setShortcuts(QKeySequence::Quit);
     connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
 
-    viewUndoHistory = new QAction(tr("View&History"), this);
+    viewUndoHistory = new QAction(tr("View History"), this);
     connect(viewUndoHistory, SIGNAL(triggered()), this, SLOT(showUndoHistoryWindows()));
     /*
     aboutAction = new QAction(tr("&About"), this);

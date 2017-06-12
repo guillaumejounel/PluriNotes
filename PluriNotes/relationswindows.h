@@ -5,6 +5,14 @@
 #include <QInputDialog>
 #include "othertools.h"
 
+
+#include <QUndoStack>
+#include <QUndoView>
+
+class QUndoView;
+class QUndoStack;
+
+
 namespace Ui {
 class relationsWindows;
 }
@@ -24,6 +32,29 @@ private:
     QAction* exitAction;
 
     Relation& getCurrentRelation();
+
+
+    //! \brief history window
+    QUndoView *undoView;
+
+    //! \brief windows menu
+    QMenu *windowsMenu;
+
+    //! Undostack for the undo/redo process in the app
+    QUndoStack *undoStack;
+
+
+    //-------
+    // Actions
+    //! \brief QAction for undoing
+    QAction *undoAction;
+
+    //! \brief QAction for redoing
+    QAction *redoAction;
+
+    //! \brief QAction to open the history window
+    QAction *viewUndoHistory;
+
 
 public:
     explicit relationsWindows(QWidget *parent = 0);
@@ -51,6 +82,11 @@ public:
     //! After showing
     void showEvent ( QShowEvent * event );
 
+
+
+
+
+
 signals:
     public slots:
     //! Short function to be called before closing the window
@@ -62,6 +98,8 @@ signals:
     void changeCoupleLabel();
     void deleteCouple();
 
+    //! \todo to show the undo history
+    void showUndoHistoryWindows();
 };
 
 #endif // RELATIONSWINDOWS_H

@@ -8,8 +8,28 @@ relationsWindows::relationsWindows(QWidget *parent) : QMainWindow(parent), ui(ne
     exitAction->setShortcuts(QKeySequence::Quit);
     connect(exitAction, SIGNAL(triggered()), this, SLOT(beforeClose()));
 
-//    ui->mainStackedWidget->setCurrentIndex(0);
-    //displayRelation();
+    //! Creation of the undo stack
+    undoStack = new QUndoStack(this);
+
+    undoView = new QUndoView(undoStack);
+    undoView->setWindowTitle(tr("Command List ~ Relations"));
+    undoView->setAttribute(Qt::WA_QuitOnClose, false);
+
+
+    viewUndoHistory = new QAction(tr("View&History"), this);
+    connect(viewUndoHistory, SIGNAL(triggered()), this, SLOT(showUndoHistoryWindows()));
+
+
+    windowsMenu = menuBar()->addMenu(tr("&Windows"));
+    windowsMenu->addAction(viewUndoHistory);
+
+
+    undoAction = undoStack->createUndoAction(this, tr("&Undo"));
+    undoAction->setShortcuts(QKeySequence::Undo);
+
+    redoAction = undoStack->createRedoAction(this, tr("&Redo"));
+    redoAction->setShortcuts(QKeySequence::Redo);
+
 }
 
 void relationsWindows::beforeClose() {
@@ -162,3 +182,7 @@ void relationsWindows::addNoteEntityToComboBoxes() {
     }
 }
 
+
+void relationsWindows::showUndoHistoryWindows() {
+    undoView->show();
+}

@@ -16,6 +16,7 @@
 #include <QVector>
 #include <QSet>
 
+
 class NoteCouple;
 class NoteEntity;
 class Relation;
@@ -31,6 +32,9 @@ private:
 
     //! \brief content of the relation
     QVector<NoteCouple*> content;
+
+    //! \brief a temporary vector to store deleted couple for undo/redo Purpose
+    QVector<NoteCouple*> deletedTMP;
 
     //! Boolean to know if we actually have to consider both couple (x,y) and (y,x)
     bool oriented;
