@@ -463,6 +463,9 @@ signals:
     //! \todo Add documentation !!!!
     void noteVersionChanged();
 
+    //! \todo Let the user select a file on his computer so as to attached it to a document
+    void selectDocumentFile();
+
     //! \todo Add documentation !!!!
     void showUndoHistoryWindows();
 

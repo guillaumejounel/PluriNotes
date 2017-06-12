@@ -67,7 +67,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>395</height>
+           <height>348</height>
           </rect>
          </property>
          <attribute name="label">
@@ -85,7 +85,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>395</height>
+           <height>348</height>
           </rect>
          </property>
          <attribute name="label">
@@ -103,7 +103,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>395</height>
+           <height>348</height>
           </rect>
          </property>
          <attribute name="label">
@@ -200,7 +200,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>672</width>
+             <width>597</width>
              <height>382</height>
             </rect>
            </property>
@@ -1114,8 +1114,8 @@
    <slot>saveNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>588</x>
-     <y>573</y>
+     <x>764</x>
+     <y>543</y>
     </hint>
     <hint type="destinationlabel">
      <x>553</x>
@@ -1130,8 +1130,8 @@
    <slot>cancelNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>588</x>
-     <y>573</y>
+     <x>764</x>
+     <y>543</y>
     </hint>
     <hint type="destinationlabel">
      <x>571</x>
@@ -1162,8 +1162,8 @@
    <slot>typeChangedForm()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>777</x>
-     <y>230</y>
+     <x>799</x>
+     <y>204</y>
     </hint>
     <hint type="destinationlabel">
      <x>470</x>
@@ -1178,8 +1178,8 @@
    <slot>deleteNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>569</x>
-     <y>392</y>
+     <x>301</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
      <x>306</x>
@@ -1194,8 +1194,8 @@
    <slot>saveNewVersion()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>377</x>
-     <y>392</y>
+     <x>301</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
      <x>176</x>
@@ -1210,8 +1210,8 @@
    <slot>noteVersionChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>473</x>
-     <y>392</y>
+     <x>301</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
      <x>149</x>
@@ -1226,8 +1226,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>561</x>
-     <y>348</y>
+     <x>289</x>
+     <y>78</y>
     </hint>
     <hint type="destinationlabel">
      <x>160</x>
@@ -1242,8 +1242,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>348</x>
-     <y>82</y>
+     <x>301</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
      <x>160</x>
@@ -1258,8 +1258,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>280</x>
-     <y>179</y>
+     <x>301</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -1274,8 +1274,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>225</x>
-     <y>192</y>
+     <x>301</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
      <x>156</x>
@@ -1290,8 +1290,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>192</y>
+     <x>301</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -1306,8 +1306,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>271</x>
-     <y>192</y>
+     <x>301</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
      <x>153</x>
@@ -1322,8 +1322,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>280</x>
-     <y>178</y>
+     <x>289</x>
+     <y>73</y>
     </hint>
     <hint type="destinationlabel">
      <x>160</x>
@@ -1338,8 +1338,8 @@
    <slot>displayNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>280</x>
-     <y>392</y>
+     <x>301</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
      <x>154</x>
@@ -1370,8 +1370,8 @@
    <slot>updateSelectionFromTreePredecessors()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>676</x>
-     <y>185</y>
+     <x>301</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
      <x>672</x>
@@ -1386,8 +1386,8 @@
    <slot>updateSelectionFromTreeSuccessors()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>676</x>
-     <y>393</y>
+     <x>301</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
      <x>879</x>
@@ -1402,8 +1402,8 @@
    <slot>updateAddChildTreePredecessors(QTreeWidgetItem*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>676</x>
-     <y>146</y>
+     <x>301</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
      <x>776</x>
@@ -1418,8 +1418,8 @@
    <slot>updateAddChildTreeSuccessors(QTreeWidgetItem*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>676</x>
-     <y>393</y>
+     <x>301</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
      <x>880</x>
@@ -1434,8 +1434,8 @@
    <slot>retracteOrUnretracteArborescence()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>593</x>
-     <y>324</y>
+     <x>216</x>
+     <y>258</y>
     </hint>
     <hint type="destinationlabel">
      <x>386</x>
@@ -1450,8 +1450,8 @@
    <slot>restoreTrashSlot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>78</x>
-     <y>183</y>
+     <x>84</x>
+     <y>505</y>
     </hint>
     <hint type="destinationlabel">
      <x>52</x>
@@ -1466,8 +1466,8 @@
    <slot>emptyTrashSlot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>148</x>
-     <y>183</y>
+     <x>146</x>
+     <y>505</y>
     </hint>
     <hint type="destinationlabel">
      <x>108</x>
@@ -1482,8 +1482,8 @@
    <slot>showTrashSlot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>92</x>
-     <y>148</y>
+     <x>104</x>
+     <y>319</y>
     </hint>
     <hint type="destinationlabel">
      <x>167</x>
@@ -1504,6 +1504,22 @@
     <hint type="destinationlabel">
      <x>-1</x>
      <y>182</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>documentFileButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>selectDocumentFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>405</x>
+     <y>482</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>532</y>
     </hint>
    </hints>
   </connection>
@@ -1529,5 +1545,6 @@
   <slot>emptyTrashSlot()</slot>
   <slot>showTrashSlot()</slot>
   <slot>showTrashSlot(int)</slot>
+  <slot>selectDocumentFile()</slot>
  </slots>
 </ui>

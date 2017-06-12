@@ -6,6 +6,7 @@
 
 #include "commands.h"
 #include <QtWidgets>
+#include <QFileDialog>
 
 PluriNotes& PluriNotes::getManager() {
     if(!instanceUnique) instanceUnique = new PluriNotes;
@@ -280,6 +281,13 @@ void PluriNotes::noteVersionChanged() {
             ui->documentDisplayFileButton->setDisabled(1);
         }
     }
+}
+
+void PluriNotes::selectDocumentFile() {
+    QString fileName = QFileDialog::getOpenFileName(this,
+        tr("Open file"), QDir::homePath(), tr("Sound, Image or Video Files (*.gif *.png *.jpg *.bmp *.raw *.mp3 *.m4a *.wav *.flac *.wmv *.mp4 *.mkv *.m4v)"));
+    ui->documentFile->setText(fileName);
+    ui->documentDisplayFile->setText(fileName);
 }
 
 void PluriNotes::noteTextChanged() {
