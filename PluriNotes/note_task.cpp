@@ -19,6 +19,10 @@ Task* Task::addVersion() const {
     return new Task(getUiNoteTitleEdit(), QDateTime::currentDateTime(), getUiTaskActionEdit(), getUiTaskStatusEdit(), getUiTaskPriorityEdit(), getUiTaskDeadlineEdit());
 }
 
+QStringList Task::getReferences() const {
+
+}
+
 bool Task::textChanged() const {
     return action == getUiTaskActionEdit() && status == getUiTaskStatusEdit() && priority == getUiTaskPriorityEdit() && deadline == getUiTaskDeadlineEdit();
 }
