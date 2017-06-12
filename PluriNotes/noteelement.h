@@ -33,7 +33,6 @@ public:
     virtual void displayNote() const = 0;
     virtual NoteElement* saveNote(QString title) = 0;
     virtual NoteElement* addVersion() const = 0;
-    virtual QStringList getReferences() const = 0;
     virtual bool textChanged() const = 0;
     virtual void saveToXML(QXmlStreamWriter& stream) const = 0;
     virtual QString typeName() const = 0;
@@ -52,8 +51,11 @@ public:
     //! \brief set the date fiel in the UI
     void setUiNoteDate(const QDateTime& d) const;
 
-    //! method to get the references in text
-    QStringList getReferences(const QString& text);
+    //! method to get the references in a text
+    QStringList getReferences(const QString& text) const;
+
+    //! method to get the references inside a specific type of note
+    virtual QStringList returnReferences() const = 0;
 };
 
 

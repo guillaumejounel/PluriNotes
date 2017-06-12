@@ -66,6 +66,7 @@ void addNoteEntityCommand::undo()
     PluriNotes& manager = PluriNotes::getManager();
     manager.removeNoteFromList(getNote(), manager.getListActiveNotes());
     manager.removeNote(getNote());
+    manager.getReferencesRelation()->removeCoupleWithNote(getNote());
 }
 
 void addNoteEntityCommand::redo()
@@ -73,6 +74,8 @@ void addNoteEntityCommand::redo()
     setText("Creation of the note :"+getNote()->getId());
     PluriNotes& manager = PluriNotes::getManager();
     manager.addNote(*note, manager.getListActiveNotes());
+    QStringList listOfRefenreces = note->returnReferences();
+    if (!listOfRefenreces.isEmpty()) manager.addReferences(getNote(),listOfRefenreces);
 
     manager.setDataChanged(true);
 }

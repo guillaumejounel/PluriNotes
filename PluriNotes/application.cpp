@@ -322,20 +322,35 @@ void PluriNotes::saveNote() {
     for(QTextEdit* widget: ui->customWidgets->widget(myMap[ui->TypeComboBox->currentText()]->indexPageCreation())->findChildren<QTextEdit*>())
         if(widget->property("obligatory").toBool() && widget->toPlainText() == QString("")) flag = false;
 
-    if(flag) {
-        //Create and save the note
-        NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
-        NoteElement* newNote = myMap[ui->TypeComboBox->currentText()]->saveNote(ui->titleLineEdit->text());
-        QDateTime creationDate = QDateTime::currentDateTime();
-        newNote->setCreationDate(creationDate);
-        newNoteEntity->addVersion(*newNote);
+    //Create and save the note ; to check references it is easier
+    NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
+    NoteElement* newNote = myMap[ui->TypeComboBox->currentText()]->saveNote(ui->titleLineEdit->text());
+    QDateTime creationDate = QDateTime::currentDateTime();
+    newNote->setCreationDate(creationDate);
+    newNoteEntity->addVersion(*newNote);
 
+    // references check
+    bool references = true;
+    QStringList referencesInNotes = newNoteEntity->returnReferences();
+    QStringList allActiveRefences = getActiveReferences();
+    for (auto s : referencesInNotes ){
+        // for all references in the field we check if they are valid
+        if (!allActiveRefences.contains(s)){
+            flag = false; references = false;
+        }
+    }
+
+    if(flag) {
         QUndoCommand *addCommand = new addNoteEntityCommand(newNoteEntity);
         undoStack->push(addCommand);
     } else {
+        delete newNoteEntity;
+
         //Input is not valid
         QMessageBox msgBox;
         msgBox.setText("Please check your input");
+
+        if (references == false) msgBox.setText("Please check your input. You notably have references issues !");
         msgBox.exec();
     }
 }
@@ -796,6 +811,32 @@ bool PluriNotes::isReferenced(NoteEntity* note){
 
 QList<coupleAndRelation> PluriNotes::deletedCouples(NoteEntity* note){
 //
+}
+
+QStringList PluriNotes::getActiveReferences() const {
+    QStringList output;
+    for (auto note : notes){
+        if (!note->isArchived()) output += note->getId();
+    }
+    return output;
+}
+
+void PluriNotes::addReferences(NoteEntity* note, const QStringList& idList){
+    // We have first to build a list of NoteEntity* based on the list of ID
+    QList<NoteEntity*> listOfNoteMatchingId;
+
+    for(auto note : notes){
+        if (idList.contains(note->getId())){
+            listOfNoteMatchingId.append(note);
+            qWarning()<<QString("reference matched !");
+        }
+
+    }
+
+    QString label("ref");
+    for (auto y : listOfNoteMatchingId){
+        getReferencesRelation()->addCouple(NoteCouple(label, note, y));
+    }
 }
 
 

@@ -321,6 +321,11 @@ public:
     //! Special list of the couples deleted when we delete a note
     QList<coupleAndRelation> deletedCouples(NoteEntity* note);
 
+    //! List of active ID for referencing
+    QStringList getActiveReferences()const ;
+
+    //! \brief add References in the references vector
+    void addReferences(NoteEntity* note, const QStringList& idList);
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 

@@ -16,14 +16,9 @@ Article* Article::saveNote(QString title) {
 }
 
 Article* Article::addVersion() const {
-    getReferences();
     return new Article(getUiNoteTitleEdit(), QDateTime::currentDateTime(), getUiArticleContentEdit());
 }
 
-QStringList Article::getReferences() const {
-    //
-    // return list;
-}
 
 bool Article::textChanged() const {
     return text == getUiArticleContentEdit();
@@ -62,6 +57,13 @@ void Article::loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) c
         }
         stream.readNext();
     }
+}
+
+
+QStringList Article::returnReferences() const{
+    QStringList ref = getReferences(getTitle())+getReferences(getText());
+    ref.QStringList::removeDuplicates();
+    return ref;
 }
 
 

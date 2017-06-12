@@ -12,13 +12,13 @@ private:
     QVector<const NoteElement*> versions;
 public:
     NoteEntity(const QString& id, const bool& archived = false);
-    virtual ~NoteEntity() { versions.clear(); }
-    QString getId() const;
+    virtual ~NoteEntity() { for(auto version : versions) delete version; versions.clear(); }
+    QString getId() const {return id;}
     QString getTitle() const;
     unsigned int getSize() const { return versions.size(); }
     const NoteElement& getLastVersion() const;
     const NoteElement& getVersion(unsigned int nb) const;
-    bool isArchived() const;
+    bool isArchived() const {return archived;}
 
     void addVersion(const NoteElement& newVersion);
     void deleteVersion(const NoteElement& version);
@@ -30,6 +30,9 @@ public:
     //! comparaison of note NoteEntity
     bool operator==(const NoteEntity& n)const;
     static NoteEntity* loadFromXML(QXmlStreamReader& stream);
+
+    //! get the references in the last version
+    QStringList returnReferences() const;
 };
 
 #endif // NOTEENTITY_H

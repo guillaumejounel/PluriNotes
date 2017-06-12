@@ -48,6 +48,7 @@ bool Relation::addCouple(const NoteCouple& c) {
     //Check if the couple isn't already inside
     if ( isInside(c) ) return false;
     content.push_front(c);
+    qWarning()<<QString("Couple added !");
     return true;
 }
 

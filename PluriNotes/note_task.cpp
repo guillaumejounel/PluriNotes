@@ -19,9 +19,7 @@ Task* Task::addVersion() const {
     return new Task(getUiNoteTitleEdit(), QDateTime::currentDateTime(), getUiTaskActionEdit(), getUiTaskStatusEdit(), getUiTaskPriorityEdit(), getUiTaskDeadlineEdit());
 }
 
-QStringList Task::getReferences() const {
 
-}
 
 bool Task::textChanged() const {
     return action == getUiTaskActionEdit() && status == getUiTaskStatusEdit() && priority == getUiTaskPriorityEdit() && deadline == getUiTaskDeadlineEdit();
@@ -75,6 +73,12 @@ void Task::loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) cons
     }
 }
 
+
+QStringList Task::returnReferences() const{
+    QStringList ref = getReferences(getTitle())+getReferences(getAction());
+    ref.QStringList::removeDuplicates();
+    return ref;
+}
 
 // UI
 void Task::setUiTaskAction(const QString& action) const {

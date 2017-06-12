@@ -24,13 +24,6 @@ const NoteElement& NoteEntity::getVersion(unsigned int nb) const {
     return *versions[nb];
 }
 
-QString NoteEntity::getId() const {
-    return id;
-}
-
-bool NoteEntity::isArchived() const {
-    return archived;
-}
 
 bool NoteEntity::operator==(const NoteEntity& n)const {
     return (id==n.getId());
@@ -87,4 +80,9 @@ void NoteEntity::deleteVersion(const NoteElement &version) {
 
 bool NoteEntity::isVersionInsideNote(const NoteElement& version) const{
     return versions.contains(&version);
+}
+
+
+QStringList NoteEntity::returnReferences() const{
+    return getLastVersion().returnReferences();
 }
