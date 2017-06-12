@@ -78,12 +78,16 @@ void relationsWindows::addCouple() {
     PluriNotes& manager = PluriNotes::getManager();
     NoteEntity* note1 = manager.getNoteById(ui->noteSelectorX->currentText());
     NoteEntity* note2 = manager.getNoteById(ui->noteSelectorY->currentText());
-    QString defaultTitle = "";
-    NoteCouple* newCouple = new NoteCouple(defaultTitle, note1, note2);
+    if (note1->getId() == note2->getId()) {
+        QMessageBox::warning(this, "Warning", "The couple is composed twice of the same note and cannot be added.");
+    } else {
+        QString defaultTitle = "";
+        NoteCouple* newCouple = new NoteCouple(defaultTitle, note1, note2);
 
-    Relation& currentSelectedRelation = getCurrentRelation();
-    if (currentSelectedRelation.addCouple(newCouple)) {
-        addCoupleToList(newCouple);
+        Relation& currentSelectedRelation = getCurrentRelation();
+        if (currentSelectedRelation.addCouple(newCouple)) {
+            addCoupleToList(newCouple);
+        }
     }
 }
 
