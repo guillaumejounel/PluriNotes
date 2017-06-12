@@ -223,18 +223,17 @@ void PluriNotes::setInteractivity(bool b){
 
 NoteEntity* PluriNotes::getCurrentNote() {
     int nb = ui -> toolBox ->currentIndex();
+    int nb2 = ui->listNotesWidget->count();
+    listItemAndPointer* item = nullptr;
     qWarning()<<QString::number(nb);
     if (nb == 0 && ui->listNotesWidget->count() != 0){
-        listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
-        //ui->mainStackedWidget->setCurrentIndex(0);
-        return item->getNotePointer();
+        item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
     } else if (nb == 1 && ui->listArchivedWidget->count() != 0){
-        listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listArchivedWidget->currentItem());
-        return item->getNotePointer();
+        item = static_cast<listItemAndPointer*> (ui->listArchivedWidget->currentItem());
     } else if (nb == 2 && ui->listTrashWidget->count() != 0){
-        //ui->mainStackedWidget->setCurrentIndex(4);
         return nullptr; // it is in trash
     }
+    if (item != nullptr) return item->getNotePointer();
     ui->mainStackedWidget->setCurrentIndex(2);
     return nullptr;
 }
@@ -243,22 +242,22 @@ void PluriNotes::displayNote(unsigned int n) {
     isDisplayed = false;
     ui->idDisplayLineEdit->setReadOnly(true);
     ui->dateDisplayLineEdit->setReadOnly(true);
-    if(notes.size() && getCurrentNote()!= nullptr) {
-        const NoteEntity& currentSelectedNote = *getCurrentNote();
-        ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
+    const NoteEntity* currentSelectedNote = getCurrentNote();
+    if(notes.size() && currentSelectedNote!= nullptr) {
+        ui->idDisplayLineEdit->setText(currentSelectedNote->getId());
         ui->noteTextVersion->clear();
-        updateTrees(const_cast<NoteEntity*>(&currentSelectedNote));
-        if (currentSelectedNote.getSize() == 1) {
+        updateTrees(const_cast<NoteEntity*>(currentSelectedNote));
+        if (currentSelectedNote->getSize() == 1) {
             ui->noteTextVersion->addItem(QString("Version 1"));
             ui->noteTextVersion->setEnabled(0);
         } else {
             ui->noteTextVersion->setEnabled(1);
-            for(unsigned int i = currentSelectedNote.getSize(); i > 0; --i)
+            for(unsigned int i = currentSelectedNote->getSize(); i > 0; --i)
                 ui->noteTextVersion->addItem(QString("Version ") + QString::number(i));
             ui->noteTextVersion->setCurrentIndex(n);
         }
         n = ui->noteTextVersion->count() - ui->noteTextVersion->currentIndex() - 1;
-        const NoteElement& note = currentSelectedNote.getVersion(n);
+        const NoteElement& note = currentSelectedNote->getVersion(n);
         ui->noteTypeDisplay->setCurrentIndex(note.indexPageCreation());
         //Ajout et remplissage des champs de type de note
         note.displayNote();
