@@ -88,8 +88,8 @@ public:
     //! After showing
     void showEvent ( QShowEvent * event );
 
-
-
+    //! Method to change multiple widget state
+    void restrictInteractivity(bool b, unsigned int level = 0);
 
 
 

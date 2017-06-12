@@ -59,10 +59,13 @@ void relationsWindows::beforeClose() {
 }
 
 void relationsWindows::toNewRelationForm() {
+    restrictInteractivity(true);
+
     ui->newRelationButton->setEnabled(false);
     ui->listOfAllRelations->setEnabled(false);
     ui->titleLineEdit->setReadOnly(false);
     ui->descriptionLineEdit->setReadOnly(false);
+
     ui->titleLineEdit->setText(QString(""));
     ui->descriptionLineEdit->setText(QString(""));
     ui->customWidgets->setCurrentIndex(0);
@@ -87,6 +90,12 @@ void relationsWindows::displayRelation() {
         ui->listOfAllRelations->setCurrentRow(0);
         PluriNotes& manager = PluriNotes::getManager();
         currentSelectedRelation = manager.getReferencesRelation();
+    }
+
+    if(currentSelectedRelation->isReferences()) {
+        restrictInteractivity(false);
+    }else{
+        restrictInteractivity(true);
     }
 
     ui->titleLineEdit->setText(currentSelectedRelation->getTitle());
@@ -220,8 +229,6 @@ void relationsWindows::addNoteEntityToComboBoxes() {
     PluriNotes& manager = PluriNotes::getManager();
     QVector<NoteEntity*> notes = manager.getNotesVector();
     if(notes.size()) {
-        ui->noteSelectorX->setEnabled(true);
-        ui->noteSelectorY->setEnabled(true);
         for(auto note : notes) {
             ui->noteSelectorX->addItem(note->getId());
             ui->noteSelectorY->addItem(note->getId());
@@ -235,4 +242,25 @@ void relationsWindows::addNoteEntityToComboBoxes() {
 
 void relationsWindows::showUndoHistoryWindows() {
     undoView->show();
+}
+
+
+void relationsWindows::restrictInteractivity(bool b, unsigned int level){
+    if (level==0){
+        // to block reference edition ! (and reactivate it)
+        ui->cancelRelationCreationButton->setEnabled(b);
+        ui->orientationSelection->setEnabled(b);
+        ui->noteSelectorX->setEnabled(b);
+
+        ui->noteSelectorX->setEnabled(b);
+        ui->noteSelectorY->setEnabled(b);
+        ui->addCoupleBoutton->setEnabled(b);
+        ui->listCoupleWidget->setEnabled(b);
+        ui->editCoupleLabelButton->setEnabled(b);
+        ui->removeCoupleButton->setEnabled(b);
+        ui->deleteRelationButton->setEnabled(b);
+
+        ui->titleLineEdit->setEnabled(b);
+        ui->descriptionLineEdit->setEnabled(b);
+    }
 }
