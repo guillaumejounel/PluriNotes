@@ -648,6 +648,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>removeCoupleButton</sender>
+   <signal>clicked()</signal>
+   <receiver>relationsWindows</receiver>
+   <slot>deleteCouple()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>831</x>
+     <y>421</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>899</x>
+     <y>463</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>toNewRelationForm()</slot>
@@ -657,5 +673,6 @@
   <slot>addRelation()</slot>
   <slot>addCouple()</slot>
   <slot>changeCoupleLabel()</slot>
+  <slot>deleteCouple()</slot>
  </slots>
 </ui>

@@ -60,6 +60,7 @@ signals:
     void addRelation();
     void addCouple();
     void changeCoupleLabel();
+    void deleteCouple();
 
 };
 

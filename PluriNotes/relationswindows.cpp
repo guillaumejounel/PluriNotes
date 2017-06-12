@@ -90,9 +90,16 @@ void relationsWindows::addCouple() {
 void relationsWindows::changeCoupleLabel() {
     QString label = QInputDialog::getText(this, "Change Couple Label", "New label :");
     listCoupleAndPointer* item = static_cast<listCoupleAndPointer*> (ui->listCoupleWidget->currentItem());
-    // TODO : solve force crash here : (ASSERT: "&other != this" in file /usr/include/qt/QtCore/qstring.h, line 919)
     NoteCouple* currentSelectedCouple = item->getCouplePointer();
     currentSelectedCouple->setLabel(label);
+    displayRelation();
+}
+
+void relationsWindows::deleteCouple() {
+    Relation& currentSelectedRelation = getCurrentRelation();
+    listCoupleAndPointer* item = static_cast<listCoupleAndPointer*> (ui->listCoupleWidget->currentItem());
+    NoteCouple* currentSelectedCouple = item->getCouplePointer();
+    currentSelectedRelation.removeCouple(currentSelectedCouple);
     displayRelation();
 }
 
