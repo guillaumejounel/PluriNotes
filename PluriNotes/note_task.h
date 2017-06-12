@@ -75,8 +75,6 @@ public:
     //! \brief get the task deadlineEdit from the UI
     const QDateTime getUiTaskDeadlineEdit() const;
     //-------
-
-
     };
 
 #endif // NOTE_TASK_H

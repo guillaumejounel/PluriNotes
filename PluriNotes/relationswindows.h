@@ -31,11 +31,14 @@ private:
 
     QAction* exitAction;
 
-    Relation& getCurrentRelation();
+    Relation* getCurrentRelation();
 
 
     //! \brief history window
     QUndoView *undoView;
+
+    //! \brief edit menu
+    QMenu *editMenu;
 
     //! \brief windows menu
     QMenu *windowsMenu;
@@ -68,6 +71,9 @@ public:
     //! Function to add a Relation to the list of Relations in the UI \n
     //! With creation of a listRelationAndPointer*
     listRelationAndPointer* addRelationToList(Relation *rel);
+
+    //! Function to remove a Relation from the list a relation\n
+    void removeRelationFromList(Relation *rel);
 
     //! Function to add a Couple to the list of Couple in the UI \n
     //! With creation of a listCoupleAndPointer*

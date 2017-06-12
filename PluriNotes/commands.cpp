@@ -1,5 +1,6 @@
 #include "commands.h"
 #include "application.h"
+#include "relationswindows.h"
 #include <qdebug.h>
 
 
@@ -140,4 +141,42 @@ addVersionNoteCommand::~addVersionNoteCommand() {
         delete getVersion();
     }
 }
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+// RElation undo/redo
+/////////////////////////////////////////////////////////////////////
+
+// addRelationCommand
+// ########################################
+addRelationCommand::addRelationCommand(Relation* relation, QUndoCommand *parent )
+    : QUndoCommand(parent), relation(relation) {}
+
+
+void addRelationCommand::undo()
+{
+    setText("Undo creation of the relation : "+getRelation()->getTitle());
+    getRelation()->setDeleted(true);
+
+    PluriNotes& manager = PluriNotes::getManager();
+    static_cast<relationsWindows*>(manager.getRelationView())->removeRelationFromList(getRelation());
+    static_cast<relationsWindows*>(manager.getRelationView())->displayRelation();
+    manager.setDataChanged(true);
+}
+
+void addRelationCommand::redo()
+{
+    setText("Creation of the relation : "+getRelation()->getTitle());
+    getRelation()->setDeleted(false);
+
+    PluriNotes& manager = PluriNotes::getManager();
+    static_cast<relationsWindows*>(manager.getRelationView())->addRelationToList(getRelation());
+    static_cast<relationsWindows*>(manager.getRelationView())->displayRelation();
+    manager.setDataChanged(true);
+}
+// ########################################
 
