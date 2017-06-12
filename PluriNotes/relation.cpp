@@ -12,8 +12,8 @@ Relation::Relation(QString &t, QString &d, bool isOriented) : title(t), descript
     if (number != 0) number++;
 }
 
-bool Relation::isInside(const NoteCouple &c) const {
-    return isInside(c.getX(),c.getY());
+bool Relation::isInside(const NoteCouple* c) const {
+    return isInside(c->getX(),c->getY());
 }
 
 bool Relation::isInside(NoteEntity* note1, NoteEntity* note2) const {
@@ -24,12 +24,12 @@ bool Relation::isInside(NoteEntity* note1, NoteEntity* note2) const {
     unsigned int size = content.size();
 
     for (unsigned int i = 0;i<size;i++) {
-        if ( content[i]==nCouple1 ) return true;
+        if ( *content[i]==nCouple1 ) return true;
     }
 
     if (this->isOriented() == false) {
         for (unsigned int i = 0;i<size;i++) {
-            if ( content[i]==nCouple2 ) return true;
+            if ( *content[i]==nCouple2 ) return true;
         }
     }
 
@@ -38,34 +38,35 @@ bool Relation::isInside(NoteEntity* note1, NoteEntity* note2) const {
 
 bool Relation::isInside(NoteEntity* note) const{
     for (auto couple : content){
-        if (couple.contains(note)) return true;
+        if (couple->contains(note)) return true;
     }
     return false;
 }
 
 
-bool Relation::addCouple(const NoteCouple& c) {
+bool Relation::addCouple(const NoteCouple* c) {
     //Check if the couple isn't already inside
     if ( isInside(c) ) return false;
-    content.push_front(c);
+    content.push_front(const_cast<NoteCouple*>(c));
     qWarning()<<QString("Couple added !");
     return true;
 }
 
-coupleAndRelation Relation::removeCouple(const NoteCouple &c) {
+coupleAndRelation Relation::removeCouple(const NoteCouple*c) {
      for (auto couple : content){
         if (couple == c){
             // We duplicate the couple
-            NoteCouple* tmp = new NoteCouple(couple);
+            NoteCouple* tmp = new NoteCouple(*couple);
             coupleAndRelation output = coupleAndRelation(tmp,this);
 
-            content.removeAll(c);
+            content.removeAll(const_cast<NoteCouple*>(c));
+            delete c;
             break;
         }
     }
 }
 
-QList<coupleAndRelation> Relation::removeCouple(const QList<NoteCouple> coupleList){
+QList<coupleAndRelation> Relation::removeCouple(const QList<NoteCouple*> coupleList){
     QList<coupleAndRelation> output;
     for (auto couple : coupleList){
         output.append(removeCouple(couple));
@@ -79,8 +80,8 @@ QList<coupleAndRelation> Relation::removeCoupleWithNote(const NoteEntity* note){
     QList<coupleAndRelation> output;
 
     for (auto couple : content){
-        if (couple.contains(note)) {
-            NoteCouple* tmp = new NoteCouple(couple);
+        if (couple->contains(note)) {
+            NoteCouple* tmp = new NoteCouple(*couple);
             output += coupleAndRelation(tmp,this);
             content.removeAll(couple);
         }
@@ -105,7 +106,7 @@ QSet<NoteEntity*> Relation::successorsOf(NoteEntity* note) const{
     unsigned int size = content.size();
     NoteEntity* successor;
     for (unsigned int i = 0;i<size;i++) {
-        successor = content[i].successor(note,oriented);
+        successor = content[i]->successor(note,oriented);
         if ( successor != nullptr) result.insert(successor);
     }
 
@@ -119,7 +120,7 @@ QSet<NoteEntity*> Relation::predecessorsOf(NoteEntity* note) const{
     NoteEntity* predecessor;
 
     for (unsigned int i = 0;i<size;i++) {
-        predecessor = content[i].predecessor(note,oriented);
+        predecessor = content[i]->predecessor(note,oriented);
         if ( predecessor != nullptr) result.insert(predecessor);
     }
 

@@ -30,7 +30,7 @@ private:
     QString description;
 
     //! \brief content of the relation
-    QVector<NoteCouple> content;
+    QVector<NoteCouple*> content;
 
     //! Boolean to know if we actually have to consider both couple (x,y) and (y,x)
     bool oriented;
@@ -58,8 +58,9 @@ public:
     //! \brief getter for the Description
     const QString getDescription() const {return description;}
 
-    //! \brief getter for the content
-    QVector<NoteCouple> getContent() const {return content;}
+    //! \brief getter for the content ???
+    //! Pas très propre...
+    QVector<NoteCouple*> getContent() const {return content;}
 
     //! \brief getter for the number
     unsigned int getNumber() const {return number;}
@@ -90,16 +91,16 @@ public:
     bool isInside(NoteEntity* note) const;
 
     //! oberload for use with a note couple directly
-    bool isInside(const NoteCouple& c) const;
+    bool isInside(const NoteCouple* c) const;
 
     //! Method to add a note couple to the relation
-    bool addCouple(const NoteCouple& c);
+    bool addCouple(const NoteCouple* c);
 
     //! Method to remove a note couple to the relation
-    coupleAndRelation removeCouple(const NoteCouple& c);
+    coupleAndRelation removeCouple(const NoteCouple* c);
 
     //! Method to remove a list of note from the relation
-    QList<coupleAndRelation> removeCouple(const QList<NoteCouple> coupleList);
+    QList<coupleAndRelation> removeCouple(const QList<NoteCouple*> coupleList);
 
     //! Method to remove all couples that contains a note
     QList<coupleAndRelation> removeCoupleWithNote(const NoteEntity* note);

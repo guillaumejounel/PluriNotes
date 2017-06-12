@@ -74,13 +74,13 @@ in the application.
 class listCoupleAndReference : public QListWidgetItem {
 private :
     //! \brief Pointer to a couple
-    NoteCouple& couple;
+    NoteCouple* couple;
 public :
     //! Constructor for the class
-    listCoupleAndReference(NoteCouple& couple) : couple(couple) {}
+    listCoupleAndReference(NoteCouple* couple) : couple(couple) {}
 
     //! Accessor to the added attribute
-    NoteCouple& getCouple() const {return couple;}
+    NoteCouple* getCouple() const {return couple;}
 };
 
 

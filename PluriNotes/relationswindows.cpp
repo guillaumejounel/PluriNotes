@@ -79,7 +79,7 @@ void relationsWindows::addCouple() {
     NoteEntity* note1 = manager.getNoteById(ui->noteSelectorX->currentText());
     NoteEntity* note2 = manager.getNoteById(ui->noteSelectorY->currentText());
     QString defaultTitle = "";
-    NoteCouple newCouple(defaultTitle, note1, note2);
+    NoteCouple* newCouple = new NoteCouple(defaultTitle, note1, note2);
 
     Relation& currentSelectedRelation = getCurrentRelation();
     if (currentSelectedRelation.addCouple(newCouple)) {
@@ -118,9 +118,9 @@ listRelationAndPointer* relationsWindows::addRelationToList(Relation* rel) {
     return itm;
 }
 
-listCoupleAndReference* relationsWindows::addCoupleToList(NoteCouple& couple) {
+listCoupleAndReference* relationsWindows::addCoupleToList(NoteCouple* couple) {
     listCoupleAndReference* itm = new listCoupleAndReference(couple);
-    itm->setText(couple.print());
+    itm->setText(couple->print());
     addItemCoupleToList(itm);
     return itm;
 }

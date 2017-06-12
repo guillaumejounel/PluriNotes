@@ -835,7 +835,8 @@ void PluriNotes::addReferences(NoteEntity* note, const QStringList& idList){
 
     QString label("ref");
     for (auto y : listOfNoteMatchingId){
-        getReferencesRelation()->addCouple(NoteCouple(label, note, y));
+        NoteCouple* couple = new NoteCouple(label, note, y);
+        getReferencesRelation()->addCouple(couple);
     }
 }
 
