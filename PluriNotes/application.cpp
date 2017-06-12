@@ -287,8 +287,8 @@ void PluriNotes::noteVersionChanged() {
             ui->taskDisplayDeadline->setReadOnly(0);
             ui->taskDisplayPriority->setDisabled(0);
             ui->taskDisplayStatus->setDisabled(0);
-            ui->fileDisplayDescription->setReadOnly(0);
-            ui->fileDisplayFile->setDisabled(0);
+            ui->documentDisplayDescription->setReadOnly(0);
+            ui->documentDisplayFileButton->setDisabled(0);
         } else {
             ui->buttonSaveEdit->setText(QString("Restore"));
             ui->titleDisplayLineEdit->setReadOnly(1);
@@ -297,8 +297,8 @@ void PluriNotes::noteVersionChanged() {
             ui->taskDisplayDeadline->setReadOnly(1);
             ui->taskDisplayPriority->setDisabled(1);
             ui->taskDisplayStatus->setDisabled(1);
-            ui->fileDisplayDescription->setReadOnly(1);
-            ui->fileDisplayFile->setDisabled(1);
+            ui->documentDisplayDescription->setReadOnly(1);
+            ui->documentDisplayFileButton->setDisabled(1);
         }
     }
 }
@@ -345,6 +345,9 @@ void PluriNotes::saveNote() {
     if (ui->titleLineEdit->text() == QString("") || ui->idLineEdit->text() == QString("") || !isIdAvailable(ui->idLineEdit->text())) flag = false;
     for(QTextEdit* widget: ui->customWidgets->widget(myMap[ui->TypeComboBox->currentText()]->indexPageCreation())->findChildren<QTextEdit*>())
         if(widget->property("obligatory").toBool() && widget->toPlainText() == QString("")) flag = false;
+
+    for(QLineEdit* widget: ui->customWidgets->widget(myMap[ui->TypeComboBox->currentText()]->indexPageCreation())->findChildren<QLineEdit*>())
+        if(widget->property("obligatory").toBool() && widget->text() == QString("")) flag = false;
 
     //Create and save the note ; to check references it is easier
     NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());
@@ -488,7 +491,7 @@ void PluriNotes::typeChangedForm() {
     ui->taskDeadline->setDateTime(QDateTime::currentDateTime());
 
     //init file form
-    ui->fileDescription->clear();
+    ui->documentDescription->clear();
 }
 
 

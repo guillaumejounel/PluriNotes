@@ -30,7 +30,7 @@ public:
 
     virtual QStringList returnReferences() const override;
 
-    QString getAction() const {return action;}
+    QString getAction() const { return action; }
 
     // UI
     //-------

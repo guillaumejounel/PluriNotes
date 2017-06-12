@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>887</width>
-    <height>602</height>
+    <width>850</width>
+    <height>572</height>
    </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
+   </size>
+  </property>
+  <property name="sizeIncrement">
+   <size>
+    <width>856</width>
+    <height>550</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>PluriNotes</string>
@@ -23,6 +35,12 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
    <layout class="QGridLayout" name="gridLayout" columnstretch="1,0,0,0,5">
     <property name="leftMargin">
      <number>11</number>
@@ -46,7 +64,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>177</height>
+           <height>161</height>
           </rect>
          </property>
          <attribute name="label">
@@ -64,7 +82,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>177</height>
+           <height>161</height>
           </rect>
          </property>
          <attribute name="label">
@@ -82,7 +100,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>196</height>
+           <height>183</height>
           </rect>
          </property>
          <attribute name="label">
@@ -191,8 +209,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>689</width>
-             <height>539</height>
+             <width>672</width>
+             <height>382</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -312,7 +330,7 @@
                 <item>
                  <widget class="QStackedWidget" name="noteTypeDisplay">
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>2</number>
                   </property>
                   <widget class="QWidget" name="articleDisplay">
                    <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -419,27 +437,41 @@
                     </item>
                    </layout>
                   </widget>
-                  <widget class="QWidget" name="fileDisplay">
+                  <widget class="QWidget" name="documentDisplay">
                    <layout class="QVBoxLayout" name="verticalLayout_6">
                     <item>
-                     <widget class="QLabel" name="fileDisplayDescriptionLabel">
+                     <widget class="QLabel" name="documentDisplayDescriptionLabel">
                       <property name="text">
                        <string>Description:</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QTextEdit" name="fileDisplayDescription"/>
+                     <widget class="QTextEdit" name="documentDisplayDescription"/>
                     </item>
                     <item>
-                     <widget class="QLabel" name="fileDisplayFileLabel">
-                      <property name="text">
-                       <string>File:</string>
-                      </property>
-                     </widget>
+                     <layout class="QFormLayout" name="formLayout_6">
+                      <item row="0" column="0">
+                       <widget class="QLabel" name="documentDisplayFileLabel">
+                        <property name="text">
+                         <string>File:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="1">
+                       <widget class="QLineEdit" name="documentDisplayFile">
+                        <property name="enabled">
+                         <bool>false</bool>
+                        </property>
+                        <property name="readOnly">
+                         <bool>true</bool>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
                     </item>
                     <item>
-                     <widget class="QPushButton" name="fileDisplayFile">
+                     <widget class="QPushButton" name="documentDisplayFileButton">
                       <property name="text">
                        <string>Open file</string>
                       </property>
@@ -604,8 +636,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>695</width>
-             <height>545</height>
+             <width>645</width>
+             <height>510</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
@@ -880,27 +912,59 @@
                      </item>
                     </layout>
                    </widget>
-                   <widget class="QWidget" name="fileForm">
+                   <widget class="QWidget" name="documentForm">
                     <layout class="QVBoxLayout" name="verticalLayout_7">
                      <item>
-                      <widget class="QLabel" name="fileDescriptionLabel">
+                      <widget class="QLabel" name="documentDescriptionLabel">
                        <property name="text">
                         <string>*Description: </string>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QTextEdit" name="fileDescription"/>
+                      <widget class="QTextEdit" name="documentDescription"/>
                      </item>
                      <item>
-                      <widget class="QLabel" name="fileFileLabel">
-                       <property name="text">
-                        <string>*File: </string>
+                      <layout class="QFormLayout" name="formLayout_3">
+                       <property name="labelAlignment">
+                        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                        </property>
-                      </widget>
+                       <property name="formAlignment">
+                        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                       </property>
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="documentFileLabel">
+                         <property name="text">
+                          <string>*File: </string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="1">
+                        <widget class="QLineEdit" name="documentFile">
+                         <property name="enabled">
+                          <bool>false</bool>
+                         </property>
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="readOnly">
+                          <bool>true</bool>
+                         </property>
+                         <property name="placeholderText">
+                          <string>No selected file</string>
+                         </property>
+                         <property name="obligatory" stdset="0">
+                          <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="fileFile">
+                      <widget class="QPushButton" name="documentFileButton">
                        <property name="text">
                         <string>Select file</string>
                        </property>
@@ -1011,8 +1075,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>887</width>
-     <height>25</height>
+     <width>850</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
@@ -1261,7 +1325,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>fileDisplayDescription</sender>
+   <sender>documentDisplayDescription</sender>
    <signal>textChanged()</signal>
    <receiver>PluriNotes</receiver>
    <slot>noteTextChanged()</slot>
