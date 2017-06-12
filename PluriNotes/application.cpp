@@ -372,11 +372,8 @@ void PluriNotes::saveNote() {
         delete newNoteEntity;
 
         //Input is not valid
-        QMessageBox msgBox;
-        msgBox.setText("Please check your input");
-
-        if (references == false) msgBox.setText("Please check your input. You notably have references issues !");
-        msgBox.exec();
+        if (references == false) QMessageBox::warning(this, "Warning", "Please check your input. You notably have references issues !");
+        else QMessageBox::warning(this, "Warning", "Please check your inputs !");
     }
 }
 
