@@ -326,6 +326,9 @@ public:
 
     //! \brief add References in the references vector
     void addReferences(NoteEntity* note, const QStringList& idList);
+
+    //! \brief add References in the references vector
+    void removeReferencesWithOrigin(NoteEntity* note);
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 

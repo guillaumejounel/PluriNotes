@@ -85,6 +85,18 @@ void Relation::removeCoupleWithNote(const NoteEntity* note){
     //return output;
 }
 
+void Relation::removeCoupleWithNotePredecessor(const NoteEntity* note){
+    //only for oriented !
+    for (auto couple : content){
+       if (couple->isEqualX(note)) {
+           //output.append(coupleAndRelation(new NoteCouple(*couple),this));
+           content.removeAll(couple);
+           delete couple;
+       }
+   }
+}
+
+
 
 void Relation::removeCoupleWithNote(const QList<NoteEntity*> noteList){
     //QList<coupleAndRelation> output;

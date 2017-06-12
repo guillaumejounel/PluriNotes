@@ -111,9 +111,12 @@ void addVersionNoteCommand::undo()
     setText("Annulation de l'ajout d'une version à la note : "+getNote()->getId());
 
     // We remove the version from the noteentity
-    getNote()->deleteVersion(*getVersion());
-
     PluriNotes& manager = PluriNotes::getManager();
+    manager.removeReferencesWithOrigin(getNote());
+    getNote()->deleteVersion(*getVersion());
+    manager.addReferences(getNote(),getNote()->returnReferences());
+
+
     manager.selectItemIntoList(manager.findItemInList(getNote(), manager.getListActiveNotes()), manager.getListActiveNotes());
     manager.displayNote();
 
@@ -121,10 +124,12 @@ void addVersionNoteCommand::undo()
 
 void addVersionNoteCommand::redo() {
     setText("Ajout d'une version à la note : "+getNote()->getId());
-
-    getNote()->addVersion(*getVersion());
-
     PluriNotes& manager = PluriNotes::getManager();
+
+    manager.removeReferencesWithOrigin(getNote());
+    getNote()->addVersion(*getVersion());
+    manager.addReferences(getNote(),getNote()->returnReferences());
+
     manager.displayNote();
 
     manager.setDataChanged(true);

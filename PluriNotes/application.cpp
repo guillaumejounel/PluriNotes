@@ -381,7 +381,7 @@ void PluriNotes::saveNote() {
 }
 
 void PluriNotes::saveNewVersion() {
-    // We get which not is selected
+    // We get which note is selected
     NoteEntity& currentNote = *getCurrentNote();
     // We create a newVersion identical to the last one
     const NoteElement& currentVersion = currentNote.getLastVersion();
@@ -857,6 +857,9 @@ void PluriNotes::addReferences(NoteEntity* note, const QStringList& idList){
     }
 }
 
+void PluriNotes::removeReferencesWithOrigin(NoteEntity* note){
+    getReferencesRelation()->removeCoupleWithNotePredecessor(note);
+}
 
 
 void PluriNotes::updateSelectionFromTreeSuccessors() {

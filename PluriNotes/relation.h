@@ -105,6 +105,9 @@ public:
     //! Method to remove all couples that contains a note
     void removeCoupleWithNote(const NoteEntity* note);
 
+    //! Method to remove all couples with predecessor :     //only for oriented !
+    void removeCoupleWithNotePredecessor(const NoteEntity* note);
+
     //! Method to remove all couples that contains one of the note from the list
     void removeCoupleWithNote(const QList<NoteEntity*> noteList);
 
