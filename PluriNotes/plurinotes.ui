@@ -94,7 +94,7 @@
             <item>
              <widget class="QListWidget" name="listTrashWidget">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -177,7 +177,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="displayNotePage">
        <layout class="QGridLayout" name="verticalLayout_2" rowstretch="0">
@@ -191,8 +191,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>509</width>
-             <height>361</height>
+             <width>689</width>
+             <height>539</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -791,7 +791,7 @@
                  <item>
                   <widget class="QStackedWidget" name="customWidgets">
                    <property name="currentIndex">
-                    <number>0</number>
+                    <number>2</number>
                    </property>
                    <widget class="QWidget" name="articleForm">
                     <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1088,7 +1088,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>569</x>
-     <y>392</y>
+     <y>570</y>
     </hint>
     <hint type="destinationlabel">
      <x>306</x>
@@ -1104,7 +1104,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>377</x>
-     <y>392</y>
+     <y>570</y>
     </hint>
     <hint type="destinationlabel">
      <x>176</x>
@@ -1120,7 +1120,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>473</x>
-     <y>392</y>
+     <y>570</y>
     </hint>
     <hint type="destinationlabel">
      <x>149</x>
@@ -1248,7 +1248,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>280</x>
-     <y>392</y>
+     <y>570</y>
     </hint>
     <hint type="destinationlabel">
      <x>154</x>

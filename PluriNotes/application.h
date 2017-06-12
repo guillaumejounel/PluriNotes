@@ -482,7 +482,7 @@ signals:
     void emptyTrashSlot(bool out = false);
 
     //! \brief empty restoreTrash slot
-    void restoreTrashSolt();
+    void restoreTrashSlot();
 };
 
 

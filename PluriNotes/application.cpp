@@ -369,19 +369,10 @@ void PluriNotes::saveNewVersion() {
 
 
 void PluriNotes::deleteNote() {
-    //Demande de confirmation
-    //à plutôt faire pour vider la corbeille étant donné que les notes sont récupérables jusque là
-    /* QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, "Suppression", "Are you sure?", QMessageBox::Yes|QMessageBox::No);
-    if (reply == QMessageBox::Yes) {
-        qDebug() << "Yes was clicked";
-    } */
-
-    //Supprime la note selectionnée du vecteur notes
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
     NoteEntity* currentSelectedNote = item->getNotePointer();
 
-    QUndoCommand *deleteCommand = new deleteNoteCommand(currentSelectedNote);
+    QUndoCommand *deleteCommand = new deleteNoteCommand(currentSelectedNote,0);
     undoStack->push(deleteCommand);
 }
 
@@ -880,7 +871,7 @@ void PluriNotes::emptyTrashSlot(bool out){
     if (!out){
 
         QMessageBox::StandardButton reply;
-          reply = QMessageBox::question(this, "Attention !",
+          reply = QMessageBox::question(this, "Warning !",
                                         "Emptying the trash is non-reversible and will also clear the history for coherence purpose.",
                                         QMessageBox::Cancel|QMessageBox::Ok);
           if (reply == QMessageBox::Ok) {
@@ -898,7 +889,12 @@ void PluriNotes::emptyTrashSlot(bool out){
 
 }
 
-void PluriNotes::restoreTrashSolt(){
+void PluriNotes::restoreTrashSlot(){
+    listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listTrashWidget->currentItem());
+    NoteEntity* currentSelectedNote = item->getNotePointer();
+    qWarning()<<currentSelectedNote -> getId();
 
+    QUndoCommand *deleteCommand = new deleteNoteCommand(currentSelectedNote,1);
+    undoStack->push(deleteCommand);
 }
 

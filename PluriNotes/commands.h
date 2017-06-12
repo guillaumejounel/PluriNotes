@@ -17,9 +17,37 @@ private:
     NoteEntity* note;
 
 public:
-    deleteNoteCommand(NoteEntity* note, QUndoCommand *parent = 0);
+    unsigned int type;
+    bool first = true;
+
+    deleteNoteCommand(NoteEntity* note, unsigned int type, QUndoCommand *parent = 0);
     //! To prevent memory leaks, we have to redefine the destructor
     ~deleteNoteCommand();
+
+    void undo() override;
+    void redo() override;
+
+    NoteEntity* getNote() {return note;}
+};
+
+
+
+
+/**
+\class deleteNoteCommand
+\brief Undo/redo restore note (from trash)
+
+This class enables the undo/redo process for restoring note (moving back from trash)
+**/
+class restoreNoteCommand : public QUndoCommand
+{
+private:
+    NoteEntity* note;
+
+public:
+    restoreNoteCommand(NoteEntity* note, QUndoCommand *parent = 0);
+    //! To prevent memory leaks, we have to redefine the destructor
+    ~restoreNoteCommand();
 
     void undo() override;
     void redo() override;
@@ -54,7 +82,7 @@ public:
 
 
 /**
-\class addNoteEntityCommand
+\class addVersionNoteCommand
 \brief Undo/redo adding version
 
 This class enables the undo/redo process when creating a version of the note in the app
@@ -90,7 +118,7 @@ public:
 
 
 /**
-\class addNoteEntityCommand
+\class restoreNoteVersionCommand
 \brief Undo/redo adding version
 
 This class enables the undo/redo process when creating a version of the note in the app
