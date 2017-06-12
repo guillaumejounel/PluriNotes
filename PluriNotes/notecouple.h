@@ -31,6 +31,9 @@ public:
     //! \brief Constructor
     NoteCouple(QString& s, NoteEntity* x, NoteEntity* y):label(s), x(x),y(y) {}
 
+    //! \brief copy constructor
+    NoteCouple(const NoteCouple& couple):label(couple.getLabel()), x(couple.getX()),y(couple.getY()) {}
+
     //! Constructor with no argument
     NoteCouple() {}
 

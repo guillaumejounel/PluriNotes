@@ -43,6 +43,11 @@ NoteEntity* NoteCouple::predecessor(NoteEntity* note, bool oriented) const{
 
 
 QString NoteCouple::print() const {
-    QString result =  QString("(") + this->getX()->getId() + QString(" , ") + this->getY()->getId() + QString(")") ;
+    QString result;
+    if (this->getLabel() != "") {
+        result = this->getLabel() + QString(" : (") + this->getX()->getId() + QString(" , ") + this->getY()->getId() + QString(")") ;
+    } else {
+        result =  QString("(") + this->getX()->getId() + QString(" , ") + this->getY()->getId() + QString(")") ;
+    }
     return result;
 }

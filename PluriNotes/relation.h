@@ -11,6 +11,7 @@
 #define RELATION_H
 
 #include "notecouple.h"
+#include "othertools.h"
 #include <QString>
 #include <QVector>
 #include <QSet>
@@ -18,6 +19,7 @@
 class NoteCouple;
 class NoteEntity;
 class Relation;
+class coupleAndRelation;
 
 class Relation{
 private:
@@ -84,23 +86,26 @@ public:
     //! Method to know if a couple is already inside the relation
     bool isInside(NoteEntity* note1, NoteEntity* note2) const;
 
+    //! Method to know if a couple is already inside the relation
+    bool isInside(NoteEntity* note) const;
+
     //! oberload for use with a note couple directly
     bool isInside(const NoteCouple& c) const;
 
     //! Method to add a note couple to the relation
-    void addCouple(const NoteCouple& c);
+    bool addCouple(const NoteCouple& c);
 
     //! Method to remove a note couple to the relation
-    void removeCouple(const NoteCouple& c);
+    coupleAndRelation removeCouple(const NoteCouple& c);
 
     //! Method to remove a list of note from the relation
-    void removeCouple(const QList<NoteCouple> coupleList);
+    QList<coupleAndRelation> removeCouple(const QList<NoteCouple> coupleList);
 
     //! Method to remove all couples that contains a note
-    void removeCoupleWithNote(const NoteEntity* note);
+    QList<coupleAndRelation> removeCoupleWithNote(const NoteEntity* note);
 
     //! Method to remove all couples that contains one of the note from the list
-    void removeCoupleWithNote(const QList<NoteEntity*> noteList);
+    QList<coupleAndRelation> removeCoupleWithNote(const QList<NoteEntity*> noteList);
 
 
     //! Method to get successors of a note in a relation
@@ -110,6 +115,8 @@ public:
     //! Method to get successors of a note in a relation
     //! A QSet is used to make sure we don't have twice the same note...
     QSet<NoteEntity*> predecessorsOf(NoteEntity* note) const;
+
+    bool hasPredecessors(NoteEntity* note) const;
 };
 
 

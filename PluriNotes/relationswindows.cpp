@@ -50,7 +50,12 @@ void relationsWindows::displayRelation() {
     ui->titleLineEdit->setText(currentSelectedRelation.getTitle());
     ui->descriptionLineEdit->setText(currentSelectedRelation.getDescription());
     (currentSelectedRelation.isOriented())?ui->orientationSelection->setCurrentIndex(0):ui->orientationSelection->setCurrentIndex(1);
+
     ui->customWidgets->setCurrentIndex(1);
+    ui->listCoupleWidget->clear();
+    for (auto couple : currentSelectedRelation.getContent()) {
+        addCoupleToList(couple);
+    }
 //    ui->mainStackedWidget->setCurrentIndex(0);
 }
 
@@ -67,6 +72,28 @@ void relationsWindows::addRelation() {
     addRelationToList(newRelation);
     PluriNotes& manager = PluriNotes::getManager();
     manager.addRelationToVector(newRelation);
+}
+
+void relationsWindows::addCouple() {
+    PluriNotes& manager = PluriNotes::getManager();
+    NoteEntity* note1 = manager.getNoteById(ui->noteSelectorX->currentText());
+    NoteEntity* note2 = manager.getNoteById(ui->noteSelectorY->currentText());
+    QString defaultTitle = "";
+    NoteCouple newCouple(defaultTitle, note1, note2);
+
+    Relation& currentSelectedRelation = getCurrentRelation();
+    if (currentSelectedRelation.addCouple(newCouple)) {
+        addCoupleToList(newCouple);
+    }
+}
+
+void relationsWindows::changeCoupleLabel() {
+    QString label = QInputDialog::getText(this, "Change Couple Label", "New label :");
+    listCoupleAndReference* item = static_cast<listCoupleAndReference*> (ui->listCoupleWidget->currentItem());
+    // TODO : solve force crash here : (ASSERT: "&other != this" in file /usr/include/qt/QtCore/qstring.h, line 919)
+    //NoteCouple currentSelectedCouple = item->getCouple();
+    //currentSelectedCouple.setLabel(label);
+    //displayRelation();
 }
 
 void relationsWindows::closeEvent(QCloseEvent *event) {
@@ -91,9 +118,21 @@ listRelationAndPointer* relationsWindows::addRelationToList(Relation* rel) {
     return itm;
 }
 
+listCoupleAndReference* relationsWindows::addCoupleToList(NoteCouple& couple) {
+    listCoupleAndReference* itm = new listCoupleAndReference(couple);
+    itm->setText(couple.print());
+    addItemCoupleToList(itm);
+    return itm;
+}
+
 void relationsWindows::addItemRelationToList(listRelationAndPointer *item) {
     ui->listOfAllRelations->insertItem(0, item);
     ui->listOfAllRelations->setCurrentRow(0);
+}
+
+void relationsWindows::addItemCoupleToList(listCoupleAndReference *item) {
+    ui->listCoupleWidget->insertItem(0, item);
+    ui->listCoupleWidget->setCurrentRow(0);
 }
 
 void relationsWindows::addNoteEntityToComboBoxes() {

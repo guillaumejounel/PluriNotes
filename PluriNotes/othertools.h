@@ -71,16 +71,16 @@ This class is herited from QListWidgetItem in order to add an attribut "couplePo
 to each items, so when we click on an item in the list we can directly access the couple\n
 in the application.
 **/
-class listCoupleAndPointer : public QListWidgetItem {
+class listCoupleAndReference : public QListWidgetItem {
 private :
     //! \brief Pointer to a couple
-    NoteCouple* couplePointer;
+    NoteCouple& couple;
 public :
     //! Constructor for the class
-    listCoupleAndPointer(NoteCouple* ptr = nullptr) : couplePointer(ptr) {}
+    listCoupleAndReference(NoteCouple& couple) : couple(couple) {}
 
     //! Accessor to the added attribute
-    NoteCouple* getCouplePointer() const {return couplePointer;}
+    NoteCouple& getCouple() const {return couple;}
 };
 
 
@@ -107,6 +107,25 @@ public :
     NoteEntity* getNotePointer() const {return notePointer;}
     bool hasBeenExpended() const {return previouslyExpended;}
     void setExpensionCalculusStatus(bool status = true) {previouslyExpended = status;}
+};
+
+
+
+/**
+\class coupleAndRelation
+\brief Class to be able to store/restore couples in relations
+**/
+class coupleAndRelation {
+private :
+    //! \brief couple
+    NoteCouple* couplePointer;
+    Relation* relationPointer;
+public :
+    //! Constructor for the class
+    coupleAndRelation(NoteCouple* couple, Relation* relation) : couplePointer(couple), relationPointer(relation) {}
+    ~coupleAndRelation(){delete couplePointer;}
+    NoteCouple* getCouple() const {return couplePointer;}
+    Relation* getRelation() const {return relationPointer;}
 };
 
 

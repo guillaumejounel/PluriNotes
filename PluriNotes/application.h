@@ -37,6 +37,7 @@ class NoteEntity;
 class NoteElement;
 class listItemAndPointer;
 class treeItemNoteAndPointer;
+class coupleAndRelation;
 class Relation;
 
 namespace Ui {
@@ -293,6 +294,11 @@ public:
     void removeNote(NoteEntity* note);
 
 
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // Interaction with the references
+    // --------------------------------------------------------------------------
     //! Method to get all successors of a note
     QSet<NoteEntity*> getAllSuccessorsOf(NoteEntity* note) const;
 
@@ -300,7 +306,21 @@ public:
     QSet<NoteEntity*> getAllPredecessorsOf(NoteEntity* note) const;
 
     //! Method to get all predecessors of a note
+    //! \todo pas propre !
     QVector<NoteEntity*> getNotesVector() const {return notes;}
+
+    //! Method to get all references of a List of notenote
+    QSet<NoteEntity*> getAllPredecessorsOf(QList<NoteEntity*> noteList) const;
+
+    //! Method to get all references of a note
+    QSet<NoteEntity*> getAllReferencesOf(NoteEntity* note) const;
+
+    //! Is a note being referenced by an other note (in notes, not trash)
+    bool isReferenced(NoteEntity* note);
+
+    //! Special list of the couples deleted when we delete a note
+    QList<coupleAndRelation> deletedCouples(NoteEntity* note);
+
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 
@@ -314,6 +334,9 @@ public:
 
     //! \brief Check if an id is available
     bool isIdAvailable(const QString& id) const;
+
+    //! \brief return the note having this id
+    NoteEntity* getNoteById(const QString& id);
 
     //! Function to add a note in the system \n
     //! Returns an "listItemAndPointer*" the should be usefull in somme cases

@@ -306,6 +306,13 @@ bool PluriNotes::isIdAvailable(const QString& id) const {
     return true;
 }
 
+NoteEntity* PluriNotes::getNoteById(const QString& id) {
+    for (auto note : notes) {
+        if(note->getId() == id) return note;
+    }
+    return nullptr;
+}
+
 void PluriNotes::saveNote() {
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
     bool flag = true;
@@ -768,6 +775,30 @@ QSet<NoteEntity*> PluriNotes::getAllPredecessorsOf(NoteEntity* note) const{
     return result;
 }
 
+QSet<NoteEntity*> PluriNotes::getAllPredecessorsOf(QList<NoteEntity*> noteList) const{
+    QSet<NoteEntity*> result;
+    for (auto note : noteList){
+        result = result + getAllPredecessorsOf(note);
+    }
+
+    return result;
+}
+
+
+QSet<NoteEntity*> PluriNotes::getAllReferencesOf(NoteEntity * note) const{
+    return getAllPredecessorsOf(note) + getAllSuccessorsOf(note);
+}
+
+bool PluriNotes::isReferenced(NoteEntity* note){
+    return relations[0]->hasPredecessors(note);
+}
+
+
+QList<coupleAndRelation> PluriNotes::deletedCouples(NoteEntity* note){
+//
+}
+
+
 
 void PluriNotes::updateSelectionFromTreeSuccessors() {
     treeItemNoteAndPointer* itm = static_cast<treeItemNoteAndPointer*>(ui->treeViewSuccessors->currentItem());
@@ -799,3 +830,6 @@ void PluriNotes::retracteOrUnretracteArborescence() {
         ui->treeViewSuccessors->show();
     }
 }
+
+
+
