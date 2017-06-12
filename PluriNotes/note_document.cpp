@@ -24,20 +24,17 @@ bool Document::textChanged() const {
 }
 
 void Document::saveToXML(QXmlStreamWriter& stream) const {
-    /*stream.writeStartElement("version");
+    stream.writeStartElement("version");
     stream.writeTextElement("title",getTitle());
-    stream.writeTextElement("action", action);
-    stream.writeTextElement("status", QString::number(status));
-    stream.writeTextElement("priority", QString::number(priority));
-    stream.writeTextElement("deadline",deadline.toString("dddd dd MMMM yyyy hh:mm:ss"));
+    stream.writeTextElement("description", description);
+    stream.writeTextElement("file", file);
     stream.writeTextElement("date",getCreationDate().toString("dddd dd MMMM yyyy hh:mm:ss"));
-    stream.writeEndElement();*/
+    stream.writeEndElement();
 }
 
 void Document::loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) const {
-    /*QString title, action;
-    unsigned int status, priority;
-    QDateTime date, deadline;
+    QString title, description, file;
+    QDateTime date;
     Document *newNote;
     while(!(stream.tokenType() == QXmlStreamReader::EndElement && stream.name() == "versions")) {
         if(stream.tokenType() == QXmlStreamReader::StartElement && stream.name() == "version") {
@@ -46,17 +43,11 @@ void Document::loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) 
                     if(stream.name() == "title") {
                         stream.readNext(); title=stream.text().toString();
                     }
-                    if(stream.name() == "action") {
-                        stream.readNext(); action=stream.text().toString();
+                    if(stream.name() == "description") {
+                        stream.readNext(); description=stream.text().toString();
                     }
-                    if(stream.name() == "status") {
-                        stream.readNext(); status=stream.text().toInt();
-                    }
-                    if(stream.name() == "priority") {
-                        stream.readNext(); priority=stream.text().toInt();
-                    }
-                    if(stream.name() == "deadline") {
-                        stream.readNext(); deadline=QDateTime::fromString(stream.text().toString(),"dddd dd MMMM yyyy hh:mm:ss");
+                    if(stream.name() == "file") {
+                        stream.readNext(); file=stream.text().toString();
                     }
                     if(stream.name() == "date") {
                         stream.readNext(); date=QDateTime::fromString(stream.text().toString(),"dddd dd MMMM yyyy hh:mm:ss");
@@ -64,11 +55,11 @@ void Document::loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) 
                 }
                 stream.readNext();
             }
-            newNote = new Document(title, date, action, status, priority, deadline);
+            newNote = new Document(title, date, description, file);
             newNoteEntity.addVersion(*newNote);
         }
         stream.readNext();
-    } */
+    }
 }
 
 
