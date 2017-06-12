@@ -35,9 +35,6 @@ relationsWindows::relationsWindows(QWidget *parent) : QMainWindow(parent), ui(ne
 
     windowsMenu = menuBar()->addMenu(tr("&Windows"));
     windowsMenu->addAction(viewUndoHistory);
-
-
-
 }
 
 void relationsWindows::beforeClose() {
@@ -53,6 +50,9 @@ void relationsWindows::beforeClose() {
     //Clear the couples ComboBoxes (to be reflilled at opening)
     ui->noteSelectorX->clear();
     ui->noteSelectorY->clear();
+
+    //Clear the history
+    undoStack->clear();
 
     //Close the window
     close();
