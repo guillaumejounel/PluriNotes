@@ -12,6 +12,25 @@ map<QString, NoteElement*> NoteElement::getTypesNotes() {
 }
 
 
+QStringList NoteElement::getReferences(const QString& text){
+        QRegExp rx("[\\ref\{]([\\w|\\d]+)[\}]");
+
+        QStringList list = rx.capturedTexts();
+
+        int pos = 0;
+
+        while ((pos = rx.indexIn(text, pos)) != -1) {
+            list << rx.cap(1);
+            pos += rx.matchedLength();
+        }
+
+        //cleaning process
+        QString tmp("");
+        list.removeAll(tmp);
+
+        return list;
+}
+
 
 // UI
 

@@ -21,17 +21,8 @@ Article* Article::addVersion() const {
 }
 
 QStringList Article::getReferences() const {
-    QRegExp rx("<ref>(.+)</ref>");
-    int pos = rx.indexIn(text);
-    qDebug() << pos;
-    QStringList list = rx.capturedTexts();
-    QStringList::iterator it = list.begin();
-    qDebug() << text;
-    while (it != list.end()) {
-        qDebug() << *it;
-        ++it;
-    }
-    return list;
+    //
+    // return list;
 }
 
 bool Article::textChanged() const {

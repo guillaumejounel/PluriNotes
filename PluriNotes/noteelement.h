@@ -51,6 +51,9 @@ public:
 
     //! \brief set the date fiel in the UI
     void setUiNoteDate(const QDateTime& d) const;
+
+    //! method to get the references in text
+    QStringList getReferences(const QString& text);
 };
 
 
