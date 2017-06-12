@@ -902,6 +902,7 @@ void PluriNotes::emptyTrashSlot(bool out){
                                         QMessageBox::Cancel|QMessageBox::Ok);
           if (reply == QMessageBox::Ok) {
             emptyTrashSlot(true);
+            setDataChanged(true);
           }
     }
     else{
