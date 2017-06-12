@@ -16,6 +16,7 @@
 #include <QVector>
 #include <QSet>
 
+
 class NoteCouple;
 class NoteEntity;
 class Relation;
@@ -31,6 +32,12 @@ private:
 
     //! \brief content of the relation
     QVector<NoteCouple*> content;
+
+    //! \brief a temporary vector to store deleted couple for undo/redo Purpose
+    QVector<NoteCouple*> deletedTMP;
+
+    //! \brief a simple attribute to know if the relation has been deleted
+    bool deleted;
 
     //! Boolean to know if we actually have to consider both couple (x,y) and (y,x)
     bool oriented;
@@ -51,6 +58,7 @@ public:
     Relation(QString& t, QString& d, bool isOriented, bool isReferences);
 
     Relation() {}
+    ~Relation();
 
     //! \brief getter for the title
     const QString getTitle() const {return title;}
@@ -74,6 +82,8 @@ public:
     //! setter for the orientation
     void setOriented(bool b) {oriented = b;}
 
+    //! \brief getter for the state of the relation
+    bool isDeleted() const {return deleted;}
 
 
     //! \brief setter for the title

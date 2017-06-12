@@ -42,23 +42,7 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
 }
 
 void PluriNotes::testFunction() {
-    /*
-    Relation* ref = relations[0];
-    QString l = QString("couple 1");
-    NoteCouple& c = *(new NoteCouple(l,notes[0],notes[1]));
-    ref->addCouple(c);
-
-
-    l = QString("couple 2");
-    c = *(new NoteCouple(l,notes[1],notes[2]));
-    ref->addCouple(c);
-
-
-    l = QString("couple 3");
-    c = *(new NoteCouple(l,notes[2],notes[3]));
-    ref->addCouple(c);
-    */
-
+//
 }
 
 
@@ -162,7 +146,7 @@ void PluriNotes::createActions()
     exitAction->setShortcuts(QKeySequence::Quit);
     connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
 
-    viewUndoHistory = new QAction(tr("View&History"), this);
+    viewUndoHistory = new QAction(tr("View History"), this);
     connect(viewUndoHistory, SIGNAL(triggered()), this, SLOT(showUndoHistoryWindows()));
     /*
     aboutAction = new QAction(tr("&About"), this);
@@ -188,6 +172,7 @@ PluriNotes::~PluriNotes() {
 }
 
 void PluriNotes::toNewNoteForm() {
+    ui -> toolBox -> setCurrentIndex(0);
     setInteractivity(false);
     //Ouverture du formulaire de création de notes
     is_idChanged = false;
@@ -214,32 +199,26 @@ QListWidget* PluriNotes::getListTrash() const {
     return ui->listTrashWidget;
 }
 
-QListWidget* PluriNotes::getListTasks() const {
-    return ui->listTaskWidget;
-}
-
 void PluriNotes::setInteractivity(bool b){
-    ui -> toolBox -> setEnabled(b);
-    ui -> listTaskWidget -> setEnabled(b);
-    ui -> treeViewPredecessors -> setEnabled(b);
-    ui -> treeViewSuccessors -> setEnabled(b);
-    ui -> ButtonNewNote -> setEnabled(b);
+    ui->toolBox->setEnabled(b);
+    ui->treeViewPredecessors->setEnabled(b);
+    ui->treeViewSuccessors->setEnabled(b);
+    ui->ButtonNewNote->setEnabled(b);
 }
 
 NoteEntity* PluriNotes::getCurrentNote() {
     int nb = ui -> toolBox ->currentIndex();
+    int nb2 = ui->listNotesWidget->count();
+    listItemAndPointer* item = nullptr;
     qWarning()<<QString::number(nb);
     if (nb == 0 && ui->listNotesWidget->count() != 0){
-        listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
-        //ui->mainStackedWidget->setCurrentIndex(0);
-        return item->getNotePointer();
+        item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
     } else if (nb == 1 && ui->listArchivedWidget->count() != 0){
-        listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listArchivedWidget->currentItem());
-        return item->getNotePointer();
+        item = static_cast<listItemAndPointer*> (ui->listArchivedWidget->currentItem());
     } else if (nb == 2 && ui->listTrashWidget->count() != 0){
-        //ui->mainStackedWidget->setCurrentIndex(4);
         return nullptr; // it is in trash
     }
+    if (item != nullptr) return item->getNotePointer();
     ui->mainStackedWidget->setCurrentIndex(2);
     return nullptr;
 }
@@ -248,22 +227,22 @@ void PluriNotes::displayNote(unsigned int n) {
     isDisplayed = false;
     ui->idDisplayLineEdit->setReadOnly(true);
     ui->dateDisplayLineEdit->setReadOnly(true);
-    if(notes.size() && getCurrentNote()!= nullptr) {
-        const NoteEntity& currentSelectedNote = *getCurrentNote();
-        ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
+    const NoteEntity* currentSelectedNote = getCurrentNote();
+    if(notes.size() && currentSelectedNote!= nullptr) {
+        ui->idDisplayLineEdit->setText(currentSelectedNote->getId());
         ui->noteTextVersion->clear();
-        updateTrees(const_cast<NoteEntity*>(&currentSelectedNote));
-        if (currentSelectedNote.getSize() == 1) {
+        updateTrees(const_cast<NoteEntity*>(currentSelectedNote));
+        if (currentSelectedNote->getSize() == 1) {
             ui->noteTextVersion->addItem(QString("Version 1"));
             ui->noteTextVersion->setEnabled(0);
         } else {
             ui->noteTextVersion->setEnabled(1);
-            for(unsigned int i = currentSelectedNote.getSize(); i > 0; --i)
+            for(unsigned int i = currentSelectedNote->getSize(); i > 0; --i)
                 ui->noteTextVersion->addItem(QString("Version ") + QString::number(i));
             ui->noteTextVersion->setCurrentIndex(n);
         }
         n = ui->noteTextVersion->count() - ui->noteTextVersion->currentIndex() - 1;
-        const NoteElement& note = currentSelectedNote.getVersion(n);
+        const NoteElement& note = currentSelectedNote->getVersion(n);
         ui->noteTypeDisplay->setCurrentIndex(note.indexPageCreation());
         //Ajout et remplissage des champs de type de note
         note.displayNote();
@@ -558,10 +537,7 @@ void PluriNotes::loadDataIntoUi() {
         addNoteToList(note, ui->listTrashWidget);
     }
     for(NoteEntity* note:notes) {
-        if (note->getLastVersion().typeName() == "Task")
-            addNoteToList(note, ui->listTaskWidget);
-        else
-            addNoteToList(note, note->isArchived()?ui->listArchivedWidget:ui->listNotesWidget);
+        addNoteToList(note, note->isArchived()?ui->listArchivedWidget:ui->listNotesWidget);
     }
 }
 
@@ -781,6 +757,17 @@ Relation* PluriNotes::getReferencesRelation() {
 void PluriNotes::addRelationToVector(Relation* r) {
     relations.push_back(r);
 }
+
+
+void PluriNotes::onRelationsWindowsClose(){
+    for (auto rel : relations){
+        if (rel->isDeleted() && (!rel->isReferences()) ){
+            relations.removeAll(rel);
+            delete rel;
+        }
+    }
+}
+
 
 
 QSet<NoteEntity*> PluriNotes::getAllSuccessorsOf(NoteEntity* note) const{

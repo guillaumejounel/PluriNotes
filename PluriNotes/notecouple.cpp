@@ -16,7 +16,6 @@ bool NoteCouple::contains(const NoteEntity* note) const{
 
 
 
-
 bool NoteCouple::operator==(const NoteCouple& c)const{
     if (isEqualX(c.getX()) && isEqualY(c.getY())) return true;
 

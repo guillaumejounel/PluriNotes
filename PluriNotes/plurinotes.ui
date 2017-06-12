@@ -67,7 +67,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>161</height>
+           <height>395</height>
           </rect>
          </property>
          <attribute name="label">
@@ -85,7 +85,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>161</height>
+           <height>395</height>
           </rect>
          </property>
          <attribute name="label">
@@ -103,7 +103,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>183</height>
+           <height>395</height>
           </rect>
          </property>
          <attribute name="label">
@@ -167,18 +167,6 @@
          </size>
         </property>
        </spacer>
-      </item>
-      <item>
-       <widget class="QGroupBox" name="groupBox">
-        <property name="title">
-         <string>Tasks</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_8">
-         <item row="0" column="0">
-          <widget class="QListWidget" name="listTaskWidget"/>
-         </item>
-        </layout>
-       </widget>
       </item>
      </layout>
     </item>
@@ -1191,7 +1179,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>569</x>
-     <y>570</y>
+     <y>392</y>
     </hint>
     <hint type="destinationlabel">
      <x>306</x>
@@ -1207,7 +1195,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>377</x>
-     <y>570</y>
+     <y>392</y>
     </hint>
     <hint type="destinationlabel">
      <x>176</x>
@@ -1223,7 +1211,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>473</x>
-     <y>570</y>
+     <y>392</y>
     </hint>
     <hint type="destinationlabel">
      <x>149</x>
@@ -1351,7 +1339,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>280</x>
-     <y>570</y>
+     <y>392</y>
     </hint>
     <hint type="destinationlabel">
      <x>154</x>
@@ -1462,8 +1450,8 @@
    <slot>restoreTrashSlot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>65</x>
-     <y>327</y>
+     <x>78</x>
+     <y>183</y>
     </hint>
     <hint type="destinationlabel">
      <x>52</x>
@@ -1478,8 +1466,8 @@
    <slot>emptyTrashSlot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>123</x>
-     <y>327</y>
+     <x>148</x>
+     <y>183</y>
     </hint>
     <hint type="destinationlabel">
      <x>108</x>
@@ -1494,8 +1482,8 @@
    <slot>showTrashSlot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>80</x>
-     <y>229</y>
+     <x>92</x>
+     <y>148</y>
     </hint>
     <hint type="destinationlabel">
      <x>167</x>

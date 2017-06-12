@@ -192,8 +192,7 @@ private:
     //! \todo attributes to store whether there has been data modification or not
     bool dataChanged = false;
 
-    //! \todo add documentation
-    NoteEntity* getCurrentNote();
+
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 
@@ -246,6 +245,9 @@ public:
     //! Method to get a pointer to the references relation
     Relation* getReferencesRelation();
 
+    //! Function to deleted relations that have been temporarly deleted in the relation managment window
+    void onRelationsWindowsClose();
+
 
     //! \todo add documentation
     void setAutoDelete(bool);
@@ -257,8 +259,8 @@ public:
     //! Function to say if the data has changed.
     void setDataChanged(bool b);
 
-
-
+    //! \todo add documentation
+    NoteEntity* getCurrentNote();
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 
