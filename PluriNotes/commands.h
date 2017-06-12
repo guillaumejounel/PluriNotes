@@ -182,4 +182,27 @@ public:
     Relation* getRelation() {return relation;}
 };
 
+
+
+/**
+\class removeRelationCommand
+\brief Undo/redo removing relation
+
+This class enables the undo/redo process for adding a relation in the app
+**/
+class removeRelationCommand : public QUndoCommand
+{
+private:
+    Relation* relation;
+
+public:
+    removeRelationCommand(Relation* relation, QUndoCommand *parent = 0);
+    // No issues with memory leaks !
+
+    void undo() override;
+    void redo() override;
+
+    Relation* getRelation() {return relation;}
+};
+
 #endif // COMMANDS_H

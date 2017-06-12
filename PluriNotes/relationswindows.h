@@ -99,8 +99,16 @@ signals:
     void beforeClose();
     void toNewRelationForm();
     void displayRelation();
+
+    //! \brief add relation slot
     void addRelation();
+
+    //! \brief remove relation slot
+    void removeRelation();
+
+
     void addCouple();
+
     void changeCoupleLabel();
     void deleteCouple();
 

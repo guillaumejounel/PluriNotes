@@ -119,6 +119,13 @@ void relationsWindows::addRelation() {
     undoStack->push(addCommand);
 }
 
+void relationsWindows::removeRelation(){
+    Relation* relation = getCurrentRelation();
+
+    QUndoCommand *removeCommand = new removeRelationCommand(relation);
+    undoStack->push(removeCommand);
+}
+
 void relationsWindows::addCouple() {
     PluriNotes& manager = PluriNotes::getManager();
     NoteEntity* note1 = manager.getNoteById(ui->noteSelectorX->currentText());

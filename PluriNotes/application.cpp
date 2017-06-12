@@ -211,7 +211,6 @@ NoteEntity* PluriNotes::getCurrentNote() {
     int nb = ui -> toolBox ->currentIndex();
     int nb2 = ui->listNotesWidget->count();
     listItemAndPointer* item = nullptr;
-    qWarning()<<QString::number(nb);
     if (nb == 0 && ui->listNotesWidget->count() != 0){
         item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
     } else if (nb == 1 && ui->listArchivedWidget->count() != 0){
@@ -840,7 +839,6 @@ void PluriNotes::addReferences(NoteEntity* note, const QStringList& idList){
     for(auto note : notes){
         if (idList.contains(note->getId())){
             listOfNoteMatchingId.append(note);
-            qWarning()<<QString("reference matched !");
         }
 
     }
@@ -917,7 +915,6 @@ void PluriNotes::emptyTrashSlot(bool out){
 void PluriNotes::restoreTrashSlot(){
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listTrashWidget->currentItem());
     NoteEntity* currentSelectedNote = item->getNotePointer();
-    qWarning()<<currentSelectedNote -> getId();
 
     QUndoCommand *deleteCommand = new deleteNoteCommand(currentSelectedNote,1);
     undoStack->push(deleteCommand);

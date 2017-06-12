@@ -83,7 +83,6 @@ void addNoteEntityCommand::undo()
     PluriNotes& manager = PluriNotes::getManager();
     manager.removeNoteFromList(getNote(), manager.getListActiveNotes());
     manager.getReferencesRelation()->removeCoupleWithNote(getNote());
-    qWarning()<<QString("c'est passé");
     manager.removeNote(getNote());
 }
 
@@ -175,6 +174,37 @@ void addRelationCommand::redo()
 
     PluriNotes& manager = PluriNotes::getManager();
     static_cast<relationsWindows*>(manager.getRelationView())->addRelationToList(getRelation());
+    static_cast<relationsWindows*>(manager.getRelationView())->displayRelation();
+    manager.setDataChanged(true);
+}
+// ########################################
+
+
+
+// addRelationCommand
+// ########################################
+removeRelationCommand::removeRelationCommand(Relation* relation, QUndoCommand *parent )
+    : QUndoCommand(parent), relation(relation) {}
+
+
+void removeRelationCommand::undo()
+{
+    setText("Undo the delete of the relation : "+getRelation()->getTitle());
+    getRelation()->setDeleted(false);
+
+    PluriNotes& manager = PluriNotes::getManager();
+    static_cast<relationsWindows*>(manager.getRelationView())->addRelationToList(getRelation());
+    static_cast<relationsWindows*>(manager.getRelationView())->displayRelation();
+    manager.setDataChanged(true);
+}
+
+void removeRelationCommand::redo()
+{
+    setText("Delete the relation : "+getRelation()->getTitle());
+    getRelation()->setDeleted(true);
+
+    PluriNotes& manager = PluriNotes::getManager();
+    static_cast<relationsWindows*>(manager.getRelationView())->removeRelationFromList(getRelation());
     static_cast<relationsWindows*>(manager.getRelationView())->displayRelation();
     manager.setDataChanged(true);
 }
