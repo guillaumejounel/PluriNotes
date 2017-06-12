@@ -12,6 +12,16 @@ Relation::Relation(QString &t, QString &d, bool isOriented) : title(t), descript
     if (number != 0) number++;
 }
 
+Relation::~Relation(){
+    for (auto couple : content){
+        delete couple;
+    }
+
+    for (auto couple : deletedTMP){
+        delete couple;
+    }
+}
+
 bool Relation::isInside(const NoteCouple* c) const {
     return isInside(c->getX(),c->getY());
 }

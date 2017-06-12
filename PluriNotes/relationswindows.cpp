@@ -37,6 +37,11 @@ void relationsWindows::beforeClose() {
     PluriNotes& manager = PluriNotes::getManager();
     manager.setEnabled(true);
 
+    manager.onRelationsWindowsClose();
+
+    // update trees if there have been modifications
+    manager.updateTrees(manager.getCurrentNote());
+
     //Clear the couples ComboBoxes (to be reflilled at opening)
     ui->noteSelectorX->clear();
     ui->noteSelectorY->clear();

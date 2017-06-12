@@ -756,6 +756,17 @@ void PluriNotes::addRelationToVector(Relation* r) {
 }
 
 
+void PluriNotes::onRelationsWindowsClose(){
+    for (auto rel : relations){
+        if (rel->isDeleted() && (!rel->isReferences()) ){
+            relations.removeAll(rel);
+            delete rel;
+        }
+    }
+}
+
+
+
 QSet<NoteEntity*> PluriNotes::getAllSuccessorsOf(NoteEntity* note) const{
     unsigned int nbOfRealations = relations.size();
     QSet<NoteEntity*> result;
