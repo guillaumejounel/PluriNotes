@@ -363,7 +363,7 @@ void PluriNotes::saveNote() {
 
         //Input is not valid
         if (references == false) QMessageBox::warning(this, "Warning", "Please check your input. You notably have references issues !");
-        else QMessageBox::warning(this, "Warning", "Please check your inputs !");
+        else QMessageBox::warning(this, "Warning", "Please check your inputs ! Starred items must be filled in.");
     }
 }
 

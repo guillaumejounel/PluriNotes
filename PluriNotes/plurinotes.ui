@@ -200,8 +200,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>597</width>
-             <height>382</height>
+             <width>635</width>
+             <height>500</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -442,6 +442,15 @@
                     </item>
                     <item>
                      <layout class="QFormLayout" name="formLayout_6">
+                      <property name="sizeConstraint">
+                       <enum>QLayout::SetMaximumSize</enum>
+                      </property>
+                      <property name="labelAlignment">
+                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                      </property>
+                      <property name="formAlignment">
+                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                      </property>
                       <item row="0" column="0">
                        <widget class="QLabel" name="documentDisplayFileLabel">
                         <property name="text">
@@ -917,6 +926,9 @@
                      </item>
                      <item>
                       <layout class="QFormLayout" name="formLayout_3">
+                       <property name="sizeConstraint">
+                        <enum>QLayout::SetMaximumSize</enum>
+                       </property>
                        <property name="labelAlignment">
                         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                        </property>
@@ -936,7 +948,7 @@
                           <bool>false</bool>
                          </property>
                          <property name="sizePolicy">
-                          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                            <horstretch>0</horstretch>
                            <verstretch>0</verstretch>
                           </sizepolicy>
@@ -1178,8 +1190,8 @@
    <slot>deleteNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>88</y>
+     <x>639</x>
+     <y>412</y>
     </hint>
     <hint type="destinationlabel">
      <x>306</x>
@@ -1194,8 +1206,8 @@
    <slot>saveNewVersion()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>88</y>
+     <x>415</x>
+     <y>412</y>
     </hint>
     <hint type="destinationlabel">
      <x>176</x>
@@ -1210,8 +1222,8 @@
    <slot>noteVersionChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>88</y>
+     <x>530</x>
+     <y>410</y>
     </hint>
     <hint type="destinationlabel">
      <x>149</x>
@@ -1226,8 +1238,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>289</x>
-     <y>78</y>
+     <x>291</x>
+     <y>182</y>
     </hint>
     <hint type="destinationlabel">
      <x>160</x>
@@ -1242,8 +1254,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>88</y>
+     <x>365</x>
+     <y>83</y>
     </hint>
     <hint type="destinationlabel">
      <x>160</x>
@@ -1258,8 +1270,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>88</y>
+     <x>291</x>
+     <y>178</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -1274,8 +1286,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>88</y>
+     <x>241</x>
+     <y>193</y>
     </hint>
     <hint type="destinationlabel">
      <x>156</x>
@@ -1290,8 +1302,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>88</y>
+     <x>259</x>
+     <y>195</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -1306,8 +1318,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>88</y>
+     <x>282</x>
+     <y>193</y>
     </hint>
     <hint type="destinationlabel">
      <x>153</x>
@@ -1322,8 +1334,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>289</x>
-     <y>73</y>
+     <x>291</x>
+     <y>198</y>
     </hint>
     <hint type="destinationlabel">
      <x>160</x>
@@ -1338,8 +1350,8 @@
    <slot>displayNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>88</y>
+     <x>303</x>
+     <y>412</y>
     </hint>
     <hint type="destinationlabel">
      <x>154</x>
@@ -1370,8 +1382,8 @@
    <slot>updateSelectionFromTreePredecessors()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>88</y>
+     <x>772</x>
+     <y>90</y>
     </hint>
     <hint type="destinationlabel">
      <x>672</x>
@@ -1386,8 +1398,8 @@
    <slot>updateSelectionFromTreeSuccessors()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>88</y>
+     <x>772</x>
+     <y>272</y>
     </hint>
     <hint type="destinationlabel">
      <x>879</x>
@@ -1402,8 +1414,8 @@
    <slot>updateAddChildTreePredecessors(QTreeWidgetItem*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>88</y>
+     <x>772</x>
+     <y>90</y>
     </hint>
     <hint type="destinationlabel">
      <x>776</x>
@@ -1418,8 +1430,8 @@
    <slot>updateAddChildTreeSuccessors(QTreeWidgetItem*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>88</y>
+     <x>772</x>
+     <y>272</y>
     </hint>
     <hint type="destinationlabel">
      <x>880</x>
@@ -1434,8 +1446,8 @@
    <slot>retracteOrUnretracteArborescence()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>216</x>
-     <y>258</y>
+     <x>676</x>
+     <y>337</y>
     </hint>
     <hint type="destinationlabel">
      <x>386</x>
