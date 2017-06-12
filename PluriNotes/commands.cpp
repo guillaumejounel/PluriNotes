@@ -25,6 +25,7 @@ void deleteNoteCommand::undo()
         setText("Rétablir la Suppression de la note "+getNote()->getId());
 
         PluriNotes& manager = PluriNotes::getManager();
+        manager.getUi()->toolBox->setCurrentIndex(0);
         manager.moveBackFromTrash(getNote());
         manager.removeNoteFromList(getNote(), manager.getListTrash());
         manager.addNoteToList(getNote(), manager.getListActiveNotes());
@@ -55,51 +56,6 @@ void deleteNoteCommand::redo()
     }
 }
 // ########################################
-
-
-
-
-// restoreNoteCommand
-// ########################################
-restoreNoteCommand::restoreNoteCommand(NoteEntity *note, QUndoCommand *parent)
-    : QUndoCommand(parent), note(note) {}
-
-
-restoreNoteCommand::~restoreNoteCommand() {
-    PluriNotes& manager = PluriNotes::getManager();
-    // if we don't actually still have the pointer in the vector we should be able to delete it...
-    if (! manager.isInsideApp(getNote())) {
-        delete getNote();
-    }
-
-}
-
-void restoreNoteCommand::undo()
-{
-
-    setText("Suppression de la note "+getNote()->getId());
-
-    PluriNotes& manager = PluriNotes::getManager();
-    manager.moveToTrash(getNote());
-    manager.removeNoteFromList(getNote(), manager.getListActiveNotes());
-    manager.addNoteToList(getNote(), manager.getListTrash());
-
-    manager.setDataChanged(true);
-}
-
-void restoreNoteCommand::redo()
-{
-    setText("Restauration de la note "+getNote()->getId());
-
-    PluriNotes& manager = PluriNotes::getManager();
-    manager.moveBackFromTrash(getNote());
-    manager.removeNoteFromList(getNote(), manager.getListTrash());
-    manager.addNoteToList(getNote(), manager.getListActiveNotes());
-    manager.setDataChanged(true);
-
-}
-// ########################################
-
 
 
 

@@ -226,17 +226,30 @@ void PluriNotes::setInteractivity(bool b){
     ui -> ButtonNewNote -> setEnabled(b);
 }
 
-NoteEntity& PluriNotes::getCurrentNote() {
-    listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
-    return *item->getNotePointer();
+NoteEntity* PluriNotes::getCurrentNote() {
+    int nb = ui -> toolBox ->currentIndex();
+    qWarning()<<QString::number(nb);
+    if (nb == 0 && ui->listNotesWidget->count() != 0){
+        listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
+        //ui->mainStackedWidget->setCurrentIndex(0);
+        return item->getNotePointer();
+    } else if (nb == 1 && ui->listArchivedWidget->count() != 0){
+        listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listArchivedWidget->currentItem());
+        return item->getNotePointer();
+    } else if (nb == 2 && ui->listTrashWidget->count() != 0){
+        //ui->mainStackedWidget->setCurrentIndex(4);
+        return nullptr; // it is in trash
+    }
+    ui->mainStackedWidget->setCurrentIndex(2);
+    return nullptr;
 }
 
 void PluriNotes::displayNote(unsigned int n) {
     isDisplayed = false;
     ui->idDisplayLineEdit->setReadOnly(true);
     ui->dateDisplayLineEdit->setReadOnly(true);
-    if(notes.size()) {
-        const NoteEntity& currentSelectedNote = getCurrentNote();
+    if(notes.size() && getCurrentNote()!= nullptr) {
+        const NoteEntity& currentSelectedNote = *getCurrentNote();
         ui->idDisplayLineEdit->setText(currentSelectedNote.getId());
         ui->noteTextVersion->clear();
         updateTrees(const_cast<NoteEntity*>(&currentSelectedNote));
@@ -256,7 +269,8 @@ void PluriNotes::displayNote(unsigned int n) {
         note.displayNote();
         ui->mainStackedWidget->setCurrentIndex(0);
     } else {
-        ui->mainStackedWidget->setCurrentIndex(2);
+        int nb = ui -> toolBox ->currentIndex();
+        if (nb != 2)  ui->mainStackedWidget->setCurrentIndex(2);
     }
     isDisplayed = true;
     setInteractivity(true);
@@ -291,7 +305,7 @@ void PluriNotes::noteVersionChanged() {
 
 void PluriNotes::noteTextChanged() {
     setInteractivity(false);
-    const NoteElement& note = getCurrentNote().getLastVersion();
+    const NoteElement& note = getCurrentNote()->getLastVersion();
     if(ui->noteTextVersion->currentIndex() != 0) {
         ui->buttonSaveEdit->setEnabled(1);
         ui->buttonCancelEdit->setEnabled(0);
@@ -368,7 +382,7 @@ void PluriNotes::saveNote() {
 
 void PluriNotes::saveNewVersion() {
     // We get which not is selected
-    NoteEntity& currentNote = getCurrentNote();
+    NoteEntity& currentNote = *getCurrentNote();
     // We create a newVersion identical to the last one
     const NoteElement& currentVersion = currentNote.getLastVersion();
 
@@ -914,9 +928,16 @@ void PluriNotes::showTrashSlot(int n){
     if (n==2){
         if (ui->listTrashWidget->count() == 0){
             ui->mainStackedWidget->setCurrentIndex(5);
-        }else{
+            ui -> emptyTrashButton -> setEnabled(false);
+            ui-> restoreTrashButton -> setEnabled(false);
+        }else {
+            ui -> emptyTrashButton -> setEnabled(true);
+            ui-> restoreTrashButton -> setEnabled(true);
             ui->mainStackedWidget->setCurrentIndex(4);
         }
+    }else {
+            displayNote();
+
     }
 }
 

@@ -193,7 +193,7 @@ private:
     bool dataChanged = false;
 
     //! \todo add documentation
-    NoteEntity& getCurrentNote();
+    NoteEntity* getCurrentNote();
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 

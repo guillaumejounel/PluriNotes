@@ -38,7 +38,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page">
          <property name="geometry">
@@ -82,7 +82,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>177</height>
+           <height>196</height>
           </rect>
          </property>
          <attribute name="label">
@@ -177,7 +177,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="displayNotePage">
        <layout class="QGridLayout" name="verticalLayout_2" rowstretch="0">
