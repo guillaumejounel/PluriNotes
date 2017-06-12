@@ -17,8 +17,6 @@ Document* Document::addVersion() const {
     return new Document(getUiNoteTitleEdit(), QDateTime::currentDateTime(), getUiDocumentDescriptionEdit(), getUiDocumentFileEdit());
 }
 
-
-
 bool Document::textChanged() const {
     return description == getUiDocumentDescriptionEdit() && file == getUiDocumentFileEdit();
 }
@@ -62,13 +60,11 @@ void Document::loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) 
     }
 }
 
-
 QStringList Document::returnReferences() const{
     QStringList ref = getReferences(getTitle())+getReferences(getDescription());
     ref.QStringList::removeDuplicates();
     return ref;
 }
-
 
 // UI
 void Document::setUiDocumentDescription(const QString& description) const {
@@ -100,4 +96,3 @@ const QString Document::getUiDocumentFileEdit() const {
     Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
     return ui->documentDisplayFile->text();
 }
-

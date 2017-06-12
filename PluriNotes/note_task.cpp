@@ -19,8 +19,6 @@ Task* Task::addVersion() const {
     return new Task(getUiNoteTitleEdit(), QDateTime::currentDateTime(), getUiTaskActionEdit(), getUiTaskStatusEdit(), getUiTaskPriorityEdit(), getUiTaskDeadlineEdit());
 }
 
-
-
 bool Task::textChanged() const {
     return action == getUiTaskActionEdit() && status == getUiTaskStatusEdit() && priority == getUiTaskPriorityEdit() && deadline == getUiTaskDeadlineEdit();
 }
@@ -73,7 +71,6 @@ void Task::loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) cons
     }
 }
 
-
 QStringList Task::returnReferences() const{
     QStringList ref = getReferences(getTitle())+getReferences(getAction());
     ref.QStringList::removeDuplicates();
@@ -86,7 +83,6 @@ void Task::setUiTaskAction(const QString& action) const {
     ui->taskDisplayAction->setText(action);
 }
 
-
 const QString Task::getUiTaskActionEdit() const {
     Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
     return ui->taskDisplayAction->toPlainText();
@@ -97,24 +93,20 @@ const QString Task::getUiTaskAction() const {
     return ui->taskAction->toPlainText();
 }
 
-
 void Task::setUiTaskStatus(unsigned int i) const {
     Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
     ui->taskDisplayStatus->setCurrentIndex(i);
 }
-
 
 unsigned int Task::getUiTaskStatusEdit() const {
     Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
     return ui->taskDisplayStatus->currentIndex();
 }
 
-
 void Task::setUiTaskPriority(unsigned int i) const {
     Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
     ui->taskDisplayPriority->setCurrentIndex(i);
 }
-
 
 unsigned int Task::getUiTaskPriority() const {
     Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
@@ -126,23 +118,17 @@ unsigned int Task::getUiTaskPriorityEdit() const {
     return ui->taskDisplayPriority->currentIndex();
 }
 
-
-
-
-const QDateTime Task::getUiTaskDeadline() const  {
+const QDateTime Task::getUiTaskDeadline() const {
     Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
     return ui->taskDeadline->dateTime();
 }
 
-
-
-void Task::setUiTaskDeadline(const QDateTime& date)const  {
+void Task::setUiTaskDeadline(const QDateTime& date)const {
     Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
     ui->taskDisplayDeadline->setDateTime(date);
 }
 
-
-const QDateTime Task::getUiTaskDeadlineEdit()const  {
+const QDateTime Task::getUiTaskDeadlineEdit()const {
     Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
     return ui->taskDisplayDeadline->dateTime();
 }

@@ -10,7 +10,6 @@ void Article::displayNote() const {
     setUiArticleContent(getText());
 }
 
-
 Article* Article::saveNote(QString title) {
     return new Article(title, QDateTime::currentDateTime(), getUiArticleContent());
 }
@@ -18,7 +17,6 @@ Article* Article::saveNote(QString title) {
 Article* Article::addVersion() const {
     return new Article(getUiNoteTitleEdit(), QDateTime::currentDateTime(), getUiArticleContentEdit());
 }
-
 
 bool Article::textChanged() const {
     return text == getUiArticleContentEdit();
@@ -59,13 +57,11 @@ void Article::loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) c
     }
 }
 
-
-QStringList Article::returnReferences() const{
+QStringList Article::returnReferences() const {
     QStringList ref = getReferences(getTitle())+getReferences(getText());
     ref.QStringList::removeDuplicates();
     return ref;
 }
-
 
 // UI
 void Article::setUiArticleContent(const QString& content) const {
@@ -73,7 +69,7 @@ void Article::setUiArticleContent(const QString& content) const {
     ui->articleDisplayContent->setPlainText(content);
 }
 
-const QString Article::getUiArticleContent() const{
+const QString Article::getUiArticleContent() const {
     Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
     return ui->articleContent->toPlainText();
 }
