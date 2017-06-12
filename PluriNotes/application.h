@@ -477,6 +477,12 @@ signals:
 
     //! \brief animation of the retracable area
     void retracteOrUnretracteArborescence();
+
+    //! \brief empty Trash slot
+    void emptyTrashSlot(bool out = false);
+
+    //! \brief empty restoreTrash slot
+    void restoreTrashSolt();
 };
 
 

@@ -875,3 +875,30 @@ void PluriNotes::retracteOrUnretracteArborescence() {
 
 
 
+void PluriNotes::emptyTrashSlot(bool out){
+    // method may be used at exit, we don't want to show message box on exit...
+    if (!out){
+
+        QMessageBox::StandardButton reply;
+          reply = QMessageBox::question(this, "Attention !",
+                                        "Emptying the trash is non-reversible and will also clear the history for coherence purpose.",
+                                        QMessageBox::Cancel|QMessageBox::Ok);
+          if (reply == QMessageBox::Ok) {
+            emptyTrashSlot(true);
+          }
+    }
+    else{
+        undoStack->clear();
+        for (auto note:trash){
+            delete note;
+        }
+        trash.clear();
+        ui->listTrashWidget->clear();
+    }
+
+}
+
+void PluriNotes::restoreTrashSolt(){
+
+}
+
