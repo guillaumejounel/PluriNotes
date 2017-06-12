@@ -331,6 +331,10 @@ public:
     //! List of active ID for referencing
     QStringList getActiveReferences()const ;
 
+
+    //! References check when adding a note or a version
+    bool refencesCheck(QStringList referencesInNotes, QString id);
+
     //! \brief add References in the references vector
     void addReferences(NoteEntity* note, const QStringList& idList);
 

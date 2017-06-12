@@ -230,8 +230,10 @@ void relationsWindows::addNoteEntityToComboBoxes() {
     QVector<NoteEntity*> notes = manager.getNotesVector();
     if(notes.size()) {
         for(auto note : notes) {
+            if (!note->isArchived()){ // We add only active notes
             ui->noteSelectorX->addItem(note->getId());
             ui->noteSelectorY->addItem(note->getId());
+            }
         }
     } else {
         ui->noteSelectorX->setEnabled(false);

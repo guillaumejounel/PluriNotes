@@ -343,15 +343,7 @@ void PluriNotes::saveNote() {
     newNoteEntity->addVersion(*newNote);
 
     // references check
-    bool references = true;
-    QStringList referencesInNotes = newNoteEntity->returnReferences();
-    QStringList allActiveRefences = getActiveReferences();
-    for (auto s : referencesInNotes ){
-        // for all references in the field we check if they are valid
-        if (!allActiveRefences.contains(s)){
-            flag = false; references = false;
-        }
-    }
+    bool references = refencesCheck(newNoteEntity->returnReferences(),newNoteEntity->getId());
 
     if(flag) {
         setInteractivity(true);
@@ -366,6 +358,7 @@ void PluriNotes::saveNote() {
     }
 }
 
+
 void PluriNotes::saveNewVersion() {
     // We get which note is selected
     NoteEntity& currentNote = *getCurrentNote();
@@ -374,8 +367,17 @@ void PluriNotes::saveNewVersion() {
 
     const NoteElement& newVersion = *currentVersion.addVersion();
 
-    QUndoCommand *addVersionCommand = new addVersionNoteCommand(const_cast<NoteEntity*>(&currentNote),const_cast<NoteElement*>(&newVersion));
-    undoStack->push(addVersionCommand);
+
+    bool references = refencesCheck(newVersion.returnReferences(),currentNote.getId());
+
+    //Input is not valid
+    if (references == false){
+        delete &newVersion;
+        QMessageBox::warning(this, "Warning", "Please check your input. You notably have references issues !");
+    }else{
+        QUndoCommand *addVersionCommand = new addVersionNoteCommand(const_cast<NoteEntity*>(&currentNote),const_cast<NoteElement*>(&newVersion));
+        undoStack->push(addVersionCommand);
+    }
 }
 
 
@@ -831,6 +833,25 @@ QStringList PluriNotes::getActiveReferences() const {
     }
     return output;
 }
+
+
+
+bool PluriNotes::refencesCheck(QStringList referencesInNotes, QString id){
+        QStringList allActiveRefences = getActiveReferences();
+
+        // references check
+        if (referencesInNotes.contains(id)) return false;
+
+        for (auto s : referencesInNotes ){
+            // for all references in the field we check if they are valid
+            if (!allActiveRefences.contains(s)){
+                return false;
+            }
+        }
+        return true;
+}
+
+
 
 void PluriNotes::addReferences(NoteEntity* note, const QStringList& idList){
     // We have first to build a list of NoteEntity* based on the list of ID
