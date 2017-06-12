@@ -214,16 +214,11 @@ QListWidget* PluriNotes::getListTrash() const {
     return ui->listTrashWidget;
 }
 
-QListWidget* PluriNotes::getListTasks() const {
-    return ui->listTaskWidget;
-}
-
 void PluriNotes::setInteractivity(bool b){
-    ui -> toolBox -> setEnabled(b);
-    ui -> listTaskWidget -> setEnabled(b);
-    ui -> treeViewPredecessors -> setEnabled(b);
-    ui -> treeViewSuccessors -> setEnabled(b);
-    ui -> ButtonNewNote -> setEnabled(b);
+    ui->toolBox->setEnabled(b);
+    ui->treeViewPredecessors->setEnabled(b);
+    ui->treeViewSuccessors->setEnabled(b);
+    ui->ButtonNewNote->setEnabled(b);
 }
 
 NoteEntity* PluriNotes::getCurrentNote() {
@@ -555,10 +550,7 @@ void PluriNotes::loadDataIntoUi() {
         addNoteToList(note, ui->listTrashWidget);
     }
     for(NoteEntity* note:notes) {
-        if (note->getLastVersion().typeName() == "Task")
-            addNoteToList(note, ui->listTaskWidget);
-        else
-            addNoteToList(note, note->isArchived()?ui->listArchivedWidget:ui->listNotesWidget);
+        addNoteToList(note, note->isArchived()?ui->listArchivedWidget:ui->listNotesWidget);
     }
 }
 
