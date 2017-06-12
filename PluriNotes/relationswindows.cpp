@@ -89,11 +89,11 @@ void relationsWindows::addCouple() {
 
 void relationsWindows::changeCoupleLabel() {
     QString label = QInputDialog::getText(this, "Change Couple Label", "New label :");
-    listCoupleAndReference* item = static_cast<listCoupleAndReference*> (ui->listCoupleWidget->currentItem());
+    listCoupleAndPointer* item = static_cast<listCoupleAndPointer*> (ui->listCoupleWidget->currentItem());
     // TODO : solve force crash here : (ASSERT: "&other != this" in file /usr/include/qt/QtCore/qstring.h, line 919)
-    //NoteCouple currentSelectedCouple = item->getCouple();
-    //currentSelectedCouple.setLabel(label);
-    //displayRelation();
+    NoteCouple* currentSelectedCouple = item->getCouplePointer();
+    currentSelectedCouple->setLabel(label);
+    displayRelation();
 }
 
 void relationsWindows::closeEvent(QCloseEvent *event) {
@@ -118,8 +118,8 @@ listRelationAndPointer* relationsWindows::addRelationToList(Relation* rel) {
     return itm;
 }
 
-listCoupleAndReference* relationsWindows::addCoupleToList(NoteCouple* couple) {
-    listCoupleAndReference* itm = new listCoupleAndReference(couple);
+listCoupleAndPointer* relationsWindows::addCoupleToList(NoteCouple* couple) {
+    listCoupleAndPointer* itm = new listCoupleAndPointer(couple);
     itm->setText(couple->print());
     addItemCoupleToList(itm);
     return itm;
@@ -130,7 +130,7 @@ void relationsWindows::addItemRelationToList(listRelationAndPointer *item) {
     ui->listOfAllRelations->setCurrentRow(0);
 }
 
-void relationsWindows::addItemCoupleToList(listCoupleAndReference *item) {
+void relationsWindows::addItemCoupleToList(listCoupleAndPointer *item) {
     ui->listCoupleWidget->insertItem(0, item);
     ui->listCoupleWidget->setCurrentRow(0);
 }
