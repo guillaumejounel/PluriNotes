@@ -964,6 +964,42 @@
         </property>
        </widget>
       </widget>
+      <widget class="QWidget" name="page_4">
+       <widget class="QLabel" name="label_22">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>150</y>
+          <width>631</width>
+          <height>181</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-size: 1cm;</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;You are looking in the trash...&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;You can still restore this note.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="page_5">
+       <widget class="QLabel" name="label_23">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>130</y>
+          <width>631</width>
+          <height>181</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-size: 1cm;</string>
+        </property>
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;You are looking in the trash...&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -1384,6 +1420,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>listTrashWidget</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>showTrashSlot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>80</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>167</x>
+     <y>258</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolBox</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>showTrashSlot(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>36</x>
+     <y>149</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>182</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>saveNote()</slot>
@@ -1404,5 +1472,7 @@
   <slot>retracteOrUnretracteArborescence()</slot>
   <slot>restoreTrashSlot()</slot>
   <slot>emptyTrashSlot()</slot>
+  <slot>showTrashSlot()</slot>
+  <slot>showTrashSlot(int)</slot>
  </slots>
 </ui>

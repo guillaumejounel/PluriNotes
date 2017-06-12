@@ -188,6 +188,7 @@ PluriNotes::~PluriNotes() {
 }
 
 void PluriNotes::toNewNoteForm() {
+    setInteractivity(false);
     //Ouverture du formulaire de création de notes
     is_idChanged = false;
     ui->ButtonNewNote->setEnabled(false);
@@ -217,6 +218,13 @@ QListWidget* PluriNotes::getListTasks() const {
     return ui->listTaskWidget;
 }
 
+void PluriNotes::setInteractivity(bool b){
+    ui -> toolBox -> setEnabled(b);
+    ui -> listTaskWidget -> setEnabled(b);
+    ui -> treeViewPredecessors -> setEnabled(b);
+    ui -> treeViewSuccessors -> setEnabled(b);
+    ui -> ButtonNewNote -> setEnabled(b);
+}
 
 NoteEntity& PluriNotes::getCurrentNote() {
     listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
@@ -251,6 +259,7 @@ void PluriNotes::displayNote(unsigned int n) {
         ui->mainStackedWidget->setCurrentIndex(2);
     }
     isDisplayed = true;
+    setInteractivity(true);
 }
 
 void PluriNotes::noteVersionChanged() {
@@ -281,6 +290,7 @@ void PluriNotes::noteVersionChanged() {
 }
 
 void PluriNotes::noteTextChanged() {
+    setInteractivity(false);
     const NoteElement& note = getCurrentNote().getLastVersion();
     if(ui->noteTextVersion->currentIndex() != 0) {
         ui->buttonSaveEdit->setEnabled(1);
@@ -341,6 +351,7 @@ void PluriNotes::saveNote() {
     }
 
     if(flag) {
+        setInteractivity(true);
         QUndoCommand *addCommand = new addNoteEntityCommand(newNoteEntity);
         undoStack->push(addCommand);
     } else {
@@ -424,6 +435,7 @@ void PluriNotes::moveBackFromTrash(NoteEntity* noteEl) {
 }
 
 void PluriNotes::cancelNote() {
+   setInteractivity(true);
     ui->ButtonNewNote->setEnabled(true);
     ui->listNotesWidget->setEnabled(true);
     if (notes.size()) ui->mainStackedWidget->setCurrentIndex(0);
@@ -896,5 +908,15 @@ void PluriNotes::restoreTrashSlot(){
 
     QUndoCommand *deleteCommand = new deleteNoteCommand(currentSelectedNote,1);
     undoStack->push(deleteCommand);
+}
+
+void PluriNotes::showTrashSlot(int n){
+    if (n==2){
+        if (ui->listTrashWidget->count() == 0){
+            ui->mainStackedWidget->setCurrentIndex(5);
+        }else{
+            ui->mainStackedWidget->setCurrentIndex(4);
+        }
+    }
 }
 

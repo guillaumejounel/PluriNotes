@@ -403,11 +403,9 @@ public:
     //! \brief Get the list of tasks in the UI
     QListWidget* getListTasks() const;
 
-    //! \brief Set the note title in the UI
-    void setNoteTitle(const QString& t);
 
-
-
+    //! Method to block or activate element interaction
+    void setInteractivity(bool b);
 
     //! Before closing we have to execut this
     void closeEvent ( QCloseEvent * event );
@@ -483,6 +481,9 @@ signals:
 
     //! \brief empty restoreTrash slot
     void restoreTrashSlot();
+
+    //! \brief displayTrashMessage
+    void showTrashSlot(int n = -1);
 };
 
 
