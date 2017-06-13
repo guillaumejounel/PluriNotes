@@ -1083,8 +1083,17 @@ void PluriNotes::showTrashSlot(int n){
             ui-> restoreTrashButton -> setEnabled(true);
             ui->mainStackedWidget->setCurrentIndex(4);
         }
-    }else {
+    }else if (n==1){
+        if (ui->listArchivedWidget->count()==0){
+            ui->restoreArchivedButton->setEnabled(false);
+            ui->checkArchivesButton->setEnabled(false);
+        } else {
+         ui->restoreArchivedButton->setEnabled(true);
+         ui->checkArchivesButton->setEnabled(true);
+        }
             displayNote();
+    }else{
+        displayNote();
     }
 }
 
