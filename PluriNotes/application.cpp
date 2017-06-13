@@ -232,6 +232,10 @@ NoteEntity* PluriNotes::getCurrentNote() {
     return nullptr;
 }
 
+QString PluriNotes::getCurrentNoteType() {
+    return getCurrentNote()->getLastVersion().typeName();
+}
+
 void PluriNotes::displayNote(unsigned int n) {
     noteCountUpdate();
     isDisplayed = false;
@@ -239,6 +243,7 @@ void PluriNotes::displayNote(unsigned int n) {
     ui->dateDisplayLineEdit->setReadOnly(true);
     const NoteEntity* currentSelectedNote = getCurrentNote();
     if(notes.size() && currentSelectedNote!= nullptr) {
+        ui->noteTypeDisplayLabel->setText(QString("<html><head/><body><p><span style='font-size:24pt;'>")+getCurrentNoteType()+ QString("</span></p></body></html>"));
         ui->idDisplayLineEdit->setText(currentSelectedNote->getId());
         ui->noteTextVersion->clear();
         updateTrees(const_cast<NoteEntity*>(currentSelectedNote));

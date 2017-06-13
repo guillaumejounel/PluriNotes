@@ -197,7 +197,6 @@ private:
     //! \brief Update the note count of each panel of the notBox
     void noteCountUpdate();
 
-
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 
@@ -269,6 +268,9 @@ public:
 
     //! \todo add documentation
     NoteEntity* getCurrentNote();
+
+    //! \brief Get the type of the current displayed note
+    QString getCurrentNoteType();
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 
