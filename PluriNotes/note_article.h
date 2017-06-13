@@ -3,40 +3,57 @@
 
 #include "notetemplate.h"
 
-#include <QString>
-#include <QTextEdit>
-#include <QLabel>
-#include <QWidget>
-#include <QDateTime>
-
 using namespace std;
+
+/**
+\class Article
+\brief Class of the Article note type
+**/
 
 setNoteType(Article)
 private:
+    //! \brief Text of the Article
     const QString text;
+
 public:
+    //! \brief Constructor of Article without argument
     Article() {}
+
+    //! \brief Constructor of Article
     Article(const QString& title, const QDateTime& creaDate, const QString& text): BaseNoteType(title,creaDate), text(text) {}
-    const QString& getText() const {return text;}
+
+    //! \brief Display Article on the PluriNotes UI
     virtual void displayNote() const override;
+
+    //! \brief Return index of the note creation form page related to Article
     virtual unsigned int indexPageCreation() const override { return 0; }
+
+    //! \brief Return a new Article initialized by the note creation form UI inputs
     virtual Article* saveNote(QString title) override;
+
+    //! \brief Return a new Article initialized by the note edition form UI inputs
     virtual Article* addVersion() const override;
+
+    //! \brief Return true if the note edition form has UI inputs different from the Article
     virtual bool textChanged() const override;
+
+    //! \brief Save the Article data in a file
     virtual void saveToXML(QXmlStreamWriter& stream) const override;
+
+    //! \brief Load a Article from a file and add it into a NoteEntity
     virtual void loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) const override;
 
-    //! method to get the references inside a specific type of note
+    //! \brief Return detected references from the Article data
     virtual QStringList returnReferences() const override;
 
+    //! \brief Accessor to the text
+    const QString& getText() const {return text;}
 
+    //! \brief Destructor of Document
     ~Article() {}
 
-
+    // UI
     //-------
-    // Article related Ui element setter.getter
-    // \todo move to an other class for better POO ?
-
 
     //! \brief set the article Content in the UI
     void setUiArticleContent(const QString& content) const;
@@ -46,6 +63,7 @@ public:
 
     //! \brief get the article articleDisplayContent in the UI
     const QString getUiArticleContentEdit() const;
+
     //-------
 
 };

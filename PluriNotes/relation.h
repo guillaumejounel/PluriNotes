@@ -83,7 +83,7 @@ public:
     void setOriented(bool b) {oriented = b;}
 
     //! \brief setter for the state of the relation
-    bool setDeleted(bool b) {deleted = b;}
+    void setDeleted(bool b) {deleted = b;}
 
     //! \brief getter for the state of the relation
     bool isDeleted() const {return deleted;}
