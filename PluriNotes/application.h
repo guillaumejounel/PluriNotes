@@ -1,6 +1,6 @@
 /**
 \file application.h
-\date 28/05/2017
+\date 14/06/2017
 \author Florent Chehab, Guillaume Jounel and Félix Boisselier
 \brief contains the core application
 **/
