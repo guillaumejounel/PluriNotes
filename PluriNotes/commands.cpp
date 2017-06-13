@@ -51,8 +51,9 @@ void deleteNoteCommand::undo()
             //We have to check if the references are still valid !
             const NoteElement& currentVersion = getNote()->getLastVersion();
             const NoteElement& newVersion = *currentVersion.addVersion();
-            bool references = manager.refencesCheck(newVersion.returnReferences(),getNote()->getId());
+            bool references = manager.refencesCheck(&newVersion,getNote(),getNote()->getId());
 
+            getNote()->setHasIssues(!references);
             if (references == false) {
                 manager.saveNewVersion();
                 manager.setInteractivity(false);

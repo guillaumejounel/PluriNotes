@@ -264,11 +264,17 @@ QString PluriNotes::getCurrentNoteType() {
 void PluriNotes::displayNote(unsigned int n) {
     noteCountUpdate();
     setInteractivity(true,1);
-    isDisplayed = false;
     ui->idDisplayLineEdit->setReadOnly(true);
     ui->dateDisplayLineEdit->setReadOnly(true);
     if (!n) ui->buttonSaveEdit->setText(QString("Save"));
     const NoteEntity* currentSelectedNote = getCurrentNote();
+
+    //if (isDisplayed == 2 && ui->buttonSaveEdit->text()==QString("Restore")){
+        //
+    //} else
+    isDisplayed = 0;
+
+
     if(notes.size() && currentSelectedNote!= nullptr) {
         ui->noteTypeDisplayLabel->setText(QString("<html><head/><body><p><span style='font-size:24pt;'>")+getCurrentNoteType()+ QString("</span></p></body></html>"));
         ui->idDisplayLineEdit->setText(currentSelectedNote->getId());
@@ -289,19 +295,19 @@ void PluriNotes::displayNote(unsigned int n) {
         //Ajout et remplissage des champs de type de note
         note.displayNote();
         ui->mainStackedWidget->setCurrentIndex(0);
+        if (currentSelectedNote->hasIssues()) setInteractivity(false);
     } else {
         int nb = ui->noteBox->currentIndex();
         if (nb != 2)  ui->mainStackedWidget->setCurrentIndex(2);
+        setInteractivity(true);
     }
     if (currentSelectedNote && currentSelectedNote->isArchived()) setInteractivity(false,1);
-    isDisplayed = true;
-    setInteractivity(true);
+    isDisplayed = 1;
 }
 
 void PluriNotes::noteVersionChanged() {
-    if (isDisplayed) {
-        displayNote(ui->noteTextVersion->currentIndex());
-        if (ui->noteTextVersion->currentIndex() == 0) {
+    if (isDisplayed != 0) {
+        if (ui->noteTextVersion->currentIndex() == 0 || isDisplayed == 2) {
             ui->buttonSaveEdit->setText(QString("Save"));
             ui->titleDisplayLineEdit->setReadOnly(0);
             ui->articleDisplayContent->setReadOnly(0);
@@ -322,6 +328,7 @@ void PluriNotes::noteVersionChanged() {
             ui->documentDisplayDescription->setReadOnly(1);
             ui->documentDisplayFileButton->setDisabled(1);
         }
+        displayNote(ui->noteTextVersion->currentIndex());
     }
 }
 
@@ -345,13 +352,15 @@ void PluriNotes::openDocumentFile() {
 }
 
 void PluriNotes::noteTextChanged() {
-    const NoteElement& note = getCurrentNote()->getLastVersion();
-    if(ui->noteTextVersion->currentIndex() != 0) {
+    NoteEntity* currentNote = getCurrentNote();
+    const NoteElement& note = currentNote->getLastVersion();
+    bool issue = currentNote->hasIssues();
+    if(ui->noteTextVersion->currentIndex() != 0 && !issue) {
         setInteractivity(true);
         ui->buttonSaveEdit->setEnabled(1);
         ui->buttonCancelEdit->setEnabled(0);
     } else {
-        if((ui->titleDisplayLineEdit->text() == note.getTitle() && note.textChanged())) {
+        if((ui->titleDisplayLineEdit->text() == note.getTitle() && note.textChanged()) && !issue) {
             setInteractivity(true);
             ui->buttonCancelEdit->setEnabled(0);
             ui->buttonSaveEdit->setEnabled(0);
@@ -400,9 +409,9 @@ void PluriNotes::saveNote() {
     newNoteEntity->addVersion(*newNote);
 
     // references check
-    bool references = refencesCheck(newNoteEntity->returnReferences(),newNoteEntity->getId());
+    bool references = refencesCheck(&(newNoteEntity->getLastVersion()),newNoteEntity,newNoteEntity->getId());
 
-    if(flag) {
+    if(flag && references) {
         setInteractivity(true);
         QUndoCommand *addCommand = new addNoteEntityCommand(newNoteEntity);
         undoStack->push(addCommand);
@@ -410,7 +419,10 @@ void PluriNotes::saveNote() {
         delete newNoteEntity;
 
         //Input is not valid
-        if (references == false) QMessageBox::warning(this, "Warning", "Please check your input. You notably have references issues !");
+        if (references == false){
+            QMessageBox::warning(this, "Warning", "Please check your input. You notably have references issues !");
+            setInteractivity(false);
+        }
         else QMessageBox::warning(this, "Warning", "Please check your inputs !\nStarred items must be filled in.");
     }
 }
@@ -425,12 +437,17 @@ void PluriNotes::saveNewVersion() {
     const NoteElement& newVersion = *currentVersion.addVersion();
 
 
-    bool references = refencesCheck(newVersion.returnReferences(),currentNote.getId());
+    bool references = refencesCheck(&newVersion,&currentNote,currentNote.getId());
 
     //Input is not valid
     if (references == false){
+        if (ui->buttonSaveEdit->text()==QString("Restore")){
+            isDisplayed = 2;
+            noteVersionChanged();
+        }
         delete &newVersion;
         QMessageBox::warning(this, "Warning", "Please check your input. You notably have references issues !");
+        setInteractivity(false);
     }else{
         QUndoCommand *addVersionCommand = new addVersionNoteCommand(const_cast<NoteEntity*>(&currentNote),const_cast<NoteElement*>(&newVersion));
         undoStack->push(addVersionCommand);
@@ -495,7 +512,7 @@ void PluriNotes::moveBackFromTrash(NoteEntity* noteEl) {
 }
 
 void PluriNotes::cancelNote() {
-   setInteractivity(true);
+    setInteractivity(true);
     ui->ButtonNewNote->setEnabled(true);
     ui->listNotesWidget->setEnabled(true);
     if (notes.size()) ui->mainStackedWidget->setCurrentIndex(0);
@@ -930,18 +947,24 @@ QStringList PluriNotes::getActiveReferences() const {
 
 
 
-bool PluriNotes::refencesCheck(QStringList referencesInNotes, QString id){
+bool PluriNotes::refencesCheck(const NoteElement *noteEl, NoteEntity *note, QString id){
+        QStringList referencesInNotes = noteEl->returnReferences();
         QStringList allActiveRefences = getActiveReferences();
 
         // references check
-        if (referencesInNotes.contains(id)) return false;
+        if (referencesInNotes.contains(id)){
+            note->setHasIssues(true);
+            return false;
+        }
 
         for (auto s : referencesInNotes ){
             // for all references in the field we check if they are valid
             if (!allActiveRefences.contains(s)){
+                note->setHasIssues(true);
                 return false;
             }
         }
+        note->setHasIssues(false);
         return true;
 }
 

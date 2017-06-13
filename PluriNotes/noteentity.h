@@ -12,6 +12,10 @@ private:
 
     //! a small variable to store if the element has been trashed : it is redundant bus usefull!!
     bool trashed = false;
+
+    //! for preventing issues when restoring a note with references
+    bool Issues = false;
+
     QVector<const NoteElement*> versions;
 public:
     NoteEntity(const QString& id, const bool& archived = false);
@@ -27,6 +31,9 @@ public:
 
     bool isTrashed() const {return trashed;}
     void setTrashed(bool b) {trashed = b;}
+
+    bool hasIssues() const {return Issues;}
+    void setHasIssues(bool b) {Issues = b;}
 
     //! Is a note being referenced by an other note (in notes, not trash)
     bool isReferenced(bool outOfArchives = false) const;

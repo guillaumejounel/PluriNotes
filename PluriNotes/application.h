@@ -86,7 +86,7 @@ private:
     bool autoDelete;
 
     //! \todo Add documentation !!!!
-    bool isDisplayed;
+    unsigned int isDisplayed;
 
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
@@ -337,7 +337,7 @@ public:
 
 
     //! References check when adding a note or a version
-    bool refencesCheck(QStringList referencesInNotes, QString id);
+    bool refencesCheck(const NoteElement*noteEl, NoteEntity *note, QString id);
 
     //! \brief add References in the references vector
     void addReferences(NoteEntity* note, const QStringList& idList);
@@ -473,7 +473,7 @@ signals:
     void openRelationsWindow();
 
     //! \todo Add documentation !!!!
-    void noteTextChanged();
+    void noteTextChanged();//issue is for some preventionwith restoring notes
 
     //! \todo Add documentation !!!!
     void saveNewVersion();
