@@ -9,6 +9,9 @@ class NoteEntity {
 private:
     QString id;
     bool archived;
+
+    //! a small variable to store if the element has been trashed : it is redundant bus usefull!!
+    bool trashed = false;
     QVector<const NoteElement*> versions;
 public:
     NoteEntity(const QString& id, const bool& archived = false);
@@ -21,6 +24,9 @@ public:
 
     bool isArchived() const {return archived;}
     void setArchived(bool b) {archived = b;}
+
+    bool isTrashed() const {return trashed;}
+    void setTrashed(bool b) {trashed = b;}
 
     //! Is a note being referenced by an other note (in notes, not trash)
     bool isReferenced(bool outOfArchives = false) const;

@@ -220,6 +220,7 @@ void PluriNotes::setInteractivity(bool b, unsigned int type){
         ui->titleDisplayLineEdit->setEnabled(b);
         ui->buttonCancelEdit->setEnabled(b);
         ui->buttonSaveEdit->setEnabled(b);
+        ui->deleteNoteButton->setEnabled(b);
 
         //Task
         ui->taskAction->setEnabled(b);
@@ -1063,6 +1064,7 @@ void PluriNotes::checkArchiveSlot(){
                    undoStack->push(deleteCommand);
                }
            }
+           ui->mainStackedWidget->setCurrentIndex(4);
        }
     }
 

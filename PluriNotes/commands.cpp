@@ -26,20 +26,38 @@ void deleteNoteCommand::undo()
         setText("Rétablir la Suppression de la note "+getNote()->getId());
 
         PluriNotes& manager = PluriNotes::getManager();
+
+
         manager.getUi()->noteBox->setCurrentIndex(0);
         manager.moveBackFromTrash(getNote());
         if(getNote()->isArchived() && type!=2){
             getNote()->setArchived(false);
+            getNote()->setTrashed(false);
             manager.removeNoteFromList(getNote(), manager.getListArchived() );
         }else{//The note is in the trash
             manager.removeNoteFromList(getNote(), manager.getListTrash());
+            getNote()->setTrashed(false);
         }
-        //now we have to put the element in the roght list (where he was comming from)
+        //now we have to put the element in the right list (where he was comming from)
         if(type==2){
             manager.addNoteToList(getNote(), manager.getListArchived());
+            manager.getUi()->noteBox->setCurrentIndex(2);
+            manager.getUi()->mainStackedWidget->setCurrentIndex(4);
             getNote()->setArchived(true);
         }else{
             manager.addNoteToList(getNote(), manager.getListActiveNotes());
+            getNote()->setTrashed(false);
+
+            //We have to check if the references are still valid !
+            const NoteElement& currentVersion = getNote()->getLastVersion();
+            const NoteElement& newVersion = *currentVersion.addVersion();
+            bool references = manager.refencesCheck(newVersion.returnReferences(),getNote()->getId());
+
+            if (references == false) {
+                manager.saveNewVersion();
+                manager.setInteractivity(false);
+            }
+
         }
         //reset
         first = true;
@@ -64,10 +82,16 @@ void deleteNoteCommand::redo()
         if(getNote()->isReferenced() && type!=2 ){
             getNote()->setArchived(true);
             manager.addNoteToList(getNote(), manager.getListArchived());
-        }else{//The note is in the trash
-            if (type==2) getNote()->setArchived(false);
+        }else{
+            if (type==2){
+                manager.getUi()->noteBox->setCurrentIndex(2);
+                manager.getUi()->mainStackedWidget->setCurrentIndex(0);
+                getNote()->setArchived(false);
+            }
             manager.moveToTrash(getNote());
             manager.addNoteToList(getNote(), manager.getListTrash());
+            getNote()->setTrashed(true);
+
         }
         manager.setDataChanged(true);
         first = true;
