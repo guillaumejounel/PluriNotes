@@ -507,6 +507,9 @@ signals:
     //! \brief empty restoreTrash slot
     void restoreTrashSlot();
 
+    //! \brief empty restoreTrash slot
+    void restoreArchiveSlot();
+
     //! \brief displayTrashMessage
     void showTrashSlot(int n = -1);
 };

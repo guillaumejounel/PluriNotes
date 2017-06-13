@@ -977,6 +977,14 @@ void PluriNotes::restoreTrashSlot(){
     undoStack->push(deleteCommand);
 }
 
+void PluriNotes::restoreArchiveSlot(){
+    listItemAndPointer* item = static_cast<listItemAndPointer*> (ui->listArchivedWidget->currentItem());
+    NoteEntity* currentSelectedNote = item->getNotePointer();
+
+    QUndoCommand *deleteCommand = new deleteNoteCommand(currentSelectedNote,1);
+    undoStack->push(deleteCommand);
+}
+
 void PluriNotes::showTrashSlot(int n){
     if (n==2){
         if (ui->listTrashWidget->count() == 0){

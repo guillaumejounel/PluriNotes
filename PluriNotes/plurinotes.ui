@@ -90,7 +90,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="page">
          <property name="geometry">
@@ -98,7 +98,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>265</height>
+           <height>275</height>
           </rect>
          </property>
          <attribute name="label">
@@ -116,7 +116,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>265</height>
+           <height>275</height>
           </rect>
          </property>
          <attribute name="label">
@@ -124,7 +124,28 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout_5">
           <item row="0" column="0">
-           <widget class="QListWidget" name="listArchivedWidget"/>
+           <layout class="QVBoxLayout" name="verticalLayout_16">
+            <item>
+             <widget class="QListWidget" name="listArchivedWidget"/>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_12"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="restoreArchivedButton">
+              <property name="text">
+               <string>Restore</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="checkArchivesButton">
+              <property name="text">
+               <string>Check</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
@@ -134,7 +155,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>265</height>
+           <height>275</height>
           </rect>
          </property>
          <attribute name="label">
@@ -242,8 +263,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>635</width>
-             <height>500</height>
+             <width>652</width>
+             <height>509</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -711,8 +732,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>645</width>
-             <height>510</height>
+             <width>380</width>
+             <height>433</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
@@ -1166,7 +1187,7 @@
      <x>0</x>
      <y>0</y>
      <width>850</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
@@ -1213,8 +1234,8 @@
    <slot>saveNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>535</x>
-     <y>474</y>
+     <x>532</x>
+     <y>465</y>
     </hint>
     <hint type="destinationlabel">
      <x>553</x>
@@ -1229,8 +1250,8 @@
    <slot>cancelNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>535</x>
-     <y>474</y>
+     <x>532</x>
+     <y>465</y>
     </hint>
     <hint type="destinationlabel">
      <x>571</x>
@@ -1277,8 +1298,8 @@
    <slot>deleteNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>649</x>
-     <y>532</y>
+     <x>569</x>
+     <y>540</y>
     </hint>
     <hint type="destinationlabel">
      <x>306</x>
@@ -1293,8 +1314,8 @@
    <slot>saveNewVersion()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>425</x>
-     <y>532</y>
+     <x>377</x>
+     <y>540</y>
     </hint>
     <hint type="destinationlabel">
      <x>176</x>
@@ -1309,8 +1330,8 @@
    <slot>noteVersionChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>534</x>
-     <y>528</y>
+     <x>473</x>
+     <y>540</y>
     </hint>
     <hint type="destinationlabel">
      <x>149</x>
@@ -1325,8 +1346,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>291</x>
-     <y>181</y>
+     <x>280</x>
+     <y>232</y>
     </hint>
     <hint type="destinationlabel">
      <x>160</x>
@@ -1341,8 +1362,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>365</x>
-     <y>83</y>
+     <x>568</x>
+     <y>131</y>
     </hint>
     <hint type="destinationlabel">
      <x>160</x>
@@ -1357,8 +1378,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>291</x>
-     <y>178</y>
+     <x>462</x>
+     <y>391</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -1373,8 +1394,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>241</x>
-     <y>193</y>
+     <x>284</x>
+     <y>486</y>
     </hint>
     <hint type="destinationlabel">
      <x>156</x>
@@ -1389,8 +1410,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>259</x>
-     <y>195</y>
+     <x>444</x>
+     <y>487</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -1405,8 +1426,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>282</x>
-     <y>193</y>
+     <x>552</x>
+     <y>486</y>
     </hint>
     <hint type="destinationlabel">
      <x>153</x>
@@ -1421,8 +1442,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>291</x>
-     <y>198</y>
+     <x>280</x>
+     <y>225</y>
     </hint>
     <hint type="destinationlabel">
      <x>160</x>
@@ -1437,8 +1458,8 @@
    <slot>displayNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>313</x>
-     <y>532</y>
+     <x>280</x>
+     <y>540</y>
     </hint>
     <hint type="destinationlabel">
      <x>154</x>
@@ -1533,8 +1554,8 @@
    <slot>retracteOrUnretracteArborescence()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>676</x>
-     <y>337</y>
+     <x>593</x>
+     <y>398</y>
     </hint>
     <hint type="destinationlabel">
      <x>386</x>
@@ -1549,8 +1570,8 @@
    <slot>restoreTrashSlot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>84</x>
-     <y>505</y>
+     <x>82</x>
+     <y>518</y>
     </hint>
     <hint type="destinationlabel">
      <x>52</x>
@@ -1629,8 +1650,8 @@
    <slot>selectDocumentFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>631</x>
-     <y>458</y>
+     <x>271</x>
+     <y>244</y>
     </hint>
     <hint type="destinationlabel">
      <x>171</x>
@@ -1645,8 +1666,8 @@
    <slot>openDocumentFolder()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>432</x>
-     <y>450</y>
+     <x>248</x>
+     <y>244</y>
     </hint>
     <hint type="destinationlabel">
      <x>673</x>
@@ -1661,8 +1682,8 @@
    <slot>openDocumentFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>285</x>
-     <y>454</y>
+     <x>225</x>
+     <y>244</y>
     </hint>
     <hint type="destinationlabel">
      <x>168</x>
@@ -1677,12 +1698,28 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>327</x>
-     <y>415</y>
+     <x>279</x>
+     <y>231</y>
     </hint>
     <hint type="destinationlabel">
      <x>202</x>
      <y>565</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>restoreArchivedButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>restoreArchiveSlot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>98</x>
+     <y>437</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>166</x>
+     <y>443</y>
     </hint>
    </hints>
   </connection>
@@ -1711,5 +1748,6 @@
   <slot>selectDocumentFile()</slot>
   <slot>openDocumentFolder()</slot>
   <slot>openDocumentFile()</slot>
+  <slot>restoreArchiveSlot()</slot>
  </slots>
 </ui>
