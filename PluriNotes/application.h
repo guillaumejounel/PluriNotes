@@ -329,8 +329,6 @@ public:
     //! Method to get all references of a note
     QSet<NoteEntity*> getAllReferencesOf(NoteEntity* note) const;
 
-    //! Special list of the couples deleted when we delete a note
-    QList<coupleAndRelation> deletedCouples(NoteEntity* note);
 
     //! List of active ID for referencing
     QStringList getActiveReferences()const ;

@@ -1,8 +1,8 @@
 /**
 \file notecouple.h
-\date 08/06/2017
+\date 14/06/2017
 \author Florent Chehab, Guillaume Jounel and Félix Boisselier
-\brief Contains the class declaration for the note Couple
+\brief Contains the class declaration for "relations"
 **/
 
 
@@ -39,14 +39,14 @@ private:
     //! \brief content of the relation
     QVector<NoteCouple*> content;
 
-    //! \brief a simple attribute to know if the relation has been deleted
-    bool deleted;
-
     //! Boolean to know if we actually have to consider both couple (x,y) and (y,x)
     bool oriented;
 
     //! Boolean to know is this relations is the reference one (there must be only one)
     bool references;
+
+    //! \brief a simple attribute to know if the relation has been deleted
+    bool deleted;
 
     //! Number of the relation to better identify it
     unsigned int number;

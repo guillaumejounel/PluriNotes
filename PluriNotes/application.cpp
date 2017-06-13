@@ -211,7 +211,6 @@ void PluriNotes::setInteractivity(bool b, unsigned int type){
 
 NoteEntity* PluriNotes::getCurrentNote() {
     int nb = ui->noteBox->currentIndex();
-    int nb2 = ui->listNotesWidget->count();
     listItemAndPointer* item = nullptr;
     if (nb == 0 && ui->listNotesWidget->count() != 0){
         item = static_cast<listItemAndPointer*> (ui->listNotesWidget->currentItem());
@@ -901,9 +900,6 @@ QSet<NoteEntity*> PluriNotes::getAllReferencesOf(NoteEntity * note) const{
 }
 
 
-QList<coupleAndRelation> PluriNotes::deletedCouples(NoteEntity* note){
-//
-}
 
 QStringList PluriNotes::getActiveReferences() const {
     QStringList output;

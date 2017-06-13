@@ -151,7 +151,7 @@ void addNoteEntityCommand::redo()
 // addVersionNoteCommand
 // ########################################
 addVersionNoteCommand::addVersionNoteCommand(NoteEntity* note, NoteElement* version, QUndoCommand *parent)
-    : note(note), version(version) {}
+    : QUndoCommand(parent), note(note), version(version) {}
 
 void addVersionNoteCommand::undo()
 {

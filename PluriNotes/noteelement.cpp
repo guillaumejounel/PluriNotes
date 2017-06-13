@@ -13,22 +13,23 @@ map<QString, NoteElement*> NoteElement::getTypesNotes() {
 
 
 QStringList NoteElement::getReferences(const QString& text) const{
-        QRegExp rx("[\\ref\{]([\\w|\\d]+)[\}]");
+    // The sequence \} is known... wrong warning
+    QRegExp rx("[\\ref\{]([\\w|\\d]+)[\}]");
 
-        QStringList list = rx.capturedTexts();
+    QStringList list = rx.capturedTexts();
 
-        int pos = 0;
+    int pos = 0;
 
-        while ((pos = rx.indexIn(text, pos)) != -1) {
-            list << rx.cap(1);
-            pos += rx.matchedLength();
-        }
+    while ((pos = rx.indexIn(text, pos)) != -1) {
+        list << rx.cap(1);
+        pos += rx.matchedLength();
+    }
 
-        //cleaning process
-        QString tmp("");
-        list.removeAll(tmp);
+    //cleaning process
+    QString tmp("");
+    list.removeAll(tmp);
 
-        return list;
+    return list;
 }
 
 

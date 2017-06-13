@@ -13,8 +13,6 @@ Relation::Relation(QString &t, QString &d, bool isOriented) : title(t), descript
 Relation::~Relation() {
     for (auto couple : content)
         delete couple;
-    for (auto couple : deletedTMP)
-        delete couple;
 }
 
 bool Relation::isInside(const NoteCouple* c) const {
