@@ -98,11 +98,11 @@ void PluriNotes::createMenus()
     editMenu->addAction(redoAction);
     editMenu->addSeparator();
 
-    openRelations = menuBar()->addAction(QString("Manage Relations"));
-    connect(openRelations,SIGNAL(triggered()),this, SLOT(openRelationsWindow()));
+
 
     windowsMenu = menuBar()->addMenu(tr("&Windows"));
     windowsMenu->addAction(viewUndoHistory);
+    windowsMenu->addAction(openRelations);
     /*
     editMenu->addAction(deleteAction);
 
@@ -158,6 +158,9 @@ void PluriNotes::createActions()
 
     viewUndoHistory = new QAction(tr("View History"), this);
     connect(viewUndoHistory, SIGNAL(triggered()), this, SLOT(showUndoHistoryWindows()));
+
+    openRelations = new QAction(tr("Manage Relation"), this);
+    connect(openRelations,SIGNAL(triggered()),this, SLOT(openRelationsWindow()));
     /*
     aboutAction = new QAction(tr("&About"), this);
     QList<QKeySequence> aboutShortcuts;
