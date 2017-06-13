@@ -580,12 +580,17 @@ void PluriNotes::load() {
     QXmlStreamReader xml(&fin);
     bool toTrash = false;
     NoteEntity* newNoteEntity;
+    Relation* newRelation;
     while(!xml.atEnd() && !xml.hasError()) {
         if(xml.name() == "trash") toTrash = true;
         if(xml.name() == "note" && xml.tokenType() == QXmlStreamReader::StartElement) {
             newNoteEntity = NoteEntity::loadFromXML(xml);
             if (toTrash) trash.push_back(newNoteEntity);
             else notes.push_back(newNoteEntity);
+        }
+        if(xml.name() == "relation" && xml.tokenType() == QXmlStreamReader::StartElement) {
+            newRelation = Relation::loadFromXML(xml);
+            relations.push_back(newRelation);
         }
         xml.readNext();
     }

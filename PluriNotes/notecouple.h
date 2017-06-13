@@ -76,6 +76,7 @@ public:
     QString print() const;
 
     void saveToXML(QXmlStreamWriter& stream) const;
+    static NoteCouple* loadFromXML(QXmlStreamReader& stream);
 };
 
 #endif // NOTECOUPLE_H

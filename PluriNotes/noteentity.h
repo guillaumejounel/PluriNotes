@@ -27,14 +27,15 @@ public:
 
     void addVersion(const NoteElement& newVersion);
     void deleteVersion(const NoteElement& version);
+
     virtual void saveToXML(QXmlStreamWriter& stream) const;
+    static NoteEntity* loadFromXML(QXmlStreamReader& stream);
 
     //! Method to know if a version is inside the note entity
     bool isVersionInsideNote(const NoteElement& version) const;
 
     //! comparaison of note NoteEntity
     bool operator==(const NoteEntity& n)const;
-    static NoteEntity* loadFromXML(QXmlStreamReader& stream);
 
     //! get the references in the last version
     QStringList returnReferences() const;

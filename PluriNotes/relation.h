@@ -55,7 +55,7 @@ public:
     //! Default orientation is oriented
     //! Default is NOT a references ; we only need one !
     Relation(QString& t, QString& d, bool isOriented);
-    Relation(QString& t, QString& d, bool isOriented, bool isReferences);
+    Relation(QString& title, QString& description, bool isOriented, bool isReferences, bool deleted = false, unsigned int number = 0);
 
     Relation() {}
     ~Relation();
@@ -136,6 +136,7 @@ public:
     bool hasPredecessors(const NoteEntity *note, bool outOfArchives = false) const;
 
     void saveToXML(QXmlStreamWriter& stream) const;
+    static Relation* loadFromXML(QXmlStreamReader& stream);
 };
 
 

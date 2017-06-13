@@ -49,3 +49,28 @@ void NoteCouple::saveToXML(QXmlStreamWriter& stream) const {
     stream.writeTextElement("y", y->getId());
     stream.writeEndElement();
 }
+
+NoteCouple* NoteCouple::loadFromXML(QXmlStreamReader& stream) {
+    QString label;
+    NoteEntity *x, *y;
+    NoteCouple* newNoteCouple;
+    PluriNotes& manager = PluriNotes::getManager();
+
+    while(!(stream.tokenType() == QXmlStreamReader::EndElement && stream.name() == "couple")) {
+        if(stream.tokenType() == QXmlStreamReader::StartElement) {
+            if(stream.name() == "label") {
+                stream.readNext(); label=stream.text().toString();
+            }
+            if(stream.name() == "x") {
+                stream.readNext(); x=manager.getNoteById(stream.text().toString());
+            }
+            if(stream.name() == "y") {
+                stream.readNext(); y=manager.getNoteById(stream.text().toString());
+                newNoteCouple = new NoteCouple(label, x, y);
+                return newNoteCouple;
+            }
+        }
+        stream.readNext();
+    }
+    return nullptr;
+}
