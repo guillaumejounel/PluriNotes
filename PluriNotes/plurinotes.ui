@@ -531,7 +531,7 @@
                        <item>
                         <widget class="QPushButton" name="documentDisplayOpenFolder">
                          <property name="text">
-                          <string>Open in folder</string>
+                          <string>Show folder</string>
                          </property>
                         </widget>
                        </item>
@@ -1590,8 +1590,8 @@
    <slot>showTrashSlot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>36</x>
-     <y>149</y>
+     <x>48</x>
+     <y>301</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>
@@ -1660,6 +1660,22 @@
     <hint type="destinationlabel">
      <x>168</x>
      <y>481</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>documentDisplayFile</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>noteTextChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>327</x>
+     <y>415</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>202</x>
+     <y>565</y>
     </hint>
    </hints>
   </connection>

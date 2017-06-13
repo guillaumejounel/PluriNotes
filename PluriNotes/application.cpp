@@ -283,22 +283,22 @@ void PluriNotes::noteVersionChanged() {
 }
 
 void PluriNotes::selectDocumentFile() {
+    QString lastFileName = ui->documentDisplayFile->text();
     QString fileName = QFileDialog::getOpenFileName(this,
         tr("Open file"), QDir::homePath(), tr("Sound, Image or Video Files (*.gif *.png *.jpg *.bmp *.raw *.mp3 *.m4a *.wav *.flac *.wmv *.mp4 *.mkv *.m4v)"));
+    if (fileName.isEmpty()) fileName = lastFileName;
     ui->documentFile->setText(fileName);
     ui->documentDisplayFile->setText(fileName);
 }
 
 void PluriNotes::openDocumentFolder() {
-    QDesktopServices::openUrl(QUrl(QString("file:///")+ui->documentDisplayFile->text(), QUrl::TolerantMode));
+    QString fileDir = ui->documentDisplayFile->text();
+    fileDir.remove(QRegExp("([^\/]+$)"));
+    QDesktopServices::openUrl(QUrl(QString("file:///")+fileDir, QUrl::TolerantMode));
 }
 
 void PluriNotes::openDocumentFile() {
-    QString fileDir = ui->documentDisplayFile->text();
-    qDebug() << fileDir;
-    fileDir.remove(QRegExp("[^\/](+$)"));
-    qDebug() << fileDir;
-    QDesktopServices::openUrl(QUrl(QString("file:///")+fileDir, QUrl::TolerantMode));
+    QDesktopServices::openUrl(QUrl(QString("file:///")+ui->documentDisplayFile->text(), QUrl::TolerantMode));
 }
 
 void PluriNotes::noteTextChanged() {
@@ -340,12 +340,12 @@ void PluriNotes::saveNote() {
     bool flag = true;
 
     //Check validity
-    if (ui->titleLineEdit->text() == QString("") || ui->idLineEdit->text() == QString("") || !isIdAvailable(ui->idLineEdit->text())) flag = false;
+    if (ui->titleLineEdit->text().isEmpty() || ui->idLineEdit->text().isEmpty() || !isIdAvailable(ui->idLineEdit->text())) flag = false;
     for(QTextEdit* widget: ui->customWidgets->widget(myMap[ui->TypeComboBox->currentText()]->indexPageCreation())->findChildren<QTextEdit*>())
-        if(widget->property("obligatory").toBool() && widget->toPlainText() == QString("")) flag = false;
+        if(widget->property("obligatory").toBool() && widget->toPlainText().isEmpty()) flag = false;
 
     for(QLineEdit* widget: ui->customWidgets->widget(myMap[ui->TypeComboBox->currentText()]->indexPageCreation())->findChildren<QLineEdit*>())
-        if(widget->property("obligatory").toBool() && widget->text() == QString("")) flag = false;
+        if(widget->property("obligatory").toBool() && widget->text().isEmpty()) flag = false;
 
     //Create and save the note ; to check references it is easier
     NoteEntity *newNoteEntity = new NoteEntity(ui->idLineEdit->text());

@@ -79,12 +79,12 @@ const QString Document::getUiDocumentDescription() const {
 
 const QString Document::getUiDocumentDescriptionEdit() const {
     Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
-    return ui->documentFile->text();
+    return ui->documentDisplayDescription->toPlainText();
 }
 
 void Document::setUiDocumentFile(const QString& file) const {
     Ui::PluriNotes * ui = PluriNotes::getManager().getUi();
-    ui->documentDisplayDescription->setText(description);
+    ui->documentDisplayFile->setText(file);
 }
 
 const QString Document::getUiDocumentFile() const {
