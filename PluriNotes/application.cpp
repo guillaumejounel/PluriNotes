@@ -205,6 +205,7 @@ void PluriNotes::setInteractivity(bool b){
     ui->treeViewPredecessors->setEnabled(b);
     ui->treeViewSuccessors->setEnabled(b);
     ui->ButtonNewNote->setEnabled(b);
+    ui->filterComboBox->setEnabled(b);
 }
 
 NoteEntity* PluriNotes::getCurrentNote() {
@@ -302,16 +303,18 @@ void PluriNotes::openDocumentFile() {
 }
 
 void PluriNotes::noteTextChanged() {
-    setInteractivity(false);
     const NoteElement& note = getCurrentNote()->getLastVersion();
     if(ui->noteTextVersion->currentIndex() != 0) {
+        setInteractivity(true);
         ui->buttonSaveEdit->setEnabled(1);
         ui->buttonCancelEdit->setEnabled(0);
     } else {
         if((ui->titleDisplayLineEdit->text() == note.getTitle() && note.textChanged())) {
+            setInteractivity(true);
             ui->buttonCancelEdit->setEnabled(0);
             ui->buttonSaveEdit->setEnabled(0);
         } else {
+            setInteractivity(false);
             ui->buttonCancelEdit->setEnabled(1);
             ui->buttonSaveEdit->setEnabled(1);
         }
@@ -934,6 +937,7 @@ void PluriNotes::emptyTrashSlot(bool out){
             emptyTrashSlot(true);
             setDataChanged(true);
           }
+          displayNote();
     }
     else{
         undoStack->clear();
