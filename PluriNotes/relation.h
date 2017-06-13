@@ -134,6 +134,8 @@ public:
     QSet<NoteEntity*> predecessorsOf(const NoteEntity* note, bool outOfArchives = false) const;
 
     bool hasPredecessors(const NoteEntity *note, bool outOfArchives = false) const;
+
+    void saveToXML(QXmlStreamWriter& stream) const;
 };
 
 

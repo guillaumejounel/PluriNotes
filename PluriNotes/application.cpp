@@ -559,6 +559,10 @@ void PluriNotes::save() {
             for(auto const& note: trash)
                 note->saveToXML(stream);
         stream.writeEndElement();
+        stream.writeStartElement("relations");
+            for(auto const& relation: relations)
+                relation->saveToXML(stream);
+        stream.writeEndElement();
     }
     stream.writeEndElement();
     stream.writeEndDocument();

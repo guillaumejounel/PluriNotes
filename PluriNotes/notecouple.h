@@ -74,6 +74,8 @@ public:
 
     //! for easier debug
     QString print() const;
+
+    void saveToXML(QXmlStreamWriter& stream) const;
 };
 
 #endif // NOTECOUPLE_H

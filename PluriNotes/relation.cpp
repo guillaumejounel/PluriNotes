@@ -148,3 +148,19 @@ QSet<NoteEntity*> Relation::predecessorsOf(const NoteEntity* note, bool outOfArc
 bool Relation::hasPredecessors(const NoteEntity *note, bool outOfArchives) const{
     return predecessorsOf(note, outOfArchives).size() != 0;
 }
+
+void Relation::saveToXML(QXmlStreamWriter& stream) const {
+    stream.writeStartElement("relation");
+    stream.writeTextElement("title", title);
+    stream.writeTextElement("description", description);
+    stream.writeTextElement("deleted",deleted?"true":"false");
+    stream.writeTextElement("oriented",oriented?"true":"false");
+    stream.writeTextElement("references",references?"true":"false");
+    stream.writeTextElement("number", QString::number(number));
+    stream.writeStartElement("content");
+    for(NoteCouple* couple: content) {
+        couple->saveToXML(stream);
+    }
+    stream.writeEndElement();
+    stream.writeEndElement();
+}
