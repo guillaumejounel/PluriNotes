@@ -1,8 +1,6 @@
 #ifndef NOTETEMPLATE_H
 #define NOTETEMPLATE_H
 
-#include <QString>
-#include <QDateTime>
 #include "noteelement.h"
 
 class NoteElement;
@@ -23,9 +21,6 @@ public:
 
 template <class Note>
 int BaseNoteType<Note>::id = setTypeInList();
-
-
-
 
 #define setNoteType(TypeNote) \
 class TypeNote : public BaseNoteType<TypeNote> { \
