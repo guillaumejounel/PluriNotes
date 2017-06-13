@@ -114,6 +114,8 @@ private:
     //! It is not shown after the creation.
     void createRelationsView();
 
+
+
     //-------
     // Other Windows
     //! \brief history window
@@ -248,6 +250,9 @@ public:
     //! Function to deleted relations that have been temporarly deleted in the relation managment window
     void onRelationsWindowsClose();
 
+    //! \brief getter for the relation view
+    QWidget* getRelationView() {return relationsView;}
+
 
     //! \todo add documentation
     void setAutoDelete(bool);
@@ -325,6 +330,10 @@ public:
 
     //! List of active ID for referencing
     QStringList getActiveReferences()const ;
+
+
+    //! References check when adding a note or a version
+    bool refencesCheck(QStringList referencesInNotes, QString id);
 
     //! \brief add References in the references vector
     void addReferences(NoteEntity* note, const QStringList& idList);

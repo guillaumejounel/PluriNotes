@@ -343,6 +343,9 @@
                      </item>
                      <item>
                       <widget class="QComboBox" name="noteSelectorX">
+                       <property name="enabled">
+                        <bool>true</bool>
+                       </property>
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                          <horstretch>0</horstretch>
@@ -591,8 +594,8 @@
    <slot>displayRelation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>720</x>
-     <y>266</y>
+     <x>754</x>
+     <y>282</y>
     </hint>
     <hint type="destinationlabel">
      <x>893</x>
@@ -607,8 +610,8 @@
    <slot>addRelation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>834</x>
-     <y>275</y>
+     <x>850</x>
+     <y>282</y>
     </hint>
     <hint type="destinationlabel">
      <x>894</x>
@@ -664,6 +667,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>deleteRelationButton</sender>
+   <signal>clicked()</signal>
+   <receiver>relationsWindows</receiver>
+   <slot>removeRelation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>771</x>
+     <y>564</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>724</x>
+     <y>605</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>toNewRelationForm()</slot>
@@ -674,5 +693,6 @@
   <slot>addCouple()</slot>
   <slot>changeCoupleLabel()</slot>
   <slot>deleteCouple()</slot>
+  <slot>removeRelation()</slot>
  </slots>
 </ui>

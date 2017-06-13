@@ -51,6 +51,37 @@
     <item row="1" column="0">
      <layout class="QVBoxLayout" name="verticalLayout_11">
       <item>
+       <layout class="QVBoxLayout" name="verticalLayout_15">
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QComboBox" name="filterComboBox">
+          <item>
+           <property name="text">
+            <string>All notes</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Only tasks</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <widget class="QToolBox" name="toolBox">
         <property name="minimumSize">
          <size>
@@ -67,7 +98,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>348</height>
+           <height>281</height>
           </rect>
          </property>
          <attribute name="label">
@@ -85,7 +116,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>348</height>
+           <height>281</height>
           </rect>
          </property>
          <attribute name="label">
@@ -103,7 +134,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>348</height>
+           <height>281</height>
           </rect>
          </property>
          <attribute name="label">
@@ -172,6 +203,17 @@
     </item>
     <item row="0" column="0">
      <widget class="QPushButton" name="ButtonNewNote">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>New note</string>
       </property>
@@ -200,8 +242,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>635</width>
-             <height>500</height>
+             <width>652</width>
+             <height>509</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -659,8 +701,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>374</width>
-             <height>441</height>
+             <width>380</width>
+             <height>433</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
@@ -1114,7 +1156,7 @@
      <x>0</x>
      <y>0</y>
      <width>850</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

@@ -58,7 +58,6 @@ bool Relation::addCouple(const NoteCouple* c) {
     //Check if the couple isn't already inside
     if ( isInside(c) ) return false;
     content.push_front(const_cast<NoteCouple*>(c));
-    qWarning()<<QString("Couple added !");
     return true;
 }
 

@@ -31,11 +31,14 @@ private:
 
     QAction* exitAction;
 
-    Relation& getCurrentRelation();
+    Relation* getCurrentRelation();
 
 
     //! \brief history window
     QUndoView *undoView;
+
+    //! \brief edit menu
+    QMenu *editMenu;
 
     //! \brief windows menu
     QMenu *windowsMenu;
@@ -69,6 +72,9 @@ public:
     //! With creation of a listRelationAndPointer*
     listRelationAndPointer* addRelationToList(Relation *rel);
 
+    //! Function to remove a Relation from the list a relation\n
+    void removeRelationFromList(Relation *rel);
+
     //! Function to add a Couple to the list of Couple in the UI \n
     //! With creation of a listCoupleAndPointer*
     listCoupleAndPointer* addCoupleToList(NoteCouple *couple);
@@ -82,8 +88,8 @@ public:
     //! After showing
     void showEvent ( QShowEvent * event );
 
-
-
+    //! Method to change multiple widget state
+    void restrictInteractivity(bool b, unsigned int level = 0);
 
 
 
@@ -93,8 +99,16 @@ signals:
     void beforeClose();
     void toNewRelationForm();
     void displayRelation();
+
+    //! \brief add relation slot
     void addRelation();
+
+    //! \brief remove relation slot
+    void removeRelation();
+
+
     void addCouple();
+
     void changeCoupleLabel();
     void deleteCouple();
 
