@@ -1050,7 +1050,7 @@ void PluriNotes::checkArchiveSlot(){
     }
 
     if(n==0){
-        QMessageBox::warning(this, "Sorry", "We haven't found any modifcation to do...");
+        //QMessageBox::warning(this, "Sorry", "We haven't found any modifcation to do...");
     } else { //he the can be some modification
         QString msg = QString("We found ")+ QString::number(n) + QString(" that we can move to the trash, do you want to proceed ?");
        if( QMessageBox::Yes == QMessageBox::question(this, "Move to trash?",
@@ -1086,10 +1086,9 @@ void PluriNotes::showTrashSlot(int n){
     }else if (n==1){
         if (ui->listArchivedWidget->count()==0){
             ui->restoreArchivedButton->setEnabled(false);
-            ui->checkArchivesButton->setEnabled(false);
         } else {
+         checkArchiveSlot();
          ui->restoreArchivedButton->setEnabled(true);
-         ui->checkArchivesButton->setEnabled(true);
         }
             displayNote();
     }else{
