@@ -605,20 +605,11 @@ void PluriNotes::load() {
 }
 
 void PluriNotes::loadDataIntoUi() {
-    for(NoteEntity* note:notes) {
-        addNoteToList(note, note->isArchived()?ui->listArchivedWidget:ui->listNotesWidget);
-    }
-    for(NoteEntity* note:trash) {
-        addNoteToList(note, ui->listTrashWidget);
-    }
-    for(auto& rel: relations) {
-        static_cast<relationsWindows*>(relationsView)->addRelationToList(const_cast<Relation*>(rel));
-    }
+    loadNotesIntoUi();
+    loadRelationsIntoUi();
 }
 
-void PluriNotes::filterDataIntoUi() {
-    ui->listNotesWidget->clear();
-    ui->listTrashWidget->clear();
+void PluriNotes::loadNotesIntoUi() {
     if (ui->filterComboBox->currentIndex() == 1) {
         for(NoteEntity* note:notes) {
             if (note->getLastVersion().typeName() == "Task") addNoteToList(note, note->isArchived()?ui->listArchivedWidget:ui->listNotesWidget);
@@ -634,6 +625,18 @@ void PluriNotes::filterDataIntoUi() {
             addNoteToList(note, ui->listTrashWidget);
         }
     }
+}
+
+void PluriNotes::loadRelationsIntoUi() {
+    for(auto& rel: relations) {
+        static_cast<relationsWindows*>(relationsView)->addRelationToList(const_cast<Relation*>(rel));
+    }
+}
+
+void PluriNotes::filterDataIntoUi() {
+    ui->listNotesWidget->clear();
+    ui->listTrashWidget->clear();
+    loadNotesIntoUi();
 }
 
 

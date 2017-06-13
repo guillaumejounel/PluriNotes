@@ -239,6 +239,12 @@ public:
     //! \brief method to load data into interface
     void loadDataIntoUi();
 
+    //! \brief method to load data into interface
+    void loadNotesIntoUi();
+
+    //! \brief method to load data into interface
+    void loadRelationsIntoUi();
+
     //! Getter for the max current nb (id) relations
     unsigned int getMaxRelationId();
 
