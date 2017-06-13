@@ -239,7 +239,6 @@ public:
     //! \brief method to load data into interface
     void loadDataIntoUi();
 
-
     //! Getter for the max current nb (id) relations
     unsigned int getMaxRelationId();
 
@@ -517,6 +516,9 @@ signals:
 
     //! \brief displayTrashMessage
     void showTrashSlot(int n = -1);
+
+    //! \brief method to filter notes into interface
+    void filterDataIntoUi();
 
 };
 

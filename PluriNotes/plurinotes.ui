@@ -98,7 +98,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>275</height>
+           <height>281</height>
           </rect>
          </property>
          <attribute name="label">
@@ -116,7 +116,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>275</height>
+           <height>281</height>
           </rect>
          </property>
          <attribute name="label">
@@ -148,7 +148,7 @@
            <x>0</x>
            <y>0</y>
            <width>150</width>
-           <height>275</height>
+           <height>281</height>
           </rect>
          </property>
          <attribute name="label">
@@ -1339,8 +1339,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>280</x>
-     <y>232</y>
+     <x>451</x>
+     <y>442</y>
     </hint>
     <hint type="destinationlabel">
      <x>160</x>
@@ -1371,8 +1371,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>462</x>
-     <y>391</y>
+     <x>280</x>
+     <y>226</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -1387,8 +1387,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>284</x>
-     <y>486</y>
+     <x>225</x>
+     <y>239</y>
     </hint>
     <hint type="destinationlabel">
      <x>156</x>
@@ -1403,8 +1403,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>444</x>
-     <y>487</y>
+     <x>248</x>
+     <y>239</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -1419,8 +1419,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>552</x>
-     <y>486</y>
+     <x>271</x>
+     <y>239</y>
     </hint>
     <hint type="destinationlabel">
      <x>153</x>
@@ -1716,6 +1716,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>filterComboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>filterDataIntoUi()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>28</x>
+     <y>122</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>10</x>
+     <y>98</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>saveNote()</slot>
@@ -1743,5 +1759,6 @@
   <slot>openDocumentFile()</slot>
   <slot>restoreArchiveSlot()</slot>
   <slot>checkArchiveSlot()</slot>
+  <slot>filterDataIntoUi()</slot>
  </slots>
 </ui>
