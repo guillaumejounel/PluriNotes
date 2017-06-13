@@ -394,7 +394,7 @@
                 <item>
                  <widget class="QStackedWidget" name="noteTypeDisplay">
                   <property name="currentIndex">
-                   <number>1</number>
+                   <number>0</number>
                   </property>
                   <widget class="QWidget" name="articleDisplay">
                    <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -1723,6 +1723,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>checkArchivesButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>checkArchiveSlot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>58</x>
+     <y>480</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>104</x>
+     <y>107</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>saveNote()</slot>
@@ -1749,5 +1765,6 @@
   <slot>openDocumentFolder()</slot>
   <slot>openDocumentFile()</slot>
   <slot>restoreArchiveSlot()</slot>
+  <slot>checkArchiveSlot()</slot>
  </slots>
 </ui>

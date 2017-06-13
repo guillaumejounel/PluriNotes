@@ -131,13 +131,13 @@ QSet<NoteEntity*> Relation::successorsOf(const NoteEntity *note) const{
 }
 
 
-QSet<NoteEntity*> Relation::predecessorsOf(const NoteEntity* note) const{
+QSet<NoteEntity*> Relation::predecessorsOf(const NoteEntity* note, bool outOfArchives) const{
     QSet<NoteEntity*> result;
     unsigned int size = content.size();
     NoteEntity* predecessor;
 
     for (unsigned int i = 0;i<size;i++) {
-        predecessor = content[i]->predecessor(note,oriented);
+        predecessor = content[i]->predecessor(note,oriented,outOfArchives);
         if ( predecessor != nullptr) result.insert(predecessor);
     }
 
@@ -145,6 +145,6 @@ QSet<NoteEntity*> Relation::predecessorsOf(const NoteEntity* note) const{
 }
 
 
-bool Relation::hasPredecessors(const NoteEntity *note) const{
-    return predecessorsOf(note).size() != 0;
+bool Relation::hasPredecessors(const NoteEntity *note, bool outOfArchives) const{
+    return predecessorsOf(note, outOfArchives).size() != 0;
 }

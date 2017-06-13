@@ -21,8 +21,10 @@ public:
 
     bool isArchived() const {return archived;}
     void setArchived(bool b) {archived = b;}
+
     //! Is a note being referenced by an other note (in notes, not trash)
-    bool isReferenced() const;
+    bool isReferenced(bool outOfArchives = false) const;
+
     void addVersion(const NoteElement& newVersion);
     void deleteVersion(const NoteElement& version);
     virtual void saveToXML(QXmlStreamWriter& stream) const;

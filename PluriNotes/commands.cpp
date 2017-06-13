@@ -22,21 +22,28 @@ deleteNoteCommand::~deleteNoteCommand() {
 
 void deleteNoteCommand::undo()
 {
-    if (type == 0 || first != true){
+    if (type == 0 || type == 2 || first != true){
         setText("Rétablir la Suppression de la note "+getNote()->getId());
 
         PluriNotes& manager = PluriNotes::getManager();
         manager.getUi()->noteBox->setCurrentIndex(0);
         manager.moveBackFromTrash(getNote());
-        if(getNote()->isArchived()){
+        if(getNote()->isArchived() && type!=2){
             getNote()->setArchived(false);
             manager.removeNoteFromList(getNote(), manager.getListArchived() );
         }else{//The note is in the trash
             manager.removeNoteFromList(getNote(), manager.getListTrash());
         }
-        manager.addNoteToList(getNote(), manager.getListActiveNotes());
+        //now we have to put the element in the roght list (where he was comming from)
+        if(type==2){
+            manager.addNoteToList(getNote(), manager.getListArchived());
+            getNote()->setArchived(true);
+        }else{
+            manager.addNoteToList(getNote(), manager.getListActiveNotes());
+        }
         //reset
         first = true;
+        manager.noteCountUpdate();
     }else{
         first = false;
         redo();
@@ -46,19 +53,26 @@ void deleteNoteCommand::undo()
 
 void deleteNoteCommand::redo()
 {
-    if (type == 0 || first != true){
+    if (type == 0 || type == 2 || first != true){
         setText("Suppression de la note "+getNote()->getId());
         PluriNotes& manager = PluriNotes::getManager();
-        manager.removeNoteFromList(getNote(), manager.getListActiveNotes());
-        if(getNote()->isReferenced()){
+        if (getNote()->isArchived()){
+            manager.removeNoteFromList(getNote(), manager.getListArchived());
+        }else{
+            manager.removeNoteFromList(getNote(), manager.getListActiveNotes());
+        }
+        if(getNote()->isReferenced() && type!=2 ){
             getNote()->setArchived(true);
             manager.addNoteToList(getNote(), manager.getListArchived());
         }else{//The note is in the trash
+            if (type==2) getNote()->setArchived(false);
             manager.moveToTrash(getNote());
             manager.addNoteToList(getNote(), manager.getListTrash());
         }
         manager.setDataChanged(true);
         first = true;
+        manager.noteCountUpdate();
+
     } else {
         first = false;
         undo();

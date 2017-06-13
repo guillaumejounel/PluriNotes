@@ -194,9 +194,6 @@ private:
     //! \brief attributes to store whether there has been data modification or not
     bool dataChanged = false;
 
-    //! \brief Update the note count of each panel of the notBox
-    void noteCountUpdate();
-
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 
@@ -385,6 +382,8 @@ public:
     //! Function to select an item in the list of notes
     void selectItemIntoList(listItemAndPointer* item, QListWidget* list);
 
+    //! \brief Update the note count of each panel of the notBox
+    void noteCountUpdate();
 
     //--- treeView
     //! Function to add a NoteEntity to the list of note \n
@@ -421,7 +420,7 @@ public:
 
 
     //! Method to block or activate element interaction
-    void setInteractivity(bool b);
+    void setInteractivity(bool b, unsigned int type = 0);
 
     //! Before closing we have to execut this
     void closeEvent ( QCloseEvent * event );
@@ -510,8 +509,12 @@ signals:
     //! \brief empty restoreTrash slot
     void restoreArchiveSlot();
 
+    //! \brief check archived slot
+    void checkArchiveSlot();
+
     //! \brief displayTrashMessage
     void showTrashSlot(int n = -1);
+
 };
 
 

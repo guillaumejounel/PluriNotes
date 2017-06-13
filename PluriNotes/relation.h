@@ -131,9 +131,9 @@ public:
 
     //! Method to get successors of a note in a relation
     //! A QSet is used to make sure we don't have twice the same note...
-    QSet<NoteEntity*> predecessorsOf(const NoteEntity* note) const;
+    QSet<NoteEntity*> predecessorsOf(const NoteEntity* note, bool outOfArchives = false) const;
 
-    bool hasPredecessors(const NoteEntity *note) const;
+    bool hasPredecessors(const NoteEntity *note, bool outOfArchives = false) const;
 };
 
 

@@ -209,12 +209,35 @@ QListWidget* PluriNotes::getListTrash() const {
     return ui->listTrashWidget;
 }
 
-void PluriNotes::setInteractivity(bool b){
-    ui->noteBox->setEnabled(b);
-    ui->treeViewPredecessors->setEnabled(b);
-    ui->treeViewSuccessors->setEnabled(b);
-    ui->ButtonNewNote->setEnabled(b);
-    ui->filterComboBox->setEnabled(b);
+void PluriNotes::setInteractivity(bool b, unsigned int type){
+    if (type == 0){
+        ui->noteBox->setEnabled(b);
+        ui->treeViewPredecessors->setEnabled(b);
+        ui->treeViewSuccessors->setEnabled(b);
+        ui->ButtonNewNote->setEnabled(b);
+        ui->filterComboBox->setEnabled(b);
+    } else if (type==1){ //when we are in archived
+        ui->titleDisplayLineEdit->setEnabled(b);
+        ui->buttonCancelEdit->setEnabled(b);
+        ui->buttonSaveEdit->setEnabled(b);
+
+        //Task
+        ui->taskAction->setEnabled(b);
+        ui->taskDisplayAction->setEnabled(b);
+        ui->taskDeadline->setEnabled(b);
+        ui->taskDisplayPriority->setEnabled(b);
+        ui->taskDisplay->setEnabled(b);
+
+        //Content
+        ui->documentDescription->setEnabled(b);
+        ui->documentDisplay->setEnabled(b);
+        ui->documentDisplayFileButton->setEnabled(b);
+
+        //Article
+        ui->articleDisplayContent->setEnabled(b);
+
+    }
+
 }
 
 NoteEntity* PluriNotes::getCurrentNote() {
@@ -239,6 +262,7 @@ QString PluriNotes::getCurrentNoteType() {
 
 void PluriNotes::displayNote(unsigned int n) {
     noteCountUpdate();
+    setInteractivity(true,1);
     isDisplayed = false;
     ui->idDisplayLineEdit->setReadOnly(true);
     ui->dateDisplayLineEdit->setReadOnly(true);
@@ -267,6 +291,7 @@ void PluriNotes::displayNote(unsigned int n) {
         int nb = ui->noteBox->currentIndex();
         if (nb != 2)  ui->mainStackedWidget->setCurrentIndex(2);
     }
+    if (currentSelectedNote && currentSelectedNote->isArchived()) setInteractivity(false,1);
     isDisplayed = true;
     setInteractivity(true);
 }
@@ -975,6 +1000,8 @@ void PluriNotes::restoreTrashSlot(){
 
     QUndoCommand *deleteCommand = new deleteNoteCommand(currentSelectedNote,1);
     undoStack->push(deleteCommand);
+
+    displayNote();
 }
 
 void PluriNotes::restoreArchiveSlot(){
@@ -984,6 +1011,34 @@ void PluriNotes::restoreArchiveSlot(){
     QUndoCommand *deleteCommand = new deleteNoteCommand(currentSelectedNote,1);
     undoStack->push(deleteCommand);
 }
+
+void PluriNotes::checkArchiveSlot(){
+    unsigned int n = 0;
+    for(auto note : notes){
+        if (note->isArchived() && !note->isReferenced(true)) n++;
+    }
+
+    if(n==0){
+        QMessageBox::warning(this, "Sorry", "We haven't found any modifcation to do...");
+    } else { //he the can be some modification
+        QString msg = QString("We found ")+ QString::number(n) + QString(" that we can move to the trash, do you want to proceed ?");
+       if( QMessageBox::Yes == QMessageBox::question(this, "Move to trash?",
+                                          msg,
+                                          QMessageBox::Yes|QMessageBox::No)
+         ){ // move to trash
+
+           for(auto note : notes){
+               if (note->isArchived() && !note->isReferenced(true)){
+                   QUndoCommand *deleteCommand = new deleteNoteCommand(note,2);
+                   undoStack->push(deleteCommand);
+               }
+           }
+       }
+    }
+
+
+}
+
 
 void PluriNotes::showTrashSlot(int n){
     if (n==2){
@@ -998,7 +1053,6 @@ void PluriNotes::showTrashSlot(int n){
         }
     }else {
             displayNote();
-
     }
 }
 
