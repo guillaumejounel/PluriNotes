@@ -138,13 +138,6 @@
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QPushButton" name="checkArchivesButton">
-              <property name="text">
-               <string>Check</string>
-              </property>
-             </widget>
-            </item>
            </layout>
           </item>
          </layout>
@@ -1720,22 +1713,6 @@
     <hint type="destinationlabel">
      <x>166</x>
      <y>443</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkArchivesButton</sender>
-   <signal>clicked()</signal>
-   <receiver>PluriNotes</receiver>
-   <slot>checkArchiveSlot()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>58</x>
-     <y>480</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>104</x>
-     <y>107</y>
     </hint>
    </hints>
   </connection>

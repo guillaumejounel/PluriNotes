@@ -220,6 +220,7 @@ void PluriNotes::setInteractivity(bool b, unsigned int type){
         ui->titleDisplayLineEdit->setEnabled(b);
         ui->buttonCancelEdit->setEnabled(b);
         ui->buttonSaveEdit->setEnabled(b);
+        ui->deleteNoteButton->setEnabled(b);
 
         //Task
         ui->taskAction->setEnabled(b);
@@ -1058,7 +1059,7 @@ void PluriNotes::checkArchiveSlot(){
     }
 
     if(n==0){
-        QMessageBox::warning(this, "Sorry", "We haven't found any modifcation to do...");
+        //QMessageBox::warning(this, "Sorry", "We haven't found any modifcation to do...");
     } else { //he the can be some modification
         QString msg = QString("We found ")+ QString::number(n) + QString(" that we can move to the trash, do you want to proceed ?");
        if( QMessageBox::Yes == QMessageBox::question(this, "Move to trash?",
@@ -1072,6 +1073,7 @@ void PluriNotes::checkArchiveSlot(){
                    undoStack->push(deleteCommand);
                }
            }
+           ui->mainStackedWidget->setCurrentIndex(4);
        }
     }
 
@@ -1090,8 +1092,16 @@ void PluriNotes::showTrashSlot(int n){
             ui-> restoreTrashButton -> setEnabled(true);
             ui->mainStackedWidget->setCurrentIndex(4);
         }
-    }else {
+    }else if (n==1){
+        if (ui->listArchivedWidget->count()==0){
+            ui->restoreArchivedButton->setEnabled(false);
+        } else {
+         checkArchiveSlot();
+         ui->restoreArchivedButton->setEnabled(true);
+        }
             displayNote();
+    }else{
+        displayNote();
     }
 }
 

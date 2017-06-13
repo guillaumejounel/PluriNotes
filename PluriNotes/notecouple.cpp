@@ -27,7 +27,9 @@ NoteEntity* NoteCouple::successor(const NoteEntity *note, bool oriented) const {
 }
 
 NoteEntity* NoteCouple::predecessor(const NoteEntity* note, bool oriented, bool outOfArchives) const {
-    if (outOfArchives==true && !getX()->isArchived()) return nullptr; //usefull for is referenced function
+    if (outOfArchives==true && (getX()->isArchived()) || getX()->isTrashed()){//usefull for is referenced function
+        return nullptr;
+    }
     if (isEqualY(note)) return x;
     if (oriented == false && isEqualX(note)) return y;
     return nullptr;
