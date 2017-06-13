@@ -24,6 +24,7 @@ public:
     virtual QStringList returnReferences() const override;
 
     QString getDescription() const { return description; }
+    QString getFile() const { return file; }
 
     // UI
     //-------

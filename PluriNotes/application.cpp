@@ -290,6 +290,18 @@ void PluriNotes::selectDocumentFile() {
     ui->documentDisplayFile->setText(fileName);
 }
 
+void PluriNotes::openDocumentFolder() {
+    QDesktopServices::openUrl(QUrl(QString("file:///")+ui->documentDisplayFile->text(), QUrl::TolerantMode));
+}
+
+void PluriNotes::openDocumentFile() {
+    QString fileDir = ui->documentDisplayFile->text();
+    qDebug() << fileDir;
+    fileDir.remove(QRegExp("[^\/](+$)"));
+    qDebug() << fileDir;
+    QDesktopServices::openUrl(QUrl(QString("file:///")+fileDir, QUrl::TolerantMode));
+}
+
 void PluriNotes::noteTextChanged() {
     setInteractivity(false);
     const NoteElement& note = getCurrentNote()->getLastVersion();
