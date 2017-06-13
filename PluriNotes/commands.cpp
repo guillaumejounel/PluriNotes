@@ -22,7 +22,7 @@ deleteNoteCommand::~deleteNoteCommand() {
 
 void deleteNoteCommand::undo()
 {
-    if (type == 0 || type == 2 || first != true){
+    if (getType() == 0 || getType() == 2 || getFirst() != true){
         setText("Rétablir la Suppression de la note "+getNote()->getId());
 
         PluriNotes& manager = PluriNotes::getManager();
@@ -30,7 +30,7 @@ void deleteNoteCommand::undo()
 
         manager.getUi()->noteBox->setCurrentIndex(0);
         manager.moveBackFromTrash(getNote());
-        if(getNote()->isArchived() && type!=2){
+        if(getNote()->isArchived() && getType()!=2){
             getNote()->setArchived(false);
             getNote()->setTrashed(false);
             manager.removeNoteFromList(getNote(), manager.getListArchived() );
@@ -39,7 +39,7 @@ void deleteNoteCommand::undo()
             getNote()->setTrashed(false);
         }
         //now we have to put the element in the right list (where he was comming from)
-        if(type==2){
+        if(getType()==2){
             manager.addNoteToList(getNote(), manager.getListArchived());
             manager.getUi()->noteBox->setCurrentIndex(2);
             manager.getUi()->mainStackedWidget->setCurrentIndex(4);
@@ -61,10 +61,10 @@ void deleteNoteCommand::undo()
 
         }
         //reset
-        first = true;
+        setFirst(true);
         manager.noteCountUpdate();
     }else{
-        first = false;
+        setFirst(false);
         redo();
     }
 
@@ -72,7 +72,7 @@ void deleteNoteCommand::undo()
 
 void deleteNoteCommand::redo()
 {
-    if (type == 0 || type == 2 || first != true){
+    if (getType() == 0 || getType() == 2 || getFirst() != true){
         setText("Suppression de la note "+getNote()->getId());
         PluriNotes& manager = PluriNotes::getManager();
         if (getNote()->isArchived()){
@@ -80,11 +80,11 @@ void deleteNoteCommand::redo()
         }else{
             manager.removeNoteFromList(getNote(), manager.getListActiveNotes());
         }
-        if(getNote()->isReferenced() && type!=2 ){
+        if(getNote()->isReferenced() && getType() !=2 ){
             getNote()->setArchived(true);
             manager.addNoteToList(getNote(), manager.getListArchived());
         }else{
-            if (type==2){
+            if (getType()==2){
                 manager.getUi()->noteBox->setCurrentIndex(2);
                 manager.getUi()->mainStackedWidget->setCurrentIndex(0);
                 getNote()->setArchived(false);
@@ -95,11 +95,11 @@ void deleteNoteCommand::redo()
 
         }
         manager.setDataChanged(true);
-        first = true;
+        setFirst(true);
         manager.noteCountUpdate();
 
     } else {
-        first = false;
+        setFirst(false);
         undo();
     }
 }

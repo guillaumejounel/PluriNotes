@@ -7,27 +7,52 @@
 
 /**
 \class deleteNoteCommand
-\brief Undo/redo delete note (move to trash)
+\brief Undo/redo delete note (move to trash or archived)
 
-This class enables the undo/redo process for deleting note (moving them to trash)
+This class enables the undo/redo process for deleting note (moving them to the trash or the archives)
 **/
 class deleteNoteCommand : public QUndoCommand
 {
 private:
+    //! \brief Ponter to the note we are dealing with
     NoteEntity* note;
 
-public:
+    //! This class is used for different types of delete...
+    //! if type == 0 it is the classic behaviour when we want to delete an active note
+    //! if type == 1 then we are dealing with redo command equivalent to restoring
+    //!     a note from the trash of archives
+    //! if type == 2  it is when we want to move an element from the archive section to the trash (if we can)
     unsigned int type;
+
+    //! A simple boolean for when type == 1 and we want to "invert" the command (only once)
     bool first = true;
 
+public:
+    //! Classic constructor for the command
     deleteNoteCommand(NoteEntity* note, unsigned int type, QUndoCommand *parent = 0);
+
     //! To prevent memory leaks, we have to redefine the destructor
     ~deleteNoteCommand();
 
+    //! This is the standard method of the class QUndoCommand
+    //! It is executed when undoing a command
     void undo() override;
+
+    //! This is the standard method of the class QUndoCommand
+    //! It is executed when creating pushing the command in the stack or redoing after an undo
     void redo() override;
 
+    //! \brief Accessor to the note
     NoteEntity* getNote() {return note;}
+
+    //! Accessor to the type of command
+    unsigned int getType() const {return type;}
+
+    //! Getter to the "first" attributes
+    bool getFirst() const {return first;}
+
+    //! Setter for the first attribute
+    void setFirst(bool b) {first = b;}
 };
 
 
