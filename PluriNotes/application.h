@@ -191,8 +191,11 @@ private:
     //! \todo add documentation
     PluriNotes& operator=(const PluriNotes& m);
 
-    //! \todo attributes to store whether there has been data modification or not
+    //! \brief attributes to store whether there has been data modification or not
     bool dataChanged = false;
+
+    //! \brief Update the note count of each panel of the notBox
+    void noteCountUpdate();
 
 
     // --------------------------------------------------------------------------

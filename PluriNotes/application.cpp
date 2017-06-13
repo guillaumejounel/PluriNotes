@@ -40,6 +40,14 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
 
     //Affiche l'écran de démarrage
     ui->mainStackedWidget->setCurrentIndex(3);
+    ui->noteBox->setCurrentIndex(0);
+}
+
+
+void PluriNotes::noteCountUpdate() {
+    ui->noteBox->setItemText(0, QString("Active notes (") + QString::number(ui->listNotesWidget->count()) + QString(")"));
+    ui->noteBox->setItemText(1, QString("Archived (") + QString::number(ui->listArchivedWidget->count()) + QString(")"));
+    ui->noteBox->setItemText(2, QString("Trash (") + QString::number(ui->listTrashWidget->count()) + QString(")"));
 }
 
 void PluriNotes::testFunction() {
@@ -173,7 +181,7 @@ PluriNotes::~PluriNotes() {
 }
 
 void PluriNotes::toNewNoteForm() {
-    ui -> toolBox -> setCurrentIndex(0);
+    ui->noteBox->setCurrentIndex(0);
     setInteractivity(false);
     //Ouverture du formulaire de création de notes
     is_idChanged = false;
@@ -201,7 +209,7 @@ QListWidget* PluriNotes::getListTrash() const {
 }
 
 void PluriNotes::setInteractivity(bool b){
-    ui->toolBox->setEnabled(b);
+    ui->noteBox->setEnabled(b);
     ui->treeViewPredecessors->setEnabled(b);
     ui->treeViewSuccessors->setEnabled(b);
     ui->ButtonNewNote->setEnabled(b);
@@ -209,7 +217,7 @@ void PluriNotes::setInteractivity(bool b){
 }
 
 NoteEntity* PluriNotes::getCurrentNote() {
-    int nb = ui -> toolBox ->currentIndex();
+    int nb = ui->noteBox->currentIndex();
     int nb2 = ui->listNotesWidget->count();
     listItemAndPointer* item = nullptr;
     if (nb == 0 && ui->listNotesWidget->count() != 0){
@@ -225,6 +233,7 @@ NoteEntity* PluriNotes::getCurrentNote() {
 }
 
 void PluriNotes::displayNote(unsigned int n) {
+    noteCountUpdate();
     isDisplayed = false;
     ui->idDisplayLineEdit->setReadOnly(true);
     ui->dateDisplayLineEdit->setReadOnly(true);
@@ -249,7 +258,7 @@ void PluriNotes::displayNote(unsigned int n) {
         note.displayNote();
         ui->mainStackedWidget->setCurrentIndex(0);
     } else {
-        int nb = ui -> toolBox ->currentIndex();
+        int nb = ui->noteBox->currentIndex();
         if (nb != 2)  ui->mainStackedWidget->setCurrentIndex(2);
     }
     isDisplayed = true;

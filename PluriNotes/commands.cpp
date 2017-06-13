@@ -26,7 +26,7 @@ void deleteNoteCommand::undo()
         setText("Rétablir la Suppression de la note "+getNote()->getId());
 
         PluriNotes& manager = PluriNotes::getManager();
-        manager.getUi()->toolBox->setCurrentIndex(0);
+        manager.getUi()->noteBox->setCurrentIndex(0);
         manager.moveBackFromTrash(getNote());
         manager.removeNoteFromList(getNote(), manager.getListTrash());
         manager.addNoteToList(getNote(), manager.getListActiveNotes());

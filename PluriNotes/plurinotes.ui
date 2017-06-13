@@ -82,7 +82,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QToolBox" name="toolBox">
+       <widget class="QToolBox" name="noteBox">
         <property name="minimumSize">
          <size>
           <width>150</width>
@@ -90,7 +90,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page">
          <property name="geometry">
@@ -1584,7 +1584,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>toolBox</sender>
+   <sender>noteBox</sender>
    <signal>currentChanged(int)</signal>
    <receiver>PluriNotes</receiver>
    <slot>showTrashSlot(int)</slot>
