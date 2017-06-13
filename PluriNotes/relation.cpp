@@ -69,7 +69,7 @@ void Relation::removeCouple(const NoteCouple*c) {
             //coupleAndRelation output = coupleAndRelation(tmp,this);
 
             content.removeAll(const_cast<NoteCouple*>(c));
-            delete c;
+            //delete c;
             break;
         }
     }

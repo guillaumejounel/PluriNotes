@@ -205,4 +205,29 @@ public:
     Relation* getRelation() {return relation;}
 };
 
+
+/**
+\class addCoupleCommand
+\brief Undo/redo adding couple in relation
+
+This class enables the undo/redo process for adding a couple in a relation
+**/
+class addCoupleCommand : public QUndoCommand
+{
+private:
+    Relation* relation;
+    NoteCouple* couple;
+
+public:
+    addCoupleCommand(Relation* relation, NoteCouple* couple, QUndoCommand *parent = 0);
+
+    ~addCoupleCommand();
+    void undo() override;
+    void redo() override;
+
+    Relation* getRelation() {return relation;}
+    NoteCouple* getCouple() {return couple;}
+};
+
+
 #endif // COMMANDS_H

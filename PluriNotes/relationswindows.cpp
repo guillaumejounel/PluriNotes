@@ -38,6 +38,9 @@ relationsWindows::relationsWindows(QWidget *parent) : QMainWindow(parent), ui(ne
 }
 
 void relationsWindows::beforeClose() {
+    //Clear the history
+    undoStack->clear();
+
     // Reactivate the previous window
     PluriNotes& manager = PluriNotes::getManager();
     manager.setEnabled(true);
@@ -50,9 +53,6 @@ void relationsWindows::beforeClose() {
     //Clear the couples ComboBoxes (to be reflilled at opening)
     ui->noteSelectorX->clear();
     ui->noteSelectorY->clear();
-
-    //Clear the history
-    undoStack->clear();
 
     //Close the window
     close();
@@ -146,9 +146,9 @@ void relationsWindows::addCouple() {
         NoteCouple* newCouple = new NoteCouple(defaultTitle, note1, note2);
 
         Relation* currentSelectedRelation = getCurrentRelation();
-        if (currentSelectedRelation->addCouple(newCouple)) {
-            addCoupleToList(newCouple);
-        }
+
+        QUndoCommand *addCommand = new addCoupleCommand(currentSelectedRelation,newCouple);
+        undoStack->push(addCommand);
     }
 }
 
@@ -266,3 +266,16 @@ void relationsWindows::restrictInteractivity(bool b, unsigned int level){
         ui->descriptionLineEdit->setEnabled(b);
     }
 }
+
+void relationsWindows::displayRelation(Relation* rel){
+    unsigned int n = ui->listOfAllRelations -> count();
+    ui->listOfAllRelations->currentItem()->setSelected(false);
+    for (unsigned int i = 0; i<n; i++){
+        if (ui->listOfAllRelations->item(i)->text()==rel->getTitle()){
+            ui->listOfAllRelations->setCurrentRow(i,QItemSelectionModel::Select);
+            displayRelation();
+            break;
+        }
+    }
+}
+

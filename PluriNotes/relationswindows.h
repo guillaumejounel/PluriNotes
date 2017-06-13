@@ -91,13 +91,15 @@ public:
     //! Method to change multiple widget state
     void restrictInteractivity(bool b, unsigned int level = 0);
 
-
+    //! method to display a specific relation
+    void displayRelation(Relation* rel);
 
 signals:
     public slots:
     //! Short function to be called before closing the window
     void beforeClose();
     void toNewRelationForm();
+
     void displayRelation();
 
     //! \brief add relation slot

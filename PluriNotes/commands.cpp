@@ -181,7 +181,7 @@ void addRelationCommand::redo()
 
 
 
-// addRelationCommand
+// removeRelationCommand
 // ########################################
 removeRelationCommand::removeRelationCommand(Relation* relation, QUndoCommand *parent )
     : QUndoCommand(parent), relation(relation) {}
@@ -210,3 +210,47 @@ void removeRelationCommand::redo()
 }
 // ########################################
 
+
+
+
+
+// addCoupleCommand
+// ########################################
+addCoupleCommand::addCoupleCommand(Relation* relation, NoteCouple* couple, QUndoCommand *parent )
+    : QUndoCommand(parent), relation(relation), couple(couple) {}
+
+
+addCoupleCommand::~addCoupleCommand() {
+    bool canDelete = true;
+    for(auto coupleInRel : getRelation()->getContent()){
+        if (coupleInRel == getCouple()){
+            canDelete = false;
+            break;
+        }
+    }
+    if (canDelete) delete getCouple();
+}
+
+
+void addCoupleCommand::undo()
+{
+    PluriNotes& manager = PluriNotes::getManager();
+    relationsWindows* relView = static_cast<relationsWindows*>(manager.getRelationView());
+    relView->displayRelation(getRelation());
+    setText("Undo adding a couple in the relation : "+getRelation()->getTitle());
+    getRelation()->removeCouple(getCouple());
+    relView->displayRelation();
+}
+
+void addCoupleCommand::redo()
+{
+    PluriNotes& manager = PluriNotes::getManager();
+    relationsWindows* relView = static_cast<relationsWindows*>(manager.getRelationView());
+    relView->displayRelation(getRelation());
+    setText("Adding a couple in the relation : "+getRelation()->getTitle());
+    if (getRelation()->addCouple(getCouple())) {
+        relView->addCoupleToList(getCouple());
+    }
+
+}
+// ########################################

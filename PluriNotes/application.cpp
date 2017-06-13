@@ -79,6 +79,7 @@ void PluriNotes::saveApplication() {
 
 void PluriNotes::openRelationsWindow() {
     relationsView->show();
+    static_cast<relationsWindows*>(relationsView)->displayRelation();
     setEnabled(false);
 }
 
@@ -713,34 +714,38 @@ void PluriNotes::updateTrees(NoteEntity* note) {
     ui->treeViewPredecessors->clear();
     ui->treeViewSuccessors->clear();
 
-    QSet<NoteEntity*> successorsOfNote = getAllSuccessorsOf(note);
-    QSet<NoteEntity*> predecessorsOfNote = getAllPredecessorsOf(note);
+    if (note!=nullptr){
 
-    for(auto note : successorsOfNote) {
-        addNoteToTree(note,ui->treeViewSuccessors);
-    }
+        QSet<NoteEntity*> successorsOfNote = getAllSuccessorsOf(note);
+        QSet<NoteEntity*> predecessorsOfNote = getAllPredecessorsOf(note);
 
-    for(auto note : predecessorsOfNote) {
-        addNoteToTree(note,ui->treeViewPredecessors);
-    }
+        for(auto note : successorsOfNote) {
+            addNoteToTree(note,ui->treeViewSuccessors);
+        }
 
-    QString label;
-    if (successorsOfNote.isEmpty()) {
-        label = QString("This note has no Successors");
-        ui->treeViewSuccessors->setHeaderLabel(label);
-    }
-    else{
-        label = QString("Successors of the note :");
-        ui->treeViewSuccessors->setHeaderLabel(label);
-    }
+        for(auto note : predecessorsOfNote) {
+            addNoteToTree(note,ui->treeViewPredecessors);
+        }
 
-    if (predecessorsOfNote.isEmpty()) {
-        label = QString("This note has no Predecessors");
-        ui->treeViewPredecessors->setHeaderLabel(label);
-    }
-    else{
-        label = QString("Predecessors of the note :");
-        ui->treeViewPredecessors->setHeaderLabel(label);
+        QString label;
+        if (successorsOfNote.isEmpty()) {
+            label = QString("This note has no Successors");
+            ui->treeViewSuccessors->setHeaderLabel(label);
+        }
+        else{
+            label = QString("Successors of the note :");
+            ui->treeViewSuccessors->setHeaderLabel(label);
+        }
+
+        if (predecessorsOfNote.isEmpty()) {
+            label = QString("This note has no Predecessors");
+            ui->treeViewPredecessors->setHeaderLabel(label);
+        }
+        else{
+            label = QString("Predecessors of the note :");
+            ui->treeViewPredecessors->setHeaderLabel(label);
+        }
+
     }
 
 }
