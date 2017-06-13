@@ -28,7 +28,12 @@ void deleteNoteCommand::undo()
         PluriNotes& manager = PluriNotes::getManager();
         manager.getUi()->noteBox->setCurrentIndex(0);
         manager.moveBackFromTrash(getNote());
-        manager.removeNoteFromList(getNote(), manager.getListTrash());
+        if(getNote()->isArchived()){
+            getNote()->setArchived(false);
+            manager.removeNoteFromList(getNote(), manager.getListArchived() );
+        }else{//The note is in the trash
+            manager.removeNoteFromList(getNote(), manager.getListTrash());
+        }
         manager.addNoteToList(getNote(), manager.getListActiveNotes());
         //reset
         first = true;
@@ -43,12 +48,15 @@ void deleteNoteCommand::redo()
 {
     if (type == 0 || first != true){
         setText("Suppression de la note "+getNote()->getId());
-
         PluriNotes& manager = PluriNotes::getManager();
-        manager.moveToTrash(getNote());
         manager.removeNoteFromList(getNote(), manager.getListActiveNotes());
-        manager.addNoteToList(getNote(), manager.getListTrash());
-
+        if(getNote()->isReferenced()){
+            getNote()->setArchived(true);
+            manager.addNoteToList(getNote(), manager.getListArchived());
+        }else{//The note is in the trash
+            manager.moveToTrash(getNote());
+            manager.addNoteToList(getNote(), manager.getListTrash());
+        }
         manager.setDataChanged(true);
         first = true;
     } else {

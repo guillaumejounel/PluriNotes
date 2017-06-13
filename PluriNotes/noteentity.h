@@ -18,8 +18,11 @@ public:
     unsigned int getSize() const { return versions.size(); }
     const NoteElement& getLastVersion() const;
     const NoteElement& getVersion(unsigned int nb) const;
-    bool isArchived() const {return archived;}
 
+    bool isArchived() const {return archived;}
+    void setArchived(bool b) {archived = b;}
+    //! Is a note being referenced by an other note (in notes, not trash)
+    bool isReferenced() const;
     void addVersion(const NoteElement& newVersion);
     void deleteVersion(const NoteElement& version);
     virtual void saveToXML(QXmlStreamWriter& stream) const;

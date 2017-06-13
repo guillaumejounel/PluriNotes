@@ -852,10 +852,6 @@ QSet<NoteEntity*> PluriNotes::getAllReferencesOf(NoteEntity * note) const{
     return getAllPredecessorsOf(note) + getAllSuccessorsOf(note);
 }
 
-bool PluriNotes::isReferenced(NoteEntity* note){
-    return relations[0]->hasPredecessors(note);
-}
-
 
 QList<coupleAndRelation> PluriNotes::deletedCouples(NoteEntity* note){
 //
@@ -961,6 +957,10 @@ void PluriNotes::emptyTrashSlot(bool out){
     else{
         undoStack->clear();
         for (auto note:trash){
+            for(auto rel:relations){
+                // We clean the different relations
+                rel->removeCoupleWithNote(note);
+            }
             delete note;
         }
         trash.clear();

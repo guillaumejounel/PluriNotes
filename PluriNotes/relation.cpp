@@ -118,7 +118,7 @@ void Relation::removeCoupleWithNote(const QList<NoteEntity*> noteList){
 
 
 
-QSet<NoteEntity*> Relation::successorsOf(NoteEntity* note) const{
+QSet<NoteEntity*> Relation::successorsOf(const NoteEntity *note) const{
     QSet<NoteEntity*> result;
     unsigned int size = content.size();
     NoteEntity* successor;
@@ -131,7 +131,7 @@ QSet<NoteEntity*> Relation::successorsOf(NoteEntity* note) const{
 }
 
 
-QSet<NoteEntity*> Relation::predecessorsOf(NoteEntity* note) const{
+QSet<NoteEntity*> Relation::predecessorsOf(const NoteEntity* note) const{
     QSet<NoteEntity*> result;
     unsigned int size = content.size();
     NoteEntity* predecessor;
@@ -145,6 +145,6 @@ QSet<NoteEntity*> Relation::predecessorsOf(NoteEntity* note) const{
 }
 
 
-bool Relation::hasPredecessors(NoteEntity *note) const{
+bool Relation::hasPredecessors(const NoteEntity *note) const{
     return predecessorsOf(note).size() != 0;
 }

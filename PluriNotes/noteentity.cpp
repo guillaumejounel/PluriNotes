@@ -6,6 +6,11 @@ NoteEntity::NoteEntity(const QString& id, const bool& archived) : id(id), archiv
 }
 
 
+bool NoteEntity::isReferenced()const{
+    PluriNotes& manager = PluriNotes::getManager();
+    manager.getReferencesRelation()->hasPredecessors(this);
+}
+
 void NoteEntity::addVersion(const NoteElement& newVersion) {
     versions.push_back(&newVersion);
 }

@@ -25,7 +25,7 @@ bool NoteCouple::operator==(const NoteCouple& c)const{
 
 
 
-NoteEntity* NoteCouple::successor(NoteEntity* note, bool oriented) const{
+NoteEntity* NoteCouple::successor(const NoteEntity *note, bool oriented) const{
     if (isEqualX(note)) return y;
 
     if (oriented == false && isEqualY(note)) return x;
@@ -33,7 +33,7 @@ NoteEntity* NoteCouple::successor(NoteEntity* note, bool oriented) const{
 }
 
 
-NoteEntity* NoteCouple::predecessor(NoteEntity* note, bool oriented) const{
+NoteEntity* NoteCouple::predecessor(const NoteEntity* note, bool oriented) const{
     if (isEqualY(note)) return x;
 
     if (oriented == false && isEqualX(note)) return y;

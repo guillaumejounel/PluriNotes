@@ -65,12 +65,12 @@ public:
     //! \brief return successor
     //! If (note,y) then y is a successor of note
     //! If (x,note) and oriented = false then x is successor of note
-    NoteEntity* successor(NoteEntity* note, bool oriented = true) const;
+    NoteEntity* successor(const NoteEntity* note, bool oriented = true) const;
 
     //! \brief return predecessor
     //! If (x,note) then y is a predecessor of note
     //! If (note,y) and oriented = false then y is a predecessor of note
-    NoteEntity* predecessor(NoteEntity* note, bool oriented = true) const;
+    NoteEntity* predecessor(const NoteEntity* note, bool oriented = true) const;
 
     //! for easier debug
     QString print() const;

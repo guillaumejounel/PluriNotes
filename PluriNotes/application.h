@@ -327,9 +327,6 @@ public:
     //! Method to get all references of a note
     QSet<NoteEntity*> getAllReferencesOf(NoteEntity* note) const;
 
-    //! Is a note being referenced by an other note (in notes, not trash)
-    bool isReferenced(NoteEntity* note);
-
     //! Special list of the couples deleted when we delete a note
     QList<coupleAndRelation> deletedCouples(NoteEntity* note);
 
