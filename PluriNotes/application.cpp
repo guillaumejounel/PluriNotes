@@ -103,49 +103,21 @@ void PluriNotes::createMenus()
     windowsMenu = menuBar()->addMenu(tr("&Windows"));
     windowsMenu->addAction(viewUndoHistory);
     windowsMenu->addAction(openRelations);
-    /*
-    editMenu->addAction(deleteAction);
-
-    connect(editMenu, SIGNAL(aboutToShow()),
-            this, SLOT(itemMenuAboutToShow()));
-    connect(editMenu, SIGNAL(aboutToHide()),
-            this, SLOT(itemMenuAboutToHide()));
-    */
-    /*
-    itemMenu = menuBar()->addMenu(tr("&Item"));
-
-    itemMenu->addAction(addBoxAction);
-    itemMenu->addAction(addTriangleAction);
-
-    helpMenu = menuBar()->addMenu(tr("&About"));
-    helpMenu->addAction(aboutAction);
-    */
 }
 
 
 
 void PluriNotes::createActions()
 {
-    /*
-    deleteAction = new QAction(tr("&Delete Item"), this);
-    deleteAction->setShortcut(tr("Del"));
-    connect(deleteAction, SIGNAL(triggered()), this, SLOT(deleteItem()));
-
-
-    addBoxAction = new QAction(tr("Add &Box"), this);
-    addBoxAction->setShortcut(tr("Ctrl+O"));
-    connect(addBoxAction, SIGNAL(triggered()), this, SLOT(addBox()));
-
-    addTriangleAction = new QAction(tr("Add &Triangle"), this);
-    addTriangleAction->setShortcut(tr("Ctrl+T"));
-    connect(addTriangleAction, SIGNAL(triggered()), this, SLOT(addTriangle()));
-    */
-
     undoAction = undoStack->createUndoAction(this, tr("&Undo"));
     undoAction->setShortcuts(QKeySequence::Undo);
 
+
+    QList<QKeySequence> shortcutsRedo;
+    shortcutsRedo << QKeySequence::Redo << QKeySequence("Ctrl+y");
+
     redoAction = undoStack->createRedoAction(this, tr("&Redo"));
-    redoAction->setShortcuts(QKeySequence::Redo);
+    redoAction->setShortcuts(shortcutsRedo);
 
     saveAction = new QAction(tr("S&ave"), this);
     saveAction->setShortcut(tr("Ctrl+S"));
@@ -161,13 +133,6 @@ void PluriNotes::createActions()
 
     openRelations = new QAction(tr("Manage Relation"), this);
     connect(openRelations,SIGNAL(triggered()),this, SLOT(openRelationsWindow()));
-    /*
-    aboutAction = new QAction(tr("&About"), this);
-    QList<QKeySequence> aboutShortcuts;
-    aboutShortcuts << tr("Ctrl+A") << tr("Ctrl+B");
-    aboutAction->setShortcuts(aboutShortcuts);
-    connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
-    */
 }
 
 

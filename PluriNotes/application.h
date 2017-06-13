@@ -50,6 +50,8 @@ typedef map<QString,NoteElement*>::const_iterator MapIterator;
 /**
 \class Plurinotes
 \brief Main class of the applicatin with the ui for the core application
+
+All the beauty happens here !
 **/
 class PluriNotes : public QMainWindow {
     Q_OBJECT
@@ -94,6 +96,7 @@ private:
 
 
 
+
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
@@ -117,7 +120,7 @@ private:
 
 
     //-------
-    // Other Windows
+    //  Windows
     //! \brief history window
     QUndoView *undoView;
 
@@ -125,8 +128,6 @@ private:
     QWidget* relationsView;
     //-------
 
-    //! Undostack for the undo/redo process in the app
-    QUndoStack *undoStack;
 
     //-------
     // Menus
@@ -140,12 +141,13 @@ private:
     QMenu *windowsMenu;
     //-------
 
+
     //-------
     // Actions
-    //! \brief QAction for undoing
+    //! \brief QAction for undoing ctrl+Z
     QAction *undoAction;
 
-    //! \brief QAction for redoing
+    //! \brief QAction for redoing ctrl+maj+z ou ctrl Y
     QAction *redoAction;
 
     //! \brief QAction to exit the app
@@ -153,7 +155,6 @@ private:
 
     //! \brief QAction to save the content of the app
     QAction *saveAction;
-
 
     //! \brief QAction to open the relation window
     QAction *openRelations;
@@ -164,11 +165,6 @@ private:
 
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
-
-
-
-
-
 
 
 
@@ -193,6 +189,10 @@ private:
 
     //! \brief attributes to store whether there has been data modification or not
     bool dataChanged = false;
+
+
+    //! Undostack for the undo/redo process in the app (not concerning relations view)
+    QUndoStack *undoStack;
 
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
