@@ -612,7 +612,7 @@ void PluriNotes::load() {
         }
         if(xml.name() == "relation" && xml.tokenType() == QXmlStreamReader::StartElement) {
             newRelation = Relation::loadFromXML(xml);
-            relations.push_back(newRelation);
+            if (newRelation != getReferencesRelation()) relations.push_back(newRelation);
         }
         xml.readNext();
     }

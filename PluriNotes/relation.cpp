@@ -171,7 +171,9 @@ Relation* Relation::loadFromXML(QXmlStreamReader& stream) {
                 stream.readNext(); number=(stream.text().toInt());
             }
             if(stream.name() == "content") {
-                newRelation = new Relation(title, description, oriented, references, deleted, number);
+                PluriNotes& manager = PluriNotes::getManager();
+                if(!number) newRelation = manager.getReferencesRelation();
+                else newRelation = new Relation(title, description, oriented, references, deleted, number);
                 while (!(stream.tokenType() == QXmlStreamReader::EndElement && stream.name() == "content")) {
                     stream.readNext();
                     if(stream.tokenType() == QXmlStreamReader::StartElement && stream.name() == "couple") {
