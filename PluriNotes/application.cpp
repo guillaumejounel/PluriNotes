@@ -293,7 +293,7 @@ void PluriNotes::selectDocumentFile() {
 
 void PluriNotes::openDocumentFolder() {
     QString fileDir = ui->documentDisplayFile->text();
-    fileDir.remove(QRegExp("([^\/]+$)"));
+    fileDir.remove(QRegExp("([^/]+$)"));
     QDesktopServices::openUrl(QUrl(QString("file:///")+fileDir, QUrl::TolerantMode));
 }
 
