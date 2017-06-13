@@ -655,6 +655,8 @@ listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note, QListWidget* li
 
     unsigned int nbItems = panel->count();
     listItemAndPointer* current;
+    listItemAndPointer* out = nullptr;
+
 
     QString idWeAreLookingFor = note->getId();
 
@@ -662,10 +664,13 @@ listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note, QListWidget* li
     unsigned int i=0;
     for(i=0; i<nbItems; i++) {
         current = static_cast<listItemAndPointer*>(panel->item(i));
-        if (current->getNotePointer()->getId() == idWeAreLookingFor) break;
+        if (current->getNotePointer()->getId() == idWeAreLookingFor) {
+            out = current;
+            break;
+        }
     }
 
-    return current;
+    return out;
 }
 
 void PluriNotes::selectItemIntoList(listItemAndPointer* item, QListWidget* list) {
@@ -931,15 +936,40 @@ void PluriNotes::removeReferencesWithOrigin(NoteEntity* note){
     getReferencesRelation()->removeCoupleWithNotePredecessor(note);
 }
 
+void PluriNotes::superRedirecteEasy(NoteEntity* note){
+    listItemAndPointer* tmp;
+    tmp = findItemInList(note, ui->listNotesWidget);
+    if (tmp != nullptr){
+        selectItemIntoList(tmp, ui->listNotesWidget);
+        ui->noteBox->setCurrentIndex(0);
+        return;
+    }
+
+    tmp = findItemInList(note, ui->listArchivedWidget);
+    if (tmp != nullptr){
+        selectItemIntoList(tmp, ui->listArchivedWidget);
+        ui->noteBox->setCurrentIndex(1);
+        return;
+    }
+
+    tmp = findItemInList(note, ui->listTrashWidget);
+    if (tmp != nullptr){
+        selectItemIntoList(tmp, ui->listTrashWidget);
+        ui->noteBox->setCurrentIndex(2);
+        return;
+    }
+
+
+}
 
 void PluriNotes::updateSelectionFromTreeSuccessors() {
     treeItemNoteAndPointer* itm = static_cast<treeItemNoteAndPointer*>(ui->treeViewSuccessors->currentItem());
-    selectItemIntoList(findItemInList(itm->getNotePointer(), ui->listNotesWidget), ui->listNotesWidget);
+    superRedirecteEasy(itm->getNotePointer());
 }
 
 void PluriNotes::updateSelectionFromTreePredecessors() {
     treeItemNoteAndPointer* itm = static_cast<treeItemNoteAndPointer*>(ui->treeViewPredecessors->currentItem());
-    selectItemIntoList(findItemInList(itm->getNotePointer(), ui->listNotesWidget), ui->listNotesWidget);
+    superRedirecteEasy(itm->getNotePointer());
 }
 
 

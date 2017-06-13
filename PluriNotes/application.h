@@ -399,6 +399,9 @@ public:
     //! Function to update trees based on the selected note.
     void updateTrees(NoteEntity* note);
 
+    //! Function to redirect selection of a note
+    void superRedirecteEasy(NoteEntity* note);
+
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
