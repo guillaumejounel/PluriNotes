@@ -267,6 +267,7 @@ void PluriNotes::displayNote(unsigned int n) {
     isDisplayed = false;
     ui->idDisplayLineEdit->setReadOnly(true);
     ui->dateDisplayLineEdit->setReadOnly(true);
+    if (!n) ui->buttonSaveEdit->setText(QString("Save"));
     const NoteEntity* currentSelectedNote = getCurrentNote();
     if(notes.size() && currentSelectedNote!= nullptr) {
         ui->noteTypeDisplayLabel->setText(QString("<html><head/><body><p><span style='font-size:24pt;'>")+getCurrentNoteType()+ QString("</span></p></body></html>"));
