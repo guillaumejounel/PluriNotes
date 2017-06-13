@@ -366,7 +366,7 @@ void PluriNotes::saveNote() {
 
         //Input is not valid
         if (references == false) QMessageBox::warning(this, "Warning", "Please check your input. You notably have references issues !");
-        else QMessageBox::warning(this, "Warning", "Please check your inputs ! Starred items must be filled in.");
+        else QMessageBox::warning(this, "Warning", "Please check your inputs !\nStarred items must be filled in.");
     }
 }
 
@@ -399,6 +399,7 @@ void PluriNotes::deleteNote() {
 
     QUndoCommand *deleteCommand = new deleteNoteCommand(currentSelectedNote,0);
     undoStack->push(deleteCommand);
+    displayNote();
 }
 
 bool PluriNotes::isInsideApp(const NoteEntity *note) {
