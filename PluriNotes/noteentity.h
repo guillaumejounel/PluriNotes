@@ -19,7 +19,7 @@ private:
     QVector<const NoteElement*> versions;
 public:
     NoteEntity(const QString& id, const bool& archived = false);
-    virtual ~NoteEntity() { for(auto version : versions) delete version; versions.clear(); }
+    virtual ~NoteEntity() { for(const NoteElement* version : versions) if (version) delete version; versions.clear(); }
     QString getId() const {return id;}
     QString getTitle() const;
     unsigned int getSize() const { return versions.size(); }
