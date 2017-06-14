@@ -187,6 +187,9 @@ private:
     //! Undostack for the undo/redo process in the app (not concerning relations view)
     QUndoStack *undoStack;
 
+    //! \brief Boolean to automatically empty the trash at exit
+    bool autoEmptyTrash;
+
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 
@@ -265,6 +268,14 @@ public:
 
     //! \brief Get the type of the current displayed note
     QString getCurrentNoteType();
+
+
+    //! \brief Getter for the value of autoEmptyTrash
+    bool getAutoEmptyTrash() {return autoEmptyTrash;}
+
+    //! \brief Setter for the value of auto empty trash
+    //! @param b New Value
+    void setAutoEmptyTrash(bool b){ autoEmptyTrash = b;}
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
 
@@ -566,6 +577,9 @@ signals:
 
     //! \brief method to filter notes into interface
     void filterDataIntoUi();
+
+    //! \brief slot for autoEmpty
+    void setAutoEmptySlot();
 
 };
 

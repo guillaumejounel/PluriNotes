@@ -516,7 +516,6 @@ void PluriNotes::save() {
     QString path = QCoreApplication::applicationDirPath();
     path.append("/data");
     QFile newfile(path);
-    //Faire une classe pour les exceptions
     if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
         qDebug() << "erreur sauvegarde notes : ouverture fichier xml";
     QXmlStreamWriter stream(&newfile);
@@ -1099,3 +1098,13 @@ void PluriNotes::showTrashSlot(int n){
     }
 }
 
+
+void PluriNotes::setAutoEmptySlot(){
+    if (getAutoEmptyTrash()){
+        setAutoEmptyTrash(false);
+        ui->autoEmptyButton->setText(QString("Auto empty is off"));
+    } else {
+        setAutoEmptyTrash(true);
+        ui->autoEmptyButton->setText(QString("Auto empty is on"));
+    }
+}

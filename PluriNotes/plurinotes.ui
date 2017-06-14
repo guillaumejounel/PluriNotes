@@ -90,7 +90,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="page">
          <property name="geometry">
@@ -195,6 +195,19 @@
              </layout>
             </item>
            </layout>
+          </item>
+          <item row="1" column="0">
+           <widget class="QPushButton" name="autoEmptyButton">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Auto empty is on</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -1218,8 +1231,8 @@
    <slot>titleChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>527</x>
-     <y>108</y>
+     <x>268</x>
+     <y>63</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -1234,8 +1247,8 @@
    <slot>saveNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>532</x>
-     <y>465</y>
+     <x>268</x>
+     <y>63</y>
     </hint>
     <hint type="destinationlabel">
      <x>553</x>
@@ -1250,8 +1263,8 @@
    <slot>cancelNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>532</x>
-     <y>465</y>
+     <x>268</x>
+     <y>63</y>
     </hint>
     <hint type="destinationlabel">
      <x>571</x>
@@ -1266,8 +1279,8 @@
    <slot>idChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>527</x>
-     <y>141</y>
+     <x>268</x>
+     <y>63</y>
     </hint>
     <hint type="destinationlabel">
      <x>601</x>
@@ -1282,8 +1295,8 @@
    <slot>typeChangedForm()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>528</x>
-     <y>204</y>
+     <x>268</x>
+     <y>63</y>
     </hint>
     <hint type="destinationlabel">
      <x>470</x>
@@ -1571,7 +1584,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>82</x>
-     <y>518</y>
+     <y>492</y>
     </hint>
     <hint type="destinationlabel">
      <x>52</x>
@@ -1586,8 +1599,8 @@
    <slot>emptyTrashSlot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>146</x>
-     <y>505</y>
+     <x>148</x>
+     <y>492</y>
     </hint>
     <hint type="destinationlabel">
      <x>108</x>
@@ -1634,8 +1647,8 @@
    <slot>selectDocumentFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>523</x>
-     <y>422</y>
+     <x>259</x>
+     <y>57</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -1650,8 +1663,8 @@
    <slot>selectDocumentFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>271</x>
-     <y>244</y>
+     <x>289</x>
+     <y>241</y>
     </hint>
     <hint type="destinationlabel">
      <x>171</x>
@@ -1666,8 +1679,8 @@
    <slot>openDocumentFolder()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>244</y>
+     <x>289</x>
+     <y>241</y>
     </hint>
     <hint type="destinationlabel">
      <x>673</x>
@@ -1682,8 +1695,8 @@
    <slot>openDocumentFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>225</x>
-     <y>244</y>
+     <x>289</x>
+     <y>241</y>
     </hint>
     <hint type="destinationlabel">
      <x>168</x>
@@ -1755,6 +1768,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>autoEmptyButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>setAutoEmptySlot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>35</x>
+     <y>508</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>410</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>saveNote()</slot>
@@ -1784,5 +1813,6 @@
   <slot>checkArchiveSlot()</slot>
   <slot>filterDataIntoUi()</slot>
   <slot>openRelationsWindow()</slot>
+  <slot>setAutoEmptySlot()</slot>
  </slots>
 </ui>
