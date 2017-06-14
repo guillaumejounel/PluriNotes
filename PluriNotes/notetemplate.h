@@ -24,6 +24,7 @@ public:
         return NoteTypeList(Note::name(), Note::newType()).size();
     }
     static int id;
+    virtual ~BaseNoteType() = default;
 };
 
 template <class Note>

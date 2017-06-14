@@ -76,7 +76,7 @@ public:
     QString getAction() const { return action; }
 
     //! \brief Destructor of Task
-    ~Task() {}
+    ~Task() = default;
 
     // UI
     //-------

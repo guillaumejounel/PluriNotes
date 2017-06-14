@@ -71,7 +71,7 @@ public:
     QString getFile() const { return file; }
 
     //! \brief Destructor of Document
-    ~Document() {}
+    ~Document() = default;
 
 
     // UI

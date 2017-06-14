@@ -65,7 +65,7 @@ public:
     const QString& getText() const {return text;}
 
     //! \brief Destructor of Document
-    ~Article() {}
+    ~Article() = default;
 
     // UI
     //-------

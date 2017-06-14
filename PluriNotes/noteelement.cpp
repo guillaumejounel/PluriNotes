@@ -13,8 +13,7 @@ map<QString, NoteElement*> NoteElement::getTypesNotes() {
 
 
 QStringList NoteElement::getReferences(const QString& text) const{
-    // The sequence \} is known... wrong warning
-    QRegExp rx("[\\ref\{]([\\w|\\d]+)[\}]");
+    QRegExp rx("[\\ref{]([\\w|\\d]+)[}]");
 
     QStringList list = rx.capturedTexts();
 
