@@ -662,6 +662,13 @@
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_13">
                 <item>
+                 <widget class="QPushButton" name="manageRelationButton">
+                  <property name="text">
+                   <string>Manage relations</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QTreeWidget" name="treeViewPredecessors">
                   <property name="enabled">
                    <bool>true</bool>
@@ -1339,8 +1346,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>451</x>
-     <y>442</y>
+     <x>280</x>
+     <y>232</y>
     </hint>
     <hint type="destinationlabel">
      <x>160</x>
@@ -1371,8 +1378,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>280</x>
-     <y>226</y>
+     <x>451</x>
+     <y>417</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -1387,8 +1394,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>225</x>
-     <y>239</y>
+     <x>284</x>
+     <y>486</y>
     </hint>
     <hint type="destinationlabel">
      <x>156</x>
@@ -1403,8 +1410,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>239</y>
+     <x>444</x>
+     <y>487</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -1419,8 +1426,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>271</x>
-     <y>239</y>
+     <x>552</x>
+     <y>486</y>
     </hint>
     <hint type="destinationlabel">
      <x>153</x>
@@ -1707,8 +1714,8 @@
    <slot>restoreArchiveSlot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>98</x>
-     <y>437</y>
+     <x>110</x>
+     <y>485</y>
     </hint>
     <hint type="destinationlabel">
      <x>166</x>
@@ -1729,6 +1736,22 @@
     <hint type="destinationlabel">
      <x>10</x>
      <y>98</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>manageRelationButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PluriNotes</receiver>
+   <slot>openRelationsWindow()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>751</x>
+     <y>75</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>848</x>
+     <y>121</y>
     </hint>
    </hints>
   </connection>
@@ -1760,5 +1783,6 @@
   <slot>restoreArchiveSlot()</slot>
   <slot>checkArchiveSlot()</slot>
   <slot>filterDataIntoUi()</slot>
+  <slot>openRelationsWindow()</slot>
  </slots>
 </ui>

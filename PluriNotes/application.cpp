@@ -177,6 +177,7 @@ void PluriNotes::setInteractivity(bool b, unsigned int type){
         ui->noteBox->setEnabled(b);
         ui->treeViewPredecessors->setEnabled(b);
         ui->treeViewSuccessors->setEnabled(b);
+        ui->manageRelationButton->setEnabled(b);
         ui->ButtonNewNote->setEnabled(b);
         ui->filterComboBox->setEnabled(b);
     } else if (type==1){ //when we are in archived
