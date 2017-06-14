@@ -523,6 +523,10 @@ void PluriNotes::save() {
     stream.writeStartDocument();
     stream.writeStartElement("data");
     {
+        stream.writeStartElement("conf");
+        stream.writeTextElement("autoEmpty",getAutoEmptyTrash()?"true":"false");
+        stream.writeEndElement();
+
         stream.writeStartElement("notes");
             for(auto const& note: notes)
                 note->saveToXML(stream);
@@ -554,6 +558,21 @@ void PluriNotes::load() {
     NoteEntity* newNoteEntity;
     Relation* newRelation;
     while(!xml.atEnd() && !xml.hasError()) {
+
+        if(xml.name()== "autoEmpty" && xml.tokenType() == QXmlStreamReader::StartElement ){
+            xml.readNext(); QString b = xml.text().toString();
+            if (b == QString("true")){
+                ui->autoEmptyButton->setText(QString("Auto empty is on"));
+                setAutoEmptyTrash(true);
+            }
+            else {
+                ui->autoEmptyButton->setText(QString("Auto empty is off"));
+                setAutoEmptyTrash(false);
+            }
+
+        }
+
+        qWarning()<<QString("herer");
         if(xml.name() == "trash") toTrash = true;
         if(xml.name() == "note" && xml.tokenType() == QXmlStreamReader::StartElement) {
             newNoteEntity = NoteEntity::loadFromXML(xml);
@@ -790,6 +809,10 @@ void PluriNotes::setDataChanged(bool b) {
 
 void PluriNotes::closeEvent(QCloseEvent *event) {
     event->ignore();
+    if (getAutoEmptyTrash()){
+        emptyTrashSlot(true);
+    }
+
     if (hasDataChanged()) {
         if (QMessageBox::Yes == QMessageBox::question(this, "Save data?",
                                   "Do you want to save data?",
@@ -1100,6 +1123,7 @@ void PluriNotes::showTrashSlot(int n){
 
 
 void PluriNotes::setAutoEmptySlot(){
+    setDataChanged(true);
     if (getAutoEmptyTrash()){
         setAutoEmptyTrash(false);
         ui->autoEmptyButton->setText(QString("Auto empty is off"));

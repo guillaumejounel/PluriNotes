@@ -188,7 +188,8 @@ private:
     QUndoStack *undoStack;
 
     //! \brief Boolean to automatically empty the trash at exit
-    bool autoEmptyTrash;
+    //! False by default
+    bool autoEmptyTrash = false;
 
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
@@ -303,9 +304,6 @@ public:
     //! \brief Function to move a note element from trash to notes
     //! @param noteEl the note we want to move
     void moveBackFromTrash(NoteEntity* noteEl);
-
-    //! \brief Empty trash vector
-    void emptyTrash();
 
     //! \brief add relation to the vector of relations
     //! @param r relation we want to add to the app
