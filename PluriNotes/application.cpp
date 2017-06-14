@@ -1092,6 +1092,7 @@ void PluriNotes::checkArchiveSlot(){
 
 
 void PluriNotes::showTrashSlot(int n){
+    setInteractivity(true,1);
     if (n==2){
         if (ui->listTrashWidget->count() == 0){
             ui->mainStackedWidget->setCurrentIndex(5);
@@ -1109,7 +1110,7 @@ void PluriNotes::showTrashSlot(int n){
          checkArchiveSlot();
          ui->restoreArchivedButton->setEnabled(true);
         }
-            displayNote();
+        displayNote();
     }else{
         displayNote();
     }

@@ -80,7 +80,7 @@ void deleteNoteCommand::redo()
         }else{
             manager.removeNoteFromList(getNote(), manager.getListActiveNotes());
         }
-        if(getNote()->isReferenced() && getType() !=2 ){
+        if(getNote()->isReferenced(true) && getType() !=2 ){
             getNote()->setArchived(true);
             manager.addNoteToList(getNote(), manager.getListArchived());
         }else{
