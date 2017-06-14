@@ -279,3 +279,16 @@ void relationsWindows::displayRelation(Relation* rel){
     }
 }
 
+void relationsWindows::orientationChanged(int choice){
+    if (ui->newRelationButton->isEnabled()){
+        Relation* rel = getCurrentRelation();
+        if (rel){
+            if (choice==0){
+                rel->setOriented(true);
+            }
+            else{
+                rel->setOriented(false);
+            }
+        }
+    }
+}

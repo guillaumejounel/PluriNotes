@@ -30,24 +30,29 @@ class coupleAndRelation;
 **/
 class Relation{
 private:
-    //! \brief title of the relation
+    //! \brief Title of the relation
     QString title;
 
-    //! \brief description of the relation
+    //! \brief Description of the relation
     QString description;
 
-    //! \brief content of the relation
+    //! \brief Content of the relation
+    //! The content consist of NoteCouples pointers
     QVector<NoteCouple*> content;
 
+    //! \brief Is the relation oriented ?
     //! Boolean to know if we actually have to consider both couple (x,y) and (y,x)
     bool oriented;
 
+    //! \brief Is the relation the references' one ?
     //! Boolean to know is this relations is the reference one (there must be only one)
     bool references;
 
-    //! \brief a simple attribute to know if the relation has been deleted
+    //! \brief Is the relation deleted ?
+    //! A simple attribute to know if the relation has been deleted, used for undo/redo
     bool deleted;
 
+    //! \brief Identifier of the relation
     //! Number of the relation to better identify it
     unsigned int number;
 
@@ -55,18 +60,28 @@ private:
 
 public:
     //! \brief constructor of the class
-    //! Default orientation is oriented
     //! Default is NOT a references ; we only need one !
+    //! @param t Title of the relation
+    //! @param d Description of the relation
+    //! @param isOriented Orientation of the relation
     Relation(QString& t, QString& d, bool isOriented);
 
+    //! \brief Special constructor of the class
+    //! @param title Title of the relation
+    //! @param description Description of the relation
+    //! @param isOriented Orientation of the relation
+    //! @param isReferences is the new relation the reference one.
+    //! @param deleted False by standard
+    //! @param number Identifier of the relation, should be 0.
     //! this constructor shouldn't be used in the app (or at least once)
     Relation(QString& title, QString& description, bool isOriented, bool isReferences, bool deleted = false, unsigned int number = 0);
 
+    //! \brief No argument constructor of the class
     //! Simple constructor for creating vertor purposes
     Relation() {}
 
     //! \brief destructor of the class
-    //! Redefinition of the destructor to prevent memoryleaks
+    //! Redefinition of the destructor to prevent memory leaks
     ~Relation();
 
 
@@ -78,9 +93,11 @@ public:
     const QString getDescription() const {return description;}
 
     //! \brief setter for the title
+    //! @param t new Title
     void setTitle(const QString& t) {title = t;}
 
     //! \brief setter for the description
+    //! @param d new description
     void setDescription(const QString& d) {description = d;}
 
 
@@ -92,10 +109,11 @@ public:
     //! \brief getter for the number of the relation
     unsigned int getNumber() const {return number;}
 
+    //! \brief is the references' relation ?
     //! Accessor to know if the relation is the references one
     bool isReferences() const {return references;}
 
-    //! \brief Accessor to oriented attribute
+    //! \brief Accessor to the oriented attribute
     bool isOriented() const {return oriented;}
 
     //! setter for the orientation

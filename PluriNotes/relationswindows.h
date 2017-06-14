@@ -116,6 +116,8 @@ signals:
 
     //! \todo to show the undo history
     void showUndoHistoryWindows();
+
+    void orientationChanged(int choice);
 };
 
 #endif // RELATIONSWINDOWS_H

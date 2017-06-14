@@ -4,7 +4,7 @@
 
 Relation::Relation(QString& title, QString& description, bool isOriented, bool isReferences, bool deleted, unsigned int number) : title(title), description(description), oriented(isOriented), references(isReferences), deleted(deleted), number(number) {}
 
-Relation::Relation(QString &t, QString &d, bool isOriented) : title(t), description(d), oriented(isOriented), references(false) {
+Relation::Relation(QString &t, QString &d, bool isOriented) : title(t), description(d), oriented(isOriented), deleted(false), references(false) {
     PluriNotes& manager = PluriNotes::getManager();
     number = manager.getMaxRelationId();
     if (number != 0) number++;

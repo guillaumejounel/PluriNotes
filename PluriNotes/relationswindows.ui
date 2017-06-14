@@ -683,6 +683,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>orientationSelection</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>relationsWindows</receiver>
+   <slot>orientationChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>462</x>
+     <y>202</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>478</x>
+     <y>33</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>toNewRelationForm()</slot>
@@ -694,5 +710,6 @@
   <slot>changeCoupleLabel()</slot>
   <slot>deleteCouple()</slot>
   <slot>removeRelation()</slot>
+  <slot>orientationChanged(int)</slot>
  </slots>
 </ui>
