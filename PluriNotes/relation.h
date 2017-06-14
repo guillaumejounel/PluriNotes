@@ -167,7 +167,7 @@ public:
     //! @param c notecouple we want to remove
     void removeCouple(const NoteCouple* c);
 
-    //! \breif Method to remove a list of noteCouple from the relation
+    //! \brief Method to remove a list of noteCouple from the relation
     //! @param coupleList list of notecouples we want to remove
     void removeCouple(const QList<NoteCouple*> coupleList);
     /*!

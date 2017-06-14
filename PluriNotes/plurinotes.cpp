@@ -13,9 +13,6 @@ int main(int argc, char *argv[])
     //Load data from UML
     manager.load();
 
-    //! test functionnalities
-    manager.testFunction();
-
     //! Load data into UI
     manager.loadDataIntoUi();
 

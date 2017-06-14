@@ -50,11 +50,6 @@ void PluriNotes::noteCountUpdate() {
     ui->noteBox->setItemText(2, QString("Trash (") + QString::number(ui->listTrashWidget->count()) + QString(")"));
 }
 
-void PluriNotes::testFunction() {
-//
-}
-
-
 
 void PluriNotes::createUndoView()
 {
@@ -349,7 +344,7 @@ bool PluriNotes::isIdAvailable(const QString& id) const {
     return true;
 }
 
-NoteEntity* PluriNotes::getNoteById(const QString& id) {
+NoteEntity* PluriNotes::getNoteById(const QString& id) const {
     for (auto note : notes) {
         if(note->getId() == id) return note;
     }
@@ -666,7 +661,7 @@ void PluriNotes::removeNoteFromList(NoteEntity *note, QListWidget* list) {
     list->takeItem(i);
 }
 
-listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note, QListWidget* list) {
+listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note, QListWidget* list) const {
     //! \todo add function to loog for wich panel the note is on!
     QListWidget* panel = list;
 
@@ -690,7 +685,7 @@ listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note, QListWidget* li
     return out;
 }
 
-void PluriNotes::selectItemIntoList(listItemAndPointer* item, QListWidget* list) {
+void PluriNotes::selectItemIntoList(listItemAndPointer* item, QListWidget* list) const {
     QListWidget* panel = list;
     panel->setCurrentItem(item);
 }
@@ -911,7 +906,7 @@ QStringList PluriNotes::getActiveReferences() const {
 
 
 
-bool PluriNotes::refencesCheck(const NoteElement *noteEl, NoteEntity *note, QString id){
+bool PluriNotes::refencesCheck(const NoteElement *noteEl, NoteEntity *note, QString id) const{
         QStringList referencesInNotes = noteEl->returnReferences();
         QStringList allActiveRefences = getActiveReferences();
 
@@ -956,7 +951,7 @@ void PluriNotes::removeReferencesWithOrigin(NoteEntity* note){
     getReferencesRelation()->removeCoupleWithNotePredecessor(note);
 }
 
-void PluriNotes::superRedirecteEasy(NoteEntity* note){
+void PluriNotes::superRedirecteEasy(NoteEntity* note) const{
     listItemAndPointer* tmp;
     tmp = findItemInList(note, ui->listNotesWidget);
     if (tmp != nullptr){

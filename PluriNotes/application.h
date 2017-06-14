@@ -56,6 +56,7 @@ private:
     //! \brief Pointer to the ui
     Ui::PluriNotes *ui;
 
+    //!\brief Destructor of the class
     //! Implementation of the singleton design pattern, the destructor has to be private
     ~PluriNotes();
 
@@ -63,7 +64,6 @@ private:
     //! \brief Pointer to the unique class instanciation
     static PluriNotes* instanceUnique;
 
-    //! Core
     //! Vector containing all the active notes in the application
     //! \brief Vector containing the active notes
     QVector<NoteEntity*> notes;
@@ -72,7 +72,7 @@ private:
     //! \brief Vector containing the trashed notes
     QVector<NoteEntity*> trash;
 
-    //! Vector containing all Relations of the application
+    //! \brief Vector containing all Relations of the application
     QVector<Relation*> relations;
 
     //! \todo Add documentation !!!!
@@ -182,6 +182,7 @@ private:
     bool dataChanged = false;
 
 
+    //! \brief a simple undoStack
     //! Undostack for the undo/redo process in the app (not concerning relations view)
     QUndoStack *undoStack;
 
@@ -222,6 +223,7 @@ public:
     // Basics and getters
     // --------------------------------------------------------------------------
     //! Implementation of the singleton design pattern : get the only instance
+    //! \brief getter to the manager
     static PluriNotes& getManager();
 
     //! \brief Accessor to the ui
@@ -236,12 +238,13 @@ public:
     //! \brief method to load data into interface
     void loadRelationsIntoUi();
 
-    //! Getter for the max current nb (id) relations
+    //! \brief Getter for the max current nb (id) relations
     unsigned int getMaxRelationId();
 
-    //! Method to get a pointer to the references relation
+    //! \brief Method to get a pointer to the references relation
     Relation* getReferencesRelation();
 
+    //! \brief What happens when we close the relation window
     //! Function to deleted relations that have been temporarly deleted in the relation managment window
     void onRelationsWindowsClose();
 
@@ -253,13 +256,14 @@ public:
     void setAutoDelete(bool);
 
 
-    //! Function to check if their has been modification to plurinotes
+    //! \brief Function to check if their has been modification to plurinotes
     bool hasDataChanged() const {return dataChanged;}
 
-    //! Function to say if the data has changed.
+    //! \brief Function to say if the data has changed.
+    //! @param b New status for dataChanged
     void setDataChanged(bool b);
 
-    //! \todo add documentation
+    //! \brief get the current selected note in the app
     NoteEntity* getCurrentNote();
 
     //! \brief Get the type of the current displayed note
@@ -277,61 +281,76 @@ public:
     // --------------------------------------------------------------------------
 
     //! \brief Delete note based on its id
+    //! @param id The id of the note we want to delete
     void deleteNote(const QString& id);
 
     //! \brief Function to know if a note is inside the vector note
+    //! @param the note we ware looking for
     bool isInsideApp(const NoteEntity *note);
 
-    //! Function to move a note element from notes to trash
+    //! \brief Function to move a note element from notes to trash
+    //! @param noteEl the note we want to move
     void moveToTrash(NoteEntity* noteEl);
 
-    //! Function to move a note element from trash to notes
+    //! \brief Function to move a note element from trash to notes
+    //! @param noteEl the note we want to move
     void moveBackFromTrash(NoteEntity* noteEl);
 
-    //! \brief Empty trash
+    //! \brief Empty trash vector
     void emptyTrash();
 
     //! \brief add relation to the vector of relations
+    //! @param r relation we want to add to the app
     void addRelationToVector(Relation* r);
 
     //! \brief Function to remove a note
-    //! \warning the memory is not fried
+    //! @param note the note we want to remove
+    //! The memory is not freed, but it is fine
     void removeNote(NoteEntity* note);
 
-
+    //! \todo pas propre ! add iterator
+    //! \brief Accessor to the vector of note
+    QVector<NoteEntity*> getNotesVector() const {return notes;}
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
     // Interaction with the references
     // --------------------------------------------------------------------------
-    //! Method to get all successors of a note
+    //! \brief Method to get all successors of a note
+    //! @param note the note we are interested in
     QSet<NoteEntity*> getAllSuccessorsOf(NoteEntity* note) const;
 
-    //! Method to get all predecessors of a note
+    //! \brief Method to get all predecessors of a note
+    //! @param note the note we are interested in
     QSet<NoteEntity*> getAllPredecessorsOf(NoteEntity* note) const;
 
-    //! Method to get all predecessors of a note
-    //! \todo pas propre !
-    QVector<NoteEntity*> getNotesVector() const {return notes;}
-
-    //! Method to get all references of a List of notenote
+    //! \brief Method to get all references of a List of note
+    //! @param noteList the list of notes we are interested in
     QSet<NoteEntity*> getAllPredecessorsOf(QList<NoteEntity*> noteList) const;
 
     //! Method to get all references of a note
+    //! @param note the note we are interested in
     QSet<NoteEntity*> getAllReferencesOf(NoteEntity* note) const;
 
 
-    //! List of active ID for referencing
+    //! \brief getter to all the active ids in the app
     QStringList getActiveReferences()const ;
 
 
-    //! References check when adding a note or a version
-    bool refencesCheck(const NoteElement*noteEl, NoteEntity *note, QString id);
+    //! \brief References check when adding a note or a version
+    //! @param noteEl the noteElement we have to check (sometimes we need it)
+    //! @param note related note to noteElement
+    //! @param id of the note ; might be uselless
+    bool refencesCheck(const NoteElement*noteEl, NoteEntity *note, QString id) const;
 
-    //! \brief add References in the references vector
+    //! \brief add References in the references relation
+    //! @param note The note concerned (the source of references)
+    //! @param idList the id contained in the new note
+    //! Sommetimes we can't deduce the list of id from the note because it is not updated yet
     void addReferences(NoteEntity* note, const QStringList& idList);
 
-    //! \brief add References in the references vector
+    //! \brief remove References of a note in the references vector
+    //! @param note The note concerned
     void removeReferencesWithOrigin(NoteEntity* note);
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
@@ -345,64 +364,89 @@ public:
     // --------------------------------------------------------------------------
 
     //! \brief Check if an id is available
+    //! @param id the id we have to check
     bool isIdAvailable(const QString& id) const;
 
     //! \brief return the note having this id
-    NoteEntity* getNoteById(const QString& id);
+    //! @param id id of the note
+    NoteEntity* getNoteById(const QString& id) const;
 
-    //! Function to add a note in the system \n
+    //! \brief Function to add a note in the system
     //! Returns an "listItemAndPointer*" the should be usefull in somme cases
+    //! @param note The note concerned
+    //! @param list Where have to add the note
     listItemAndPointer* addNote(NoteEntity& note, QListWidget *list);
 
-    //! Function to add an listItemAndPointer* to the list of notes
+    //! \brief Function to add an listItemAndPointer* to the list of notes
+    //! @param item The list item with the note
+    //! @param list Where we have to put the item
     void addItemNoteToList(listItemAndPointer* item, QListWidget *list);
 
 
 
-    //! Function to add a NoteEntity to the list of note \n
+    //! \brief Function to add a NoteEntity to the list of note
     //! With creation of a listItemAndPointer*
+    //! @param note The note we want to add
+    //! @param list Where we have to put the note
     listItemAndPointer* addNoteToList(NoteEntity* note, QListWidget* list);
 
-    //! Function to remove a note from the list
+    //! \brief Function to remove a note from the list
+    //! @param note The note we want to remove
+    //! @param list Where should be the note
     void removeNoteFromList(NoteEntity* note, QListWidget* list);
 
-    //! Function to find an item in the list based on the note
-    listItemAndPointer* findItemInList(NoteEntity* note, QListWidget* list);
+    //! \brief Function to find an item in the list based on the note
+    //! @param note The note we want to find
+    //! @param list Where should be the note
+    listItemAndPointer* findItemInList(NoteEntity* note, QListWidget* list) const;
 
-    //! Function wich removes a listItemAndPointer* from the list\n
+    //! \brief Function wich removes a listItemAndPointer* from the list
     //! it is returned so that it can be stored if we need it
+    //! @param item the item we want to remove
+    //! @param list the list where the item is
     listItemAndPointer* removeItemNoteFromList(listItemAndPointer* item, QListWidget* list);
 
-    //! Function to select an item in the list of notes
-    void selectItemIntoList(listItemAndPointer* item, QListWidget* list);
+    //! \brief Function to select an item in the list of notes
+    //! @param item the item we want to select
+    //! @param list the list where the item is
+    void selectItemIntoList(listItemAndPointer* item, QListWidget* list) const;
 
     //! \brief Update the note count of each panel of the notBox
     void noteCountUpdate();
 
+
+
     //--- treeView
-    //! Function to add a NoteEntity to the list of note \n
+    //! \brief Function to add a NoteEntity to the tree of note
     //! With creation of a listItemAndPointer*
+    //! @param note the note
+    //! @param tree the tree we want to add the note
     treeItemNoteAndPointer* addNoteToTree(NoteEntity* note, QTreeWidget* tree);
 
-    //! function to add the child elements
+    //! \brief function to add the child elements of an element in a tree
+    //! @param item the item
+    //! @param tree the tree concerned
     void addNoteChildToTree(treeItemNoteAndPointer* item, QTreeWidget* tree);
 
-    //! function to add the child of an item
+    //! \brief function to add the children of an item
+    //! @param item the item
+    //! @param tree the tree concerned
     void addNoteChildrenToItem(QTreeWidgetItem* item, QTreeWidget* tree);
 
-    //! Function to update trees based on the selected note.
+    //! \brief Function to update trees based on the selected note.
+    //! @param note the note we want to update the trees with
     void updateTrees(NoteEntity* note);
 
-    //! Function to redirect selection of a note
-    void superRedirecteEasy(NoteEntity* note);
+    //! \brief Function to redirect selection of a note
+    //! it is to select a note in the right panel of the ui
+    //! @param note the note we want to select
+    void superRedirecteEasy(NoteEntity* note) const;
 
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
     // UI setters/getters
     // --------------------------------------------------------------------------
-
-
     //! \brief Get the list of active notes in the UI
     QListWidget* getListActiveNotes() const;
 
@@ -416,17 +460,17 @@ public:
     QListWidget* getListTasks() const;
 
 
-    //! Method to block or activate element interaction
+    //! \brief Method to block or activate element interaction
+    //! @param b the new status of the widgets
+    //! @param type optionnal parameter for activating/blocked other elements
     void setInteractivity(bool b, unsigned int type = 0);
 
-    //! Before closing we have to execut this
+    //! \brief Before closing we have to execute this
+    //! @param event the event...
     void closeEvent ( QCloseEvent * event );
 
-
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
-
-    void testFunction();
 
 
 signals:
@@ -434,16 +478,17 @@ signals:
     //! \brief switch to the new note window.
     void toNewNoteForm();
 
-    //! Method to change stackedWidget to the note display window and adapt fields
+    //! \brief Method to change stackedWidget to the note display window and adapt fields
+    //! @param n The version (-1) we want to visualize
     void displayNote(unsigned int n = 0);
 
-    //! \todo Add documentation !!!!
+    //! \brief Method called when clicking on the save button
     void saveNote();
 
-    //! \todo Add documentation !!!!
+    //! \brief Method called when clicking on the delete button
     void deleteNote();
 
-    //! \todo Add documentation !!!!
+    //! \brief Method called when clicking on the cancel button
     void cancelNote();
 
     //! \todo Add documentation !!!!
@@ -452,22 +497,23 @@ signals:
     //! \todo Add documentation !!!!
     void idChanged(bool fromTitle = false);
 
-    //! Method to change QT fields in the new note form (with type of note in mind)
+    //! \brief Method to change QT fields in the new note form
+    //! (with type of note in mind)
     void typeChangedForm();
 
-    //! \todo Add documentation !!!!
+    //! \brief Method called when saving the app (in the menu or via action)
     void saveApplication();
 
-    //! \todo Add documentation !!!!
+    //! \brief Method called when clicking on open relations menu
     void openRelationsWindow();
 
     //! \todo Add documentation !!!!
     void noteTextChanged();//issue is for some preventionwith restoring notes
 
-    //! \todo Add documentation !!!!
+    //! \brief Method called when clicking on save new version
     void saveNewVersion();
 
-    //! \todo Add documentation !!!!
+    //! \brief Method called when an other version is selected
     void noteVersionChanged();
 
     //! \brief Let the user select a file on his computer so as to attached it to a document
@@ -479,8 +525,9 @@ signals:
     //! \brief Open the file of current viewed document
     void openDocumentFile();
 
-    //! \todo Add documentation !!!!
+    //! \brief Method called when clicking on open history menu
     void showUndoHistoryWindows();
+
 
     //! \brief update selected note when selecting a note in the successors tree
     void updateSelectionFromTreeSuccessors();
@@ -488,25 +535,32 @@ signals:
     //! \brief update selected note when selecting a note in the predecessors tree
     void updateSelectionFromTreePredecessors();
 
+
     //! \brief add child in Successors tree to the item
+    //! @param item the expanded item
     void updateAddChildTreeSuccessors(QTreeWidgetItem* item);
 
     //! \brief add child in Predecessors tree to the item
+    //! @param item the expanded item
     void updateAddChildTreePredecessors(QTreeWidgetItem* item);
 
     //! \brief animation of the retracable area
     void retracteOrUnretracteArborescence();
 
-    //! \brief empty Trash slot
+    //! \brief Method called when clicking on empty trash
+    //! @param out by default it is false but when exiting the app we call this funciton with out = true \n
+    //! so we don't have to show the message
     void emptyTrashSlot(bool out = false);
 
-    //! \brief empty restoreTrash slot
+
+    //! \brief Method called when clicking on restore trash
+    //! It is used to restore the selected element
     void restoreTrashSlot();
 
-    //! \brief empty restoreTrash slot
+    //! \brief Method called when clicking on restore archives
     void restoreArchiveSlot();
 
-    //! \brief check archived slot
+    //! \brief Method called to check the element status in archives
     void checkArchiveSlot();
 
     //! \brief displayTrashMessage
