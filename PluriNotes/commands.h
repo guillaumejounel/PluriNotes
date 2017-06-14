@@ -30,36 +30,44 @@ private:
     //! if type == 1 then we are dealing with redo command equivalent to restoring
     //!     a note from the trash of archives
     //! if type == 2  it is when we want to move an element from the archive section to the trash (if we can)
+    //! \brief type of deletion
     unsigned int type;
 
     //! A simple boolean for when type == 1 and we want to "invert" the command (only once)
+    //! \brief boolean to store the number of iteration inside the class
     bool first = true;
 
 public:
-    //! Classic constructor for the command
+    //! \brief Classic constructor for the command
+    //! @param note the note
+    //! @param type the type of command
+    //! @param parent Parent command
     deleteNoteCommand(NoteEntity* note, unsigned int type, QUndoCommand *parent = 0);
 
+    //! \brief destructor of the class
     //! To prevent memory leaks, we have to redefine the destructor
     ~deleteNoteCommand();
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when undoing a command
+    //! \brief undo method
     void undo() override;
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when creating pushing the command in the stack or redoing after an undo
+    //! \brief redo method
     void redo() override;
 
     //! \brief Accessor to the note
     NoteEntity* getNote() {return note;}
 
-    //! Accessor to the type of command
+    //! \brief Accessor to the type of command
     unsigned int getType() const {return type;}
 
-    //! Getter to the "first" attributes
+    //! \brief Getter to the "first" attributes
     bool getFirst() const {return first;}
 
-    //! Setter for the first attribute
+    //! \brief Setter for the first attribute
     void setFirst(bool b) {first = b;}
 };
 
@@ -83,14 +91,17 @@ public:
     restoreNoteCommand(NoteEntity* note, QUndoCommand *parent = 0);
 
     //! To prevent memory leaks, we have to redefine the destructor
+    //! \brief destructor of the class
     ~restoreNoteCommand();
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when creating pushing the command in the stack or redoing after an undo
+    //! \brief undo method
     void undo() override;
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when creating pushing the command in the stack or redoing after an undo
+    //! \brief redo method
     void redo() override;
 
     //! \brief Accessor to the note
@@ -111,7 +122,7 @@ private:
     NoteEntity* note;
 
 public:
-    //! Classic constructor for the command
+    //! \brief Classic constructor for the command
     addNoteEntityCommand(NoteEntity* note, QUndoCommand *parent = 0);
 
     //! \brief destructor for the class
@@ -120,10 +131,12 @@ public:
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when creating pushing the command in the stack or redoing after an undo
+    //! \brief undo method
     void undo() override;
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when creating pushing the command in the stack or redoing after an undo
+    //! \brief redo method
     void redo() override;
 
     //! \brief Accessor to the note
@@ -151,14 +164,17 @@ public:
     addVersionNoteCommand(NoteEntity* note, NoteElement* version, QUndoCommand *parent = 0);
 
     //! To prevent memory leaks, we have to redefine the destructor
+    //! \brief destructor of the class
     ~addVersionNoteCommand();
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when creating pushing the command in the stack or redoing after an undo
+    //! \brief undo method
     void undo() override;
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when creating pushing the command in the stack or redoing after an undo
+    //! \brief redo method
     void redo() override;
 
     //! \brief getter to the note pointer
@@ -190,14 +206,17 @@ public:
     restoreNoteVersionCommand(NoteEntity* note, NoteElement* version, QUndoCommand *parent = 0);
 
     //! To prevent memory leaks, we have to redefine the destructor
+    //! \brief destructor of the class
     ~restoreNoteVersionCommand();
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when creating pushing the command in the stack or redoing after an undo
+    //! \brief undo method
     void undo() override;
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when creating pushing the command in the stack or redoing after an undo
+    //! \brief redo method
     void redo() override;
 
     //! \brief getter to the note pointer
@@ -230,15 +249,18 @@ private:
 
 public:
     //! Classic constructor for the command
+    //! \brief constructor of the class
     addRelationCommand(Relation* relation, QUndoCommand *parent = 0);
     // No issues with memory leaks !
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when creating pushing the command in the stack or redoing after an undo
+    //! \brief undo method
     void undo() override;
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when creating pushing the command in the stack or redoing after an undo
+    //! \brief redo method
     void redo() override;
 
     //! \brief getter for the relation stored
@@ -260,16 +282,18 @@ private:
     Relation* relation;
 
 public:
-    //! Classic constructor for the command
+    //! \brief Classic constructor for the command
     removeRelationCommand(Relation* relation, QUndoCommand *parent = 0);
     // No issues with memory leaks ! no need for a specific destructor
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when creating pushing the command in the stack or redoing after an undo
+    //! \brief undo method
     void undo() override;
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when creating pushing the command in the stack or redoing after an undo
+    //! \brief redo method
     void redo() override;
 
     //! \brief getter for the relation stored
@@ -293,19 +317,21 @@ private:
     NoteCouple* couple;
 
 public:
-    //! Classic constructor for the command
+    //! \brief Classic constructor for the command
     addCoupleCommand(Relation* relation, NoteCouple* couple, QUndoCommand *parent = 0);
 
-    //! Destructor for the class
+    //! \brief Destructor for the class
     //! For managinf memory leaks
     ~addCoupleCommand();
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when creating pushing the command in the stack or redoing after an undo
+    //! \brief undo method
     void undo() override;
 
     //! This is the standard method of the class QUndoCommand
     //! It is executed when creating pushing the command in the stack or redoing after an undo
+    //! \brief redo method
     void redo() override;
 
     //! \brief pointer to the relation concerned by the process
