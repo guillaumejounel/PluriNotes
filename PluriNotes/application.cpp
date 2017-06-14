@@ -225,7 +225,7 @@ QString PluriNotes::getCurrentNoteType() {
 
 void PluriNotes::displayNote(unsigned int n) {
     noteCountUpdate();
-    setInteractivity(true,1);
+    if (n==0) setInteractivity(true,1);
     ui->idDisplayLineEdit->setReadOnly(true);
     ui->dateDisplayLineEdit->setReadOnly(true);
     if (!n) ui->buttonSaveEdit->setText(QString("Save"));
@@ -282,7 +282,7 @@ void PluriNotes::noteVersionChanged() {
             ui->articleDisplayContent->setReadOnly(1);
             ui->taskDisplayAction->setReadOnly(1);
             ui->taskDisplayDeadline->setReadOnly(1);
-            ui->taskDisplayPriority->setDisabled(1);
+            ui->taskDisplayPriority->setEnabled(false);
             ui->taskDisplayStatus->setDisabled(1);
             ui->documentDisplayDescription->setReadOnly(1);
             ui->documentDisplayFileButton->setDisabled(1);
