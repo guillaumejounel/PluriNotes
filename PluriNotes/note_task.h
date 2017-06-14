@@ -9,7 +9,6 @@ using namespace std;
 \class Task
 \brief Class of the Task note type
 **/
-
 setNoteType(Task)
 private:
     //! \brief Action of the Task
@@ -29,6 +28,12 @@ public:
     Task() {}
 
     //! \brief Constructor of Task
+    //! @param title title of the article
+    //! @param creaDate creation date
+    //! @param action action of the task
+    //! @param taskStatus status of the task
+    //! @param taskPriority level of priority for the task
+    //! @param deadline for the task
     Task(const QString& title, const QDateTime& creaDate, const QString& action, const unsigned int taskStatus, const unsigned int taskPriority, const QDateTime& deadline): BaseNoteType(title,creaDate), action(action), status(taskStatus), priority(taskPriority), deadline(deadline) {}
 
     //! \brief Display Task on the PluriNotes UI
@@ -38,6 +43,7 @@ public:
     virtual unsigned int indexPageCreation() const override { return 1; }
 
     //! \brief Return a new Task initialized by the note creation form UI inputs
+    //! @param title title of the note
     virtual Task* saveNote(QString title) override;
 
     //! \brief Return a new Task initialized by the note edition form UI inputs
@@ -47,9 +53,12 @@ public:
     virtual bool textChanged() const override;
 
     //! \brief Save the Task data in a file
+    //! @param stream the resulting stream
     virtual void saveToXML(QXmlStreamWriter& stream) const override;
 
     //! \brief Load a Task from a file and add it into a NoteEntity
+    //! @param stream the XMl stream
+    //! @param newNoteEntity the note parent
     virtual void loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) const override;
 
     //! \brief Return detected references from the Task data
@@ -65,6 +74,7 @@ public:
     //-------
 
     //! \brief Set the the UI action field content in Task edition form
+    //! @param action action for the task
     void setUiTaskAction(const QString& action) const;
 
     //! \brief Get the the UI action field content in Task creation form
@@ -74,12 +84,14 @@ public:
     const QString getUiTaskActionEdit() const;
 
     //! \brief Set the the UI status field content in Task edition form
+    //! @param i status
     void setUiTaskStatus(unsigned int i) const;
 
     ///! \brief Get the the UI status field content in Task edition form
     unsigned int getUiTaskStatusEdit() const;
 
     //! \brief Set the the UI priority field content in Task edition form
+    //! @param i priority
     void setUiTaskPriority(unsigned int i) const;
 
     //! \brief Get the the UI priority field content in Task creation form
@@ -89,6 +101,7 @@ public:
     unsigned int getUiTaskPriorityEdit() const;
 
     //! \brief set task deadline in the UI
+    //! @param date date of the note
     void setUiTaskDeadline(const QDateTime& date) const;
 
     //! \brief get the task deadline from the UI

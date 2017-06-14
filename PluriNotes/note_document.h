@@ -51,6 +51,7 @@ public:
 
     //! \brief Load a Document from a file and add it into a NoteEntity
     //! @param stream the resulting stream
+    //! @param newNoteEntity the note parent
     virtual void loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) const override;
 
     //! \brief Return detected references from the Document data
