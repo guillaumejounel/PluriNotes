@@ -1,3 +1,11 @@
+/**
+\file note_article.h
+\date 14/06/2017
+\author Florent Chehab, Guillaume Jounel and Félix Boisselier
+\brief contains the note Article class
+**/
+
+
 #ifndef NOTE_ARTICLE_H
 #define NOTE_ARTICLE_H
 

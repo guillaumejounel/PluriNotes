@@ -1,3 +1,11 @@
+/**
+\file note_task.h
+\date 14/06/2017
+\author Florent Chehab, Guillaume Jounel and Félix Boisselier
+\brief contains the note task class
+**/
+
+
 #ifndef NOTE_TASK_H
 #define NOTE_TASK_H
 

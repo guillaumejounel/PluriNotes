@@ -1,3 +1,11 @@
+/**
+\file noteentity.h
+\date 14/06/2017
+\author Florent Chehab, Guillaume Jounel and Félix Boisselier
+\brief contains the note Entity class
+**/
+
+
 #ifndef NOTEENTITY_H
 #define NOTEENTITY_H
 
@@ -41,7 +49,10 @@ public:
     void addVersion(const NoteElement& newVersion);
     void deleteVersion(const NoteElement& version);
 
+    //! @param stream the xlm stream
     virtual void saveToXML(QXmlStreamWriter& stream) const;
+
+    //! @param stream the xlm stream
     static NoteEntity* loadFromXML(QXmlStreamReader& stream);
 
     //! Method to know if a version is inside the note entity

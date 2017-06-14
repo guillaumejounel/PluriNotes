@@ -35,6 +35,7 @@ private :
     NoteEntity* notePointer;
 public :
     //! Constructor for the class
+    //! @param ptr pointer to the note Entity
     listItemAndPointer(NoteEntity* ptr = nullptr) : notePointer(ptr) {}
 
     //! Accessor to the the note
@@ -56,6 +57,7 @@ private :
     Relation* relationPointer;
 public :
     //! Constructor for the class
+    //! @param pointer to the relation
     listRelationAndPointer(Relation* ptr = nullptr) : relationPointer(ptr) {}
 
     //! Accessor to the added attribute
@@ -78,6 +80,8 @@ private :
     NoteCouple* couplePointer;
 public :
     //! Constructor for the class
+    //! @ptr pointer to the note couple
+    //! @param ptr pointer to the note couple
     listCoupleAndPointer(NoteCouple* ptr = nullptr) : couplePointer(ptr) {}
 
     //! Accessor to the NoteCouple
@@ -104,6 +108,7 @@ private :
     bool previouslyExpended;
 public :
     //! Constructor for the class
+    //! @param pointer to the NoteEntity
     treeItemNoteAndPointer(NoteEntity* ptr = nullptr) : notePointer(ptr), previouslyExpended(false) {}
 
     //! Accessor to the note
@@ -113,6 +118,7 @@ public :
     bool hasBeenExpended() const {return previouslyExpended;}
 
     //! Setter for the expansion status
+    //! @param status expansion status
     void setExpensionCalculusStatus(bool status = true) {previouslyExpended = status;}
 };
 
@@ -131,6 +137,8 @@ private :
     Relation* relationPointer;
 public :
     //! Constructor for the class
+    //! @param couple Pointer to the note couple that we have to store
+    //! @param relation pointer to the relation we have to store
     coupleAndRelation(NoteCouple* couple, Relation* relation) : couplePointer(couple), relationPointer(relation) {}
 
     //! Destructor of the class for memory managmnent

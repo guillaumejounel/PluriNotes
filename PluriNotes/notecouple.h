@@ -1,6 +1,6 @@
 /**
 \file notecouple.h
-\date 08/06/2017
+\date 14/06/2017
 \author Florent Chehab, Guillaume Jounel and Félix Boisselier
 \brief Contains the class declaration for the note Couple
 **/

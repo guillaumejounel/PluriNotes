@@ -1,5 +1,5 @@
 /**
-\file notecouple.h
+\file relation.h
 \date 14/06/2017
 \author Florent Chehab, Guillaume Jounel and Félix Boisselier
 \brief Contains the class declaration for "relations"
