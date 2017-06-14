@@ -20,6 +20,9 @@ public:
     Article() {}
 
     //! \brief Constructor of Article
+    //! @param title title of the article
+    //! @param creaDate creation date
+    //! @param text content of the article
     Article(const QString& title, const QDateTime& creaDate, const QString& text): BaseNoteType(title,creaDate), text(text) {}
 
     //! \brief Display Article on the PluriNotes UI
@@ -29,6 +32,7 @@ public:
     virtual unsigned int indexPageCreation() const override { return 0; }
 
     //! \brief Return a new Article initialized by the note creation form UI inputs
+    //! @param title title of the article
     virtual Article* saveNote(QString title) override;
 
     //! \brief Return a new Article initialized by the note edition form UI inputs
@@ -38,9 +42,12 @@ public:
     virtual bool textChanged() const override;
 
     //! \brief Save the Article data in a file
+    //! @param stream the resulting stream
     virtual void saveToXML(QXmlStreamWriter& stream) const override;
 
     //! \brief Load a Article from a file and add it into a NoteEntity
+    //! @param stream the stream of XML
+    //! @param newNoteEntity parent of the article
     virtual void loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) const override;
 
     //! \brief Return detected references from the Article data
@@ -56,6 +63,7 @@ public:
     //-------
 
     //! \brief set the article Content in the UI
+    //! @param content the content of the article
     void setUiArticleContent(const QString& content) const;
 
     //! \brief get the article articleContent in the UI
