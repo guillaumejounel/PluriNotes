@@ -104,7 +104,7 @@ void relationsWindows::displayRelation() {
 
     ui->customWidgets->setCurrentIndex(1);
     ui->listCoupleWidget->clear();
-    for (auto couple : currentSelectedRelation->getContent()) {
+    for (auto couple : *(currentSelectedRelation->getContent())) {
         addCoupleToList(couple);
     }
 //    ui->mainStackedWidget->setCurrentIndex(0);
@@ -223,7 +223,7 @@ void relationsWindows::addItemCoupleToList(listCoupleAndPointer *item) {
 
 void relationsWindows::addNoteEntityToComboBoxes() {
     PluriNotes& manager = PluriNotes::getManager();
-    QVector<NoteEntity*> notes = manager.getNotesVector();
+    QVector<NoteEntity*> notes = *(manager.getNotesVector());
     if(notes.size()) {
         for(auto note : notes) {
             if (!note->isArchived()){ // We add only active notes

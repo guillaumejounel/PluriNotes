@@ -440,7 +440,6 @@ bool PluriNotes::isInsideApp(const NoteEntity *note) {
 
 }
 
-//! \todo add error handling
 void PluriNotes::moveToTrash(NoteEntity *noteEl) {
     unsigned int i = 0;
     for (auto note: notes) {
@@ -621,7 +620,6 @@ void PluriNotes::removeNote(NoteEntity *note) {
     notes.removeAll(note);
 }
 
-//! \todo add item to list based on last modified date !
 listItemAndPointer* PluriNotes::addNoteToList(NoteEntity* note, QListWidget* list) {
     listItemAndPointer* itm = new listItemAndPointer(note);
     itm->setText(note->getTitle());

@@ -305,9 +305,8 @@ public:
     //! The memory is not freed, but it is fine
     void removeNote(NoteEntity* note);
 
-    //! \todo pas propre ! add iterator
     //! \brief Accessor to the vector of note
-    QVector<NoteEntity*> getNotesVector() const {return notes;}
+    const QVector<NoteEntity*>* getNotesVector() const {return &notes;}
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------

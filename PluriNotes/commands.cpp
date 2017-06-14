@@ -269,7 +269,7 @@ addCoupleCommand::addCoupleCommand(Relation* relation, NoteCouple* couple, QUndo
 
 addCoupleCommand::~addCoupleCommand() {
     bool canDelete = true;
-    for(auto coupleInRel : getRelation()->getContent()){
+    for(auto coupleInRel : *(getRelation()->getContent())){
         if (coupleInRel == getCouple()){
             canDelete = false;
             break;

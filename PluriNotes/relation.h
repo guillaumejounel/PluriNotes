@@ -105,8 +105,7 @@ public:
 
 
     //! \brief getter for the content ???
-    //! Pas très propre... \todo replace by an iterator !
-    QVector<NoteCouple*> getContent() const {return content;}
+    const QVector<NoteCouple*>* getContent() const {return &content;}
 
     //! \brief getter for the number of the relation
     unsigned int getNumber() const {return number;}
