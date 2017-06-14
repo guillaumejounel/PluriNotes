@@ -226,7 +226,7 @@ QString PluriNotes::getCurrentNoteType() {
 
 void PluriNotes::displayNote(unsigned int n) {
     noteCountUpdate();
-    if (n==0) setInteractivity(true,1);
+    setInteractivity(true,1);
     ui->idDisplayLineEdit->setReadOnly(true);
     ui->dateDisplayLineEdit->setReadOnly(true);
     if (!n) ui->buttonSaveEdit->setText(QString("Save"));
@@ -1118,6 +1118,7 @@ void PluriNotes::showTrashSlot(int n){
         displayNote();
     }else{
         displayNote();
+        setInteractivity(true,1);
     }
 }
 
