@@ -23,6 +23,10 @@ public:
     Document() {}
 
     //! \brief Constructor of Document
+    //! @param title title of the article
+    //! @param creaDate creation date
+    //! @param description description of the document
+    //! @param file file linked with the document
     Document(const QString& title, const QDateTime& creaDate, const QString& description, const QString& file): BaseNoteType(title,creaDate), description(description), file(file) {}
 
     //! \brief Display Document on the PluriNotes UI
@@ -32,6 +36,7 @@ public:
     virtual unsigned int indexPageCreation() const override { return 2; }
 
     //! \brief Return a new Document initialized by the note creation form UI inputs
+    //! @param title title of the document
     virtual Document* saveNote(QString title) override;
 
     //! \brief Return a new Document initialized by the note edition form UI inputs
@@ -41,9 +46,11 @@ public:
     virtual bool textChanged() const override;
 
     //! \brief Save the Document data in a file
+    //! @param stream the resulting stream
     virtual void saveToXML(QXmlStreamWriter& stream) const override;
 
     //! \brief Load a Document from a file and add it into a NoteEntity
+    //! @param stream the resulting stream
     virtual void loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) const override;
 
     //! \brief Return detected references from the Document data
@@ -58,10 +65,12 @@ public:
     //! \brief Destructor of Document
     ~Document() {}
 
+
     // UI
     //-------
 
     //! \brief Set the the UI description field content in Document edition form
+    //! @param description description of the document
     void setUiDocumentDescription(const QString& description) const;
 
     //! \brief Get the the UI description field content in Document creation form
@@ -71,6 +80,7 @@ public:
     const QString getUiDocumentDescriptionEdit() const;
 
     //! \brief Set the the UI file field content in Document edition form
+    //! @param file file linked with the document
     void setUiDocumentFile(const QString& file) const;
 
     //! \brief Get the the UI file field content in Document creation form
