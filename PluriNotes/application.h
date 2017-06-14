@@ -10,20 +10,14 @@
 #define APPLICATION_H
 
 #include <QMainWindow>
-#include <QString>
 #include <QScrollArea>
 #include <QLineEdit>
 #include <QMessageBox>
-#include <QVector>
-
 #include <QWidget>
-
 #include <QCloseEvent>
-
 
 #include "othertools.h"
 #include "relation.h"
-//#include "relationswindows.h"
 
 class QAction;
 class QToolBar;
@@ -43,9 +37,6 @@ class Relation;
 namespace Ui {
     class PluriNotes;
 }
-
-//! \todo add comment for this line ; I don't understant what it is ! :p
-typedef map<QString,NoteElement*>::const_iterator MapIterator;
 
 /**
 \class Plurinotes

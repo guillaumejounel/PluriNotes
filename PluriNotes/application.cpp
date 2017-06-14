@@ -19,7 +19,7 @@ PluriNotes::PluriNotes(QWidget *parent) : QMainWindow(parent), ui(new Ui::PluriN
 
     //Chargement des différents types de notes dont il faut proposer la création
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
-    for (MapIterator iter = myMap.begin(); iter != myMap.end(); iter++) {
+    for (map<QString,NoteElement*>::const_iterator iter = myMap.begin(); iter != myMap.end(); iter++) {
         ui->TypeComboBox->addItem(iter->first);
     }
 
