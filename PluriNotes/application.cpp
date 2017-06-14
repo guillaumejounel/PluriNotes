@@ -231,9 +231,6 @@ void PluriNotes::displayNote(unsigned int n) {
     if (!n) ui->buttonSaveEdit->setText(QString("Save"));
     const NoteEntity* currentSelectedNote = getCurrentNote();
 
-    //if (isDisplayed == 2 && ui->buttonSaveEdit->text()==QString("Restore")){
-        //
-    //} else
     isDisplayed = 0;
 
 
@@ -454,8 +451,6 @@ void PluriNotes::moveToTrash(NoteEntity *noteEl) {
         }
         ++i;
     }
-
-    //! \todo error handling
 }
 
 
@@ -470,7 +465,6 @@ void PluriNotes::moveBackFromTrash(NoteEntity* noteEl) {
         ++i;
     }
 
-    //! \todo add error ?
 }
 
 void PluriNotes::cancelNote() {
@@ -482,7 +476,6 @@ void PluriNotes::cancelNote() {
 }
 
 void PluriNotes::titleChanged() {
-    //Creer un id automatique
     QString currentTitle = ui->titleLineEdit->text().toUtf8().constData();
     currentTitle = currentTitle.toLower().remove(QRegExp("^.{1,2}\\s|\\s.{1,2}\\s|\\s.{1,2}$|^.{1,2}'|['\\s-_!.]"));
     currentTitle.truncate(10);
@@ -503,7 +496,6 @@ void PluriNotes::idChanged(bool fromTitle) {
 }
 
 void PluriNotes::typeChangedForm() {
-    //! \todo évolutivité ??
     //Ajout des champs selon le type de note
     map<QString,NoteElement*> myMap = NoteElement::getTypesNotes();
     ui->customWidgets->setCurrentIndex(myMap[ui->TypeComboBox->currentText()]->indexPageCreation());
@@ -656,13 +648,11 @@ listItemAndPointer* PluriNotes::removeItemNoteFromList(listItemAndPointer* item,
 //! ####################################
 void PluriNotes::removeNoteFromList(NoteEntity *note, QListWidget* list) {
     //We remove the item from the panel
-    //! \todo check if have to use delete for memomry
     unsigned int i = list->row(findItemInList(note, list));
     list->takeItem(i);
 }
 
 listItemAndPointer* PluriNotes::findItemInList(NoteEntity* note, QListWidget* list) const {
-    //! \todo add function to loog for wich panel the note is on!
     QListWidget* panel = list;
 
     unsigned int nbItems = panel->count();
@@ -692,7 +682,6 @@ void PluriNotes::selectItemIntoList(listItemAndPointer* item, QListWidget* list)
 
 
 
-//! \todo add item to list based on last modified date !
 treeItemNoteAndPointer* PluriNotes::addNoteToTree(NoteEntity* note, QTreeWidget* tree) {
     treeItemNoteAndPointer* itm = new treeItemNoteAndPointer(note);
     itm->setText(0,note->getTitle());
