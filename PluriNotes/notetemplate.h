@@ -2,7 +2,9 @@
 \file notetemplate.h
 \date 14/06/2017
 \author Florent Chehab, Guillaume Jounel and Félix Boisselier
-\brief contains the note template macro \todo @guillaume t d'accord ?
+\brief contains the note template macro
+\todo @guillaume t d'accord ?
+\todo commenntttt !!!!
 **/
 
 #ifndef NOTETEMPLATE_H
