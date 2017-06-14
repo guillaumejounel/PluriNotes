@@ -1008,6 +1008,7 @@ void PluriNotes::retracteOrUnretracteArborescence() {
 
         ui->treeViewPredecessors->hide();
         ui->treeViewSuccessors->hide();
+        ui->manageRelationButton->hide();
     }
     else{
         text = QString(">");
@@ -1015,6 +1016,7 @@ void PluriNotes::retracteOrUnretracteArborescence() {
         button->setMinimumHeight(200);
         ui->treeViewPredecessors->show();
         ui->treeViewSuccessors->show();
+        ui->manageRelationButton->show();
     }
 }
 
