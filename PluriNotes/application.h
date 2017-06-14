@@ -75,10 +75,11 @@ private:
     //! \brief Vector containing all Relations of the application
     QVector<Relation*> relations;
 
-    //! \todo Add documentation !!!!
-    bool autoDelete;
 
-    //! \todo Add documentation !!!!
+    //! \brief tricky attributes to store state data
+    //! if == 0 the note is note displayed
+    //! if == 1 the note is displayed
+    //! if == 2 the note is displayed after a restore
     unsigned int isDisplayed;
 
     // --------------------------------------------------------------------------
@@ -252,10 +253,6 @@ public:
     QWidget* getRelationView() {return relationsView;}
 
 
-    //! \todo add documentation
-    void setAutoDelete(bool);
-
-
     //! \brief Function to check if their has been modification to plurinotes
     bool hasDataChanged() const {return dataChanged;}
 
@@ -308,9 +305,8 @@ public:
     //! The memory is not freed, but it is fine
     void removeNote(NoteEntity* note);
 
-    //! \todo pas propre ! add iterator
     //! \brief Accessor to the vector of note
-    QVector<NoteEntity*> getNotesVector() const {return notes;}
+    const QVector<NoteEntity*>* getNotesVector() const {return &notes;}
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
@@ -491,14 +487,16 @@ signals:
     //! \brief Method called when clicking on the cancel button
     void cancelNote();
 
-    //! \todo Add documentation !!!!
+    //! \brief automatic Id generator
     void titleChanged();
 
-    //! \todo Add documentation !!!!
+    //! \brief Method to stop automatic modification of the id if has been manually changed
+    //! @param fromTitle  \todo détail ?
     void idChanged(bool fromTitle = false);
 
     //! \brief Method to change QT fields in the new note form
     //! (with type of note in mind)
+    //! When adding a note type you have to modify this function
     void typeChangedForm();
 
     //! \brief Method called when saving the app (in the menu or via action)
@@ -507,8 +505,8 @@ signals:
     //! \brief Method called when clicking on open relations menu
     void openRelationsWindow();
 
-    //! \todo Add documentation !!!!
-    void noteTextChanged();//issue is for some preventionwith restoring notes
+    //! \brief if fields are changed we enable some aspect of the ui
+    void noteTextChanged();
 
     //! \brief Method called when clicking on save new version
     void saveNewVersion();

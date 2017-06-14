@@ -104,16 +104,13 @@ void relationsWindows::displayRelation() {
 
     ui->customWidgets->setCurrentIndex(1);
     ui->listCoupleWidget->clear();
-    for (auto couple : currentSelectedRelation->getContent()) {
+    for (auto couple : *(currentSelectedRelation->getContent())) {
         addCoupleToList(couple);
     }
 //    ui->mainStackedWidget->setCurrentIndex(0);
 }
 
 void relationsWindows::addRelation() {
-    //Enregistre dans le vecteur relation de la classe PluriNotes
-    //! \todo Faire des vérifications de validité (id...)
-    //Puis créer la relation
     QString relationTitle = ui->titleLineEdit->text();
     QString relationDesc = ui->descriptionLineEdit->text();
     bool relationOriented;
@@ -191,7 +188,6 @@ listRelationAndPointer* relationsWindows::addRelationToList(Relation* rel) {
 }
 
 void relationsWindows::removeRelationFromList(Relation *rel){
-    //! \todo add function to loog for wich panel the note is on!
     QListWidget* panel = ui->listOfAllRelations;
 
     unsigned int nbItems = panel->count();
@@ -227,7 +223,7 @@ void relationsWindows::addItemCoupleToList(listCoupleAndPointer *item) {
 
 void relationsWindows::addNoteEntityToComboBoxes() {
     PluriNotes& manager = PluriNotes::getManager();
-    QVector<NoteEntity*> notes = manager.getNotesVector();
+    QVector<NoteEntity*> notes = *(manager.getNotesVector());
     if(notes.size()) {
         for(auto note : notes) {
             if (!note->isArchived()){ // We add only active notes
