@@ -524,8 +524,7 @@ void PluriNotes::save() {
     QString path = QCoreApplication::applicationDirPath();
     path.append("/data");
     QFile newfile(path);
-    if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
-        qDebug() << "erreur sauvegarde notes : ouverture fichier xml";
+    //if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
     QXmlStreamWriter stream(&newfile);
     stream.setAutoFormatting(true);
     stream.writeStartDocument();
@@ -559,7 +558,7 @@ void PluriNotes::load() {
     path.append("/data");
     QFile fin(path);
     if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qDebug() << "Error opening the data file";
+        //
     }
     QXmlStreamReader xml(&fin);
     bool toTrash = false;
@@ -580,7 +579,6 @@ void PluriNotes::load() {
 
         }
 
-        qWarning()<<QString("herer");
         if(xml.name() == "trash") toTrash = true;
         if(xml.name() == "note" && xml.tokenType() == QXmlStreamReader::StartElement) {
             newNoteEntity = NoteEntity::loadFromXML(xml);
