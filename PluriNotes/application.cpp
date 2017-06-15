@@ -524,7 +524,7 @@ void PluriNotes::save() {
     QString path = QCoreApplication::applicationDirPath();
     path.append("/data");
     QFile newfile(path);
-    //if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
+    if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text));
     QXmlStreamWriter stream(&newfile);
     stream.setAutoFormatting(true);
     stream.writeStartDocument();
