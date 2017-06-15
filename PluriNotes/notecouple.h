@@ -16,6 +16,11 @@
 
 class NoteEntity;
 
+
+/**
+\class NoteCouple
+\brief Class for couples for relations
+**/
 class NoteCouple{
 private:
     //! \brief label for the couple

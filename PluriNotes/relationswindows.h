@@ -27,6 +27,10 @@ class relationsWindows;
 
 class Relation;
 
+/**
+\class relationsWindows
+\brief Relation manager window
+**/
 class relationsWindows : public QMainWindow
 {
     Q_OBJECT
