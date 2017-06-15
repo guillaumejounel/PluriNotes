@@ -87,7 +87,7 @@ void Relation::removeCoupleWithNotePredecessor(const NoteEntity* note) {
        if (couple->isEqualX(note)) {
            //output.append(coupleAndRelation(new NoteCouple(*couple),this));
            content.removeAll(couple);
-           delete couple;
+           //if (couple) delete couple;
        }
    }
 }
