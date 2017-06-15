@@ -555,7 +555,6 @@ void PluriNotes::save() {
 }
 
 void PluriNotes::load() {
-    save(); //prevent bug
     QString path = QCoreApplication::applicationDirPath();
     path.append("/data");
     QFile fin(path);
