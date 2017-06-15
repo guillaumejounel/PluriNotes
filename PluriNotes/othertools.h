@@ -108,7 +108,7 @@ private :
     bool previouslyExpended;
 public :
     //! Constructor for the class
-    //! @param pointer to the NoteEntity
+    //! @param ptr to the NoteEntity
     treeItemNoteAndPointer(NoteEntity* ptr = nullptr) : notePointer(ptr), previouslyExpended(false) {}
 
     //! Accessor to the note
