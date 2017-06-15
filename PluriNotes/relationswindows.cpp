@@ -253,7 +253,7 @@ void relationsWindows::restrictInteractivity(bool b, unsigned int level){
         ui->noteSelectorX->setEnabled(b);
         ui->noteSelectorY->setEnabled(b);
         ui->addCoupleBoutton->setEnabled(b);
-        ui->listCoupleWidget->setEnabled(b);
+        //ui->listCoupleWidget->setEnabled(b);
         ui->editCoupleLabelButton->setEnabled(b);
         ui->removeCoupleButton->setEnabled(b);
         ui->deleteRelationButton->setEnabled(b);

@@ -267,6 +267,7 @@ void PluriNotes::displayNote(unsigned int n) {
 
 void PluriNotes::noteVersionChanged() {
     if (isDisplayed != 0) {
+        displayNote(ui->noteTextVersion->currentIndex());
         if (ui->noteTextVersion->currentIndex() == 0 || isDisplayed == 2) {
             ui->buttonSaveEdit->setText(QString("Save"));
             ui->titleDisplayLineEdit->setReadOnly(0);
@@ -283,12 +284,11 @@ void PluriNotes::noteVersionChanged() {
             ui->articleDisplayContent->setReadOnly(1);
             ui->taskDisplayAction->setReadOnly(1);
             ui->taskDisplayDeadline->setReadOnly(1);
-            ui->taskDisplayPriority->setEnabled(false);
+            ui->taskDisplayPriority->setDisabled(1);
             ui->taskDisplayStatus->setDisabled(1);
             ui->documentDisplayDescription->setReadOnly(1);
             ui->documentDisplayFileButton->setDisabled(1);
         }
-        displayNote(ui->noteTextVersion->currentIndex());
     }
 }
 
@@ -411,6 +411,8 @@ void PluriNotes::saveNewVersion() {
     }else{
         QUndoCommand *addVersionCommand = new addVersionNoteCommand(const_cast<NoteEntity*>(&currentNote),const_cast<NoteElement*>(&newVersion));
         undoStack->push(addVersionCommand);
+        noteVersionChanged();
+        //setInteractivity(true,1);
     }
 }
 
