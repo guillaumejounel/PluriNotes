@@ -39,7 +39,7 @@ namespace Ui {
 }
 
 /**
-\class Plurinotes
+\class PluriNotes
 \brief Main class of the applicatin with the ui for the core application
 
 All the beauty happens here !
