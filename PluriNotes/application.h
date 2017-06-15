@@ -170,13 +170,15 @@ private:
     //! \brief Boolean for the id autofill form
     bool is_idChanged;
 
-    //! \todo add documentation
+    //! \brief cf cute
     explicit PluriNotes(QWidget *parent = 0);
 
-    //! \todo add documentation
+    //! \brief copy constructor
+    //! not available
     PluriNotes(const PluriNotes& m);
 
-    //! \todo add documentation
+    //! \brief Affectation
+    //! Not available
     PluriNotes& operator=(const PluriNotes& m);
 
     //! \brief attributes to store whether there has been data modification or not
@@ -294,7 +296,7 @@ public:
     void deleteNote(const QString& id);
 
     //! \brief Function to know if a note is inside the vector note
-    //! @param the note we ware looking for
+    //! @param note the note we ware looking for
     bool isInsideApp(const NoteEntity *note);
 
     //! \brief Function to move a note element from notes to trash
@@ -500,7 +502,7 @@ signals:
     void titleChanged();
 
     //! \brief Method to stop automatic modification of the id if has been manually changed
-    //! @param fromTitle  \todo détail ?
+    //! @param fromTitle  Block the change of id if it is not from title generation
     void idChanged(bool fromTitle = false);
 
     //! \brief Method to change QT fields in the new note form

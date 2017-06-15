@@ -80,6 +80,7 @@ public:
     virtual void saveToXML(QXmlStreamWriter& stream) const = 0;
 
     //! \brief Load a note from a file and add it into a NoteEntity
+    //! @param newNoteEntity the relative note entity
     //! @param stream the xlm stream
     virtual void loadFromXML(QXmlStreamReader& stream, NoteEntity& newNoteEntity) const = 0;
 

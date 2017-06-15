@@ -88,6 +88,8 @@ private:
 
 public:
     //! Classic constructor for the command
+    //! @param note the note
+    //! @param parent Parent command
     restoreNoteCommand(NoteEntity* note, QUndoCommand *parent = 0);
 
     //! To prevent memory leaks, we have to redefine the destructor
@@ -123,6 +125,8 @@ private:
 
 public:
     //! \brief Classic constructor for the command
+    //! @param note the note
+    //! @param parent Parent command
     addNoteEntityCommand(NoteEntity* note, QUndoCommand *parent = 0);
 
     //! \brief destructor for the class
@@ -161,6 +165,10 @@ private:
     NoteElement* version;
 
 public:
+    //! \brief Classic constructor of the class
+    //! @param note the note
+    //! @param version the version
+    //! @param parent Parent command
     addVersionNoteCommand(NoteEntity* note, NoteElement* version, QUndoCommand *parent = 0);
 
     //! To prevent memory leaks, we have to redefine the destructor
@@ -203,6 +211,10 @@ private:
 
 
 public:
+    //! \brief Classic constructor of the class
+    //! @param note the note
+    //! @param version the version
+    //! @param parent Parent command
     restoreNoteVersionCommand(NoteEntity* note, NoteElement* version, QUndoCommand *parent = 0);
 
     //! To prevent memory leaks, we have to redefine the destructor
@@ -250,6 +262,8 @@ private:
 public:
     //! Classic constructor for the command
     //! \brief constructor of the class
+    //! @param relation the relation
+    //! @param parent the parent command
     addRelationCommand(Relation* relation, QUndoCommand *parent = 0);
     // No issues with memory leaks !
 
@@ -283,6 +297,8 @@ private:
 
 public:
     //! \brief Classic constructor for the command
+    //! @param relation the relation
+    //! @param parent the parent command
     removeRelationCommand(Relation* relation, QUndoCommand *parent = 0);
     // No issues with memory leaks ! no need for a specific destructor
 
@@ -318,6 +334,9 @@ private:
 
 public:
     //! \brief Classic constructor for the command
+    //! @param relation the relation
+    //! @param couple the note couple
+    //! @param parent the parent command
     addCoupleCommand(Relation* relation, NoteCouple* couple, QUndoCommand *parent = 0);
 
     //! \brief Destructor for the class

@@ -57,7 +57,7 @@ private :
     Relation* relationPointer;
 public :
     //! Constructor for the class
-    //! @param pointer to the relation
+    //! @param ptr to the relation
     listRelationAndPointer(Relation* ptr = nullptr) : relationPointer(ptr) {}
 
     //! Accessor to the added attribute
@@ -80,7 +80,7 @@ private :
     NoteCouple* couplePointer;
 public :
     //! Constructor for the class
-    //! @ptr pointer to the note couple
+    //! @param ptr pointer to the note couple
     //! @param ptr pointer to the note couple
     listCoupleAndPointer(NoteCouple* ptr = nullptr) : couplePointer(ptr) {}
 

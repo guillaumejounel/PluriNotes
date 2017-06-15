@@ -31,7 +31,7 @@ public:
 
     //! \brief Constructor for the class
     //! @param title of the note we want to create
-    //! @param creation date of the note we want to create
+    //! @param creaDate creation date of the note we want to create
     BaseNoteType(const QString& title, const QDateTime& creaDate) : NoteElement(title,creaDate)  {}
 
 

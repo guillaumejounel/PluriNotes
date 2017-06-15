@@ -75,7 +75,8 @@ private:
 
 
 public:
-    //! \todo add documentation
+    //! \brief CF QT
+    //! @param parent parent widget
     explicit relationsWindows(QWidget *parent = 0);
 
     //! \brief Function to add an listRelationAndPointer* to the list of relation
