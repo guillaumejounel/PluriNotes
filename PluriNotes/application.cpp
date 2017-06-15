@@ -604,6 +604,8 @@ void PluriNotes::load() {
 void PluriNotes::loadDataIntoUi() {
     loadNotesIntoUi();
     loadRelationsIntoUi();
+
+    noteCountUpdate();
 }
 
 void PluriNotes::loadNotesIntoUi() {
