@@ -32,7 +32,7 @@ public:
     QString getId() const {return id;}
     QString getTitle() const;
     unsigned int getSize() const { return versions.size(); }
-    const NoteElement& getLastVersion() const;
+    const NoteElement* getLastVersion() const;
     const NoteElement& getVersion(unsigned int nb) const;
 
     bool isArchived() const {return archived;}

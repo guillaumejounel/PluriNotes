@@ -20,8 +20,9 @@ QString NoteEntity::getTitle() const {
 }
 
 
-const NoteElement& NoteEntity::getLastVersion() const {
-    return *versions.back();
+const NoteElement* NoteEntity::getLastVersion() const {
+    if (versions.isEmpty()) return nullptr;
+    return versions.back();
 }
 
 
@@ -36,7 +37,7 @@ bool NoteEntity::operator==(const NoteEntity& n)const {
 
 void NoteEntity::saveToXML(QXmlStreamWriter& stream) const {
     stream.writeStartElement("note");
-    stream.writeTextElement("type",getLastVersion().typeName());
+    stream.writeTextElement("type",getLastVersion()->typeName());
     stream.writeTextElement("id",getId());
     stream.writeTextElement("archived",archived?"true":"false");
     stream.writeStartElement("versions");
@@ -89,5 +90,5 @@ bool NoteEntity::isVersionInsideNote(const NoteElement& version) const{
 
 
 QStringList NoteEntity::returnReferences() const{
-    return getLastVersion().returnReferences();
+    return getLastVersion()->returnReferences();
 }

@@ -221,7 +221,7 @@ NoteEntity* PluriNotes::getCurrentNote() {
 }
 
 QString PluriNotes::getCurrentNoteType() {
-    return getCurrentNote()->getLastVersion().typeName();
+    return getCurrentNote()->getLastVersion()->typeName();
 }
 
 void PluriNotes::displayNote(unsigned int n) {
@@ -295,7 +295,10 @@ void PluriNotes::noteVersionChanged() {
 void PluriNotes::selectDocumentFile() {
     QString lastFileName = ui->documentDisplayFile->text();
     QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Open file"), QDir::homePath(), tr("Sound, Image or Video Files (*.gif *.png *.jpg *.bmp *.raw *.mp3 *.m4a *.wav *.flac *.wmv *.mp4 *.mkv *.m4v)"));
+        tr("Open file"),
+        QDir::homePath(),
+        tr("Sound, Image or Video Files (*.gif *.png *.jpg *.bmp *.raw *.mp3 *.m4a *.wav *.flac *.wmv *.mp4 *.mkv *.m4v)")
+        );
     if (fileName.isEmpty()) fileName = lastFileName;
     ui->documentFile->setText(fileName);
     ui->documentDisplayFile->setText(fileName);
@@ -312,22 +315,25 @@ void PluriNotes::openDocumentFile() {
 }
 
 void PluriNotes::noteTextChanged() {
+    if (ui->mainStackedWidget->currentIndex()==1) return;
     NoteEntity* currentNote = getCurrentNote();
-    const NoteElement& note = currentNote->getLastVersion();
-    bool issue = currentNote->hasIssues();
-    if(ui->noteTextVersion->currentIndex() != 0 && !issue) {
-        setInteractivity(true);
-        ui->buttonSaveEdit->setEnabled(1);
-        ui->buttonCancelEdit->setEnabled(0);
-    } else {
-        if((ui->titleDisplayLineEdit->text() == note.getTitle() && note.textChanged()) && !issue) {
+    const NoteElement* note = currentNote->getLastVersion();
+    if (note!=nullptr && currentNote!=nullptr){
+        bool issue = currentNote->hasIssues();
+        if(ui->noteTextVersion->currentIndex() != 0 && !issue) {
             setInteractivity(true);
-            ui->buttonCancelEdit->setEnabled(0);
-            ui->buttonSaveEdit->setEnabled(0);
-        } else {
-            setInteractivity(false);
-            ui->buttonCancelEdit->setEnabled(1);
             ui->buttonSaveEdit->setEnabled(1);
+            ui->buttonCancelEdit->setEnabled(0);
+        } else {
+            if((ui->titleDisplayLineEdit->text() == note->getTitle() && note->textChanged()) && !issue) {
+                setInteractivity(true);
+                ui->buttonCancelEdit->setEnabled(0);
+                ui->buttonSaveEdit->setEnabled(0);
+            } else {
+                setInteractivity(false);
+                ui->buttonCancelEdit->setEnabled(1);
+                ui->buttonSaveEdit->setEnabled(1);
+            }
         }
     }
 }
@@ -369,7 +375,7 @@ void PluriNotes::saveNote() {
     newNoteEntity->addVersion(*newNote);
 
     // references check
-    bool references = refencesCheck(&(newNoteEntity->getLastVersion()),newNoteEntity,newNoteEntity->getId());
+    bool references = refencesCheck(newNoteEntity->getLastVersion(),newNoteEntity,newNoteEntity->getId());
 
     if(flag && references) {
         setInteractivity(true);
@@ -392,7 +398,7 @@ void PluriNotes::saveNewVersion() {
     // We get which note is selected
     NoteEntity& currentNote = *getCurrentNote();
     // We create a newVersion identical to the last one
-    const NoteElement& currentVersion = currentNote.getLastVersion();
+    const NoteElement& currentVersion = *(currentNote.getLastVersion());
 
     const NoteElement& newVersion = *currentVersion.addVersion();
 
@@ -549,6 +555,7 @@ void PluriNotes::save() {
 }
 
 void PluriNotes::load() {
+    save(); //prevent bug
     QString path = QCoreApplication::applicationDirPath();
     path.append("/data");
     QFile fin(path);
@@ -603,10 +610,10 @@ void PluriNotes::loadDataIntoUi() {
 void PluriNotes::loadNotesIntoUi() {
     if (ui->filterComboBox->currentIndex() == 1) {
         for(NoteEntity* note:notes) {
-            if (note->getLastVersion().typeName() == "Task") addNoteToList(note, note->isArchived()?ui->listArchivedWidget:ui->listNotesWidget);
+            if (note->getLastVersion()->typeName() == "Task") addNoteToList(note, note->isArchived()?ui->listArchivedWidget:ui->listNotesWidget);
         }
         for(NoteEntity* note:trash) {
-            if (note->getLastVersion().typeName() == "Task") addNoteToList(note, ui->listTrashWidget);
+            if (note->getLastVersion()->typeName() == "Task") addNoteToList(note, ui->listTrashWidget);
         }
     } else {
         for(NoteEntity* note:notes) {

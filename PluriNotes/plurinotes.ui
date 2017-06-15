@@ -255,7 +255,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="displayNotePage">
        <layout class="QGridLayout" name="verticalLayout_2" rowstretch="0">
@@ -400,7 +400,7 @@
                 <item>
                  <widget class="QStackedWidget" name="noteTypeDisplay">
                   <property name="currentIndex">
-                   <number>1</number>
+                   <number>2</number>
                   </property>
                   <widget class="QWidget" name="articleDisplay">
                    <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -745,8 +745,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>380</width>
-             <height>433</height>
+             <width>658</width>
+             <height>515</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
@@ -1231,8 +1231,8 @@
    <slot>titleChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>268</x>
-     <y>63</y>
+     <x>495</x>
+     <y>132</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -1247,8 +1247,8 @@
    <slot>saveNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>268</x>
-     <y>63</y>
+     <x>437</x>
+     <y>547</y>
     </hint>
     <hint type="destinationlabel">
      <x>553</x>
@@ -1263,8 +1263,8 @@
    <slot>cancelNote()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>268</x>
-     <y>63</y>
+     <x>437</x>
+     <y>547</y>
     </hint>
     <hint type="destinationlabel">
      <x>571</x>
@@ -1279,8 +1279,8 @@
    <slot>idChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>268</x>
-     <y>63</y>
+     <x>495</x>
+     <y>168</y>
     </hint>
     <hint type="destinationlabel">
      <x>601</x>
@@ -1295,8 +1295,8 @@
    <slot>typeChangedForm()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>268</x>
-     <y>63</y>
+     <x>495</x>
+     <y>230</y>
     </hint>
     <hint type="destinationlabel">
      <x>470</x>
@@ -1359,8 +1359,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>280</x>
-     <y>232</y>
+     <x>451</x>
+     <y>442</y>
     </hint>
     <hint type="destinationlabel">
      <x>160</x>
@@ -1455,8 +1455,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>280</x>
-     <y>225</y>
+     <x>460</x>
+     <y>408</y>
     </hint>
     <hint type="destinationlabel">
      <x>160</x>
@@ -1647,8 +1647,8 @@
    <slot>selectDocumentFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>259</x>
-     <y>57</y>
+     <x>428</x>
+     <y>504</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -1663,8 +1663,8 @@
    <slot>selectDocumentFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>289</x>
-     <y>241</y>
+     <x>552</x>
+     <y>487</y>
     </hint>
     <hint type="destinationlabel">
      <x>171</x>
@@ -1679,8 +1679,8 @@
    <slot>openDocumentFolder()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>289</x>
-     <y>241</y>
+     <x>435</x>
+     <y>487</y>
     </hint>
     <hint type="destinationlabel">
      <x>673</x>
@@ -1695,8 +1695,8 @@
    <slot>openDocumentFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>289</x>
-     <y>241</y>
+     <x>318</x>
+     <y>487</y>
     </hint>
     <hint type="destinationlabel">
      <x>168</x>
@@ -1711,8 +1711,8 @@
    <slot>noteTextChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>279</x>
-     <y>231</y>
+     <x>493</x>
+     <y>443</y>
     </hint>
     <hint type="destinationlabel">
      <x>202</x>
